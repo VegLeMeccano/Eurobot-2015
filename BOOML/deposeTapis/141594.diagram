@@ -1,0 +1,18 @@
+format 76
+
+statecanvas 128026 state_ref 135322 // demo
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  xyzwh 174 66 2000 391 313
+end
+pseudostatecanvas 128154 pseudostate_ref 142234 // initial
+   xyz 244 154 2005
+end
+pseudostatecanvas 128282 pseudostate_ref 142362 // exit_point
+   xyz 422 258 3005 label_xy 409 277
+end
+transitioncanvas 128410 transition_ref 146970 // <transition>
+  
+  from ref 128154 z 3006 to ref 128282
+  write_horizontally default show_definition default drawing_language default
+end
+end

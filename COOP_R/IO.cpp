@@ -217,41 +217,123 @@ DeposeurTapis::DeposeurTapis():
     turbine(),
     nozzle(),
     pince_droite(true),
-    pince_gauche(false)
+    pince_gauche(false),
+    time_out_on(false),
+    state(0),
+    period_run(50)
     {
     }
 
-void DeposeurTapis::stop(){
 
+void DeposeurTapis::trigger(int transition)
+{
+    Serial.println("");
+    Serial.print("appel trigger depose tapis : ");
+    Serial.println(transition);
+    // add things here for MAE
+    if (transition == TRANSISTION_BALLE_DROITE_PRISE || transition == TRANSISTION_BALLE_DROITE_EJECTION )
+    {
+         Serial.println(" ");
+         Serial.print("TRANSISTION FORCEE -> depose tapis: ");
+         Serial.println(transition);
+         //trigger_to_be = transition;
+    }
+
+    if (transition == TRANSISTION_BALLE_DROITE_TIME_OUT )
+    {
+         Serial.println(" ");
+         Serial.print("TRANSITION AUTO -> depose tapis: ");
+         Serial.println(transition);
+         //trigger_to_be = transition;
+    }
+   Serial.print("ACTUAL STATE -> depose tapis : ");
+   Serial.println(state);
+   int old_state;
+   old_state = state;
+   switch(state)
+    {
+        case ETAT_BALLE_DROITE_RANGE_DEPART :
+           //Serial.println("ETAT_BALLE_DROITE_RANGE_DEPART");
+           if (transition == TRANSISTION_BALLE_DROITE_PRISE)
+           {
+                state = ETAT_BALLE_DROITE_DEPLOYEMENT;
+                //Serial.println("modif etat depart");
+           }
+           break;
+    }
+   if (old_state != state)
+    {
+        Serial.print("NEW STATE -> Depose Tapis: ");
+        Serial.println(state);
+
+        reset_time_out();
+        in_state_func();
+    }
 }
 
-void DeposeurTapis::depose_first(){
-
-}
-
-void DeposeurTapis::depose_second(){
-
-}
-
+//le run....
 void DeposeurTapis::run(){
+    if (period_run.is_over())
+    {
+        period_run.reset();
+        if (is_time_out())
+        {
+            trigger(TRANSISTION_BALLE_DROITE_TIME_OUT);
+        }
+    }
 
 }
 
-void DeposeurTapis::trigger(int transition){
-
+// tempo
+void DeposeurTapis::set_time_out(int dt_)
+{
+    t_over = millis() + dt_;
+    time_out_on = true;
+    //trigger_to_be = trigger;
+    Serial.print("time_out set ");
+    //Serial.println(trigger);
 }
 
-void DeposeurTapis::set_time_out(int dt_, int trigger){
-
+// reset time out
+void DeposeurTapis::reset_time_out()
+{
+    time_out_on = false;
 }
 
-void DeposeurTapis::reset_time_out(){
-
+// es ce que c'est fini
+bool DeposeurTapis::is_time_out()
+{
+   if (time_out_on && t_over < millis())
+   {
+     time_out_on = false;
+     return true;
+   }
+   return false;
 }
 
-bool DeposeurTapis::is_time_out(){
 
+#define ETAT_BALLE_DROITE_RANGE_DEPART 0
+#define ETAT_BALLE_DROITE_DEPLOYEMENT 1 //horizontal et gachette
+#define ETAT_BALLE_DROITE_PRISE 2 //descente
+#define ETAT_BALLE_DROITE_RELEVE 3 //remonte
+#define ETAT_BALLE_DROITE_RANGE_1 4 //horintal
+#define ETAT_BALLE_DROITE_RANGE_2 5 //gachette
+#define ETAT_BALLE_DROITE_EXPULSION 6 //horizontal
+void Balle_droite::in_state_func()
+{
+    switch (state)
+    {
+        case ETAT_BALLE_DROITE_RANGE_DEPART :
+            bras_horizontal.fermeture();
+            bras_vertical.monte();
+            ejecteur.position_haute();
+            Serial.println("ETAT_BALLE_DROITE_RANGE_DEPART");
+            break;
+    }
 }
+
+
+
 
 
 /*********************************************************************

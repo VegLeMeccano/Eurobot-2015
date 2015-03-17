@@ -1,0 +1,81 @@
+format 76
+
+statecanvas 128026 state_ref 134938 // deployement 2
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  xyzwh 175 85 2000 537 305
+end
+pseudostatecanvas 128154 pseudostate_ref 141338 // initial
+   xyz 285 118 2005
+end
+pseudostatecanvas 128282 pseudostate_ref 141466 // exit_point
+   xyz 644 160 3005 label_xy 609 179
+end
+statecanvas 128538 state_ref 144282 // descente petit bras
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  xyzwh 239 181 3011 129 33
+end
+statecanvas 128666 state_ref 144410 // attente 1
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  xyzwh 264 239 2005 69 33
+end
+statecanvas 128794 state_ref 144538 // pose
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  xyzwh 275 311 2005 49 33
+end
+statecanvas 128922 state_ref 144666 // attente2
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  xyzwh 392 316 2005 65 33
+end
+statecanvas 129050 state_ref 144794 // ouverture pince
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  xyzwh 501 313 2005 109 33
+end
+statecanvas 129178 state_ref 144922 // remonte
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  xyzwh 458 252 3010 69 33
+end
+statecanvas 129306 state_ref 145050 // fermeture
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  xyzwh 489 154 2005 77 33
+end
+transitioncanvas 129434 transition_ref 147226 // <transition>
+  
+  from ref 129306 z 3006 to ref 128282
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 129562 transition_ref 147354 // <transition>
+  
+  from ref 128154 z 3012 to ref 128538
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 129690 transition_ref 147482 // <transition>
+  
+  from ref 128538 z 3012 to ref 128666
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 129818 transition_ref 147610 // <transition>
+  
+  from ref 128666 z 2006 to ref 128794
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 129946 transition_ref 147738 // <transition>
+  
+  from ref 128794 z 2006 to ref 128922
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 130074 transition_ref 147866 // <transition>
+  
+  from ref 128922 z 2006 to ref 129050
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 130202 transition_ref 147994 // <transition>
+  
+  from ref 129050 z 3011 to ref 129178
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 130330 transition_ref 148122 // <transition>
+  
+  from ref 129178 z 3011 to ref 129306
+  write_horizontally default show_definition default drawing_language default
+end
+end

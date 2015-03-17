@@ -1,0 +1,13 @@
+window_sizes 1368 715 320 962 512 82
+diagrams
+  active  statediagram_ref 128154 // MAE_tapis
+    1042 559 100 0 112 0
+end
+show_stereotypes
+selected statediagram_ref 128154 // MAE_tapis
+open
+  state_ref 134682 // Etat initial
+  pseudostate_ref 141850 // exit_point
+  deploymentview_ref 128154 // deposeurTapis
+end
+end

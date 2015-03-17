@@ -1,0 +1,3 @@
+class deposeurTapis
+!!!145562.cpp!!!	deposeurTapis()
+  _current_state = 0;

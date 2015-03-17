@@ -1,0 +1,100 @@
+format 76
+
+statecanvas 128026 state_ref 128154 // deposeurTapis
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  xyzwh 72 48 2000 871 975
+end
+pseudostatecanvas 128154 pseudostate_ref 134554 // initial
+   xyz 175 118 2005
+end
+statecanvas 128282 state_ref 134682 // Etat initial
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  xyzwh 106 161 2005 159 103
+end
+statecanvas 136090 state_ref 135834 // activation turbine
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  xyzwh 264.5 288.5 3011 151 75
+end
+statecanvas 136346 state_ref 151578 // deployement_first P1
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  xyzwh 241 403 2005 195 61
+end
+statecanvas 136602 state_ref 151706 // deployement_first P2
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  xyzwh 259 489 2005 159 75
+end
+statecanvas 136730 state_ref 151834 // deployement _first P3
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  xyzwh 268 596 2005 141 75
+end
+statecanvas 137242 state_ref 151962 // depot_first P1
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  xyzwh 279 699 2005 125 61
+end
+statecanvas 137370 state_ref 152090 // depot_first P2
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  xyzwh 239 788 2005 207 61
+end
+statecanvas 137754 state_ref 152218 // replis_first
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  xyzwh 522 788 2005 195 75
+end
+statecanvas 138010 state_ref 152346 // deployement_second P1
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  xyzwh 542 711 2005 157 33
+end
+statecanvas 138266 state_ref 152474 // replis_second final
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  xyzwh 564 197 2005 125 33
+end
+transitioncanvas 128666 transition_ref 134554 // <transition>
+  
+  from ref 128154 z 2006 to ref 128282
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 136218 transition_ref 154650 // <transition>
+  
+  from ref 128282 z 3012 label "depose_first()" xyz 196.5 271.5 3000 to ref 136090
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 136474 transition_ref 154778 // <transition>
+  
+  from ref 136090 z 3012 label "time_out" xyz 317.5 375 3000 to ref 136346
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 136858 transition_ref 154906 // <transition>
+  
+  from ref 136602 z 2006 to ref 136730
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 136986 transition_ref 155034 // <transition>
+  
+  from ref 136346 z 2006 to ref 136602
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 137498 transition_ref 155162 // <transition>
+  
+  from ref 136730 z 2006 to ref 137242
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 137626 transition_ref 155290 // <transition>
+  
+  from ref 137242 z 2006 to ref 137370
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 137882 transition_ref 155418 // <transition>
+  
+  from ref 137370 z 2006 label "time_out" xyz 463 803.5 3000 to ref 137754
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 138138 transition_ref 155546 // <transition>
+  
+  from ref 137754 z 2006 label "pose_second()" xyz 625 758 3000 to ref 138010
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 138394 transition_ref 155674 // <transition>
+  
+  from ref 138266 z 2006 to ref 128282
+  write_horizontally default show_definition default drawing_language default
+end
+end

@@ -380,10 +380,6 @@ void Balle_droite::debug()
     Serial.println("Balle_droite -> debug ");
     Serial.print("ETAT ACTUEL : ");
     Serial.println(state);
-    //Serial.print("time_out_on : ");
-    //Serial.println(time_out_on);
-    //Serial.print("t_over : ");
-    //Serial.println(t_over);
 }
 
 

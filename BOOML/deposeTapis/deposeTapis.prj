@@ -1,0 +1,2250 @@
+format 76
+"deposeTapis"
+  revision 7
+  modified_by 26 "Link"
+
+
+  
+  // class settings
+  default_attribute_visibility private default_relation_visibility private default_operation_visibility public
+  //class diagram settings
+  draw_all_relations yes hide_attributes no hide_operations no hide_getset_operations no show_members_full_definition no show_members_visibility no show_members_stereotype no show_members_context no show_members_multiplicity no show_members_initialization no show_attribute_modifiers no member_max_width 127 show_parameter_dir yes show_parameter_name yes package_name_in_tab no class_drawing_mode natural drawing_language uml show_context_mode no auto_label_position yes show_relation_modifiers no show_relation_visibility no show_infonote no shadow yes show_stereotype_properties no
+  //use case diagram settings
+  package_name_in_tab no show_context no auto_label_position yes draw_all_relations yes class_drawing_mode actor shadow yes show_stereotype_properties no
+  //sequence diagram settings
+  show_full_operations_definition no write_horizontally yes class_drawing_mode natural drawing_language uml draw_all_relations yes shadow yes show_stereotype_properties no show_class_context_mode no show_msg_context_mode no
+  //collaboration diagram settings
+  show_full_operations_definition no show_hierarchical_rank no write_horizontally yes class_drawing_mode natural drawing_language uml package_name_in_tab no show_context no show_msg_context no draw_all_relations yes shadow yes show_stereotype_properties no
+  //object diagram settings
+   write_horizontally yes package_name_in_tab no show_context no auto_label_position yes draw_all_relations yes shadow yes show_stereotype_properties no
+  //component diagram settings
+  package_name_in_tab no show_context no auto_label_position yes draw_all_relations yes shadow yes
+  draw_component_as_icon no show_component_req_prov no show_component_rea no show_stereotype_properties no
+  //deployment diagram settings
+  package_name_in_tab no show_context no write_horizontally yes auto_label_position yes draw_all_relations yes shadow yes
+  draw_component_as_icon no show_component_req_prov no show_component_rea no show_stereotype_properties no
+  //state diagram settings
+  package_name_in_tab no show_context no auto_label_position yes write_trans_label_horizontally yes show_trans_definition no draw_all_relations yes shadow yes
+  show_activities yes region_horizontally yes drawing_language uml show_stereotype_properties no
+  //activity diagram settings
+  package_name_in_tab no show_context no show_opaque_action_definition no auto_label_position yes write_flow_label_horizontally no draw_all_relations yes shadow yes
+  show_infonote yes drawing_language uml show_stereotype_properties no
+  
+  class_color yellow duration_color transparent continuation_color gray note_color blue fragment_color transparent subject_color transparent usecase_color yellow package_color transparent component_color green artifact_color green deploymentnode_color gray state_color yellow stateaction_color transparent activity_color transparent activityregion_color transparent activitypartition_color transparent activityaction_color transparent parameterpin_color white 
+  font_size 8
+  diagram_format A0
+
+  image_root_dir ""
+
+  mark_for_import
+  
+  ncouples 1
+  key "check-out-cmd" value "specify the command containing %file and %dir or %dironly"
+  classview 128154 "deposeurTapis"
+    //class diagram settings
+    draw_all_relations default hide_attributes default hide_operations default hide_getset_operations default show_members_full_definition default show_members_visibility default show_members_stereotype default show_members_context default show_members_multiplicity default show_members_initialization default show_attribute_modifiers default member_max_width 0 show_parameter_dir default show_parameter_name default package_name_in_tab default class_drawing_mode default drawing_language default show_context_mode default auto_label_position default show_relation_modifiers default show_relation_visibility default show_infonote default shadow default show_stereotype_properties default
+    //collaboration diagram settings
+    show_full_operations_definition default show_hierarchical_rank default write_horizontally default class_drawing_mode default drawing_language default package_name_in_tab default show_context default show_msg_context default draw_all_relations default shadow default show_stereotype_properties default
+    //object diagram settings
+     write_horizontally default package_name_in_tab default show_context default auto_label_position default draw_all_relations default shadow default show_stereotype_properties default
+    //sequence diagram settings
+    show_full_operations_definition default write_horizontally default class_drawing_mode default drawing_language default draw_all_relations default shadow default show_stereotype_properties default show_class_context_mode default show_msg_context_mode default
+    //state diagram settings
+    package_name_in_tab default show_context default auto_label_position default write_trans_label_horizontally default show_trans_definition default draw_all_relations default shadow default
+    show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+    //class settings
+    //activity diagram settings
+    package_name_in_tab default show_context default show_opaque_action_definition default auto_label_position default write_flow_label_horizontally default draw_all_relations default shadow default
+    show_infonote default drawing_language default show_stereotype_properties default
+    state 128154 "deposeurTapis"
+      stereotype "machine"
+      associated_diagram statediagram_ref 128154 // MAE_tapis
+      statediagram 128154 "MAE_tapis"
+	package_name_in_tab yes show_context default auto_label_position yes write_trans_label_horizontally yes show_trans_definition yes draw_all_relations no shadow yes
+	show_activities yes region_horizontally yes drawing_language c++ show_stereotype_properties yes
+	size A0
+      end
+
+      pseudostate 134554 initial 
+	transition 134554 "<transition>"
+	  on state_ref 134682 // Etat initial
+	  external 
+	end
+      end
+
+      state 134682 "Etat initial"
+	  cpp_on_entry "nozzle.middle()
+turbine.off()
+bras_gauche.haut()
+bras_droite.haut()"
+	comment "mise en place de position"
+	transition 135194 "<transition>"
+	  on state_ref 135066 // attente init
+	  external 
+	end
+
+	transition 154650 "<transition>"
+	  on state_ref 135834 // activation turbine
+	    cpp_trigger "depose_first()"
+	  external 
+	end
+      end
+
+      state 134810 "deployement 1"
+	associated_diagram statediagram_ref 134682 // deployement 1
+	comment "fait descendre le tapis du bras le plus petit en le soufflant
+puis remonte de moitie pour preparer la descnte du second 
+ou se range si pb
+
+
+"
+	transition 134810 "<transition>"
+	  on state_ref 134938 // deployement 2
+	  external 
+	end
+
+	transition 135066 "<transition>"
+	  on state_ref 134682 // Etat initial
+	  external 
+	end
+
+	transition 135450 "<transition>"
+	  on state_ref 135194 // attente transitoire
+	  external 
+	end
+
+	statediagram 134682 "deployement 1"
+	  package_name_in_tab default show_context default auto_label_position default write_trans_label_horizontally default show_trans_definition default draw_all_relations default shadow default
+	  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+	  size A0
+	end
+
+	state 135834 "activation turbine"
+	    cpp_on_entry "turbine.on()
+nozzle.haut()"
+	  comment "diriger  le nozzle vers le haut
+activer turbine"
+	  transition 137370 "<transition>"
+	    on state_ref 135962 // descente mi hauteur bras
+	    external 
+	  end
+
+	  transition 154778 "<transition>"
+	    on state_ref 151578 // deployement_first P1
+	      cpp_trigger "time_out"
+	    external 
+	  end
+	end
+
+	state 135962 "descente mi hauteur bras"
+	  comment "descente du bras a mi hauteur
+nozzle mi hauteur
+"
+	  transition 137498 "<transition>"
+	    on state_ref 136090 // attente
+	    external 
+	  end
+	end
+
+	state 136090 "attente"
+	  comment "attente pour le deployement"
+	  transition 137626 "<transition>"
+	    on state_ref 136218 // pose
+	    external 
+	  end
+	end
+
+	state 136218 "pose"
+	  comment "diriger le nozzle vers le bas
+bras au sol
+"
+	  transition 137754 "<transition>"
+	    on state_ref 136346 // attente 2
+	    external 
+	  end
+	end
+
+	state 136346 "attente 2"
+	  transition 137882 "<transition>"
+	    on state_ref 136474 // arret turbine
+	    external 
+	  end
+	end
+
+	state 136474 "arret turbine"
+	  transition 138010 "<transition>"
+	    on state_ref 136602 // attente 3
+	    external 
+	  end
+	end
+
+	state 136602 "attente 3"
+	  transition 138138 "<transition>"
+	    on state_ref 136730 // ouverture pince
+	    external 
+	  end
+	end
+
+	state 136730 "ouverture pince"
+	  transition 138266 "<transition>"
+	    on state_ref 136858 // attente 4
+	    external 
+	  end
+	end
+
+	state 136858 "attente 4"
+	  transition 138394 "<transition>"
+	    on state_ref 136986 // remonte mi hauteur
+	    external 
+	  end
+	end
+
+	state 136986 "remonte mi hauteur"
+	  transition 138522 "<transition>"
+	    on state_ref 137114 // attente 5
+	    external 
+	  end
+	end
+
+	state 137114 "attente 5"
+	  transition 138650 "<transition>"
+	    on state_ref 137242 // fermeture pince
+	    external 
+	  end
+	end
+
+	pseudostate 134682 initial 
+	  transition 137242 "<transition>"
+	    on state_ref 135834 // activation turbine
+	    external 
+	  end
+	end
+
+	pseudostate 134810 exit_point "exit deployement 1"
+	  transition 145562 "<transition>"
+	    on state_ref 135194 // attente transitoire
+	    external 
+	  end
+	end
+
+	state 137242 "fermeture pince"
+	  transition 138778 "<transition>"
+	    on pseudostate_ref 134810 // exit_point
+	    external 
+	  end
+	end
+      end
+
+      state 134938 "deployement 2"
+	associated_diagram statediagram_ref 134810 // deployement 2
+	comment "fait descendre le tapis du bras le plus grand
+"
+	transition 134938 "<transition>"
+	  on state_ref 134682 // Etat initial
+	  external 
+	end
+
+	transition 135834 "<transition>"
+	  on state_ref 135066 // attente init
+	  external 
+	end
+
+	transition 136218 "<transition>"
+	  on state_ref 135578 // attente transitoire 2
+	  external 
+	end
+
+	statediagram 134810 "deployement 2"
+	  package_name_in_tab default show_context default auto_label_position default write_trans_label_horizontally default show_trans_definition default draw_all_relations no shadow default
+	  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+	  size A0
+	end
+
+	pseudostate 141338 initial 
+	  transition 147354 "<transition>"
+	    on state_ref 144282 // descente petit bras
+	    external 
+	  end
+	end
+
+	pseudostate 141466 exit_point "exit deployement 2"
+	  transition 145434 "<transition>"
+	    on state_ref 135578 // attente transitoire 2
+	    external 
+	  end
+	end
+
+	state 144282 "descente petit bras"
+	  comment "activation turbine
+nozzle haut
+petit bras par terre
+"
+	  transition 147482 "<transition>"
+	    on state_ref 144410 // attente 1
+	    external 
+	  end
+	end
+
+	state 144410 "attente 1"
+	  transition 147610 "<transition>"
+	    on state_ref 144538 // pose
+	    external 
+	  end
+	end
+
+	state 144538 "pose"
+	  transition 147738 "<transition>"
+	    on state_ref 144666 // attente2
+	    external 
+	  end
+	end
+
+	state 144666 "attente2"
+	  transition 147866 "<transition>"
+	    on state_ref 144794 // ouverture pince
+	    external 
+	  end
+	end
+
+	state 144794 "ouverture pince"
+	  transition 147994 "<transition>"
+	    on state_ref 144922 // remonte
+	    external 
+	  end
+	end
+
+	state 144922 "remonte"
+	  transition 148122 "<transition>"
+	    on state_ref 145050 // fermeture
+	    external 
+	  end
+	end
+
+	state 145050 "fermeture"
+	  transition 147226 "<transition>"
+	    on pseudostate_ref 141466 // exit_point
+	    external 
+	  end
+	end
+      end
+
+      state 135066 "attente init"
+	transition 135322 "<transition>"
+	  on state_ref 134810 // deployement 1
+	    cpp_trigger "deployement_first()
+"
+	  external 
+	end
+
+	transition 136858 "<transition>"
+	  on state_ref 135322 // demo
+	    cpp_trigger "demo"
+	  external 
+	end
+      end
+
+      state 135194 "attente transitoire"
+	transition 135578 "<transition>"
+	  on state_ref 135066 // attente init
+	  external 
+	end
+
+	transition 135706 "<transition>"
+	  on state_ref 134938 // deployement 2
+	    cpp_trigger "deployement_second()"
+	  external 
+	end
+
+	transition 135962 "<transition>"
+	  on state_ref 135450 // rangement 1
+	    cpp_trigger "stop"
+	  external 
+	end
+      end
+
+      state 135322 "demo"
+	associated_diagram statediagram_ref 141594 // demo
+	comment "agite les bras turbine et tout"
+	transition 136986 "<transition>"
+	  on state_ref 128154 // deposeurTapis
+	  external 
+	end
+
+	transition 137114 "<transition>"
+	  on state_ref 135066 // attente init
+	  external 
+	end
+
+	statediagram 141594 "demo"
+	  package_name_in_tab default show_context default auto_label_position default write_trans_label_horizontally default show_trans_definition default draw_all_relations default shadow default
+	  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+	  size A0
+	end
+
+	pseudostate 142234 initial 
+	  transition 146970 "<transition>"
+	    on pseudostate_ref 142362 // exit_point
+	    external 
+	  end
+	end
+
+	pseudostate 142362 exit_point "exit demo"
+	  transition 147098 "<transition>"
+	    on state_ref 135066 // attente init
+	    external 
+	  end
+	end
+      end
+
+      state 135450 "rangement 1"
+	associated_diagram statediagram_ref 141338 // rangement 1
+	transition 136090 "<transition>"
+	  on state_ref 135066 // attente init
+	  external 
+	end
+
+	transition 136602 "<transition>"
+	  on state_ref 135066 // attente init
+	  external 
+	end
+
+	statediagram 141338 "rangement 1"
+	  package_name_in_tab default show_context default auto_label_position default write_trans_label_horizontally default show_trans_definition default draw_all_relations default shadow default
+	  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+	  size A0
+	end
+
+	pseudostate 141594 initial 
+	end
+
+	pseudostate 141722 initial 
+	  transition 145690 "<transition>"
+	    on state_ref 143770 // repli
+	    external 
+	  end
+	end
+
+	state 143770 "repli"
+	  transition 145818 "<transition>"
+	    on pseudostate_ref 141850 // exit_point
+	    external 
+	  end
+	end
+
+	pseudostate 141850 exit_point "exit rangement 1"
+	  transition 146074 "<transition>"
+	    on state_ref 135066 // attente init
+	    external 
+	  end
+	end
+      end
+
+      state 135578 "attente transitoire 2"
+	transition 136346 "<transition>"
+	  on state_ref 135706 // rangement 2
+	    cpp_trigger "stop"
+	  external 
+	end
+      end
+
+      state 135706 "rangement 2"
+	associated_diagram statediagram_ref 141466 // rangement 2
+	transition 136474 "<transition>"
+	  on state_ref 128154 // deposeurTapis
+	  external 
+	end
+
+	transition 136730 "<transition>"
+	  on state_ref 135066 // attente init
+	  external 
+	end
+
+	statediagram 141466 "rangement 2"
+	  package_name_in_tab default show_context default auto_label_position default write_trans_label_horizontally default show_trans_definition default draw_all_relations no shadow default
+	  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+	  size A0
+	end
+
+	pseudostate 141978 initial 
+	  transition 146202 "<transition>"
+	    on state_ref 143898 // repli petit
+	    external 
+	  end
+	end
+
+	state 143898 "repli petit"
+	  transition 146330 "<transition>"
+	    on state_ref 144026 // repli grand
+	    external 
+	  end
+
+	  transition 146714 "<transition>"
+	    on state_ref 144154 // attente
+	    external 
+	  end
+	end
+
+	state 144026 "repli grand"
+	  transition 146458 "<transition>"
+	    on pseudostate_ref 142106 // exit_point
+	    external 
+	  end
+	end
+
+	pseudostate 142106 exit_point "exit rangement 2"
+	  transition 146586 "<transition>"
+	    on state_ref 135066 // attente init
+	    external 
+	  end
+	end
+
+	state 144154 "attente"
+	  transition 146842 "<transition>"
+	    on state_ref 144026 // repli grand
+	    external 
+	  end
+	end
+      end
+
+      state 151578 "deployement_first P1"
+	  cpp_on_entry "bras_gauche.middle()"
+	transition 155034 "<transition>"
+	  on state_ref 151706 // deployement_first P2
+	  external 
+	end
+      end
+
+      state 151706 "deployement_first P2"
+	  cpp_on_entry "nozzle.middle()
+Bras_gauche.middle()"
+	transition 154906 "<transition>"
+	  on state_ref 151834 // deployement _first P3
+	  external 
+	end
+      end
+
+      state 151834 "deployement _first P3"
+	  cpp_on_entry "nozzle.bas()
+bras_gauche.bas()"
+	transition 155162 "<transition>"
+	  on state_ref 151962 // depot_first P1
+	  external 
+	end
+      end
+
+      state 151962 "depot_first P1"
+	  cpp_do_activity "turbine.off()"
+	transition 155290 "<transition>"
+	  on state_ref 152090 // depot_first P2
+	  external 
+	end
+      end
+
+      state 152090 "depot_first P2"
+	  cpp_on_entry "gachette_gauche.open()"
+	transition 155418 "<transition>"
+	  on state_ref 152218 // replis_first
+	    cpp_trigger "time_out"
+	  external 
+	end
+      end
+
+      state 152218 "replis_first"
+	  cpp_on_entry "bras_gauche.middle()
+//wait close gachette gauche "
+	transition 155546 "<transition>"
+	  on state_ref 152346 // deployement_second P1
+	    cpp_trigger "pose_second()"
+	  external 
+	end
+      end
+
+      state 152346 "deployement_second P1"
+      end
+
+      state 152474 "replis_second final"
+	transition 155674 "<transition>"
+	  on state_ref 134682 // Etat initial
+	  external 
+	end
+      end
+    end
+
+    class 134554 "deposeurTapis"
+      visibility package 
+      cpp_decl "${comment}${template}class ${name}${inherit} {
+${members}};
+${inlines}
+"
+      java_decl ""
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      
+      ncouples 1
+      key "STM generated" value ""
+      comment " implement the state machine deposeurTapis"
+      class 134682 "AnyState"
+	abstract visibility protected 
+	cpp_decl "${comment}${template}class ${name}${inherit} {
+${members}};
+${inlines}
+"
+	java_decl ""
+	php_decl ""
+	python_2_2 python_decl ""
+	idl_decl ""
+	explicit_switch_type ""
+	
+	ncouples 1
+	key "STM generated" value ""
+	comment " Mother class of all the classes representing states"
+	operation 134554 "~AnyState"
+	  force_body_gen cpp_virtual public explicit_return_type ""
+	  nparams 0
+	  cpp_decl "    ${comment}${inline}${virtual}${name}${(}${)}${volatile}${throw};
+"
+	  cpp_def "${comment}${inline}${class}::${name}${(}${)}${volatile}${throw} {
+  ${body}}
+"
+	  
+	  
+	  
+	  
+	  ncouples 1
+	  key "STM generated" value ""
+	end
+
+	operation 134682 "_upper"
+	  abstract force_body_gen cpp_virtual public return_type class_ref 134682 // AnyState
+	  nparams 1
+	    param inout name "stm" type class_ref 134554 // deposeurTapis
+	  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} * ${name}${(}${t0} &${)}${const}${volatile}${throw}${abstract};
+"
+	  
+	  
+	  
+	  
+	  ncouples 1
+	  key "STM generated" value ""
+	  comment " return the upper state"
+	end
+
+	operation 134810 "_do"
+	  force_body_gen cpp_virtual public explicit_return_type "void"
+	  nparams 1
+	    param inout name "stm" type class_ref 134554 // deposeurTapis
+	  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} &${)}${const}${volatile}${throw}${abstract};
+"
+	  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} &${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+	  
+	  
+	  
+	  
+	  ncouples 1
+	  key "STM generated" value ""
+	  comment " perform the 'do activity'"
+	end
+
+	operation 145946 "create"
+	  force_body_gen cpp_virtual public explicit_return_type "void"
+	  nparams 1
+	    param inout name "stm" type class_ref 134554 // deposeurTapis
+	  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} &${)}${const}${volatile}${throw}${abstract};
+"
+	  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} &${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+	  
+	  
+	  
+	  
+	  ncouples 1
+	  key "STM generated" value ""
+	end
+      end
+
+      class 134810 "deposeurTapis_State"
+	visibility protected 
+	cpp_decl "${comment}${template}class ${name}${inherit} {
+${members}};
+${inlines}
+"
+	java_decl ""
+	php_decl ""
+	python_2_2 python_decl ""
+	idl_decl ""
+	explicit_switch_type ""
+	
+	ncouples 1
+	key "STM generated" value ""
+	comment " implement the state deposeurTapis"
+	class 134938 "Etat_initial_State"
+	  visibility public 
+	  cpp_decl "${comment}${template}class ${name}${inherit} {
+${members}};
+${inlines}
+"
+	  java_decl ""
+	  php_decl ""
+	  python_2_2 python_decl ""
+	  idl_decl ""
+	  explicit_switch_type ""
+	  
+	  ncouples 1
+	  key "STM generated" value ""
+	  comment " implement the state Etat initial"
+	  operation 135066 "~Etat_initial_State"
+	    force_body_gen cpp_virtual public explicit_return_type ""
+	    nparams 0
+	    cpp_decl "    ${comment}${inline}${virtual}${name}${(}${)}${volatile}${throw};
+"
+	    cpp_def "${comment}${inline}${class}::${name}${(}${)}${volatile}${throw} {
+  ${body}}
+"
+	    
+	    
+	    
+	    
+	    ncouples 1
+	    key "STM generated" value ""
+	  end
+
+	  classrelation 134682 // <generalisation>
+	    relation 134682 ---|>
+	      a public
+		cpp default "${type}"
+		classrelation_ref 134682 // <generalisation>
+	      b parent class_ref 134682 // AnyState
+	  end
+	end
+
+	class 144922 "rangement_2_State"
+	  visibility public 
+	  cpp_decl "${comment}${template}class ${name}${inherit} {
+${members}};
+${inlines}
+"
+	  java_decl ""
+	  php_decl ""
+	  python_2_2 python_decl ""
+	  idl_decl ""
+	  explicit_switch_type ""
+	  
+	  ncouples 1
+	  key "STM generated" value ""
+	  comment " implement the state rangement 2"
+	  class 145050 "repli_petit_State"
+	    visibility public 
+	    cpp_decl "${comment}${template}class ${name}${inherit} {
+${members}};
+${inlines}
+"
+	    java_decl ""
+	    php_decl ""
+	    python_2_2 python_decl ""
+	    idl_decl ""
+	    explicit_switch_type ""
+	    
+	    ncouples 1
+	    key "STM generated" value ""
+	    comment " implement the state repli petit"
+	    operation 145178 "~repli_petit_State"
+	      force_body_gen cpp_virtual public explicit_return_type ""
+	      nparams 0
+	      cpp_decl "    ${comment}${inline}${virtual}${name}${(}${)}${volatile}${throw};
+"
+	      cpp_def "${comment}${inline}${class}::${name}${(}${)}${volatile}${throw} {
+  ${body}}
+"
+	      
+	      
+	      
+	      
+	      ncouples 1
+	      key "STM generated" value ""
+	    end
+	  end
+
+	  class 145306 "attente_State"
+	    visibility public 
+	    cpp_decl "${comment}${template}class ${name}${inherit} {
+${members}};
+${inlines}
+"
+	    java_decl ""
+	    php_decl ""
+	    python_2_2 python_decl ""
+	    idl_decl ""
+	    explicit_switch_type ""
+	    
+	    ncouples 1
+	    key "STM generated" value ""
+	    comment " implement the state attente"
+	    operation 145434 "~attente_State"
+	      force_body_gen cpp_virtual public explicit_return_type ""
+	      nparams 0
+	      cpp_decl "    ${comment}${inline}${virtual}${name}${(}${)}${volatile}${throw};
+"
+	      cpp_def "${comment}${inline}${class}::${name}${(}${)}${volatile}${throw} {
+  ${body}}
+"
+	      
+	      
+	      
+	      
+	      ncouples 1
+	      key "STM generated" value ""
+	    end
+	  end
+
+	  class 145178 "repli_grand_State"
+	    visibility public 
+	    cpp_decl "${comment}${template}class ${name}${inherit} {
+${members}};
+${inlines}
+"
+	    java_decl ""
+	    php_decl ""
+	    python_2_2 python_decl ""
+	    idl_decl ""
+	    explicit_switch_type ""
+	    
+	    ncouples 1
+	    key "STM generated" value ""
+	    comment " implement the state repli grand"
+	    operation 145306 "~repli_grand_State"
+	      force_body_gen cpp_virtual public explicit_return_type ""
+	      nparams 0
+	      cpp_decl "    ${comment}${inline}${virtual}${name}${(}${)}${volatile}${throw};
+"
+	      cpp_def "${comment}${inline}${class}::${name}${(}${)}${volatile}${throw} {
+  ${body}}
+"
+	      
+	      
+	      
+	      
+	      ncouples 1
+	      key "STM generated" value ""
+	    end
+	  end
+
+	  operation 145050 "~rangement_2_State"
+	    force_body_gen cpp_virtual public explicit_return_type ""
+	    nparams 0
+	    cpp_decl "    ${comment}${inline}${virtual}${name}${(}${)}${volatile}${throw};
+"
+	    cpp_def "${comment}${inline}${class}::${name}${(}${)}${volatile}${throw} {
+  ${body}}
+"
+	    
+	    
+	    
+	    
+	    ncouples 1
+	    key "STM generated" value ""
+	  end
+
+	  attribute 144794 "_repli_petit_state"
+	    public type class_ref 145050 // repli_petit_State
+	    cpp_decl "    ${comment}${static}${mutable}${volatile}${const}${type} ${name}${value};
+"
+	    java_decl ""
+	    php_decl ""
+	    python_decl ""
+	    idl_decl ""
+	    ncouples 1
+	    key "STM generated" value ""
+	    comment " memorize the instance of the state repli petit, internal"
+	  end
+
+	  attribute 144922 "_repli_grand_state"
+	    public type class_ref 145178 // repli_grand_State
+	    cpp_decl "    ${comment}${static}${mutable}${volatile}${const}${type} ${name}${value};
+"
+	    java_decl ""
+	    php_decl ""
+	    python_decl ""
+	    idl_decl ""
+	    ncouples 1
+	    key "STM generated" value ""
+	    comment " memorize the instance of the state repli grand, internal"
+	  end
+
+	  attribute 145050 "_attente_state"
+	    public type class_ref 145306 // attente_State
+	    cpp_decl "    ${comment}${static}${mutable}${volatile}${const}${type} ${name}${value};
+"
+	    java_decl ""
+	    php_decl ""
+	    python_decl ""
+	    idl_decl ""
+	    ncouples 1
+	    key "STM generated" value ""
+	    comment " memorize the instance of the state attente, internal"
+	  end
+	end
+
+	class 144794 "attente_transitoire_2_State"
+	  visibility public 
+	  cpp_decl "${comment}${template}class ${name}${inherit} {
+${members}};
+${inlines}
+"
+	  java_decl ""
+	  php_decl ""
+	  python_2_2 python_decl ""
+	  idl_decl ""
+	  explicit_switch_type ""
+	  
+	  ncouples 1
+	  key "STM generated" value ""
+	  comment " implement the state attente transitoire 2"
+	  operation 144922 "~attente_transitoire_2_State"
+	    force_body_gen cpp_virtual public explicit_return_type ""
+	    nparams 0
+	    cpp_decl "    ${comment}${inline}${virtual}${name}${(}${)}${volatile}${throw};
+"
+	    cpp_def "${comment}${inline}${class}::${name}${(}${)}${volatile}${throw} {
+  ${body}}
+"
+	    
+	    
+	    
+	    
+	    ncouples 1
+	    key "STM generated" value ""
+	  end
+	end
+
+	class 138138 "rangement_1_State"
+	  visibility public 
+	  cpp_decl "${comment}${template}class ${name}${inherit} {
+${members}};
+${inlines}
+"
+	  java_decl ""
+	  php_decl ""
+	  python_2_2 python_decl ""
+	  idl_decl ""
+	  explicit_switch_type ""
+	  
+	  ncouples 1
+	  key "STM generated" value ""
+	  comment " implement the state rangement 1"
+	  class 138266 "repli_State"
+	    visibility public 
+	    cpp_decl "${comment}${template}class ${name}${inherit} {
+${members}};
+${inlines}
+"
+	    java_decl ""
+	    php_decl ""
+	    python_2_2 python_decl ""
+	    idl_decl ""
+	    explicit_switch_type ""
+	    
+	    ncouples 1
+	    key "STM generated" value ""
+	    comment " implement the state repli"
+	    operation 138394 "~repli_State"
+	      force_body_gen cpp_virtual public explicit_return_type ""
+	      nparams 0
+	      cpp_decl "    ${comment}${inline}${virtual}${name}${(}${)}${volatile}${throw};
+"
+	      cpp_def "${comment}${inline}${class}::${name}${(}${)}${volatile}${throw} {
+  ${body}}
+"
+	      
+	      
+	      
+	      
+	      ncouples 1
+	      key "STM generated" value ""
+	    end
+	  end
+
+	  operation 138266 "~rangement_1_State"
+	    force_body_gen cpp_virtual public explicit_return_type ""
+	    nparams 0
+	    cpp_decl "    ${comment}${inline}${virtual}${name}${(}${)}${volatile}${throw};
+"
+	    cpp_def "${comment}${inline}${class}::${name}${(}${)}${volatile}${throw} {
+  ${body}}
+"
+	    
+	    
+	    
+	    
+	    ncouples 1
+	    key "STM generated" value ""
+	  end
+
+	  attribute 138010 "_repli_state"
+	    public type class_ref 138266 // repli_State
+	    cpp_decl "    ${comment}${static}${mutable}${volatile}${const}${type} ${name}${value};
+"
+	    java_decl ""
+	    php_decl ""
+	    python_decl ""
+	    idl_decl ""
+	    ncouples 1
+	    key "STM generated" value ""
+	    comment " memorize the instance of the state repli, internal"
+	  end
+	end
+
+	class 138010 "demo_State"
+	  visibility public 
+	  cpp_decl "${comment}${template}class ${name}${inherit} {
+${members}};
+${inlines}
+"
+	  java_decl ""
+	  php_decl ""
+	  python_2_2 python_decl ""
+	  idl_decl ""
+	  explicit_switch_type ""
+	  
+	  ncouples 1
+	  key "STM generated" value ""
+	  comment " implement the state demo"
+	  operation 138138 "~demo_State"
+	    force_body_gen cpp_virtual public explicit_return_type ""
+	    nparams 0
+	    cpp_decl "    ${comment}${inline}${virtual}${name}${(}${)}${volatile}${throw};
+"
+	    cpp_def "${comment}${inline}${class}::${name}${(}${)}${volatile}${throw} {
+  ${body}}
+"
+	    
+	    
+	    
+	    
+	    ncouples 1
+	    key "STM generated" value ""
+	  end
+	end
+
+	class 137882 "attente_transitoire_State"
+	  visibility public 
+	  cpp_decl "${comment}${template}class ${name}${inherit} {
+${members}};
+${inlines}
+"
+	  java_decl ""
+	  php_decl ""
+	  python_2_2 python_decl ""
+	  idl_decl ""
+	  explicit_switch_type ""
+	  
+	  ncouples 1
+	  key "STM generated" value ""
+	  comment " implement the state attente transitoire"
+	  operation 138010 "~attente_transitoire_State"
+	    force_body_gen cpp_virtual public explicit_return_type ""
+	    nparams 0
+	    cpp_decl "    ${comment}${inline}${virtual}${name}${(}${)}${volatile}${throw};
+"
+	    cpp_def "${comment}${inline}${class}::${name}${(}${)}${volatile}${throw} {
+  ${body}}
+"
+	    
+	    
+	    
+	    
+	    ncouples 1
+	    key "STM generated" value ""
+	  end
+	end
+
+	class 137754 "attente_init_State"
+	  visibility public 
+	  cpp_decl "${comment}${template}class ${name}${inherit} {
+${members}};
+${inlines}
+"
+	  java_decl ""
+	  php_decl ""
+	  python_2_2 python_decl ""
+	  idl_decl ""
+	  explicit_switch_type ""
+	  
+	  ncouples 1
+	  key "STM generated" value ""
+	  comment " implement the state attente init"
+	  operation 137882 "~attente_init_State"
+	    force_body_gen cpp_virtual public explicit_return_type ""
+	    nparams 0
+	    cpp_decl "    ${comment}${inline}${virtual}${name}${(}${)}${volatile}${throw};
+"
+	    cpp_def "${comment}${inline}${class}::${name}${(}${)}${volatile}${throw} {
+  ${body}}
+"
+	    
+	    
+	    
+	    
+	    ncouples 1
+	    key "STM generated" value ""
+	  end
+	end
+
+	class 136730 "deployement_2_State"
+	  visibility public 
+	  cpp_decl "${comment}${template}class ${name}${inherit} {
+${members}};
+${inlines}
+"
+	  java_decl ""
+	  php_decl ""
+	  python_2_2 python_decl ""
+	  idl_decl ""
+	  explicit_switch_type ""
+	  
+	  ncouples 1
+	  key "STM generated" value ""
+	  comment " implement the state deployement 2"
+	  class 136858 "descente_petit_bras_State"
+	    visibility public 
+	    cpp_decl "${comment}${template}class ${name}${inherit} {
+${members}};
+${inlines}
+"
+	    java_decl ""
+	    php_decl ""
+	    python_2_2 python_decl ""
+	    idl_decl ""
+	    explicit_switch_type ""
+	    
+	    ncouples 1
+	    key "STM generated" value ""
+	    comment " implement the state descente petit bras"
+	    operation 136986 "~descente_petit_bras_State"
+	      force_body_gen cpp_virtual public explicit_return_type ""
+	      nparams 0
+	      cpp_decl "    ${comment}${inline}${virtual}${name}${(}${)}${volatile}${throw};
+"
+	      cpp_def "${comment}${inline}${class}::${name}${(}${)}${volatile}${throw} {
+  ${body}}
+"
+	      
+	      
+	      
+	      
+	      ncouples 1
+	      key "STM generated" value ""
+	    end
+	  end
+
+	  class 137626 "fermeture_State"
+	    visibility public 
+	    cpp_decl "${comment}${template}class ${name}${inherit} {
+${members}};
+${inlines}
+"
+	    java_decl ""
+	    php_decl ""
+	    python_2_2 python_decl ""
+	    idl_decl ""
+	    explicit_switch_type ""
+	    
+	    ncouples 1
+	    key "STM generated" value ""
+	    comment " implement the state fermeture"
+	    operation 137754 "~fermeture_State"
+	      force_body_gen cpp_virtual public explicit_return_type ""
+	      nparams 0
+	      cpp_decl "    ${comment}${inline}${virtual}${name}${(}${)}${volatile}${throw};
+"
+	      cpp_def "${comment}${inline}${class}::${name}${(}${)}${volatile}${throw} {
+  ${body}}
+"
+	      
+	      
+	      
+	      
+	      ncouples 1
+	      key "STM generated" value ""
+	    end
+	  end
+
+	  class 137498 "remonte_State"
+	    visibility public 
+	    cpp_decl "${comment}${template}class ${name}${inherit} {
+${members}};
+${inlines}
+"
+	    java_decl ""
+	    php_decl ""
+	    python_2_2 python_decl ""
+	    idl_decl ""
+	    explicit_switch_type ""
+	    
+	    ncouples 1
+	    key "STM generated" value ""
+	    comment " implement the state remonte"
+	    operation 137626 "~remonte_State"
+	      force_body_gen cpp_virtual public explicit_return_type ""
+	      nparams 0
+	      cpp_decl "    ${comment}${inline}${virtual}${name}${(}${)}${volatile}${throw};
+"
+	      cpp_def "${comment}${inline}${class}::${name}${(}${)}${volatile}${throw} {
+  ${body}}
+"
+	      
+	      
+	      
+	      
+	      ncouples 1
+	      key "STM generated" value ""
+	    end
+	  end
+
+	  class 137370 "ouverture_pince_State"
+	    visibility public 
+	    cpp_decl "${comment}${template}class ${name}${inherit} {
+${members}};
+${inlines}
+"
+	    java_decl ""
+	    php_decl ""
+	    python_2_2 python_decl ""
+	    idl_decl ""
+	    explicit_switch_type ""
+	    
+	    ncouples 1
+	    key "STM generated" value ""
+	    comment " implement the state ouverture pince"
+	    operation 137498 "~ouverture_pince_State"
+	      force_body_gen cpp_virtual public explicit_return_type ""
+	      nparams 0
+	      cpp_decl "    ${comment}${inline}${virtual}${name}${(}${)}${volatile}${throw};
+"
+	      cpp_def "${comment}${inline}${class}::${name}${(}${)}${volatile}${throw} {
+  ${body}}
+"
+	      
+	      
+	      
+	      
+	      ncouples 1
+	      key "STM generated" value ""
+	    end
+	  end
+
+	  class 137242 "attente2_State"
+	    visibility public 
+	    cpp_decl "${comment}${template}class ${name}${inherit} {
+${members}};
+${inlines}
+"
+	    java_decl ""
+	    php_decl ""
+	    python_2_2 python_decl ""
+	    idl_decl ""
+	    explicit_switch_type ""
+	    
+	    ncouples 1
+	    key "STM generated" value ""
+	    comment " implement the state attente2"
+	    operation 137370 "~attente2_State"
+	      force_body_gen cpp_virtual public explicit_return_type ""
+	      nparams 0
+	      cpp_decl "    ${comment}${inline}${virtual}${name}${(}${)}${volatile}${throw};
+"
+	      cpp_def "${comment}${inline}${class}::${name}${(}${)}${volatile}${throw} {
+  ${body}}
+"
+	      
+	      
+	      
+	      
+	      ncouples 1
+	      key "STM generated" value ""
+	    end
+	  end
+
+	  class 137114 "pose_State"
+	    visibility public 
+	    cpp_decl "${comment}${template}class ${name}${inherit} {
+${members}};
+${inlines}
+"
+	    java_decl ""
+	    php_decl ""
+	    python_2_2 python_decl ""
+	    idl_decl ""
+	    explicit_switch_type ""
+	    
+	    ncouples 1
+	    key "STM generated" value ""
+	    comment " implement the state pose"
+	    operation 137242 "~pose_State"
+	      force_body_gen cpp_virtual public explicit_return_type ""
+	      nparams 0
+	      cpp_decl "    ${comment}${inline}${virtual}${name}${(}${)}${volatile}${throw};
+"
+	      cpp_def "${comment}${inline}${class}::${name}${(}${)}${volatile}${throw} {
+  ${body}}
+"
+	      
+	      
+	      
+	      
+	      ncouples 1
+	      key "STM generated" value ""
+	    end
+	  end
+
+	  class 136986 "attente_1_State"
+	    visibility public 
+	    cpp_decl "${comment}${template}class ${name}${inherit} {
+${members}};
+${inlines}
+"
+	    java_decl ""
+	    php_decl ""
+	    python_2_2 python_decl ""
+	    idl_decl ""
+	    explicit_switch_type ""
+	    
+	    ncouples 1
+	    key "STM generated" value ""
+	    comment " implement the state attente 1"
+	    operation 137114 "~attente_1_State"
+	      force_body_gen cpp_virtual public explicit_return_type ""
+	      nparams 0
+	      cpp_decl "    ${comment}${inline}${virtual}${name}${(}${)}${volatile}${throw};
+"
+	      cpp_def "${comment}${inline}${class}::${name}${(}${)}${volatile}${throw} {
+  ${body}}
+"
+	      
+	      
+	      
+	      
+	      ncouples 1
+	      key "STM generated" value ""
+	    end
+	  end
+
+	  operation 136858 "~deployement_2_State"
+	    force_body_gen cpp_virtual public explicit_return_type ""
+	    nparams 0
+	    cpp_decl "    ${comment}${inline}${virtual}${name}${(}${)}${volatile}${throw};
+"
+	    cpp_def "${comment}${inline}${class}::${name}${(}${)}${volatile}${throw} {
+  ${body}}
+"
+	    
+	    
+	    
+	    
+	    ncouples 1
+	    key "STM generated" value ""
+	  end
+
+	  attribute 136602 "_descente_petit_bras_state"
+	    public type class_ref 136858 // descente_petit_bras_State
+	    cpp_decl "    ${comment}${static}${mutable}${volatile}${const}${type} ${name}${value};
+"
+	    java_decl ""
+	    php_decl ""
+	    python_decl ""
+	    idl_decl ""
+	    ncouples 1
+	    key "STM generated" value ""
+	    comment " memorize the instance of the state descente petit bras, internal"
+	  end
+
+	  attribute 136730 "_attente_1_state"
+	    public type class_ref 136986 // attente_1_State
+	    cpp_decl "    ${comment}${static}${mutable}${volatile}${const}${type} ${name}${value};
+"
+	    java_decl ""
+	    php_decl ""
+	    python_decl ""
+	    idl_decl ""
+	    ncouples 1
+	    key "STM generated" value ""
+	    comment " memorize the instance of the state attente 1, internal"
+	  end
+
+	  attribute 136858 "_pose_state"
+	    public type class_ref 137114 // pose_State
+	    cpp_decl "    ${comment}${static}${mutable}${volatile}${const}${type} ${name}${value};
+"
+	    java_decl ""
+	    php_decl ""
+	    python_decl ""
+	    idl_decl ""
+	    ncouples 1
+	    key "STM generated" value ""
+	    comment " memorize the instance of the state pose, internal"
+	  end
+
+	  attribute 136986 "_attente2_state"
+	    public type class_ref 137242 // attente2_State
+	    cpp_decl "    ${comment}${static}${mutable}${volatile}${const}${type} ${name}${value};
+"
+	    java_decl ""
+	    php_decl ""
+	    python_decl ""
+	    idl_decl ""
+	    ncouples 1
+	    key "STM generated" value ""
+	    comment " memorize the instance of the state attente2, internal"
+	  end
+
+	  attribute 137114 "_ouverture_pince_state"
+	    public type class_ref 137370 // ouverture_pince_State
+	    cpp_decl "    ${comment}${static}${mutable}${volatile}${const}${type} ${name}${value};
+"
+	    java_decl ""
+	    php_decl ""
+	    python_decl ""
+	    idl_decl ""
+	    ncouples 1
+	    key "STM generated" value ""
+	    comment " memorize the instance of the state ouverture pince, internal"
+	  end
+
+	  attribute 137242 "_remonte_state"
+	    public type class_ref 137498 // remonte_State
+	    cpp_decl "    ${comment}${static}${mutable}${volatile}${const}${type} ${name}${value};
+"
+	    java_decl ""
+	    php_decl ""
+	    python_decl ""
+	    idl_decl ""
+	    ncouples 1
+	    key "STM generated" value ""
+	    comment " memorize the instance of the state remonte, internal"
+	  end
+
+	  attribute 137370 "_fermeture_state"
+	    public type class_ref 137626 // fermeture_State
+	    cpp_decl "    ${comment}${static}${mutable}${volatile}${const}${type} ${name}${value};
+"
+	    java_decl ""
+	    php_decl ""
+	    python_decl ""
+	    idl_decl ""
+	    ncouples 1
+	    key "STM generated" value ""
+	    comment " memorize the instance of the state fermeture, internal"
+	  end
+	end
+
+	class 135066 "deployement_1_State"
+	  visibility public 
+	  cpp_decl "${comment}${template}class ${name}${inherit} {
+${members}};
+${inlines}
+"
+	  java_decl ""
+	  php_decl ""
+	  python_2_2 python_decl ""
+	  idl_decl ""
+	  explicit_switch_type ""
+	  
+	  ncouples 1
+	  key "STM generated" value ""
+	  comment " implement the state deployement 1"
+	  class 135194 "activation_turbine_State"
+	    visibility public 
+	    cpp_decl "${comment}${template}class ${name}${inherit} {
+${members}};
+${inlines}
+"
+	    java_decl ""
+	    php_decl ""
+	    python_2_2 python_decl ""
+	    idl_decl ""
+	    explicit_switch_type ""
+	    
+	    ncouples 1
+	    key "STM generated" value ""
+	    comment " implement the state activation turbine"
+	    operation 135322 "~activation_turbine_State"
+	      force_body_gen cpp_virtual public explicit_return_type ""
+	      nparams 0
+	      cpp_decl "    ${comment}${inline}${virtual}${name}${(}${)}${volatile}${throw};
+"
+	      cpp_def "${comment}${inline}${class}::${name}${(}${)}${volatile}${throw} {
+  ${body}}
+"
+	      
+	      
+	      
+	      
+	      ncouples 1
+	      key "STM generated" value ""
+	    end
+	  end
+
+	  class 136602 "fermeture_pince_State"
+	    visibility public 
+	    cpp_decl "${comment}${template}class ${name}${inherit} {
+${members}};
+${inlines}
+"
+	    java_decl ""
+	    php_decl ""
+	    python_2_2 python_decl ""
+	    idl_decl ""
+	    explicit_switch_type ""
+	    
+	    ncouples 1
+	    key "STM generated" value ""
+	    comment " implement the state fermeture pince"
+	    operation 136730 "~fermeture_pince_State"
+	      force_body_gen cpp_virtual public explicit_return_type ""
+	      nparams 0
+	      cpp_decl "    ${comment}${inline}${virtual}${name}${(}${)}${volatile}${throw};
+"
+	      cpp_def "${comment}${inline}${class}::${name}${(}${)}${volatile}${throw} {
+  ${body}}
+"
+	      
+	      
+	      
+	      
+	      ncouples 1
+	      key "STM generated" value ""
+	    end
+	  end
+
+	  class 136474 "attente_5_State"
+	    visibility public 
+	    cpp_decl "${comment}${template}class ${name}${inherit} {
+${members}};
+${inlines}
+"
+	    java_decl ""
+	    php_decl ""
+	    python_2_2 python_decl ""
+	    idl_decl ""
+	    explicit_switch_type ""
+	    
+	    ncouples 1
+	    key "STM generated" value ""
+	    comment " implement the state attente 5"
+	    operation 136602 "~attente_5_State"
+	      force_body_gen cpp_virtual public explicit_return_type ""
+	      nparams 0
+	      cpp_decl "    ${comment}${inline}${virtual}${name}${(}${)}${volatile}${throw};
+"
+	      cpp_def "${comment}${inline}${class}::${name}${(}${)}${volatile}${throw} {
+  ${body}}
+"
+	      
+	      
+	      
+	      
+	      ncouples 1
+	      key "STM generated" value ""
+	    end
+	  end
+
+	  class 136346 "remonte_mi_hauteur_State"
+	    visibility public 
+	    cpp_decl "${comment}${template}class ${name}${inherit} {
+${members}};
+${inlines}
+"
+	    java_decl ""
+	    php_decl ""
+	    python_2_2 python_decl ""
+	    idl_decl ""
+	    explicit_switch_type ""
+	    
+	    ncouples 1
+	    key "STM generated" value ""
+	    comment " implement the state remonte mi hauteur"
+	    operation 136474 "~remonte_mi_hauteur_State"
+	      force_body_gen cpp_virtual public explicit_return_type ""
+	      nparams 0
+	      cpp_decl "    ${comment}${inline}${virtual}${name}${(}${)}${volatile}${throw};
+"
+	      cpp_def "${comment}${inline}${class}::${name}${(}${)}${volatile}${throw} {
+  ${body}}
+"
+	      
+	      
+	      
+	      
+	      ncouples 1
+	      key "STM generated" value ""
+	    end
+	  end
+
+	  class 136218 "attente_4_State"
+	    visibility public 
+	    cpp_decl "${comment}${template}class ${name}${inherit} {
+${members}};
+${inlines}
+"
+	    java_decl ""
+	    php_decl ""
+	    python_2_2 python_decl ""
+	    idl_decl ""
+	    explicit_switch_type ""
+	    
+	    ncouples 1
+	    key "STM generated" value ""
+	    comment " implement the state attente 4"
+	    operation 136346 "~attente_4_State"
+	      force_body_gen cpp_virtual public explicit_return_type ""
+	      nparams 0
+	      cpp_decl "    ${comment}${inline}${virtual}${name}${(}${)}${volatile}${throw};
+"
+	      cpp_def "${comment}${inline}${class}::${name}${(}${)}${volatile}${throw} {
+  ${body}}
+"
+	      
+	      
+	      
+	      
+	      ncouples 1
+	      key "STM generated" value ""
+	    end
+	  end
+
+	  class 136090 "ouverture_pince_State"
+	    visibility public 
+	    cpp_decl "${comment}${template}class ${name}${inherit} {
+${members}};
+${inlines}
+"
+	    java_decl ""
+	    php_decl ""
+	    python_2_2 python_decl ""
+	    idl_decl ""
+	    explicit_switch_type ""
+	    
+	    ncouples 1
+	    key "STM generated" value ""
+	    comment " implement the state ouverture pince"
+	    operation 136218 "~ouverture_pince_State"
+	      force_body_gen cpp_virtual public explicit_return_type ""
+	      nparams 0
+	      cpp_decl "    ${comment}${inline}${virtual}${name}${(}${)}${volatile}${throw};
+"
+	      cpp_def "${comment}${inline}${class}::${name}${(}${)}${volatile}${throw} {
+  ${body}}
+"
+	      
+	      
+	      
+	      
+	      ncouples 1
+	      key "STM generated" value ""
+	    end
+	  end
+
+	  class 135962 "attente_3_State"
+	    visibility public 
+	    cpp_decl "${comment}${template}class ${name}${inherit} {
+${members}};
+${inlines}
+"
+	    java_decl ""
+	    php_decl ""
+	    python_2_2 python_decl ""
+	    idl_decl ""
+	    explicit_switch_type ""
+	    
+	    ncouples 1
+	    key "STM generated" value ""
+	    comment " implement the state attente 3"
+	    operation 136090 "~attente_3_State"
+	      force_body_gen cpp_virtual public explicit_return_type ""
+	      nparams 0
+	      cpp_decl "    ${comment}${inline}${virtual}${name}${(}${)}${volatile}${throw};
+"
+	      cpp_def "${comment}${inline}${class}::${name}${(}${)}${volatile}${throw} {
+  ${body}}
+"
+	      
+	      
+	      
+	      
+	      ncouples 1
+	      key "STM generated" value ""
+	    end
+	  end
+
+	  class 135834 "arret_turbine_State"
+	    visibility public 
+	    cpp_decl "${comment}${template}class ${name}${inherit} {
+${members}};
+${inlines}
+"
+	    java_decl ""
+	    php_decl ""
+	    python_2_2 python_decl ""
+	    idl_decl ""
+	    explicit_switch_type ""
+	    
+	    ncouples 1
+	    key "STM generated" value ""
+	    comment " implement the state arret turbine"
+	    operation 135962 "~arret_turbine_State"
+	      force_body_gen cpp_virtual public explicit_return_type ""
+	      nparams 0
+	      cpp_decl "    ${comment}${inline}${virtual}${name}${(}${)}${volatile}${throw};
+"
+	      cpp_def "${comment}${inline}${class}::${name}${(}${)}${volatile}${throw} {
+  ${body}}
+"
+	      
+	      
+	      
+	      
+	      ncouples 1
+	      key "STM generated" value ""
+	    end
+	  end
+
+	  class 135706 "attente_2_State"
+	    visibility public 
+	    cpp_decl "${comment}${template}class ${name}${inherit} {
+${members}};
+${inlines}
+"
+	    java_decl ""
+	    php_decl ""
+	    python_2_2 python_decl ""
+	    idl_decl ""
+	    explicit_switch_type ""
+	    
+	    ncouples 1
+	    key "STM generated" value ""
+	    comment " implement the state attente 2"
+	    operation 135834 "~attente_2_State"
+	      force_body_gen cpp_virtual public explicit_return_type ""
+	      nparams 0
+	      cpp_decl "    ${comment}${inline}${virtual}${name}${(}${)}${volatile}${throw};
+"
+	      cpp_def "${comment}${inline}${class}::${name}${(}${)}${volatile}${throw} {
+  ${body}}
+"
+	      
+	      
+	      
+	      
+	      ncouples 1
+	      key "STM generated" value ""
+	    end
+	  end
+
+	  class 135578 "pose_State"
+	    visibility public 
+	    cpp_decl "${comment}${template}class ${name}${inherit} {
+${members}};
+${inlines}
+"
+	    java_decl ""
+	    php_decl ""
+	    python_2_2 python_decl ""
+	    idl_decl ""
+	    explicit_switch_type ""
+	    
+	    ncouples 1
+	    key "STM generated" value ""
+	    comment " implement the state pose"
+	    operation 135706 "~pose_State"
+	      force_body_gen cpp_virtual public explicit_return_type ""
+	      nparams 0
+	      cpp_decl "    ${comment}${inline}${virtual}${name}${(}${)}${volatile}${throw};
+"
+	      cpp_def "${comment}${inline}${class}::${name}${(}${)}${volatile}${throw} {
+  ${body}}
+"
+	      
+	      
+	      
+	      
+	      ncouples 1
+	      key "STM generated" value ""
+	    end
+	  end
+
+	  class 135450 "attente_State"
+	    visibility public 
+	    cpp_decl "${comment}${template}class ${name}${inherit} {
+${members}};
+${inlines}
+"
+	    java_decl ""
+	    php_decl ""
+	    python_2_2 python_decl ""
+	    idl_decl ""
+	    explicit_switch_type ""
+	    
+	    ncouples 1
+	    key "STM generated" value ""
+	    comment " implement the state attente"
+	    operation 135578 "~attente_State"
+	      force_body_gen cpp_virtual public explicit_return_type ""
+	      nparams 0
+	      cpp_decl "    ${comment}${inline}${virtual}${name}${(}${)}${volatile}${throw};
+"
+	      cpp_def "${comment}${inline}${class}::${name}${(}${)}${volatile}${throw} {
+  ${body}}
+"
+	      
+	      
+	      
+	      
+	      ncouples 1
+	      key "STM generated" value ""
+	    end
+	  end
+
+	  class 135322 "descente_mi_hauteur_bras_State"
+	    visibility public 
+	    cpp_decl "${comment}${template}class ${name}${inherit} {
+${members}};
+${inlines}
+"
+	    java_decl ""
+	    php_decl ""
+	    python_2_2 python_decl ""
+	    idl_decl ""
+	    explicit_switch_type ""
+	    
+	    ncouples 1
+	    key "STM generated" value ""
+	    comment " implement the state descente mi hauteur bras"
+	    operation 135450 "~descente_mi_hauteur_bras_State"
+	      force_body_gen cpp_virtual public explicit_return_type ""
+	      nparams 0
+	      cpp_decl "    ${comment}${inline}${virtual}${name}${(}${)}${volatile}${throw};
+"
+	      cpp_def "${comment}${inline}${class}::${name}${(}${)}${volatile}${throw} {
+  ${body}}
+"
+	      
+	      
+	      
+	      
+	      ncouples 1
+	      key "STM generated" value ""
+	    end
+	  end
+
+	  operation 135194 "~deployement_1_State"
+	    force_body_gen cpp_virtual public explicit_return_type ""
+	    nparams 0
+	    cpp_decl "    ${comment}${inline}${virtual}${name}${(}${)}${volatile}${throw};
+"
+	    cpp_def "${comment}${inline}${class}::${name}${(}${)}${volatile}${throw} {
+  ${body}}
+"
+	    
+	    
+	    
+	    
+	    ncouples 1
+	    key "STM generated" value ""
+	  end
+
+	  attribute 134938 "_activation_turbine_state"
+	    public type class_ref 135194 // activation_turbine_State
+	    cpp_decl "    ${comment}${static}${mutable}${volatile}${const}${type} ${name}${value};
+"
+	    java_decl ""
+	    php_decl ""
+	    python_decl ""
+	    idl_decl ""
+	    ncouples 1
+	    key "STM generated" value ""
+	    comment " memorize the instance of the state activation turbine, internal"
+	  end
+
+	  attribute 135066 "_descente_mi_hauteur_bras_state"
+	    public type class_ref 135322 // descente_mi_hauteur_bras_State
+	    cpp_decl "    ${comment}${static}${mutable}${volatile}${const}${type} ${name}${value};
+"
+	    java_decl ""
+	    php_decl ""
+	    python_decl ""
+	    idl_decl ""
+	    ncouples 1
+	    key "STM generated" value ""
+	    comment " memorize the instance of the state descente mi hauteur bras, internal"
+	  end
+
+	  attribute 135194 "_attente_state"
+	    public type class_ref 135450 // attente_State
+	    cpp_decl "    ${comment}${static}${mutable}${volatile}${const}${type} ${name}${value};
+"
+	    java_decl ""
+	    php_decl ""
+	    python_decl ""
+	    idl_decl ""
+	    ncouples 1
+	    key "STM generated" value ""
+	    comment " memorize the instance of the state attente, internal"
+	  end
+
+	  attribute 135322 "_pose_state"
+	    public type class_ref 135578 // pose_State
+	    cpp_decl "    ${comment}${static}${mutable}${volatile}${const}${type} ${name}${value};
+"
+	    java_decl ""
+	    php_decl ""
+	    python_decl ""
+	    idl_decl ""
+	    ncouples 1
+	    key "STM generated" value ""
+	    comment " memorize the instance of the state pose, internal"
+	  end
+
+	  attribute 135450 "_attente_2_state"
+	    public type class_ref 135706 // attente_2_State
+	    cpp_decl "    ${comment}${static}${mutable}${volatile}${const}${type} ${name}${value};
+"
+	    java_decl ""
+	    php_decl ""
+	    python_decl ""
+	    idl_decl ""
+	    ncouples 1
+	    key "STM generated" value ""
+	    comment " memorize the instance of the state attente 2, internal"
+	  end
+
+	  attribute 135578 "_arret_turbine_state"
+	    public type class_ref 135834 // arret_turbine_State
+	    cpp_decl "    ${comment}${static}${mutable}${volatile}${const}${type} ${name}${value};
+"
+	    java_decl ""
+	    php_decl ""
+	    python_decl ""
+	    idl_decl ""
+	    ncouples 1
+	    key "STM generated" value ""
+	    comment " memorize the instance of the state arret turbine, internal"
+	  end
+
+	  attribute 135706 "_attente_3_state"
+	    public type class_ref 135962 // attente_3_State
+	    cpp_decl "    ${comment}${static}${mutable}${volatile}${const}${type} ${name}${value};
+"
+	    java_decl ""
+	    php_decl ""
+	    python_decl ""
+	    idl_decl ""
+	    ncouples 1
+	    key "STM generated" value ""
+	    comment " memorize the instance of the state attente 3, internal"
+	  end
+
+	  attribute 135834 "_ouverture_pince_state"
+	    public type class_ref 136090 // ouverture_pince_State
+	    cpp_decl "    ${comment}${static}${mutable}${volatile}${const}${type} ${name}${value};
+"
+	    java_decl ""
+	    php_decl ""
+	    python_decl ""
+	    idl_decl ""
+	    ncouples 1
+	    key "STM generated" value ""
+	    comment " memorize the instance of the state ouverture pince, internal"
+	  end
+
+	  attribute 135962 "_attente_4_state"
+	    public type class_ref 136218 // attente_4_State
+	    cpp_decl "    ${comment}${static}${mutable}${volatile}${const}${type} ${name}${value};
+"
+	    java_decl ""
+	    php_decl ""
+	    python_decl ""
+	    idl_decl ""
+	    ncouples 1
+	    key "STM generated" value ""
+	    comment " memorize the instance of the state attente 4, internal"
+	  end
+
+	  attribute 136090 "_remonte_mi_hauteur_state"
+	    public type class_ref 136346 // remonte_mi_hauteur_State
+	    cpp_decl "    ${comment}${static}${mutable}${volatile}${const}${type} ${name}${value};
+"
+	    java_decl ""
+	    php_decl ""
+	    python_decl ""
+	    idl_decl ""
+	    ncouples 1
+	    key "STM generated" value ""
+	    comment " memorize the instance of the state remonte mi hauteur, internal"
+	  end
+
+	  attribute 136218 "_attente_5_state"
+	    public type class_ref 136474 // attente_5_State
+	    cpp_decl "    ${comment}${static}${mutable}${volatile}${const}${type} ${name}${value};
+"
+	    java_decl ""
+	    php_decl ""
+	    python_decl ""
+	    idl_decl ""
+	    ncouples 1
+	    key "STM generated" value ""
+	    comment " memorize the instance of the state attente 5, internal"
+	  end
+
+	  attribute 136346 "_fermeture_pince_state"
+	    public type class_ref 136602 // fermeture_pince_State
+	    cpp_decl "    ${comment}${static}${mutable}${volatile}${const}${type} ${name}${value};
+"
+	    java_decl ""
+	    php_decl ""
+	    python_decl ""
+	    idl_decl ""
+	    ncouples 1
+	    key "STM generated" value ""
+	    comment " memorize the instance of the state fermeture pince, internal"
+	  end
+	end
+
+	operation 134938 "~deposeurTapis_State"
+	  force_body_gen cpp_virtual public explicit_return_type ""
+	  nparams 0
+	  cpp_decl "    ${comment}${inline}${virtual}${name}${(}${)}${volatile}${throw};
+"
+	  cpp_def "${comment}${inline}${class}::${name}${(}${)}${volatile}${throw} {
+  ${body}}
+"
+	  
+	  
+	  
+	  
+	  ncouples 1
+	  key "STM generated" value ""
+	end
+
+	attribute 134682 "_etat_initial_state"
+	  public type class_ref 134938 // Etat_initial_State
+	  cpp_decl "    ${comment}${static}${mutable}${volatile}${const}${type} ${name}${value};
+"
+	  java_decl ""
+	  php_decl ""
+	  python_decl ""
+	  idl_decl ""
+	  ncouples 1
+	  key "STM generated" value ""
+	  comment " memorize the instance of the state Etat initial, internal"
+	end
+
+	attribute 134810 "_deployement_1_state"
+	  public type class_ref 135066 // deployement_1_State
+	  cpp_decl "    ${comment}${static}${mutable}${volatile}${const}${type} ${name}${value};
+"
+	  java_decl ""
+	  php_decl ""
+	  python_decl ""
+	  idl_decl ""
+	  ncouples 1
+	  key "STM generated" value ""
+	  comment " memorize the instance of the state deployement 1, internal"
+	end
+
+	attribute 136474 "_deployement_2_state"
+	  public type class_ref 136730 // deployement_2_State
+	  cpp_decl "    ${comment}${static}${mutable}${volatile}${const}${type} ${name}${value};
+"
+	  java_decl ""
+	  php_decl ""
+	  python_decl ""
+	  idl_decl ""
+	  ncouples 1
+	  key "STM generated" value ""
+	  comment " memorize the instance of the state deployement 2, internal"
+	end
+
+	attribute 137498 "_attente_init_state"
+	  public type class_ref 137754 // attente_init_State
+	  cpp_decl "    ${comment}${static}${mutable}${volatile}${const}${type} ${name}${value};
+"
+	  java_decl ""
+	  php_decl ""
+	  python_decl ""
+	  idl_decl ""
+	  ncouples 1
+	  key "STM generated" value ""
+	  comment " memorize the instance of the state attente init, internal"
+	end
+
+	attribute 137626 "_attente_transitoire_state"
+	  public type class_ref 137882 // attente_transitoire_State
+	  cpp_decl "    ${comment}${static}${mutable}${volatile}${const}${type} ${name}${value};
+"
+	  java_decl ""
+	  php_decl ""
+	  python_decl ""
+	  idl_decl ""
+	  ncouples 1
+	  key "STM generated" value ""
+	  comment " memorize the instance of the state attente transitoire, internal"
+	end
+
+	attribute 137754 "_demo_state"
+	  public type class_ref 138010 // demo_State
+	  cpp_decl "    ${comment}${static}${mutable}${volatile}${const}${type} ${name}${value};
+"
+	  java_decl ""
+	  php_decl ""
+	  python_decl ""
+	  idl_decl ""
+	  ncouples 1
+	  key "STM generated" value ""
+	  comment " memorize the instance of the state demo, internal"
+	end
+
+	attribute 137882 "_rangement_1_state"
+	  public type class_ref 138138 // rangement_1_State
+	  cpp_decl "    ${comment}${static}${mutable}${volatile}${const}${type} ${name}${value};
+"
+	  java_decl ""
+	  php_decl ""
+	  python_decl ""
+	  idl_decl ""
+	  ncouples 1
+	  key "STM generated" value ""
+	  comment " memorize the instance of the state rangement 1, internal"
+	end
+
+	attribute 144538 "_attente_transitoire_2_state"
+	  public type class_ref 144794 // attente_transitoire_2_State
+	  cpp_decl "    ${comment}${static}${mutable}${volatile}${const}${type} ${name}${value};
+"
+	  java_decl ""
+	  php_decl ""
+	  python_decl ""
+	  idl_decl ""
+	  ncouples 1
+	  key "STM generated" value ""
+	  comment " memorize the instance of the state attente transitoire 2, internal"
+	end
+
+	attribute 144666 "_rangement_2_state"
+	  public type class_ref 144922 // rangement_2_State
+	  cpp_decl "    ${comment}${static}${mutable}${volatile}${const}${type} ${name}${value};
+"
+	  java_decl ""
+	  php_decl ""
+	  python_decl ""
+	  idl_decl ""
+	  ncouples 1
+	  key "STM generated" value ""
+	  comment " memorize the instance of the state rangement 2, internal"
+	end
+
+	classrelation 134554 // <generalisation>
+	  relation 134554 ---|>
+	    a public
+	      cpp default "${type}"
+	      classrelation_ref 134554 // <generalisation>
+	    b parent class_ref 134682 // AnyState
+	end
+
+	operation 146074 "create"
+	  force_body_gen cpp_virtual public explicit_return_type "void"
+	  nparams 1
+	    param inout name "stm" type class_ref 134554 // deposeurTapis
+	  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+	  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+	  
+	  
+	  
+	  
+	  ncouples 1
+	  key "STM generated" value ""
+	  comment " to manage the event create"
+	end
+      end
+
+      attribute 134554 "_deposeurtapis_state"
+	protected type class_ref 134810 // deposeurTapis_State
+	cpp_decl "    ${comment}${static}${mutable}${volatile}${const}${type} ${name}${value};
+"
+	java_decl ""
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+	ncouples 1
+	key "STM generated" value ""
+	comment " memorize the instance of the state deposeurTapis, internal"
+      end
+
+      operation 145562 "deposeurTapis"
+	force_body_gen public explicit_return_type ""
+	nparams 0
+	cpp_decl "    ${comment}${inline}${name}${(}${)}${volatile}${throw};
+"
+	cpp_def "${comment}${inline}${class}::${name}${(}${)}${volatile}${throw} {
+  ${body}}
+"
+	
+	
+	
+	
+	ncouples 1
+	key "STM generated" value ""
+      end
+
+      operation 145690 "~deposeurTapis"
+	force_body_gen cpp_virtual public explicit_return_type ""
+	nparams 0
+	cpp_decl "    ${comment}${inline}${virtual}${name}${(}${)}${volatile}${throw};
+"
+	cpp_def "${comment}${inline}${class}::${name}${(}${)}${volatile}${throw} {
+  ${body}}
+"
+	
+	
+	
+	
+	ncouples 1
+	key "STM generated" value ""
+      end
+
+      operation 145818 "create"
+	force_body_gen public explicit_return_type "bool"
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "${comment}${inline}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	
+	ncouples 1
+	key "STM generated" value ""
+	comment " the operation you call to signal the event create"
+      end
+    end
+  end
+
+  deploymentview 128154 "deposeurTapis"
+    //deployment diagram settings
+    package_name_in_tab default show_context default write_horizontally default auto_label_position default draw_all_relations default shadow default
+    draw_component_as_icon default show_component_req_prov default show_component_rea default show_stereotype_properties default
+    artifact 128154 "deposeurTapis"
+      stereotype "source"
+      associated_classes
+      end
+    end
+  end
+end
