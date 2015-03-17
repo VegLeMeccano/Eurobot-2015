@@ -1,0 +1,5 @@
+Balle
+B0 -> chargement balle gauche
+B1 -> drop balle gauche
+B2 -> attrape balle droite (par terre)
+B3 -> drop balle droite

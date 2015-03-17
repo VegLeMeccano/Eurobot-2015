@@ -1,0 +1,68 @@
+*********************************************************
+			ORDRE MURPHY
+*********************************************************
+ordre a taper dans le terminal serie
+
+
+
+Camera (I->image)
+------------------------------
+I0 -> position devant
+I1 -> position basse
+
+
+Claps (C)
+------------------------------
+C0 -> ouverture clap droit
+C1 -> fermeture clap droit
+C2 -> ouverture clap gauche
+C3 -> fermeture clap gauche
+
+
+Balle
+------------------------------
+B0 -> chargement balle gauche
+B1 -> drop balle gauche
+B2 -> attrape balle droite (par terre)
+B3 -> drop balle droite
+B4 -> Debug (affiche etat courant de la MAE balle droite)
+
+
+POP-CORN
+------------------------------
+P0 -> aspiration, allumage
+P1 -> aspiration, extinction
+P2 -> capot arriere, ouveture
+P3 -> capot arriere, fermeture
+
+
+DEBUG (principalement slave)
+------------------------------
+O0 -> reinit compteur odo propu
+O1 -> affiche les tics, et distances parcourues
+
+
+CONSTRUCTEUR PILE 
+------------------------------
+G -> pile gauche
+D -> pile droite
+G0 -> prepare la prise de stand (ouverture pinces)
+G1 -> saisie forcee
+G2 -> range les pinces si sorties
+G3 -> force l'etat de transition AssFini
+G4 -> prepare la pose de la pile
+G5 -> pose la pile
+G6 -> replis des modules de pose
+
+
+SLAVE (base roulante)
+------------------------------
+S0 -> set X Y CAP
+S1 -> get X Y CAP
+S2 -> recalage
+S3 -> BF_cap >> angle en absolu degre
+S4 -> BF_avance 
+S5 -> BF_droite
+S6 -> BF_cercle
+S7 -> set speed (0:slow, 1:medium, 2:fast)
+S8 -> reprise
