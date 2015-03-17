@@ -1014,3 +1014,106 @@
 1426473784 source:c:\arduino\murphy\io.cpp
 	"IO.h"
 
+1426187371 source:c:\eurobot-2015\murphy\autom.cpp
+	"Autom.h"
+	"Const.h"
+
+1426256477 c:\eurobot-2015\murphy\autom.h
+	"Utils/Period.h"
+	"Arduino.h"
+	"interrupts.h"
+	"pins.h"
+	"Utils/Coord.h"
+	"ControlLoop.h"
+	<Servo.h>
+
+1401409000 c:\eurobot-2015\murphy\utils\period.h
+	"Arduino.h"
+
+1426187999 c:\eurobot-2015\murphy\interrupts.h
+	"Arduino.h"
+	"pins.h"
+
+1426129889 c:\eurobot-2015\murphy\pins.h
+
+1401409000 c:\eurobot-2015\murphy\utils\coord.h
+	"Arduino.h"
+
+1426129873 c:\eurobot-2015\murphy\controlloop.h
+	"Utils/Coord.h"
+	"Utils/Sonar.h"
+	"Utils/PID.h"
+	"pins.h"
+
+1401409000 c:\eurobot-2015\murphy\utils\sonar.h
+	"Arduino.h"
+	"Coord.h"
+
+1401409000 c:\eurobot-2015\murphy\utils\pid.h
+	"Arduino.h"
+	"Coord.h"
+
+1426181529 c:\eurobot-2015\murphy\const.h
+
+1426187396 source:c:\eurobot-2015\murphy\controlloop.cpp
+	"ControlLoop.h"
+
+1426188391 source:c:\eurobot-2015\murphy\interrupts.cpp
+	"interrupts.h"
+	"pins.h"
+
+1426528995 source:c:\eurobot-2015\murphy\io.cpp
+	"IO.h"
+
+1426526389 c:\eurobot-2015\murphy\io.h
+	"Utils/Period.h"
+	"Arduino.h"
+	<Servo.h>
+	"interrupts.h"
+	"pins.h"
+	"Const.h"
+	"Utils/Switch.h"
+
+1401409000 c:\eurobot-2015\murphy\utils\switch.h
+	"Arduino.h"
+
+1426362235 source:c:\eurobot-2015\murphy\murphy.ino
+	<Arduino.h>
+	<Servo.h>
+	"IO.h"
+	"Const.h"
+	"OrdersRaspberry.h"
+	<pnew.cpp>
+
+1426425018 c:\eurobot-2015\murphy\ordersraspberry.h
+	"Utils/Period.h"
+	"Autom.h"
+	"IO.h"
+	"Arduino.h"
+	"Utils/Coord.h"
+	<iterator>
+	<string>
+	<iostream>
+	<sstream>
+
+1401409000 source:c:\eurobot-2015\murphy\utils\coord.cpp
+	"Coord.h"
+
+1401409000 source:c:\eurobot-2015\murphy\utils\period.cpp
+	"Period.h"
+
+1401409000 source:c:\eurobot-2015\murphy\utils\pid.cpp
+	"PID.h"
+
+1401409000 source:c:\eurobot-2015\murphy\utils\sonar.cpp
+	"Sonar.h"
+
+1401409000 source:c:\eurobot-2015\murphy\utils\switch.cpp
+	"Switch.h"
+
+1401409000 source:c:\eurobot-2015\murphy\utils\switchanalog.cpp
+	"SwitchAnalog.h"
+
+1401409000 c:\eurobot-2015\murphy\utils\switchanalog.h
+	"Arduino.h"
+
