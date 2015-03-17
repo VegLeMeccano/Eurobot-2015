@@ -1,5 +1,36 @@
-Balle
-B0 -> chargement balle gauche
-B1 -> drop balle gauche
-B2 -> attrape balle droite (par terre)
-B3 -> drop balle droite
+*********************************************************************
+                    ORDRE COOP'R
+*********************************************************************
+a taper dans le terminal serie
+
+Tapis (T)
+-----------------------------
+T0 -> deployement tapis 1
+T1 -> replis intermediaire
+T2 -> deployement tapis 2
+T3 -> replis tapis 2
+
+Chaine secondaire
+-----------------------------
+S0 -> deployement
+S1 -> replis
+S2 -> ON
+S3 -> OFF
+
+
+Chaine Principale
+-----------------------------
+P0 -> recalage face
+P1 -> recalage gauche
+P2 -> recalage droite
+P3 -> deplacement face
+P4 -> deplacement gauche
+P5 -> deplacement droite
+
+atteinte escalier? IR
+
+P9 -> reprise asserv
+
+rotation? asserv sur IMU
+
+
