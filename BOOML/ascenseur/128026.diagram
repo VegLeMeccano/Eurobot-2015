@@ -1,0 +1,271 @@
+format 76
+
+statecanvas 129050 state_ref 128026 // ascenseur
+  show_activities yes region_horizontally yes drawing_language c++ show_stereotype_properties default
+  xyzwh 658.317 54.49 2000 1213 1045
+end
+statecanvas 129306 state_ref 128154 // ETAT_INITIAL
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  xyzwh 961.225 132.146 2005 171 103
+end
+statecanvas 129434 state_ref 128282 // ETAT_PREP_SAISIE
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  xyzwh 773.675 271.127 2011 211 89
+end
+pseudostatecanvas 129818 pseudostate_ref 128026 // initial
+   xyz 1033.18 104.027 2011
+end
+statecanvas 130202 state_ref 134810 // ETAT_PREP_DEPOT_DECISION
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  xyzwh 1310.47 170.606 2005 191 33
+end
+statecanvas 130586 state_ref 134938 // ETAT_PRISE
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  xyzwh 800.136 382.612 2005 213 81
+end
+statecanvas 130842 state_ref 135066 // ETAT_DECISION_MOVE
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  xyzwh 836.618 572.783 2005 144 36
+end
+statecanvas 131866 state_ref 135194 // ETAT_RELAXATION
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  xyzwh 807.539 625.585 2005 205 89
+end
+statecanvas 132122 state_ref 135322 // ETAT_SAISIE_DESCENTE
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  xyzwh 818.038 728.774 2005 177 61
+end
+statecanvas 132378 state_ref 135450 // ETAT_SAISIE_PINCE
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  xyzwh 837.758 808.218 2005 145 61
+end
+statecanvas 132634 state_ref 135578 // ETAT_SAISIE_MONTE
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  xyzwh 823.956 889.78 2005 165 61
+end
+statecanvas 132890 state_ref 135706 // ETAT_SAISIE_FIN
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  xyzwh 813.618 976.99 2005 191 75
+end
+statecanvas 133786 state_ref 135834 // ETAT_DEPOT_FULL_H_PREP_1
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  xyzwh 1314.66 293.804 2005 211 89
+end
+statecanvas 134042 state_ref 135962 // RELACHEMENT
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  xyzwh 674.086 498.795 2005 183 61
+end
+statecanvas 134682 state_ref 136090 // ETAT_DEPOT_FULL_INIT
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  xyzwh 1082.48 292.226 2005 211 94
+end
+statecanvas 134938 state_ref 136218 // ETAT_DEPOT_FULL_REPLIS_1
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  xyzwh 1326.18 860.06 2010 179 75
+end
+statecanvas 135322 state_ref 136346 // ETAT_DEPOT_FULL_REPLIS_2
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  xyzwh 1320.5 968.15 2005 191 75
+end
+statecanvas 136090 state_ref 136474 // ETAT_DEPOT_FULL_H_PREP_2
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  xyzwh 1331.02 406.802 2005 181 61
+end
+statecanvas 136346 state_ref 136602 // ETAT_DEPOT_FULL_H_PREP_3
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  xyzwh 1328.94 499.475 2005 181 61
+end
+statecanvas 136602 state_ref 136730 // ETAT_DEPOT_FULL_H_PREP_4
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  xyzwh 1314.02 584.902 2005 215 61
+end
+statecanvas 136858 state_ref 136858 // ETAT_DEPOT_FULL_H_PRET
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  xyzwh 1329.94 678.444 2005 179 33
+end
+statecanvas 137114 state_ref 136986 // ETAT_DEPOT_FULL_H_POSE
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  xyzwh 1310.14 744.386 2005 219 61
+end
+statecanvas 138522 state_ref 137370 // ETAT_DEPOT_INF_PREP_1
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  xyzwh 1566.75 282.802 2005 187 103
+end
+statecanvas 138906 state_ref 137498 // ETAT_DEPOT_INF_PREP_2
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  xyzwh 1564.13 416.364 2005 201 145
+end
+statecanvas 140058 state_ref 137626 // ETAT_ANALYSE
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  xyzwh 886.341 471.566 3005 209 103
+end
+transitioncanvas 129946 transition_ref 128026 // <transition>
+  
+  from ref 129818 z 2012 to ref 129306
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 130074 transition_ref 134554 // <transition>
+  
+  from ref 129306 z 2012 label "trigger_ouverture" xyz 872 240 2012 to ref 129434
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 130330 transition_ref 134682 // <transition>
+  
+  from ref 129306 z 2006 label "trigger_prep_depot" xyz 1141 168 2006 to point 1230.18 181.52
+  line 133658 z 2006 to ref 130202
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 130458 transition_ref 134810 // <transition>
+  decenter_begin 938
+  decenter_end 291
+  
+  from ref 129434 z 2012 label "trigger_fermeture" xyz 974 262 2012 to ref 129306
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 130714 transition_ref 134938 // <transition>
+  
+  from ref 129434 z 2012 label "(pile<4)&&(saisie_manuelle)||(IR_bandeBasse)|| IRCentral" xyz 757 467 2012 to ref 130586
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 131994 transition_ref 135322 // <transition>
+  
+  from ref 130842 z 2006 label "pile<4" xyz 927 485 2006 to ref 131866
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 132250 transition_ref 135450 // <transition>
+  
+  from ref 131866 z 2006 label "time_out" xyz 866 823 2006 to ref 132122
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 132506 transition_ref 135578 // <transition>
+  
+  from ref 132122 z 2006 label "assFini" xyz 879 838 2006 to ref 132378
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 132762 transition_ref 135706 // <transition>
+  
+  from ref 132378 z 2006 label "time_out" xyz 869 915 2006 to ref 132634
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 133018 transition_ref 135834 // <transition>
+  
+  from ref 132634 z 2006 label "assFini" xyz 896 1026 2006 to ref 132890
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 133146 transition_ref 135962 // <transition>
+  decenter_end 509
+  
+  from ref 132890 z 2006 label "time_out" xyz 740 999 2006 to point 703.9 1012.7
+  line 133274 z 2006 to point 707.24 184.86
+  line 133402 z 2006 to ref 129306
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 134170 transition_ref 136090 // <transition>
+  
+  from ref 130842 z 2006 label "pile==4" xyz 784 590 2006 to point 761.36 585.64
+  line 134298 z 2006 to ref 134042
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 134426 transition_ref 136218 // <transition>
+  decenter_end 777
+  
+  from ref 134042 z 2006 label "time_out" xyz 740 349 2006 to point 752.34 207.02
+  line 134554 z 2006 to ref 129306
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 134810 transition_ref 136346 // <transition>
+  decenter_begin 263
+  
+  from ref 130202 z 2006 label "(pile==4)&&(depot_bas)" xyz 1192 230 2006 to ref 134682
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 135450 transition_ref 136602 // <transition>
+  
+  from ref 134938 z 2011 label "assFini" xyz 1416 943 2011 to ref 135322
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 135578 transition_ref 136730 // <transition>
+  decenter_begin 508
+  decenter_end 712
+  
+  from ref 135322 z 2006 label "time_out" xyz 1169 984 2006 to point 1080.18 1002.12
+  line 135706 z 2006 to ref 129306
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 135962 transition_ref 136858 // <transition>
+  decenter_begin 578
+  
+  from ref 130202 z 2006 label "(pile==4)&&(!depot_bas)" xyz 1371 249 2006 to ref 133786
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 136218 transition_ref 136986 // <transition>
+  
+  from ref 133786 z 2006 label "time_out" xyz 1426 388 2006 to ref 136090
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 136474 transition_ref 137114 // <transition>
+  
+  from ref 136090 z 2006 label "assFini" xyz 1437.5 477 2006 to point 1427 498
+  line 140826 z 2006 to ref 136346
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 136730 transition_ref 137242 // <transition>
+  
+  from ref 136346 z 2006 label "time_out" xyz 1409 650 2006 to ref 136602
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 136986 transition_ref 137370 // <transition>
+  
+  from ref 136602 z 2006 label "assFini" xyz 1429 565 2006 to ref 136858
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 137242 transition_ref 137498 // <transition>
+  
+  from ref 136858 z 2006 label "pose" xyz 1426 717 2006 to ref 137114
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 138650 transition_ref 138138 // <transition>
+  
+  from ref 130202 z 2006 label "(pile<4)" xyz 1587 170 2006 to point 1657.24 184.08
+  line 138778 z 2006 to ref 138522
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 139034 transition_ref 138266 // <transition>
+  
+  from ref 138522 z 2006 label "time_out" xyz 1669 393 2006 to ref 138906
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 139162 transition_ref 138394 // <transition>
+  
+  from ref 138906 z 2006 label "assFini" xyz 1669 622 2006 to point 1662.14 694.66
+  line 139290 z 2006 to ref 136858
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 139546 transition_ref 138522 // <transition>
+  
+  from ref 134682 z 2006 label "time_out" xyz 1198 530 2006 to point 1189.2 694.66
+  line 139674 z 2006 to ref 136858
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 139802 transition_ref 138650 // <transition>
+  
+  from ref 137114 z 2011 label "replis" xyz 1424 825 2011 to ref 134938
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 140186 transition_ref 138778 // <transition>
+  decenter_end 832
+  
+  from ref 130586 z 3006 label "time_out" xyz 1005 403 3006 to point 1036.64 410.36
+  line 140698 z 3006 to point 1053.9 411.92
+  line 140314 z 3006 to ref 140058
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 140442 transition_ref 138906 // <transition>
+  decenter_begin 796
+  decenter_end 939
+  
+  from ref 140058 z 3006 label "time_out" xyz 1000 582 3006 to point 1045.66 593.88
+  line 140570 z 3006 to ref 130842
+  write_horizontally default show_definition default drawing_language default
+end
+end
