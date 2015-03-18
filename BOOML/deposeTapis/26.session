@@ -1,7 +1,7 @@
-window_sizes 1368 715 320 962 512 82
+window_sizes 668 699 320 962 606 35
 diagrams
   active  statediagram_ref 128154 // MAE_tapis
-    1042 559 100 0 112 0
+    1042 559 100 0 144 112
 end
 show_stereotypes
 selected statediagram_ref 128154 // MAE_tapis

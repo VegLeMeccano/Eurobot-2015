@@ -1,6 +1,6 @@
 format 76
 "deposeTapis"
-  revision 7
+  revision 8
   modified_by 26 "Link"
 
 
@@ -510,6 +510,7 @@ petit bras par terre
 	  cpp_on_entry "bras_gauche.middle()"
 	transition 155034 "<transition>"
 	  on state_ref 151706 // deployement_first P2
+	    cpp_trigger "time_out"
 	  external 
 	end
       end
@@ -519,6 +520,7 @@ petit bras par terre
 Bras_gauche.middle()"
 	transition 154906 "<transition>"
 	  on state_ref 151834 // deployement _first P3
+	    cpp_trigger "time_out"
 	  external 
 	end
       end
@@ -528,6 +530,7 @@ Bras_gauche.middle()"
 bras_gauche.bas()"
 	transition 155162 "<transition>"
 	  on state_ref 151962 // depot_first P1
+	    cpp_trigger "time_out"
 	  external 
 	end
       end
@@ -536,6 +539,7 @@ bras_gauche.bas()"
 	  cpp_do_activity "turbine.off()"
 	transition 155290 "<transition>"
 	  on state_ref 152090 // depot_first P2
+	    cpp_trigger "time_out"
 	  external 
 	end
       end
@@ -543,28 +547,118 @@ bras_gauche.bas()"
       state 152090 "depot_first P2"
 	  cpp_on_entry "gachette_gauche.open()"
 	transition 155418 "<transition>"
-	  on state_ref 152218 // replis_first
+	  on state_ref 152218 // replis_first P1
+	    cpp_trigger "replis_first"
+	  external 
+	end
+      end
+
+      state 152218 "replis_first P1"
+	  cpp_do_activity "bras_gauche.middle()"
+	transition 155546 "<transition>"
+	  on state_ref 152346 // replis_first P2
+	    cpp_trigger "pose_second()"
+	  external 
+	end
+
+	transition 162202 "<transition>"
+	  on state_ref 152346 // replis_first P2
 	    cpp_trigger "time_out"
 	  external 
 	end
       end
 
-      state 152218 "replis_first"
-	  cpp_on_entry "bras_gauche.middle()
-//wait close gachette gauche "
-	transition 155546 "<transition>"
-	  on state_ref 152346 // deployement_second P1
-	    cpp_trigger "pose_second()"
+      state 152346 "replis_first P2"
+	  cpp_do_activity "gachette_gauche.ON"
+	transition 162330 "<transition>"
+	  on state_ref 159002 // deployement_second P1
+	    cpp_trigger "pose_second"
 	  external 
 	end
-      end
-
-      state 152346 "deployement_second P1"
       end
 
       state 152474 "replis_second final"
 	transition 155674 "<transition>"
 	  on state_ref 134682 // Etat initial
+	  external 
+	end
+      end
+
+      state 159002 "deployement_second P1"
+	  cpp_do_activity "bras_gauche.bas()
+nozzle.haut()
+turbine.ON()"
+	transition 162458 "<transition>"
+	  on state_ref 159130 // deployement_second P2
+	    cpp_trigger "time_out"
+	  external 
+	end
+      end
+
+      state 159130 "deployement_second P2"
+	  cpp_do_activity "bras_droit.middle()
+nozzle.middle()"
+	transition 162586 "<transition>"
+	  on state_ref 159258 // deployement_second P3
+	    cpp_trigger "time_out"
+	  external 
+	end
+      end
+
+      state 159258 "deployement_second P3"
+	  cpp_do_activity "nozzle.bas()
+bras_droit.bas()"
+	transition 162714 "<transition>"
+	  on state_ref 159386 // depot_second P1
+	    cpp_trigger "time_out"
+	  external 
+	end
+      end
+
+      state 159386 "depot_second P1"
+	  cpp_do_activity "turbine.OFF()"
+	transition 162842 "<transition>"
+	  on state_ref 159514 // depot_second P2
+	    cpp_trigger "time_out"
+	  external 
+	end
+      end
+
+      state 159514 "depot_second P2"
+	  cpp_do_activity "bras_droit.OFF()"
+	transition 163098 "<transition>"
+	  on state_ref 159642 // replis _second P1
+	    cpp_trigger "replis_second"
+	  external 
+	end
+      end
+
+      state 159642 "replis _second P1"
+	  cpp_do_activity "bras_droit.middle()"
+	transition 163226 "<transition>"
+	  on state_ref 159770 // replis _second P2
+	    cpp_trigger "time_out"
+	  external 
+	end
+      end
+
+      state 159770 "replis _second P2"
+	  cpp_do_activity "bras_droit.ON()
+bras_droit.haut()
+bras_gauche.middle()"
+	transition 163354 "<transition>"
+	  on state_ref 159898 // replis _second P3
+	    cpp_trigger "time_out"
+	  external 
+	end
+      end
+
+      state 159898 "replis _second P3"
+	  cpp_do_activity "bras_gauche.haut()
+nozzle.middle()"
+	transition 162970 "<transition>"
+	  on state_ref 134682 // Etat initial
+	    cpp_trigger "time_out"
 	  external 
 	end
       end
