@@ -51,7 +51,9 @@ ChenillePrincipale::ChenillePrincipale():
     bumper_g_av(PIN_BUMPER_RECALAGE_G_AV,SEUIL_BUMPER),
     bumper_g_ar(PIN_BUMPER_RECALAGE_G_AR,SEUIL_BUMPER),
     bumper_d_av(PIN_BUMPER_RECALAGE_D_AV,SEUIL_BUMPER),
-    bumper_d_ar(PIN_BUMPER_RECALAGE_D_AR,SEUIL_BUMPER)
+    bumper_d_ar(PIN_BUMPER_RECALAGE_D_AR,SEUIL_BUMPER),
+    period_run(50),
+    period_asserv(100)
 {
     chenille_laterale.attach(PIN_PWM_MOTEUR_CHENILLE_LATERALE);
     chenille_gauche.attach(PIN_PWM_MOTEUR_CHENILLE_G);
@@ -59,38 +61,118 @@ ChenillePrincipale::ChenillePrincipale():
     arret();
 }
 
-void ChenillePrincipale::arret(){
-    chenille_laterale.writeMicroseconds(1500);
-    chenille_gauche.writeMicroseconds(1500);
-    chenille_droite.writeMicroseconds(1500);
+
+void ChenillePrincipale::longi_gauche_stop()
+{
+    chenille_gauche.writeMicroseconds(LONGI_GAUCHE_STOP);
 }
+
+void ChenillePrincipale::longi_gauche_avance()
+{
+    chenille_gauche.writeMicroseconds(LONGI_GAUCHE_AVANCE);
+}
+
+void ChenillePrincipale::longi_gauche_recule()
+{
+    chenille_gauche.writeMicroseconds(LONGI_GAUCHE_RECULE);
+}
+
+void ChenillePrincipale::longi_droite_stop()
+{
+    chenille_droite.writeMicroseconds(LONGI_DROITE_STOP);
+}
+void ChenillePrincipale::longi_droite_avance()
+{
+    chenille_droite.writeMicroseconds(LONGI_DROITE_AVANCE);
+}
+
+void ChenillePrincipale::longi_droite_recule()
+{
+    chenille_droite.writeMicroseconds(LONGI_DROITE_RECULE);
+}
+
+void ChenillePrincipale::lateral_gauche()
+{
+    chenille_laterale.writeMicroseconds(LATERAL_GAUCHE);
+}
+
+void ChenillePrincipale::lateral_droite()
+{
+    chenille_laterale.writeMicroseconds(LATERAL_DROITE);
+}
+
+void ChenillePrincipale::lateral_stop()
+{
+    chenille_laterale.writeMicroseconds(LATERAL_STOP);
+}
+
+// arrete toutes les chaines sans scrupules
+void ChenillePrincipale::arret(){
+    lateral_stop();
+    longi_droite_stop();
+    longi_gauche_stop();
+}
+
 
 void ChenillePrincipale::run(){
+    if (period_run.is_over())
+    {
+        period_run.reset();
 
+        // mettre action specifique asserv
+    }
 }
 
-
+// va bumper a droite et s'arrete
 void ChenillePrincipale::recalage_gauche(){
-    // enclenchement d'une asserv
-    // vers le run()
-
     // tant qu'on a pas bumper a gauche on continu
+    // a mettre dans une boucle d'asserv ?
+
     if(bumper_g_ar.is_on() && bumper_g_av.is_on()){
-        chenille_laterale.writeMicroseconds(CHENILLE_LATERALE_ARRET);
+        lateral_stop();
     }
     else{
-        chenille_laterale.writeMicroseconds(CHENILLE_LATERALE_DEPLACEMENT_GAUCHE);
+        lateral_gauche();
     }
-
 }
 
-void ChenillePrincipale::recalage_face(){
-
-}
-
+//va bumper a gauche et s'arrete
 void ChenillePrincipale::recalage_droite(){
+    // tant qu'on a pas bumper a gauche on continu
+    // a mettre dans une boucle d'asserv ?
 
+    if(bumper_d_ar.is_on() && bumper_d_av.is_on()){
+        lateral_stop();
+    }
+    else{
+        lateral_droite();
+    }
 }
+
+// va bumper en face et s'arrete
+void ChenillePrincipale::recalage_face(){
+    if(bumper_av_g.is_on() && bumper_av_d.is_on()){
+        longi_droite_stop();
+        longi_gauche_stop();
+        // send asserv fini
+    }
+    else{
+        if(bumper_av_g.is_on()){
+            longi_gauche_stop();
+        }
+        else{
+            longi_gauche_avance();
+        }
+
+        if(bumper_av_d.is_on()){
+            longi_droite_stop();
+        }
+        else{
+            longi_droite_avance();
+        }
+    }
+}
+
 
 void ChenillePrincipale::decalage_droite(double tempsTotAction){
 
@@ -222,29 +304,55 @@ DeposeurTapis::DeposeurTapis():
     state(0),
     period_run(50)
     {
+
     }
 
+// attention l'appel des transistions est sequentiel 1, puis 2,3 et 4
 
+// depose le premier tapis
+void DeposeurTapis::depose_first()
+{
+    trigger(TRANS_TAPIS_POSE_FIRST);
+}
+
+//remballe le premier tapis
+void DeposeurTapis::replis_first()
+{
+    trigger(TRANS_TAPIS_REPLI_FIRST);
+}
+
+// depose le second tapis
+void DeposeurTapis::depose_second()
+{
+    trigger(TRANS_TAPIS_POSE_SECOND);
+}
+
+// replis le second
+void DeposeurTapis::replis_second()
+{
+    trigger(TRANS_TAPIS_REPLI_SECOND);
+}
+
+// appel de transistion
 void DeposeurTapis::trigger(int transition)
 {
     Serial.println("");
     Serial.print("appel trigger depose tapis : ");
     Serial.println(transition);
-    // add things here for MAE
-    if (transition == TRANSISTION_BALLE_DROITE_PRISE || transition == TRANSISTION_BALLE_DROITE_EJECTION )
+
+    if (transition == TRANS_TAPIS_POSE_FIRST  || transition == TRANS_TAPIS_REPLI_FIRST  || transition == TRANS_TAPIS_POSE_SECOND  || transition == TRANS_TAPIS_REPLI_SECOND  )
     {
          Serial.println(" ");
          Serial.print("TRANSISTION FORCEE -> depose tapis: ");
          Serial.println(transition);
-         //trigger_to_be = transition;
     }
 
-    if (transition == TRANSISTION_BALLE_DROITE_TIME_OUT )
+    if (transition == TRANS_TAPIS_TIME_OUT  )
     {
          Serial.println(" ");
          Serial.print("TRANSITION AUTO -> depose tapis: ");
          Serial.println(transition);
-         //trigger_to_be = transition;
+
     }
    Serial.print("ACTUAL STATE -> depose tapis : ");
    Serial.println(state);
@@ -252,12 +360,122 @@ void DeposeurTapis::trigger(int transition)
    old_state = state;
    switch(state)
     {
-        case ETAT_BALLE_DROITE_RANGE_DEPART :
-           //Serial.println("ETAT_BALLE_DROITE_RANGE_DEPART");
-           if (transition == TRANSISTION_BALLE_DROITE_PRISE)
+        case ETAT_TAPIS_INIT  :
+           if (transition == TRANS_TAPIS_POSE_FIRST )
            {
-                state = ETAT_BALLE_DROITE_DEPLOYEMENT;
-                //Serial.println("modif etat depart");
+                state = ETAT_TAPIS_AT ;
+           }
+           break;
+
+         case ETAT_TAPIS_AT  :
+           if (transition == TRANS_TAPIS_TIME_OUT  )
+           {
+                state = ETAT_TAPIS_DF_1 ;
+           }
+           break;
+
+        case ETAT_TAPIS_DF_1  :
+           if (transition == TRANS_TAPIS_TIME_OUT  )
+           {
+                state = ETAT_TAPIS_DF_2   ;
+           }
+           break;
+
+        case ETAT_TAPIS_DF_2   :
+           if (transition == TRANS_TAPIS_TIME_OUT )
+           {
+                state = ETAT_TAPIS_DF_3  ;
+           }
+           break;
+
+        case ETAT_TAPIS_DF_3   :
+           if (transition == TRANS_TAPIS_TIME_OUT )
+           {
+                state = ETAT_TAPIS_DFP_1  ;
+           }
+           break;
+
+         case ETAT_TAPIS_DFP_1   :
+           if (transition == TRANS_TAPIS_TIME_OUT )
+           {
+                state = ETAT_TAPIS_DFP_2  ;
+           }
+           break;
+
+        case ETAT_TAPIS_DFP_2   :
+           if (transition == TRANS_TAPIS_REPLI_FIRST  )
+           {
+                state = ETAT_TAPIS_RF_1  ;
+           }
+           break;
+
+        case ETAT_TAPIS_RF_1   :
+           if (transition == TRANS_TAPIS_TIME_OUT )
+           {
+                state = ETAT_TAPIS_RF_2  ;
+           }
+           break;
+
+        case ETAT_TAPIS_RF_2    :
+           if (transition == TRANS_TAPIS_POSE_SECOND  )
+           {
+                state = ETAT_TAPIS_DS_1   ;
+           }
+           break;
+
+        case ETAT_TAPIS_DS_1    :
+           if (transition == TRANS_TAPIS_TIME_OUT )
+           {
+                state = ETAT_TAPIS_DS_2   ;
+           }
+           break;
+
+          case ETAT_TAPIS_DS_2     :
+           if (transition == TRANS_TAPIS_TIME_OUT )
+           {
+                state = ETAT_TAPIS_DS_3    ;
+           }
+           break;
+
+        case ETAT_TAPIS_DS_3     :
+           if (transition == TRANS_TAPIS_TIME_OUT )
+           {
+                state = ETAT_TAPIS_DSP_1    ;
+           }
+           break;
+
+          case ETAT_TAPIS_DSP_1      :
+           if (transition == TRANS_TAPIS_TIME_OUT )
+           {
+                state = ETAT_TAPIS_DSP_2     ;
+           }
+           break;
+
+        case ETAT_TAPIS_DSP_2      :
+           if (transition == TRANS_TAPIS_REPLI_SECOND  )
+           {
+                state = ETAT_TAPIS_RS_1     ;
+           }
+           break;
+
+          case ETAT_TAPIS_RS_1       :
+           if (transition == TRANS_TAPIS_TIME_OUT )
+           {
+                state = ETAT_TAPIS_RS_2      ;
+           }
+           break;
+
+          case ETAT_TAPIS_RS_2        :
+           if (transition == TRANS_TAPIS_TIME_OUT )
+           {
+                state = ETAT_TAPIS_RS_3       ;
+           }
+           break;
+
+           case ETAT_TAPIS_RS_3        :
+           if (transition == TRANS_TAPIS_TIME_OUT )
+           {
+                state = ETAT_TAPIS_INIT        ;
            }
            break;
     }
@@ -278,7 +496,7 @@ void DeposeurTapis::run(){
         period_run.reset();
         if (is_time_out())
         {
-            trigger(TRANSISTION_BALLE_DROITE_TIME_OUT);
+            trigger(TRANS_TAPIS_TIME_OUT);
         }
     }
 
@@ -310,31 +528,6 @@ bool DeposeurTapis::is_time_out()
    }
    return false;
 }
-
-
-#define ETAT_TAPIS_INIT 0
-#define ETAT_TAPIS_AT 1
-#define ETAT_TAPIS_DF_1 2
-#define ETAT_TAPIS_DF_2 3
-#define ETAT_TAPIS_DF_3 4
-#define ETAT_TAPIS_DFP_1 5
-#define ETAT_TAPIS_DFP_2 6
-#define ETAT_TAPIS_RF_1 7
-#define ETAT_TAPIS_RF_2 8
-#define ETAT_TAPIS_DS_1 9
-#define ETAT_TAPIS_DS_2 10
-#define ETAT_TAPIS_DS_3 11
-#define ETAT_TAPIS_DSP_1 12
-#define ETAT_TAPIS_DSP_2 13
-#define ETAT_TAPIS_RS_1 14
-#define ETAT_TAPIS_RS_2 15
-#define ETAT_TAPIS_RS_3 16
-
-#define TRANS_TAPIS_TIME_OUT 0
-#define TRANS_TAPIS_POSE_FIRST 1
-#define TRANS_TAPIS_REPLI_FIRST 2
-#define TRANS_TAPIS_POSE_SECOND 3
-#define TRANS_TAPIS_REPLI_SECOND 4
 
 
 void DeposeurTapis::in_state_func()
@@ -484,3 +677,17 @@ void IO::run()
     chenillePrincipale.run();
 }
 
+DeposeurTapis* IO::get_DeposeurTapis()
+{
+    return &deposeurTapis;
+}
+
+ChenilleSecondaire* IO::get_ChenilleSecondaire()
+{
+    return &chenilleSecondaire;
+}
+
+ChenillePrincipale* IO::get_ChenillePrincipale()
+{
+    return &chenillePrincipale;
+}

@@ -23,3 +23,7 @@ bool Period::is_over(){
 
 }
 
+
+void Period::set_periode(int period_){
+    period = period_;
+}

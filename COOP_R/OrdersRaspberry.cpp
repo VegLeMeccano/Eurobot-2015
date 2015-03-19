@@ -113,19 +113,19 @@ void OrdersRaspberry::executeinstr()
         switch (ind)
         {
         case 0:
-            io->chenilleSecondaire.OFF();
+            io->get_ChenilleSecondaire()->OFF();
             break;
         case 1:
-            io->chenilleSecondaire.ON();
+            io->get_ChenilleSecondaire()->ON();
             break;
         case 2:
-            io->chenilleSecondaire.position_rangee();
+            io->get_ChenilleSecondaire()->position_rangee();
             break;
         case 3:
-            io->chenilleSecondaire.position_miHauteur();
+            io->get_ChenilleSecondaire()->position_miHauteur();
             break;
         case 4:
-            io->chenilleSecondaire.position_rangee();
+            io->get_ChenilleSecondaire()->position_rangee();
             break;
        }
 break;
@@ -133,17 +133,24 @@ break;
 
     // Depose tapis
 	case 'T' :
-        // ordre de type Tacle Laterale
+        // ordre de type depose tapis
         switch (ind)
         {
         case 0:
-            io->deposeurTapis.stop();
+            Serial.print("depose le premier tapis");
+            io->get_DeposeurTapis()->depose_first();
             break;
         case 1:
-            io->deposeurTapis.depose_first();
+            Serial.print("replis le premier tapis");
+            io->get_DeposeurTapis()->replis_first();
             break;
         case 2:
-            io->deposeurTapis.depose_second();
+            Serial.print("depose le second tapis");
+            io->get_DeposeurTapis()->depose_second();
+            break;
+        case 3:
+            Serial.print("replis le second tapis");
+            io->get_DeposeurTapis()->replis_second();
             break;
        }
        break;
@@ -153,17 +160,17 @@ break;
 
     // recalage
 	case 'R' :
-        // ordre de type Tacle Laterale
+        // ordre de type recalage
         switch (ind)
         {
         case 0:
-            io->chenillePrincipale.recalage_face();
+            io->get_ChenillePrincipale()->recalage_face();
             break;
         case 1:
-            io->chenillePrincipale.recalage_gauche();
+            io->get_ChenillePrincipale()->recalage_gauche();
             break;
         case 2:
-            io->chenillePrincipale.recalage_droite();
+            io->get_ChenillePrincipale()->recalage_droite();
             break;
        }
        break;
@@ -179,19 +186,19 @@ break;
             Serial.print("SET temps :");
             stream >> temps;
             Serial.println(atoi(temps.c_str()));
-            io->chenillePrincipale.decalage_avant(atoi(temps.c_str()));
+            io->get_ChenillePrincipale()->decalage_avant(atoi(temps.c_str()));
             break;
         case 1:
             Serial.print("SET temps :");
             stream >> temps;
             Serial.println(atoi(temps.c_str()));
-            io->chenillePrincipale.decalage_avant(atoi(temps.c_str()));
+            io->get_ChenillePrincipale()->decalage_avant(atoi(temps.c_str()));
             break;
         case 2:
             Serial.print("SET temps :");
             stream >> temps;
             Serial.println(atoi(temps.c_str()));
-            io->chenillePrincipale.decalage_avant(atoi(temps.c_str()));
+            io->get_ChenillePrincipale()->decalage_avant(atoi(temps.c_str()));
             break;
        }
        break;

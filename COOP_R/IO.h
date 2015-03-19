@@ -9,13 +9,21 @@
 #include "./Utils/SwitchAnalog.h"
 #include <Servo.h>
 
+
+// IMU
+// http://www.seeedstudio.com/wiki/Xadow_-_IMU_6DOF
+
+
+/****************************************************
+   CHENILLE SECONDAIRE
+*****************************************************/
 class ChenilleSecondaire
 {
     private:
         Servo bascule;
         Servo chenille_secondaire;
-        //bool etat_chaine;
-        //bool etat_levier;
+        bool etat_chaine;
+        bool etat_levier;
 
     public:
         ChenilleSecondaire();
@@ -27,8 +35,20 @@ class ChenilleSecondaire
 };
 
 
-
+/****************************************************
+   CHENILLE PRINCIPALE
+*****************************************************/
 // base roulante, slave bis
+#define LONGI_GAUCHE_STOP 1500
+#define LONGI_GAUCHE_AVANCE 1500
+#define LONGI_GAUCHE_RECULE 1500
+#define LONGI_DROITE_STOP 1500
+#define LONGI_DROITE_AVANCE 1500
+#define LONGI_DROITE_RECULE 1500
+#define LATERAL_STOP 1500
+#define LATERAL_GAUCHE 1500
+#define LATERAL_DROITE 1500
+
 class ChenillePrincipale
 {
     private:
@@ -63,17 +83,45 @@ class ChenillePrincipale
         double val_sonar_droit;
         // penser a mettre un timer
 
+
         bool assFini;
+        long tempo;
+        long tempo_remaining;
+        int asserv_set; // recalage, tempo, si pause activated
+        bool pause;
+
+        Period period_run;
+        Period period_asserv;
+
 
 
     public:
         ChenillePrincipale();
         // mouvement + bumper
 
+        //briques de base
+        void longi_gauche_stop();
+        void longi_gauche_avance();
+        void longi_gauche_recule();
+        void longi_droite_stop();
+        void longi_droite_avance();
+        void longi_droite_recule();
+        void lateral_gauche();
+        void lateral_droite();
+        void lateral_stop();
+
+
         void stop();
+
+
+
         void recalage_gauche();
         void recalage_droite();
         void recalage_face(); //tak droite et gauche, mettre un timer de sortie
+
+
+        void set_asserv(int asserv);
+        // dans la periode de run tout se passe
 
         // evitement a integrer (sur base de sonar)
         void decalage_droite(double tempsTotAction);
@@ -84,8 +132,8 @@ class ChenillePrincipale
 
         // mise en place escalier
         void arret(); // arret de l'asserv en cours
-        void pause(); //pause de l'asserv en cours (timer)
-        void reprise(); //reprise de l'asserv en cours
+        void pause_asserv(); //pause de l'asserv en cours (timer)
+        void reprise(); //reprise de l'asserv en cours, si existe
         void run();
         void asservFini(); //envoi au master l'ordre de fin
         bool isFini();
@@ -99,7 +147,9 @@ class ChenillePrincipale
 
 
 
-//
+/****************************************************
+   TURBINE
+*****************************************************/
 class Turbine
 {
     private:
@@ -111,7 +161,9 @@ class Turbine
         void OFF();
 };
 
-
+/****************************************************
+   NOZZLE
+*****************************************************/
 class Nozzle
 {
     private:
@@ -124,7 +176,9 @@ class Nozzle
         void bas();
 };
 
-
+/****************************************************
+   PINCE
+*****************************************************/
 // pince porte tapis rouge
 class Pince
 {
@@ -144,8 +198,35 @@ class Pince
 };
 
 
+/****************************************************
+   DEPOSEUR DE TAPIS
+*****************************************************/
 // deposeur de tapis, ici c'est une MAE
 // ne pas oublier de mettre les differents etats
+#define ETAT_TAPIS_INIT 0
+#define ETAT_TAPIS_AT 1
+#define ETAT_TAPIS_DF_1 2
+#define ETAT_TAPIS_DF_2 3
+#define ETAT_TAPIS_DF_3 4
+#define ETAT_TAPIS_DFP_1 5
+#define ETAT_TAPIS_DFP_2 6
+#define ETAT_TAPIS_RF_1 7
+#define ETAT_TAPIS_RF_2 8
+#define ETAT_TAPIS_DS_1 9
+#define ETAT_TAPIS_DS_2 10
+#define ETAT_TAPIS_DS_3 11
+#define ETAT_TAPIS_DSP_1 12
+#define ETAT_TAPIS_DSP_2 13
+#define ETAT_TAPIS_RS_1 14
+#define ETAT_TAPIS_RS_2 15
+#define ETAT_TAPIS_RS_3 16
+
+#define TRANS_TAPIS_TIME_OUT 0
+#define TRANS_TAPIS_POSE_FIRST 1
+#define TRANS_TAPIS_REPLI_FIRST 2
+#define TRANS_TAPIS_POSE_SECOND 3
+#define TRANS_TAPIS_REPLI_SECOND 4
+
 class DeposeurTapis
 {
     private:
@@ -153,6 +234,10 @@ class DeposeurTapis
 		Nozzle nozzle;
 		Pince pince_droite;
 		Pince pince_gauche;
+		bool time_out_on;
+		int state;
+        long t_over;
+        Period period_run;
 
     public:
         // MAE depose tapis
@@ -160,31 +245,38 @@ class DeposeurTapis
         void run();
         void stop();
         void trigger(int transition);
-        void set_time_out(int dt_, int trigger);
+        //void set_time_out(int dt_, int trigger);
         void reset_time_out();
         bool is_time_out();
 
         void depose_first(); //depose une fois en position
+        void replis_first();
         void depose_second();
+        void replis_second();
+        void in_state_func();
+        void set_time_out(int dt_);
+
 
 };
 
 
 
-
-/** definition IO **/
+/****************************************************
+   IO
+*****************************************************/
 class IO
 {
     private:
-
-
-    public:
-         IO();
-        void run();
         DeposeurTapis deposeurTapis;
         ChenilleSecondaire chenilleSecondaire;
         ChenillePrincipale chenillePrincipale;
-        //ChenillePrincipale getChenillePrincipale();
+
+    public:
+        IO();
+        void run();
+        DeposeurTapis* get_DeposeurTapis();
+        ChenilleSecondaire* get_ChenilleSecondaire();
+        ChenillePrincipale* get_ChenillePrincipale();
 
 };
 
