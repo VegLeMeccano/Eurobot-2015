@@ -352,96 +352,109 @@ void DeposeurTapis::in_state_func()
             break;
 
         case ETAT_TAPIS_AT :
-            turbine.OFF();
+            set_time_out(500);
+            turbine.ON();
             nozzle.haut();
             Serial.println("ETAT_TAPIS_AT");
             break;
 
-        case ETAT_TAPIS_DF_1 :
+        case ETAT_TAPIS_DF_1  :
+            set_time_out(500);
             pince_gauche.middle();
-            Serial.println("ETAT_TAPIS_DF_1");
+            nozzle.haut();
+            Serial.println("ETAT_TAPIS_DF_1 ");
             break;
 
-         case ETAT_TAPIS_INIT :
-            pince_droite.haut();
-            pince_droite.pince_ON();
-            pince_gauche.haut();
-            pince_gauche.pince_ON();
-            turbine.OFF();
+        case ETAT_TAPIS_DF_2  :
+            set_time_out(500);
+            pince_gauche.middle();
             nozzle.middle();
-            Serial.println("ETAT_TAPIS_INIT");
+            Serial.println("ETAT_TAPIS_DF_2 ");
             break;
-        case ETAT_TAPIS_INIT :
-            pince_droite.haut();
-            pince_droite.pince_ON();
-            pince_gauche.haut();
-            pince_gauche.pince_ON();
+
+         case ETAT_TAPIS_DF_3 :
+            set_time_out(500);
+            pince_gauche.bas();
+            nozzle.bas();
+            Serial.println("ETAT_TAPIS_DF_3");
+            break;
+
+        case ETAT_TAPIS_DFP_1  :
+            set_time_out(500);
             turbine.OFF();
-            nozzle.middle();
-            Serial.println("ETAT_TAPIS_INIT");
+            Serial.println("ETAT_TAPIS_DFP_1 ");
             break;
-         case ETAT_TAPIS_INIT :
-            pince_droite.haut();
-            pince_droite.pince_ON();
-            pince_gauche.haut();
+
+         case ETAT_TAPIS_DFP_2  :
+            pince_gauche.pince_OFF();
+            Serial.println("ETAT_TAPIS_DFP_2 ");
+            break;
+
+        case ETAT_TAPIS_RF_1  :
+            set_time_out(500);
+            pince_gauche.middle();
+            Serial.println("ETAT_TAPIS_RF_1 ");
+            break;
+
+         case ETAT_TAPIS_RF_2  :
+            //set_time_out(500);
             pince_gauche.pince_ON();
-            turbine.OFF();
-            nozzle.middle();
-            Serial.println("ETAT_TAPIS_INIT");
+            Serial.println("ETAT_TAPIS_RF_2 ");
             break;
-        case ETAT_TAPIS_INIT :
-            pince_droite.haut();
+
+        case ETAT_TAPIS_DS_1  :
+            set_time_out(500);
+            pince_gauche.bas();
+            turbine.ON();
+            nozzle.haut();
+            Serial.println("ETAT_TAPIS_DS_1 ");
+            break;
+
+         case ETAT_TAPIS_DS_2  :
+            set_time_out(500);
+            pince_droite.middle();
+            nozzle.middle();
+            Serial.println("ETAT_TAPIS_DS_2 ");
+            break;
+
+        case ETAT_TAPIS_DS_3  :
+            set_time_out(500);
+            pince_droite.bas();
+            nozzle.bas();
+            Serial.println("ETAT_TAPIS_DS_3 ");
+            break;
+
+        case ETAT_TAPIS_DSP_1   :
+            set_time_out(500);
+            turbine.OFF();
+            Serial.println("ETAT_TAPIS_DSP_1  ");
+            break;
+
+        case ETAT_TAPIS_DSP_2   :
+            pince_droite.pince_OFF();
+            Serial.println("ETAT_TAPIS_DSP_2  ");
+            break;
+
+        case ETAT_TAPIS_RS_1   :
+            set_time_out(500);
+            pince_droite.middle();
+            Serial.println("ETAT_TAPIS_RS_1  ");
+            break;
+
+        case ETAT_TAPIS_RS_2   :
+            set_time_out(500);
             pince_droite.pince_ON();
-            pince_gauche.haut();
-            pince_gauche.pince_ON();
-            turbine.OFF();
-            nozzle.middle();
-            Serial.println("ETAT_TAPIS_INIT");
-            break;
-         case ETAT_TAPIS_INIT :
             pince_droite.haut();
-            pince_droite.pince_ON();
-            pince_gauche.haut();
-            pince_gauche.pince_ON();
-            turbine.OFF();
-            nozzle.middle();
-            Serial.println("ETAT_TAPIS_INIT");
-            break;
-        case ETAT_TAPIS_INIT :
-            pince_droite.haut();
-            pince_droite.pince_ON();
-            pince_gauche.haut();
-            pince_gauche.pince_ON();
-            turbine.OFF();
-            nozzle.middle();
-            Serial.println("ETAT_TAPIS_INIT");
-            break;
-         case ETAT_TAPIS_INIT :
-            pince_droite.haut();
-            pince_droite.pince_ON();
-            pince_gauche.haut();
-            pince_gauche.pince_ON();
-            turbine.OFF();
-            nozzle.middle();
-            Serial.println("ETAT_TAPIS_INIT");
-            break;
-        case ETAT_TAPIS_INIT :
-            pince_droite.haut();
-            pince_droite.pince_ON();
-            pince_gauche.haut();
-            pince_gauche.pince_ON();
-            turbine.OFF();
-            nozzle.middle();
-            Serial.println("ETAT_TAPIS_INIT");
+            pince_gauche.middle();
+            Serial.println("ETAT_TAPIS_RS_2  ");
             break;
 
-
-
-
-
-
-
-
+        case ETAT_TAPIS_RS_3   :
+            set_time_out(500);
+            pince_gauche.haut();
+            nozzle.middle();
+            Serial.println("ETAT_TAPIS_RS_3  ");
+            break;
     }
 }
 
