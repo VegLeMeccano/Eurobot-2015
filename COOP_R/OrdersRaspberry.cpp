@@ -125,7 +125,7 @@ void OrdersRaspberry::executeinstr()
             io->get_ChenilleSecondaire()->position_miHauteur();
             break;
         case 4:
-            io->get_ChenilleSecondaire()->position_rangee();
+            io->get_ChenilleSecondaire()->position_auSol();
             break;
        }
 break;

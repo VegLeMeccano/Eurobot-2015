@@ -27,6 +27,8 @@
 IO* io;
 OrdersRaspberry* com;
 
+
+
 int state;
 int led_on;
 long timer;
@@ -51,6 +53,7 @@ void setup()
 
     //write_serial_strat();
     state = ALLUMAGE;
+    //state = GAME;
     timer = 0;
 }
 
@@ -91,9 +94,9 @@ void loop(){
     else
         {
         //Serial.println(millis()-timer);
-        //com->run();
+        com->run();
         //slave->run();
-        //io->run();
+        io->run();
         }
 
 

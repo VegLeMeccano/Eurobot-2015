@@ -16,12 +16,12 @@ ChenilleSecondaire::ChenilleSecondaire()
 
 void ChenilleSecondaire::OFF(){
     chenille_secondaire.writeMicroseconds(CHAINE_SECONDAIRE_STOP);
-    Serial.println("ChenilleSecondaire::OFF()");
+    //Serial.println("ChenilleSecondaire::OFF()");
 }
 
 void ChenilleSecondaire::ON(){
     chenille_secondaire.writeMicroseconds(CHAINE_SECONDAIRE_MARCHE);
-    Serial.println("ChenilleSecondaire::ON()");
+    //Serial.println("ChenilleSecondaire::ON()");
 }
 
 void ChenilleSecondaire::position_rangee(){
@@ -245,6 +245,8 @@ Pince::Pince(bool cote_droit_v)
         garde.attach(PIN_PWM_SERVO_GARDE_G);
         bras.attach(PIN_PWM_SERVO_BRAS_G);
     }
+    haut();
+    pince_ON();
 }
 
 void Pince::haut(){
