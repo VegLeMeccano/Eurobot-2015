@@ -554,28 +554,30 @@ void DeposeurTapis::in_state_func()
             break;
 
         case ETAT_TAPIS_DF_1  :
-            set_time_out(500);
+            set_time_out(1000);
             pince_gauche.middle();
-            nozzle.haut();
+            //nozzle.haut();
+            nozzle.middle();
             Serial.println("ETAT_TAPIS_DF_1 ");
             break;
 
         case ETAT_TAPIS_DF_2  :
-            set_time_out(500);
+            set_time_out(2000);
             pince_gauche.middle();
-            nozzle.middle();
+            //nozzle.middle();
+            nozzle.bas();
             Serial.println("ETAT_TAPIS_DF_2 ");
             break;
 
          case ETAT_TAPIS_DF_3 :
-            set_time_out(500);
+            set_time_out(1000);
             pince_gauche.bas();
             nozzle.bas();
             Serial.println("ETAT_TAPIS_DF_3");
             break;
 
         case ETAT_TAPIS_DFP_1  :
-            set_time_out(500);
+            set_time_out(100);
             turbine.OFF();
             Serial.println("ETAT_TAPIS_DFP_1 ");
             break;
@@ -586,7 +588,7 @@ void DeposeurTapis::in_state_func()
             break;
 
         case ETAT_TAPIS_RF_1  :
-            set_time_out(500);
+            set_time_out(1000);
             pince_gauche.middle();
             Serial.println("ETAT_TAPIS_RF_1 ");
             break;
@@ -598,7 +600,7 @@ void DeposeurTapis::in_state_func()
             break;
 
         case ETAT_TAPIS_DS_1  :
-            set_time_out(500);
+            set_time_out(1000);
             pince_gauche.bas();
             turbine.ON();
             nozzle.haut();
@@ -606,21 +608,21 @@ void DeposeurTapis::in_state_func()
             break;
 
          case ETAT_TAPIS_DS_2  :
-            set_time_out(500);
+            set_time_out(1000);
             pince_droite.middle();
             nozzle.middle();
             Serial.println("ETAT_TAPIS_DS_2 ");
             break;
 
         case ETAT_TAPIS_DS_3  :
-            set_time_out(500);
+            set_time_out(1000);
             pince_droite.bas();
             nozzle.bas();
             Serial.println("ETAT_TAPIS_DS_3 ");
             break;
 
         case ETAT_TAPIS_DSP_1   :
-            set_time_out(500);
+            set_time_out(1000);
             turbine.OFF();
             Serial.println("ETAT_TAPIS_DSP_1  ");
             break;
@@ -631,13 +633,13 @@ void DeposeurTapis::in_state_func()
             break;
 
         case ETAT_TAPIS_RS_1   :
-            set_time_out(500);
+            set_time_out(1000);
             pince_droite.middle();
             Serial.println("ETAT_TAPIS_RS_1  ");
             break;
 
         case ETAT_TAPIS_RS_2   :
-            set_time_out(500);
+            set_time_out(1000);
             pince_droite.pince_ON();
             pince_droite.haut();
             pince_gauche.middle();
@@ -645,7 +647,7 @@ void DeposeurTapis::in_state_func()
             break;
 
         case ETAT_TAPIS_RS_3   :
-            set_time_out(500);
+            set_time_out(1000);
             pince_gauche.haut();
             nozzle.middle();
             Serial.println("ETAT_TAPIS_RS_3  ");

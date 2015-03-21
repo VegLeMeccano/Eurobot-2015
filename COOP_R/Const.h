@@ -22,7 +22,7 @@ COOPR
 
 //turbine
 #define TURBINE_OFF 1000
-#define TURBINE_ON 1200
+#define TURBINE_ON 2000
 
 // nozzle
 #define NOZZLE_HAUT 1636
