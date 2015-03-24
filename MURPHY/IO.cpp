@@ -6,22 +6,24 @@
 /****************************************************
    Claps
 *****************************************************/
-#define CLAPS_GAUCHE_FERME 1500
-#define CLAPS_GAUCHE_OUVERT 1500
-#define CLAPS_DROITE_FERME 1500
-#define CLAPS_DROITE_OUVERT 1500
+#define CLAPS_GAUCHE_FERME 1133
+#define CLAPS_GAUCHE_OUVERT 1988
+#define CLAPS_DROITE_FERME 2113
+#define CLAPS_DROITE_OUVERT 1420
 
 Claps::Claps(bool cote_droit_s)
 {
     cote_droit = cote_droit_s;
-    Serial.println(" claps init");
+
     if(cote_droit)
     {
         servo_tacle.attach(PIN_PWM_SERVO_CLAPS_DROITE);
+        Serial.println(" claps droite init");
     }
     else
     {
         servo_tacle.attach(PIN_PWM_SERVO_CLAPS_GAUCHE);
+        Serial.println(" claps gauche init");
     }
     fermeture();
 
@@ -84,8 +86,9 @@ void Aspiration::on()
 /****************************************************
    CAPOT Arriere
 *****************************************************/
-#define CAPOT_FERMETURE 1500
-#define CAPOT_OUVERTURE 1500
+#define CAPOT_FERMETURE 1411
+#define CAPOT_OUVERTURE_BALLE 1236
+#define CAPOT_OUVERTURE_GOBELET 1000
 
 Capot::Capot()
 {
@@ -99,11 +102,15 @@ void Capot::fermeture()
     servo_capot.writeMicroseconds(CAPOT_FERMETURE);
 }
 
-void Capot::ouverture()
+void Capot::ouverture_gobelet()
 {
-    servo_capot.writeMicroseconds(CAPOT_OUVERTURE);
+    servo_capot.writeMicroseconds(CAPOT_OUVERTURE_GOBELET);
 }
 
+void Capot::ouverture_balle()
+{
+    servo_capot.writeMicroseconds(CAPOT_OUVERTURE_BALLE);
+}
 
 /****************************************************
    CAMERA
@@ -134,25 +141,27 @@ void Camera::position_basse()
 /****************************************************
    Taclette INT
 *****************************************************/
-#define TACLETTE_INT_FERMETURE_GAUCHE 1500
-#define TACLETTE_INT_DEGAGEMENT_GAUCHE 1500
-#define TACLETTE_INT_PRISE_CENTRALE_GAUCHE 1500
+#define TACLETTE_INT_FERMETURE_GAUCHE 1865
+#define TACLETTE_INT_DEGAGEMENT_GAUCHE 1520
+#define TACLETTE_INT_PRISE_CENTRALE_GAUCHE 1171
 
-#define TACLETTE_INT_FERMETURE_DROITE 1500
-#define TACLETTE_INT_DEGAGEMENT_DROITE 1500
-#define TACLETTE_INT_PRISE_CENTRALE_DROITE 1500
+#define TACLETTE_INT_FERMETURE_DROITE 1133
+#define TACLETTE_INT_DEGAGEMENT_DROITE 1512
+#define TACLETTE_INT_PRISE_CENTRALE_DROITE 1818
 
 Taclette_INT::Taclette_INT(bool cote_droit_s)
 {
     cote_droit = cote_droit_s;
-    Serial.println(" T init");
+
     if(cote_droit)
     {
         servo_taclette_INT.attach(PIN_PWM_SERVO_TACLETTE_INT_DROITE);
+        Serial.println(" Taclette int droite init");
     }
     else
     {
         servo_taclette_INT.attach(PIN_PWM_SERVO_TACLETTE_INT_GAUCHE);
+        Serial.println(" Taclette int gauche init");
     }
     position_fermeture();
 }
@@ -198,13 +207,13 @@ void Taclette_INT::position_prise_central()
 /****************************************************
    Taclette EXT
 *****************************************************/
-#define TACLETTE_EXT_FERMETURE_GAUCHE 1500
-#define TACLETTE_EXT_DEGAGEMENT_GAUCHE 1500
-#define TACLETTE_EXT_MOISS_BAT_GAUCHE 1500
+#define TACLETTE_EXT_FERMETURE_GAUCHE 1441
+#define TACLETTE_EXT_DEGAGEMENT_GAUCHE 1941
+#define TACLETTE_EXT_MOISS_BAT_GAUCHE 2154
 
-#define TACLETTE_EXT_FERMETURE_DROITE 1500
-#define TACLETTE_EXT_DEGAGEMENT_DROITE 1500
-#define TACLETTE_EXT_MOISS_BAT_DROITE 1500
+#define TACLETTE_EXT_FERMETURE_DROITE 1896
+#define TACLETTE_EXT_DEGAGEMENT_DROITE 1249
+#define TACLETTE_EXT_MOISS_BAT_DROITE 1117
 
 
 Taclette_EXT::Taclette_EXT(bool cote_droit_s)
@@ -213,13 +222,15 @@ Taclette_EXT::Taclette_EXT(bool cote_droit_s)
     if(cote_droit)
     {
         servo_taclette_EXT.attach(PIN_PWM_SERVO_TACLETTE_EXT_DROITE);
+        Serial.println(" taclette ext droite init");
     }
     else
     {
         servo_taclette_EXT.attach(PIN_PWM_SERVO_TACLETTE_EXT_GAUCHE);
+        Serial.println(" taclette ext gauche init");
     }
     position_fermeture();
-    Serial.println(" tacle init");
+
 }
 
 void Taclette_EXT::position_fermeture()
@@ -264,8 +275,8 @@ void Taclette_EXT::position_moiss_bat()
 /****************************************************
    Balle Gauche
 *****************************************************/
-#define BALLE_GAUCHE_CHARGEMENT 1500
-#define BALLE_GAUCHE_EJECTION 1500
+#define BALLE_GAUCHE_CHARGEMENT 1572
+#define BALLE_GAUCHE_EJECTION 1850
 
 Balle_gauche::Balle_gauche()
 {
@@ -287,13 +298,14 @@ void Balle_gauche::ejection()
 /****************************************************
    ejecteur (balle droite)
 *****************************************************/
-#define EJECTEUR_BAS 1500
-#define EJECTEUR_HAUT 1500
+#define EJECTEUR_BAS 2023
+#define EJECTEUR_HAUT 990
 
 Ejecteur::Ejecteur()
 {
     servo_ejecteur.attach(PIN_PWM_SERVO_DECLENCHEUR_BALLE_DROITE);
     position_haute();
+    //position_basse();
     Serial.println(" ejecteur init");
 }
 
@@ -311,8 +323,8 @@ void Ejecteur::position_haute()
 /****************************************************
    bras horizontal
 *****************************************************/
-#define BRAS_HORIZONTAL_OUVERTURE 1500
-#define BRAS_HORIZONTAL_FERMETURE 1500
+#define BRAS_HORIZONTAL_OUVERTURE 1572
+#define BRAS_HORIZONTAL_FERMETURE 1807
 
 Bras_horizontal::Bras_horizontal()
 {
@@ -335,8 +347,8 @@ void Bras_horizontal::fermeture()
 /****************************************************
    bras vertical
 *****************************************************/
-#define BRAS_VERTICAL_BAS 1500
-#define BRAS_VERTICAL_HAUT 1500
+#define BRAS_VERTICAL_BAS 1100
+#define BRAS_VERTICAL_HAUT 1490
 
 Bras_vertical::Bras_vertical()
 {
@@ -362,8 +374,8 @@ void Bras_vertical::descend()
 /****************************************************
    Balle Droite (MAE, sequencage de mouvement)
 *****************************************************/
-#define attente_balle_droite 200
-#define PERIODE_BALLE_DROITE 50
+#define attente_balle_droite 800
+#define PERIODE_BALLE_DROITE 100
 Balle_droite::Balle_droite():
     bras_vertical(),
     bras_horizontal(),
@@ -542,7 +554,7 @@ void Balle_droite::in_state_func()
 
         case ETAT_BALLE_DROITE_DEPLOYEMENT :
             set_time_out(attente_balle_droite);
-            bras_horizontal.fermeture();
+            bras_horizontal.ouverture();
             ejecteur.position_basse();
             Serial.println("ETAT_BALLE_DROITE_DEPLOYEMENT");
             break;
@@ -585,13 +597,13 @@ void Balle_droite::in_state_func()
 /****************************************************
    Pince
 *****************************************************/
-#define PINCEUR_DEPLOYEMENT_TOTAL_GAUCHE 1500
-#define PINCEUR_RELACHEMENT_GAUCHE 1500
-#define PINCEUR_SAISIE_GAUCHE 1500
+#define PINCEUR_DEPLOYEMENT_TOTAL_GAUCHE 1180
+#define PINCEUR_RELACHEMENT_GAUCHE 1530
+#define PINCEUR_SAISIE_GAUCHE 1720
 
-#define PINCEUR_DEPLOYEMENT_TOTAL_DROITE 1500
-#define PINCEUR_RELACHEMENT_DROITE 1500
-#define PINCEUR_SAISIE_DROITE 1500
+#define PINCEUR_DEPLOYEMENT_TOTAL_DROITE 1600
+#define PINCEUR_RELACHEMENT_DROITE 1270
+#define PINCEUR_SAISIE_DROITE 1156
 
 Pinceur::Pinceur(bool cote_droit_s)
 {
@@ -600,12 +612,15 @@ Pinceur::Pinceur(bool cote_droit_s)
         if(cote_droit)
         {
             servo_pinceur.attach(PIN_PWM_SERVO_PINCE_DROITE);
+            Serial.println(" Pinceur droite init");
         }
         else
         {
             servo_pinceur.attach(PIN_PWM_SERVO_PINCE_GAUCHE);
+            Serial.println(" Pinceur gauche init");
         }
-        Serial.println(" Pinceur init");
+        saisie();
+
 }
 
 // pour le depot des tours
@@ -630,7 +645,7 @@ void Pinceur::saisie()
         }
         else
         {
-            servo_pinceur.writeMicroseconds(PINCEUR_SAISIE_DROITE);
+            servo_pinceur.writeMicroseconds(PINCEUR_SAISIE_GAUCHE);
         }
 }
 
@@ -711,12 +726,12 @@ void ColorSensor::write_debug()
    Ascenseur (juste la montee et descente controlee)
 *****************************************************/
 #define ASCENSEUR_STOP_DROITE 1500
-#define ASCENSEUR_MONTE_DROITE 1500
-#define ASCENSEUR_DESCEND_DROITE 1500
+#define ASCENSEUR_MONTE_DROITE 1800
+#define ASCENSEUR_DESCEND_DROITE 1200
 
 #define ASCENSEUR_STOP_GAUCHE 1500
-#define ASCENSEUR_MONTE_GAUCHE 1500
-#define ASCENSEUR_DESCEND_GAUCHE 1500
+#define ASCENSEUR_MONTE_GAUCHE 1200
+#define ASCENSEUR_DESCEND_GAUCHE 1800
 
 #define ASCENSEUR_DIRECTIVE_HAUT -1
 #define ASCENSEUR_DIRECTIVE_BAS 0
@@ -732,20 +747,43 @@ Ascenseur::Ascenseur(bool cote_droit_s,int pin_bas,int pin_haut):
 {
     // mettre une procedure d'init ici ou dans l'init d'apres
     // monte bump en haut et re init les odos
+    cote_droit = cote_droit_s;
     bumper_asc_bas.reverse();
     bumper_asc_haut.reverse();
     if(cote_droit)
     {
         servos_moteur_asc.attach(PIN_PWM_MOTEUR_ASC_DROITE);
+        Serial.println(" ASC droite init");
     }
     else
     {
         servos_moteur_asc.attach(PIN_PWM_MOTEUR_ASC_GAUCHE);
+        Serial.println(" ASC gauche init");
     }
+    //while(bumper_asc_haut.is_off()){
+        send_monte();
+    //}
+    // verif les bumpers....
+    delay(200);
+    send_maintien_p();
+}
 
 
+void Ascenseur::debug()
+{
+    if(cote_droit)
+    {
+        Serial.println(" ---- debug ASC droite");
+    }
+    else
+    {
+        Serial.println(" ---- debug ASC gauche");
+    }
+    Serial.println(" ---- Bumper Haut : ");
+    Serial.println(bumper_asc_haut.is_on());
+    Serial.println(" ---- Bumper Bas : ");
+    Serial.println(bumper_asc_bas.is_on());
 
-    Serial.println(" ASC init");
 }
 
 // renvoi si l'asserv en cours est fini en pas
@@ -853,6 +891,7 @@ void Ascenseur::run()
                 send_desc();
             }
         }
+        /*
         else
         {
             if (tic_odo > target + 10)
@@ -871,7 +910,7 @@ void Ascenseur::run()
             {
                 send_zeros();
             }
-        }
+        }*/
     }
 }
 
@@ -992,8 +1031,19 @@ Constructeur_pile::Constructeur_pile(bool cote_droit_s,int pin_bas,int pin_haut)
 {
     cote_droit = cote_droit_s;
     couleur = 0;
-    //Serial.println(" Constructeur de pile init");
+    if(cote_droit){
+            Serial.println(" Constructeur de pile droite init");
+    }
+    else{
+        Serial.println(" Constructeur de pile gauche init");
+    }
 
+
+}
+
+void Constructeur_pile::debug()
+{
+    ascenseur.debug();
 }
 
 // defini la pose de la pile estrade en hauteur et basse par terre
@@ -1474,7 +1524,7 @@ IO::IO():
         to_be_ejected_droite(true),
         to_be_ejected_gauche(true)
 {
-    //Serial.println(" IO declaration");
+    Serial.println(" IO declaration");
 }
 
 void IO::balle_droite_trigger(int transition)

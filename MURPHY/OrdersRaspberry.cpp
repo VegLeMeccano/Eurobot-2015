@@ -157,13 +157,14 @@ void OrdersRaspberry::executeinstr()
 
             case 2:
 				Serial.print("attrape balle droite (par terre)");
-				io->balle_droite_trigger(0);
+				//io->balle_droite_trigger(TRANSISTION_BALLE_DROITE_PRISE);
+				io->get_Balle_droite()->trigger(TRANSISTION_BALLE_DROITE_PRISE);
 			break;
 
             case 3:
 				Serial.print("drop balle droite");
-				io->balle_droite_trigger(2);
-				//io->get_Balle_droite()->trigger(2);
+				//io->balle_droite_trigger(TRANSISTION_BALLE_DROITE_EJECTION);
+				io->get_Balle_droite()->trigger(TRANSISTION_BALLE_DROITE_EJECTION);
 			break;
 
             case 4:
@@ -195,7 +196,7 @@ void OrdersRaspberry::executeinstr()
 
             case 2:
 				Serial.print("ouverture du capot arriere");
-				io->get_Capot()->ouverture();
+				io->get_Capot()->ouverture_balle();
 			break;
 
             case 3:
@@ -278,7 +279,10 @@ void OrdersRaspberry::executeinstr()
                 Serial.println("replis"); // 2 modes de pose, sur l'estrade ou non
                 io->get_Constructeur_pile_gauche()->trigger(TRANS_PILE_REPLIS);
             break;
-
+            case 7:
+                Serial.println("debug"); // 2 modes de pose, sur l'estrade ou non
+                io->get_Constructeur_pile_gauche()->debug();
+            break;
 
         }
         break;
@@ -291,40 +295,44 @@ void OrdersRaspberry::executeinstr()
         {
            case 0:
                 Serial.println("preparer prise"); // ouvre les pinces
-                io->get_Constructeur_pile_gauche()->trigger(TRANS_PILE_PREP_SAISIE);
+                io->get_Constructeur_pile_droite()->trigger(TRANS_PILE_PREP_SAISIE);
 
             break;
 
             case 1:
                 Serial.println("attrappe le stand manuel"); // mode automatique de prise de decision
-                io->get_Constructeur_pile_gauche()->trigger(TRANS_PILE_SAISIE_MANUELLE);
+                io->get_Constructeur_pile_droite()->trigger(TRANS_PILE_SAISIE_MANUELLE);
             break;
 // voir automatique le monte directe
 // ou referme simplement dessus
 
             case 2:
                 Serial.println("range"); // mode automatique de prise de decision
-                io->get_Constructeur_pile_gauche()->trigger(TRANS_PILE_FERMETURE);
+                io->get_Constructeur_pile_droite()->trigger(TRANS_PILE_FERMETURE);
             break;
 
             case 3:
                 Serial.println("ASS FINI forcee"); // quiite le mode ouverture
-                io->get_Constructeur_pile_gauche()->trigger(TRANS_PILE_ASSERV_FINI);
+                io->get_Constructeur_pile_droite()->trigger(TRANS_PILE_ASSERV_FINI);
             break;
 
             case 4:
                 Serial.println("prepare la pose de la pile"); // quiite le mode ouverture
-                io->get_Constructeur_pile_gauche()->trigger(TRANS_PILE_PREP_DEPOT);
+                io->get_Constructeur_pile_droite()->trigger(TRANS_PILE_PREP_DEPOT);
             break;
 
             case 5:
                 Serial.println("depose la pile"); // 2 modes de pose, sur l'estrade ou non
-                io->get_Constructeur_pile_gauche()->trigger(TRANS_PILE_POSE);
+                io->get_Constructeur_pile_droite()->trigger(TRANS_PILE_POSE);
             break;
 
             case 6:
                 Serial.println("replis"); // 2 modes de pose, sur l'estrade ou non
-                io->get_Constructeur_pile_gauche()->trigger(TRANS_PILE_REPLIS);
+                io->get_Constructeur_pile_droite()->trigger(TRANS_PILE_REPLIS);
+            break;
+            case 7:
+                Serial.println("debug"); // 2 modes de pose, sur l'estrade ou non
+                io->get_Constructeur_pile_droite()->debug();
             break;
         }
         break;

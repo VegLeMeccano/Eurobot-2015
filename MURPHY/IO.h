@@ -56,7 +56,8 @@ class Capot
     public:
         Capot();
         void fermeture();
-        void ouverture();
+        void ouverture_balle();
+        void ouverture_gobelet();
 };
 
 /****************************************************
@@ -255,6 +256,7 @@ class Ascenseur
         void write_debug(); // renvoyer les coordonnees des odos pour debug
         void resest_odo(); // reinit les odos
         void stop();
+        void debug();
 };
 
 
@@ -329,8 +331,6 @@ class Constructeur_pile
         Ascenseur ascenseur;
         Taclette_EXT taclette_EXT;
         Taclette_INT taclette_INT;
-        Balle_droite balle_droite;
-        Balle_gauche balle_gauche;
         ColorSensor colorSensor;
 
         Period period_run;
