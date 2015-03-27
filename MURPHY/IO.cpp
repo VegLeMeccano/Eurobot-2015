@@ -761,10 +761,12 @@ Ascenseur::Ascenseur(bool cote_droit_s,int pin_bas,int pin_haut):
         Serial.println(" ASC gauche init");
     }
     //while(bumper_asc_haut.is_off()){
-        send_monte();
+    send_monte();
     //}
     // verif les bumpers....
     delay(200);
+    send_desc();
+    delay(100);
     send_maintien_p();
 }
 
@@ -773,16 +775,21 @@ void Ascenseur::debug()
 {
     if(cote_droit)
     {
-        Serial.println(" ---- debug ASC droite");
+        Serial.println(" ---- ---- ---- ---- ---- ---- ---- debug ASC droite");
+        Serial.print(" ---- ---- ---- ---- ---- ---- ---- Bumper Haut : ");
+        Serial.println(bumper_asc_haut.is_on());
+        Serial.print(" ---- ---- ---- ---- ---- ---- ---- Bumper Bas : ");
+        Serial.println(bumper_asc_bas.is_on());
     }
     else
     {
-        Serial.println(" ---- debug ASC gauche");
+        Serial.println(" ---- ---- ---- debug ASC gauche");
+        Serial.print(" ---- ---- ---- Bumper Haut : ");
+        Serial.println(bumper_asc_haut.is_on());
+        Serial.print(" ---- ---- ---- Bumper Bas : ");
+        Serial.println(bumper_asc_bas.is_on());
     }
-    Serial.println(" ---- Bumper Haut : ");
-    Serial.println(bumper_asc_haut.is_on());
-    Serial.println(" ---- Bumper Bas : ");
-    Serial.println(bumper_asc_bas.is_on());
+
 
 }
 
@@ -1072,17 +1079,23 @@ void Constructeur_pile::run()
     colorSensor.run();
     if (period_run.is_over())
     {
+        if(DEBUG_TEST_CAPTEUR)
+        {
+            debug();
+        }
+
         period_run.reset();
         if (is_time_out())
         {
             trigger(TRANS_PILE_TIME_OUT);
+
         }
-        /*
+
         if(ascenseur.is_assFini())
         {
             trigger(TRANS_PILE_ASSERV_FINI);
         }
-        */
+
         // transistion si detection barriere IR et capteur couleurs
     }
 }
@@ -1514,7 +1527,7 @@ void Constructeur_pile::in_state_func()
 IO::IO():
         clap_gauche(false),
         clap_droite(true),
-        constructeur_pile_gauche(false,PIN_BUMPER_ASC_BAS_GAUCHE,PIN_BUMPER_ASC_HAUT_GAUCHE),
+        constructeur_pile_gauche(false,PIN_BUMPER_ASC_BAS_GAUCHE,PIN_BUMPER_RECALAGE_DROITE),//PIN_BUMPER_ASC_HAUT_GAUCHE
         constructeur_pile_droite(true,PIN_BUMPER_ASC_BAS_DROITE,PIN_BUMPER_ASC_HAUT_DROITE),
         camera(),
         capot(),
@@ -1601,3 +1614,9 @@ Balle_gauche* IO::get_Balle_gauche()
 {
     return &balle_gauche;
 }
+
+void IO::write_debug()
+{
+    //ecrire les tests de capteurs
+}
+

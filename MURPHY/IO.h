@@ -283,7 +283,7 @@ class ColorSensor
 /****************************************************
    Constructeur de pile
 *****************************************************/
-#define PERIODE_CONSTRUCTEUR_PILE 50
+//#define PERIODE_CONSTRUCTEUR_PILE 500
 
 
 // transistion d'etats
