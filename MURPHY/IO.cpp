@@ -59,7 +59,7 @@ void Claps::ouverture()
    Aspiration balle
 *****************************************************/
 #define ASPIRATION_OFF 1000
-#define ASPIRATION_ON 1400
+#define ASPIRATION_ON 1200
 
 Aspiration::Aspiration()
 {
@@ -603,7 +603,7 @@ void Balle_droite::in_state_func()
 
 #define PINCEUR_DEPLOYEMENT_TOTAL_DROITE 1600
 #define PINCEUR_RELACHEMENT_DROITE 1270
-#define PINCEUR_SAISIE_DROITE 1156
+#define PINCEUR_SAISIE_DROITE 1056 //1156
 
 Pinceur::Pinceur(bool cote_droit_s)
 {
@@ -726,8 +726,8 @@ void ColorSensor::write_debug()
    Ascenseur (juste la montee et descente controlee)
 *****************************************************/
 #define ASCENSEUR_STOP_DROITE 1500
-#define ASCENSEUR_MONTE_DROITE 1800
-#define ASCENSEUR_DESCEND_DROITE 1200
+#define ASCENSEUR_MONTE_DROITE 2000
+#define ASCENSEUR_DESCEND_DROITE 1000
 
 #define ASCENSEUR_STOP_GAUCHE 1500
 #define ASCENSEUR_MONTE_GAUCHE 1200
@@ -743,13 +743,14 @@ void ColorSensor::write_debug()
 
 Ascenseur::Ascenseur(bool cote_droit_s,int pin_bas,int pin_haut):
     bumper_asc_bas(pin_bas),
-    bumper_asc_haut(pin_haut)
+    bumper_asc_haut(pin_haut),
+    asserv_fini(false)
 {
     // mettre une procedure d'init ici ou dans l'init d'apres
     // monte bump en haut et re init les odos
     cote_droit = cote_droit_s;
-    bumper_asc_bas.reverse();
-    bumper_asc_haut.reverse();
+    //bumper_asc_bas.reverse();
+    //bumper_asc_haut.reverse();
     if(cote_droit)
     {
         servos_moteur_asc.attach(PIN_PWM_MOTEUR_ASC_DROITE);
@@ -863,6 +864,7 @@ void Ascenseur::run()
                 stop();
                 //Serial.println("ASS FINI");
                 in_asserv = false;
+                asserv_fini = true;
                 //send_zeros();
                 resest_odo();
             }
@@ -875,6 +877,7 @@ void Ascenseur::run()
            else
             {
                 send_monte();
+                asserv_fini = false;
             }
 
         }
@@ -892,10 +895,12 @@ void Ascenseur::run()
                 Serial.println("ASS FINI");
                 //send_zeros();
                 in_asserv = false;
+                asserv_fini = true;
             }
           else
             {
                 send_desc();
+                asserv_fini = false;
             }
         }
         /*
@@ -1016,6 +1021,15 @@ void Ascenseur::stop()
     }
 }
 
+bool Ascenseur::is_asserv_fini_ext()
+{
+    return asserv_fini;
+}
+void Ascenseur::reset_asserv_fini_ext()
+{
+    asserv_fini = false;
+}
+
 /****************************************************
    Constructeur de pile
 *****************************************************/
@@ -1044,7 +1058,7 @@ Constructeur_pile::Constructeur_pile(bool cote_droit_s,int pin_bas,int pin_haut)
     else{
         Serial.println(" Constructeur de pile gauche init");
     }
-
+    ascenseur.monte();
 
 }
 
@@ -1091,8 +1105,9 @@ void Constructeur_pile::run()
 
         }
 
-        if(ascenseur.is_assFini())
+        if(ascenseur.is_asserv_fini_ext())
         {
+            ascenseur.reset_asserv_fini_ext();
             trigger(TRANS_PILE_ASSERV_FINI);
         }
 
@@ -1412,7 +1427,7 @@ void Constructeur_pile::in_state_func()
             set_time_out(TEMPO_TEST_PILE);
             pinceur.relachement();
             taclette_EXT.position_degagement();
-            taclette_INT.position_degagement();
+            //taclette_INT.position_degagement();
             Serial.println("ETAT_PILE_RELAXATION  ");
             break;
 

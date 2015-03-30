@@ -45,8 +45,8 @@ void ControlLoop::set_speed(int speed)
 {
     switch(speed){
         case SLOW:
-			piddep.setMinMax(20);
-            pidcap.setMinMax(20);
+			piddep.setMinMax(30);
+            pidcap.setMinMax(30);
             break;
 
         case MEDIUM:

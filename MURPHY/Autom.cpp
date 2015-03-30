@@ -21,8 +21,8 @@ Autom::Autom():
     tic_total_d(0)
    {
         send_cmd();
-        moteur_droit.attach(PIN_PWM_MOTEUR_PROPU_GAUCHE);
-        moteur_gauche.attach(PIN_PWM_MOTEUR_PROPU_DROITE);
+        moteur_droit.attach(PIN_PWM_MOTEUR_PROPU_DROITE);
+        moteur_gauche.attach(PIN_PWM_MOTEUR_PROPU_GAUCHE);
         stop();
    }
 
@@ -60,7 +60,7 @@ void Autom::reset_tics_odos(){
     ticD = 0;
 }
 
-#define CMD_MAX 100
+#define CMD_MAX 60
 
 void Autom::send_cmd(){
 
@@ -94,27 +94,34 @@ void Autom::send_cmd(){
 
     if(fw_g)
     {
-        delta_G = cmd_g/CMD_MAX*(MOTEUR_PROPU_GAUCHE_MAX_AVANT - MOTEUR_PROPU_GAUCHE_ARRET);
+        delta_G = 1.0*cmd_g/(1.0*CMD_MAX)*(MOTEUR_PROPU_GAUCHE_MAX_AVANT - MOTEUR_PROPU_GAUCHE_ARRET);
     }
     else
     {
-        delta_G = cmd_g/CMD_MAX*(MOTEUR_PROPU_GAUCHE_MAX_ARRIERE - MOTEUR_PROPU_GAUCHE_ARRET);
+        delta_G = 1.0*cmd_g/(1.0*CMD_MAX)*(MOTEUR_PROPU_GAUCHE_MAX_ARRIERE - MOTEUR_PROPU_GAUCHE_ARRET);
     }
 
     if(fw_d)
     {
-        delta_D = cmd_d/CMD_MAX*(MOTEUR_PROPU_DROIT_MAX_AVANT - MOTEUR_PROPU_DROIT_ARRET);
+        delta_D = 1.0*cmd_d/(1.0*CMD_MAX)*(MOTEUR_PROPU_DROIT_MAX_AVANT - MOTEUR_PROPU_DROIT_ARRET);
     }
     else
     {
-        delta_D = cmd_d/CMD_MAX*(MOTEUR_PROPU_DROIT_MAX_ARRIERE - MOTEUR_PROPU_DROIT_ARRET);
+        delta_D = 1.0*cmd_d/(1.0*CMD_MAX)*(MOTEUR_PROPU_DROIT_MAX_ARRIERE - MOTEUR_PROPU_DROIT_ARRET);
     }
 
     PWM_moteur_G += (int)delta_G;
     PWM_moteur_D += (int)delta_D;
 
+    //PWM_moteur_G = MOTEUR_PROPU_GAUCHE_ARRET + delta_G;
+    //PWM_moteur_D = MOTEUR_PROPU_DROIT_ARRET + delta_D;
+
     moteur_droit.writeMicroseconds(PWM_moteur_D);
+    Serial.print("ordre droite : ");
+    Serial.println(PWM_moteur_D);
     moteur_gauche.writeMicroseconds(PWM_moteur_G);
+    Serial.print("ordre gauche : ");
+    Serial.println(PWM_moteur_G);
 
 
 }

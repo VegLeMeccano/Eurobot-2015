@@ -211,8 +211,8 @@ void OrdersRaspberry::executeinstr()
         ordre de debug
     ******************************************************/
     case 'O':
-            Serial.println("debug");
-            slave->get_control()->write_debug();
+            //Serial.println("debug");
+            //slave->get_control()->write_debug();
 
         switch (ind)
         {

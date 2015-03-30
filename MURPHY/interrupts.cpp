@@ -19,6 +19,7 @@ long ticD_ASC = 0;
 void inc_ticG(){
     int chb;
     chb = digitalRead(PIN_ODO_PROPU_GAUCHE_B_DIR);
+
     if (chb != 1)
     {
         ticG = ticG + 1;
@@ -27,10 +28,13 @@ void inc_ticG(){
     {
         ticG = ticG - 1;
     }
+    //Serial.print("tic G : ");
+    //Serial.println(ticG);
 }
 
 // increment odo PROPU Gauche
 void inc_ticD(){
+
     int chb = digitalRead(PIN_ODO_PROPU_DROITE_B_DIR) ;
     if (chb != 1)
     {
@@ -40,6 +44,8 @@ void inc_ticD(){
     {
         ticD = ticD + 1;
     }
+    //Serial.print("tic D : ");
+    //Serial.println(ticD);
 }
 
 //#endif

@@ -238,6 +238,7 @@ class Ascenseur
         bool in_asserv;
         int target;
         bool cote_droit;
+        bool asserv_fini;
 
     public:
         Ascenseur(bool cote_droit_s,int pin_bas,int pin_haut);
@@ -257,6 +258,8 @@ class Ascenseur
         void resest_odo(); // reinit les odos
         void stop();
         void debug();
+        bool is_asserv_fini_ext();
+        void reset_asserv_fini_ext();
 };
 
 

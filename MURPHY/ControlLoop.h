@@ -24,26 +24,11 @@
 #define FAST 2
 
 
-#ifdef PMI
-
-#define GAIN_KP_DEP 0.75
-#define GAIN_KI_DEP 0.01
-#define GAIN_KD_DEP 0.04
-#define NEAR_ERROR_DEP 70.0
-#define DONE_ERROR_DEP  20.0
 
 
-#define GAIN_KP_CAP 250.0 * 0.66  //Ku = 260
-#define GAIN_KI_CAP 3 * 0.66 //52.0 //70.0
-#define GAIN_KD_CAP 5 * 0.66 //18.0 //40.0
-#define NEAR_ERROR_CAP 8.0 * 3.14 / 180.0
-#define DONE_ERROR_CAP  4.0 * 3.14 / 180.0
-
-#else
-
-#define GAIN_KP_DEP 1.20
-#define GAIN_KI_DEP 0.01
-#define GAIN_KD_DEP 0.08
+#define GAIN_KP_DEP 0.7
+#define GAIN_KI_DEP 0.00
+#define GAIN_KD_DEP 0.00
 #define NEAR_ERROR_DEP 70.0
 #define DONE_ERROR_DEP  20.0
 
@@ -54,7 +39,6 @@
 #define NEAR_ERROR_CAP 8.0 * 3.14 / 180.0
 #define DONE_ERROR_CAP  4.0 * 3.14 / 180.0
 
-#endif
 
 class ControlLoop
 /* This class gets the updated coordinate, and talk to the 2 PID
