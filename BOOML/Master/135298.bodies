@@ -1,0 +1,32 @@
+class MaeMaster
+!!!139266.cpp!!!	MaeMaster()
+  _current_state = 0;
+!!!139522.cpp!!!	create() : bool
+if (_current_state == 0)
+(_current_state = &(*this)._maemaster_state)->create(*this);
+return (_current_state != 0);
+!!!139906.cpp!!!	stratEnleve() : bool
+  if (_current_state != 0) {
+#ifdef VERBOSE_STATE_MACHINE
+    puts("DEBUG : fire trigger stratEnleve");
+#endif
+    _current_state->stratEnleve(*this);
+  }
+  return (_current_state != 0);
+!!!140546.cpp!!!	evitement() : bool
+  if (_current_state != 0) {
+#ifdef VERBOSE_STATE_MACHINE
+    puts("DEBUG : fire trigger evitement");
+#endif
+    _current_state->evitement(*this);
+  }
+  return (_current_state != 0);
+!!!141826.cpp!!!	doActivity() : void
+  _current_state->_do(*this);
+!!!141954.cpp!!!	_set_currentState(inout st : MaeMaster::AnyState) : void
+  _current_state = &st;
+!!!142082.cpp!!!	_final() : void
+  _current_state = 0;
+#ifdef VERBOSE_STATE_MACHINE
+  puts("DEBUG : final state reached");
+#endif

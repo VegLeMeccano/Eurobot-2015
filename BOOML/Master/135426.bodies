@@ -1,0 +1,19 @@
+class AnyState
+!!!140034.cpp!!!	stratEnleve(inout stm : MaeMaster) : void
+  AnyState * st = _upper(stm);
+
+  if (st != 0)
+    st->stratEnleve(stm);
+#ifdef VERBOSE_STATE_MACHINE
+  else
+    puts("DEBUG : transition stratEnleve not expected");
+#endif
+!!!140674.cpp!!!	evitement(inout stm : MaeMaster) : void
+  AnyState * st = _upper(stm);
+
+  if (st != 0)
+    st->evitement(stm);
+#ifdef VERBOSE_STATE_MACHINE
+  else
+    puts("DEBUG : transition evitement not expected");
+#endif

@@ -1,0 +1,10 @@
+class MaeMaster_State
+!!!139778.cpp!!!	create(inout stm : MaeMaster) : void
+  {
+    stm._set_currentState(stm._maemaster_state._attente_state);
+#ifdef VERBOSE_STATE_MACHINE
+    puts("DEBUG : current state is now .MaeMaster.Attente");
+#endif
+  }
+!!!141698.cpp!!!	_upper(inout stm : MaeMaster) : MaeMaster::AnyState
+  return 0;

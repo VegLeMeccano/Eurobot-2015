@@ -18,12 +18,12 @@ S2 -> ON
 S3 -> OFF
 
 
-Chaine Principale
+Chaine Principale (asserv base roulante)
 -----------------------------
 P0 -> recalage face
 P1 -> recalage gauche
 P2 -> recalage droite
-P3 -> deplacement face
+P3 -> deplacement face   + distance à parcourir
 P4 -> deplacement gauche
 P5 -> deplacement droite
 

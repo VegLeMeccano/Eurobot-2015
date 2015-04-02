@@ -1,0 +1,11 @@
+window_sizes 1600 848 563 1031 600 82
+diagrams
+  active  statediagram_ref 128026 // ascenseur
+    1031 692 100 0 21 581
+end
+show_stereotypes
+selected statediagram_ref 128026 // ascenseur
+open
+  state_ref 128026 // ascenseur
+end
+end
