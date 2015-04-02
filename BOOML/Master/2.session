@@ -1,0 +1,14 @@
+window_sizes 1600 848 563 1031 600 82
+diagrams
+  statediagram_ref 128130 // Principal
+    1031 692 100 0 0 0
+  active  statediagram_ref 134658 // Jeu
+    1031 692 80 0 0 39
+end
+show_stereotypes
+selected state_ref 128386 // Jeu
+open
+  state_ref 128386 // Jeu
+  deploymentview_ref 128130 // MaeMaster
+end
+end

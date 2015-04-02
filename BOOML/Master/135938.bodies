@@ -1,0 +1,19 @@
+class Evitement_State
+!!!141186.cpp!!!	_completion(inout stm : MaeMaster) : bool
+  _do(stm);
+  {
+    stm._set_currentState(stm._maemaster_state._jeu_state);
+#ifdef VERBOSE_STATE_MACHINE
+    puts("DEBUG : current state is now .MaeMaster.Jeu");
+#endif
+    return (bool) 1;
+  }
+!!!141314.cpp!!!	create(inout stm : MaeMaster) : void
+	_completion(stm);
+!!!141442.cpp!!!	_do(inout stm : MaeMaster) : void
+#ifdef VERBOSE_STATE_MACHINE
+	puts("DEBUG : execute do behavior of .MaeMaster.Evitement");
+#endif
+cout<<"etat évitement"<<endl;
+!!!141570.cpp!!!	_upper(inout stm : MaeMaster) : MaeMaster::AnyState
+  return &stm._maemaster_state;
