@@ -15,6 +15,7 @@
 #include "Const.h"
 #include "OrdersRaspberry.h"
 #include <pnew.cpp>
+#include "Utils/Switch.h"
 
 
 
@@ -34,8 +35,15 @@ long timer;
 long TEMPS_PARTIE = 100000; //en ms mettre 90
 
 
-//Servo testMoteurG;
-//Servo testMoteurD;
+
+
+//test capteur US
+
+    // bumper de strategie
+    Switch bumper_START(PIN_BUMPER_STRAT_START);
+    Switch bumper_Couleur(PIN_BUMPER_STRAT_COULEUR);
+    Switch bumper_Strat_1(PIN_BUMPER_STRAT_STRAT_1);
+    Switch bumper_Strat_2(PIN_BUMPER_STRAT_STRAT_2);
 
 
 
@@ -43,6 +51,10 @@ long TEMPS_PARTIE = 100000; //en ms mettre 90
 void setup()
 {
 
+
+    bumper_Couleur.reverse();
+    bumper_Strat_1.reverse();
+    bumper_Strat_2.reverse();
     // attachement des odos de propu
     attachInterrupt(PIN_ODO_PROPU_GAUCHE_A_INC, inc_ticG, RISING);
     attachInterrupt(PIN_ODO_PROPU_DROITE_A_INC, inc_ticD, RISING);
@@ -81,8 +93,18 @@ void setup()
     state = GAME;
     timer = 0;
     Serial.println("etat init");
-    //int vv = ETAT_BALLE_DROITE_RANGE_DEPART;
-    //Serial.println(vv);
+
+    Serial.print("* START : ");
+    Serial.println((int)bumper_START.is_on());
+
+    Serial.print("* COULEUR : ");
+    Serial.println((int)bumper_Couleur.is_on());
+
+    Serial.print("* STRAT 1 : ");
+    Serial.println((int)bumper_Strat_1.is_on());
+
+    Serial.print("* STRAT 2 : ");
+    Serial.println((int)bumper_Strat_2.is_on());
 
     //testMoteurD.attach(PIN_PWM_MOTEUR_PROPU_DROITE);
     //testMoteurG.attach(PIN_PWM_MOTEUR_PROPU_GAUCHE);
@@ -98,17 +120,17 @@ BOUCLE DE CONTROL
 */
 void loop(){
 
-
 /*
+
     // enclenchement du start
-   if (state == ALLUMAGE && digitalRead(PIN_BUMPER_STRAT_START) == 0)
+   if (state == ALLUMAGE && bumper_START.is_on())
     {
         state = STARTMIS;
         Serial.println("# STARTIN");
     }
 
     // debut de jeu quand le start est releve
-    if (state == STARTMIS && digitalRead(PIN_BUMPER_STRAT_START) == 1)
+    if (state == STARTMIS && bumper_START.is_off())
     {
         state = GAME ;
         Serial.println("# START");
@@ -132,17 +154,42 @@ void loop(){
         {
             //Serial.println(millis()-timer);
             com->run();
-            //slave->run();
+            slave->run();
             io->run();
         }
 */
+
+
+/*
             com->run();
             slave->run();
-            //io->run();
+            io->run();
+            delay(1);
+*/
 
 
 
-   delay(1);
+    // test US
+    Serial.print("SONAR GAUCHE : ");
+    Serial.println(analogRead(PIN_SONAR_GAUCHE));
+
+    Serial.print("SONAR DROITE : ");
+    Serial.println(analogRead(PIN_SONAR_DROITE));
+
+   // test des IR des ASCENSEUR
+    Serial.print("IR CENTRAL : ");
+    Serial.println(analogRead(PIN_IR_CENTRAL));
+
+    Serial.print("IR BAS GAUCHE : ");
+    Serial.println(analogRead(PIN_IR_BAS_GAUCHE));
+
+    Serial.print("IR BAS DROITE : ");
+    Serial.println(analogRead(PIN_IR_BAS_DROITE));
+
+    Serial.println();
+
+
+   delay(500);
 
 
 }
