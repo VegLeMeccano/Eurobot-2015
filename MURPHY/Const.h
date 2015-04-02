@@ -18,7 +18,7 @@ MURPH
 
 #define GAIN_ODO_G 0.338409475
 #define GAIN_ODO_D 0.337609723
-#define GAIN_ODO_inter 0.01263733
+#define GAIN_ODO_inter 0.006
 
 
 // moteur

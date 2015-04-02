@@ -138,7 +138,7 @@ void loop(){
 */
             com->run();
             slave->run();
-            io->run();
+            //io->run();
 
 
 

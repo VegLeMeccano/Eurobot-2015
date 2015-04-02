@@ -8,7 +8,7 @@ Autom::Autom():
     real_coord(),
     period_update_coords(10),
     control(),
-    period_pid_loop(40),
+    period_pid_loop(30),
     gain_inter_odos(GAIN_ODO_inter),
     gain_odo_g(GAIN_ODO_G),
     gain_odo_d(GAIN_ODO_D),
@@ -60,7 +60,7 @@ void Autom::reset_tics_odos(){
     ticD = 0;
 }
 
-#define CMD_MAX 60
+#define CMD_MAX 30
 
 void Autom::send_cmd(){
 
@@ -117,11 +117,11 @@ void Autom::send_cmd(){
     //PWM_moteur_D = MOTEUR_PROPU_DROIT_ARRET + delta_D;
 
     moteur_droit.writeMicroseconds(PWM_moteur_D);
-    Serial.print("ordre droite : ");
-    Serial.println(PWM_moteur_D);
+    //Serial.print("ordre droite : ");
+    //Serial.println(PWM_moteur_D);
     moteur_gauche.writeMicroseconds(PWM_moteur_G);
-    Serial.print("ordre gauche : ");
-    Serial.println(PWM_moteur_G);
+    //Serial.print("ordre gauche : ");
+    //Serial.println(PWM_moteur_G);
 
 
 }
