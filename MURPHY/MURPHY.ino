@@ -167,7 +167,7 @@ void loop(){
             delay(1);
 */
 
-
+//*
 
     // test US
     Serial.print("SONAR GAUCHE : ");
@@ -186,11 +186,23 @@ void loop(){
     Serial.print("IR BAS DROITE : ");
     Serial.println(analogRead(PIN_IR_BAS_DROITE));
 
+    Serial.print("IR HAUT GAUCHE : ");
+    Serial.println(analogRead(PIN_IR_HAUT_GAUCHE));
+
+    Serial.print("IR HAUT DROITE : ");
+    Serial.println(analogRead(PIN_IR_HAUT_DROITE));
+
+    Serial.print("IR MID GAUCHE : ");
+    Serial.println(analogRead(PIN_IR_MID_GAUCHE));
+
+    Serial.print("IR MID DROITE : ");
+    Serial.println(analogRead(PIN_IR_MID_DROITE));
+
     Serial.println();
 
 
    delay(500);
-
+//*/
 
 }
 
