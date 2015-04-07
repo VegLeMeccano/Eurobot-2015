@@ -1,7 +1,7 @@
 #include "ControlLoop.h"
 
-/*
-
+/**
+ CONSTRUCTEUR de la boucle de controle (base roulante)
 */
 ControlLoop::ControlLoop():
     pidcap(CAP, GAIN_KP_CAP, GAIN_KI_CAP, GAIN_KD_CAP, NEAR_ERROR_CAP, DONE_ERROR_CAP),
@@ -16,42 +16,52 @@ ControlLoop::ControlLoop():
     count_not_moving(0),
     late_pos(),
     detect_on(false),
-
     sonarg(PIN_SONAR_GAUCHE, Coord(100., -100., 0.)),
     sonard(PIN_SONAR_DROITE, Coord(100., 100., 0.)),
 
 
-    fw_g(true){
-    set_speed(SLOW);
-    //sonarg.turn_off();
-    //
+    fw_g(true)
+    {
+        set_speed(SLOW);        // on defini la vitesse initiale comme slow
+        //sonarg.turn_off();      // evitement off
+        //
 };
 
-void ControlLoop::set_target(Coord coord){
+/**
+*/
+void ControlLoop::set_target(Coord coord)
+{
 
 }
 
+/**
+*/
+void ControlLoop::update_error(Coord coord)
+{
+    // erreur accumulee ?
+}
 
-void ControlLoop::update_error(Coord coord){}
-
-
+/** BF avance?
+*/
 void ControlLoop::bf_avance(float d){
     piddep.addToTarget(d);
 }
 
 
-// definition des vitesses
+/** definition des vitesses
+// a check sur PID
+**/
 void ControlLoop::set_speed(int speed)
 {
     switch(speed){
         case SLOW:
-			piddep.setMinMax(10);
-            pidcap.setMinMax(10);
+			piddep.setMinMax(30);
+            pidcap.setMinMax(30);
             break;
 
         case MEDIUM:
-            piddep.setMinMax(30);
-            pidcap.setMinMax(30);
+            piddep.setMinMax(50);
+            pidcap.setMinMax(50);
             break;
 
         case FAST:
@@ -61,25 +71,34 @@ void ControlLoop::set_speed(int speed)
     }
 }
 
-// recalage : on recule et on attend le blocage
+
+/** recalage : on recule et on attend le blocage
+**/
 void ControlLoop::recaler(){
-    set_speed(SLOW);
-    set_BF(BFFW, Coord(-1000, 0, 0));
+    set_speed(SLOW);                        // on fait ca en vitesse lente, quand meme
+    set_BF(BFFW, Coord(-1000, 0, 0));       // recule de 1m ?? wtf
 }
 
-// recalage : on recule et on attend le blocage
+/** set la BF a faire avec le point objectif
+    BF : BFCAP, BFavance, BF droite, BF cercle....
+**/
 void ControlLoop::set_BF(int bf_type_, Coord target_position_){
 
-    count_not_moving = 0;
-    bf_type = bf_type_;
-    asserv_state = FAR;
-    pidcap.reinit();
-    piddep.reinit();
-    float d;
+    count_not_moving = 0;       // compteur de blocage a zero
+    bf_type = bf_type_;         // la BF a faire
+    asserv_state = FAR;         // on commence loin de l'objectif
+    pidcap.reinit();            // PID cap
+    piddep.reinit();            // PID deplacement
+    float d;                    // d?? distance a parcourir ?
+
     switch(bf_type){
+
+        /** STOP **/
         case STOP:
             Serial.println("STOP");
             break;
+
+        /** BF avance **/
         case BFFW:
             target_position.forward_translation(target_position_.get_x());
             dir = Vector(real_coord, target_position);
@@ -91,11 +110,15 @@ void ControlLoop::set_BF(int bf_type_, Coord target_position_){
             piddep.setTarget(0.0);
             pidcap.setTarget(target_position.get_cap());
             break;
+
+        /** BF Cap (rotation angulaire) **/
         case BFCAP:
             target_position.set_cap(target_position_.get_cap());
             pidcap.setTarget(target_position.get_cap());
             //Serial.println(target_position.get_cap());
             break;
+
+        /** BF droite **/
         case BFXYCAP:
             target_position = target_position_;
             piddep.setTarget(0.0);
@@ -105,17 +128,16 @@ void ControlLoop::set_BF(int bf_type_, Coord target_position_){
 
 }
 
-
+/**
+**/
 void ControlLoop::next_asserv_state(){
     switch (asserv_state){
         case FAR:
             asserv_state = NEAR ;
             write_real_coords();
             Serial.println("# NEAR");
-
-
-
             break;
+
         case NEAR:
             asserv_state = DONE ;
             write_real_coords();
@@ -164,6 +186,7 @@ void ControlLoop::compute_pids(){
                next_asserv_state();
             }
             break;
+
         case BFCAP:
             //Serial.println("coucou BFCAP");
             //cmd_dep = 0;
@@ -183,6 +206,7 @@ void ControlLoop::compute_pids(){
 
             //Serial.println(cmd_cap);
             break;
+
         case BFXYCAP:
             /* later ! */
             float B; // see supaero report 2012
@@ -286,7 +310,7 @@ void ControlLoop::check_blockage()
         count_not_moving = 0;
    }
 
-   if (count_not_moving > 15)
+   if (count_not_moving > 10)
    {
         write_real_coords();
         Serial.println("# BLOC");
@@ -362,7 +386,8 @@ void ControlLoop::write_real_coords()
 }
 
 
-// activation de l'evitement
+/** activation de l'evitement
+**/
 void ControlLoop::turn_on_evit()
 {
    detect_on = true;

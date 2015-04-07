@@ -52,9 +52,26 @@ void setup()
 {
 
 
+
+
     bumper_Couleur.reverse();
     bumper_Strat_1.reverse();
     bumper_Strat_2.reverse();
+
+    pinMode(2, INPUT);
+    pinMode(3, INPUT);
+    digitalWrite(2,HIGH);
+    digitalWrite(3,HIGH);
+    pinMode(PIN_ODO_PROPU_GAUCHE_B_DIR, INPUT);
+    pinMode(PIN_ODO_PROPU_DROITE_B_DIR, INPUT);
+
+    pinMode(18, INPUT);
+    pinMode(19, INPUT);
+    digitalWrite(18,HIGH);
+    digitalWrite(19,HIGH);
+    pinMode(PIN_ODO_ASC_GAUCHE_B_DIR, INPUT);
+    pinMode(PIN_ODO_ASC_DROITE_B_DIR, INPUT);
+
     // attachement des odos de propu
     attachInterrupt(PIN_ODO_PROPU_GAUCHE_A_INC, inc_ticG, RISING);
     attachInterrupt(PIN_ODO_PROPU_DROITE_A_INC, inc_ticD, RISING);
@@ -160,14 +177,14 @@ void loop(){
 */
 
 
-/*
+
             com->run();
             slave->run();
             io->run();
             delay(1);
-*/
 
-//*
+
+/*
 
     // test US
     Serial.print("SONAR GAUCHE : ");
@@ -202,7 +219,12 @@ void loop(){
 
 
    delay(500);
-//*/
+*/
+
+
+
+
+//   delay(200);
 
 }
 

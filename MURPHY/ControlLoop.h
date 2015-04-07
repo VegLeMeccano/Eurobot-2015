@@ -14,30 +14,29 @@
 #define BFCAP 2
 #define BFXYCAP 3
 
-//#define GAIN_KP_DEP 3.45
-//#define GAIN_KD_DEP 4.6
-//#define GAIN_KI_DEP 0.6468
-//
-
+// type of speed
 #define SLOW 0
 #define MEDIUM 1
 #define FAST 2
 
-
-
-
-#define GAIN_KP_DEP 0.1
+// gain PID deplacement
+#define GAIN_KP_DEP 0.25
 #define GAIN_KI_DEP 0.00
 #define GAIN_KD_DEP 0.00
+// norme sur les etats de transistion proche  et fini
 #define NEAR_ERROR_DEP 70.0
-#define DONE_ERROR_DEP  20.0
+#define DONE_ERROR_DEP  30.0
 
-
-#define GAIN_KP_CAP 10  //Ku = 260
-#define GAIN_KI_CAP 0. //52.0 //70.0
+// gain PID cap (rotation)
+#define GAIN_KP_CAP 1  //Ku = 260
+#define GAIN_KI_CAP 0 //52.0 //70.0
 #define GAIN_KD_CAP 0 //18.0 //40.0
+
 #define NEAR_ERROR_CAP 8.0 * 3.14 / 180.0
 #define DONE_ERROR_CAP  4.0 * 3.14 / 180.0
+
+// compteur blocage
+#define BLOCAGE_MAX 10
 
 
 class ControlLoop
@@ -46,27 +45,24 @@ class ControlLoop
  * This class also talk to the Raspberry Pi to say when the movement is finished*/
 {
     private:
-        Coord real_coord;
-        Coord target_position;
-        Vector dir;
-        bool detect_on;
-        int bf_type; // see define
-        int asserv_state; // see define in PID -> FAR, NEAR
-        PID pidcap;
-        PID piddep;
-        int cmd_g;
-        int cmd_d;
-        int cmd_dep;
-        int cmd_cap;
-        bool fw_g;
-        bool fw_d;
-        int count_not_moving;
-        Coord late_pos; // to check how much we moved lately
-        Sonar sonarg; //et le droit ??
-#ifndef PMI
-        Sonar sonard;
-#endif
-
+        Coord real_coord;           // coordonne actuelle
+        Coord target_position;      // coordonne cible
+        Vector dir;                 // vecteur de direction a suivre entre le point actuel et la cible (provisoire ou finale)
+        bool detect_on;             // activation de la detection d'adversaire
+        int bf_type;                // type de BF en cours
+        int asserv_state;           // etat PID -> FAR, NEAR
+        PID pidcap;                 // PID cap
+        PID piddep;                 // PID deplacement
+        int cmd_g;                  // commande sur roue gauche
+        int cmd_d;                  // commande sur roue droite
+        int cmd_dep;                // commande deplacement
+        int cmd_cap;                // commance cap
+        bool fw_g;                  // avance roue gauche
+        bool fw_d;                  // avance roue droite
+        int count_not_moving;       // Compteur de blocage
+        Coord late_pos;             // to check how much we moved lately
+        Sonar sonarg;               // Sonar cote droit
+        Sonar sonard;               // Sonar cote gauche
 
     public:
         ControlLoop();

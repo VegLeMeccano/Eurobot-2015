@@ -5,7 +5,7 @@
 
 
 OrdersRaspberry::OrdersRaspberry(Autom* slave_,IO* io_) :
-    period(100),
+    period(50),
     slave(slave_),
     io(io_),
     serial_count(0)
@@ -347,6 +347,9 @@ void OrdersRaspberry::executeinstr()
         // ordre de type Slave
         switch (ind)
         {
+
+        /** reinit les coords X,Y, CAP
+        // attention ne deplace pas le robot **/
         case 0: // set x, y, cap
             Serial.print("SET X Y CAP :");
             stream >> x >> y >> cap;
@@ -378,22 +381,30 @@ void OrdersRaspberry::executeinstr()
             Serial.println(" ");
             break;
 
-        case 1: //Recal
+
+        /** donne les coordonnees du robots
+        **/
+        case 1:
             Serial.println("GET X Y CAP: ");
             slave->get_control()->write_real_coords();
 
             break;
 
-        case 2: //Recal
+        /** recalage arriere du robot
+        **/
+        case 2:
             Serial.println("Recalage");
             slave->get_control()->recaler();
-        //    slave->set<Recaler>(Marche::AVANT);
             break;
+
+
         case 3: //BFCap
-            if(!(stream>>cap>>precis))
+            Serial.print("SET X Y CAP :");
+            stream >> cap;
+            /*if(!(stream >>cap>> precis))
             {
                 Serial.print ("err ");
-            }
+            }*/
             target = Coord(0, 0, 3.14 * atoi(cap.c_str()) / 180.0);
             Serial.print ("BFCap ");
             Serial.println(atoi(cap.c_str()));

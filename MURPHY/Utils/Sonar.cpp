@@ -2,31 +2,17 @@
 
 Sonar::Sonar(int pin_, Coord dir_):pin(pin_), dir(dir_), on(true){}
 
+
 float Sonar::get_dist(){
-    int sensorValue = analogRead(pin); 
+    int sensorValue = analogRead(pin);
 
-
-#ifdef PMI
-    if (sensorValue > 400)
-    {
-        return 300;
-    }
-    else
-    {
-        return 900;
-    }
-
-
-#else
     if (sensorValue == 0)
     {
         Serial.println("warning check sonar connection");
     }
     return 100 + (sensorValue / 580.0) * 900. ; //divide by max sensor value, multiply by 900 mm
-
-
-#endif
 }
+
 
 bool Sonar::adv_detected(Coord pos_robot){
     if (!on) return false;
@@ -64,10 +50,10 @@ void Sonar::write_adv_coord(){
 }
 
 bool Sonar::mean_adv(Coord adv_){
-   adv.barycentre(adv_, 0.5); 
+   adv.barycentre(adv_, 0.5);
 }
 
 Coord Sonar::get_adv(){
     return adv;
 }
-       
+

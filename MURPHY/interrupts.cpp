@@ -12,6 +12,9 @@ long ticD = 0;
 long ticG_ASC = 0;
 long ticD_ASC = 0;
 
+long ticG2 = 0;
+long ticD2 = 0;
+
 
 
 
@@ -23,10 +26,12 @@ void inc_ticG(){
     if (chb != 1)
     {
         ticG = ticG + 1;
+        ticG2 = ticG2 + 1;
     }
     else
     {
         ticG = ticG - 1;
+        ticG2 = ticG2 - 1;
     }
     //Serial.print("tic G : ");
     //Serial.println(ticG);
@@ -39,10 +44,12 @@ void inc_ticD(){
     if (chb != 1)
     {
         ticD = ticD - 1;
+        ticD2 = ticD2 - 1;
     }
     else
     {
         ticD = ticD + 1;
+        ticD2 = ticD2 + 1;
     }
     //Serial.print("tic D : ");
     //Serial.println(ticD);
@@ -71,11 +78,11 @@ void inc_ticD_ASC(){
     chb = digitalRead(PIN_ODO_ASC_DROITE_B_DIR);
     if (chb != 1)
     {
-        ticG_ASC = ticG_ASC - 1;
+        ticD_ASC = ticD_ASC - 1;
     }
     else
     {
-        ticG_ASC = ticG_ASC + 1;
+        ticD_ASC = ticD_ASC + 1;
     }
 }
 

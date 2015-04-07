@@ -1,14 +1,14 @@
 #include "Autom.h"
 #include "Const.h"
 
-/*
+/**
 Autom implementation
 */
 Autom::Autom():
     real_coord(),
     period_update_coords(10),
     control(),
-    period_pid_loop(30),
+    period_pid_loop(40),
     gain_inter_odos(GAIN_ODO_inter),
     gain_odo_g(GAIN_ODO_G),
     gain_odo_d(GAIN_ODO_D),
@@ -20,6 +20,7 @@ Autom::Autom():
     tic_total_g(0),
     tic_total_d(0)
    {
+        reset_tics_odos();
         send_cmd();
         moteur_droit.attach(PIN_PWM_MOTEUR_PROPU_DROITE);
         moteur_gauche.attach(PIN_PWM_MOTEUR_PROPU_GAUCHE);
@@ -37,9 +38,14 @@ void Autom::update_cap(){
 void Autom::update_coords(){
     /* peut etre prendre la moyenne des caps ou autre technique d'integration? */
     update_cap();
-    int delta_ticG = ticG; //- last_ticG;
-    int delta_ticD = ticD; //  - last_ticD;
+
+    // on prend le dernier tics et on remet les compteurs a zeros
+    int delta_ticG = ticG;// - last_ticG;
+    int delta_ticD = ticD;// - last_ticD;
+
     reset_tics_odos();
+
+    // distance moyennee sur les deux odos 1/2(Distance roue gauche + distance roue droite)
     float d = (delta_ticG * gain_odo_g + delta_ticD * gain_odo_d) * 0.5;
 
     //pour test et debug de gain
@@ -162,6 +168,16 @@ void Autom::run(){
         period_pid_loop.reset();
         control.run(real_coord);
         send_cmd();
+
+        //Serial.print("tic gauche : ");
+        //Serial.println(ticG2);
+        //Serial.println(debuggTic_g());
+
+        //Serial.print("tic droite : ");
+        //Serial.println(ticD2);
+        //Serial.println(debuggTic_d());
+
+        //Serial.println();
     }
 }
 
@@ -169,13 +185,6 @@ ControlLoop* Autom::get_control(){
     return &control;
 }
 
-
-/*
-Camera* Autom::camera_control()
-{
-	return &camera;
-}
-*/
 
 void write_serial_strat()
 {

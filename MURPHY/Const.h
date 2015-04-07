@@ -16,8 +16,8 @@ MURPH
 
 // GAIN du slave
 
-#define GAIN_ODO_G 0.338409475
-#define GAIN_ODO_D 0.337609723
+#define GAIN_ODO_G 0.325998//0.338409475
+#define GAIN_ODO_D 0.338925//0.337609723
 #define GAIN_ODO_inter 0.006
 
 
