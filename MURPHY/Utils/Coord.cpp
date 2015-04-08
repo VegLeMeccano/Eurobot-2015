@@ -14,7 +14,7 @@ void Coord::set_y(float y_){y = y_;}
 void Coord::set_cap(float cap_){
     cap = cap_;
 
-    // cap always within [0: 2* pi]    
+    // cap always within [0: 2* pi]
    if (cap > 2 * PI)
    {
         cap = cap - 2 * PI;
@@ -31,6 +31,10 @@ void Coord::set_x_y_cap(float x_, float y_, float cap_){
  cap = cap_;
 }
 
+
+/***************************************************
+A MODIFIER
+*/
 bool Coord::is_on_map(){
     // check if the detected thing is on the map...
     if (x < -1450 || x > 1450 || y < 0 || y > 950)
@@ -48,10 +52,6 @@ void Coord::forward_translation(float d){
 
 void Coord::write_serial()
 {
-    //Serial.print("ticG  :");
-   // Serial.print(ticG);
-   // Serial.print("  ticD  :");
-   // Serial.print(ticD);
     Serial.print(int(x));
     Serial.print(" ");
     Serial.print(int(y));
@@ -69,7 +69,7 @@ void Coord::barycentre(Coord coord2, float rapport){
     y = y * (1 - rapport) + coord2.get_y() * rapport;
     cap = cap * (1 - rapport) + coord2.get_cap() * rapport;
 
-    
+
 }
 
 Vector::Vector():x(0.), y(0.){}
@@ -104,7 +104,7 @@ float Vector::get_x(){return x;}
 float Vector::get_y(){return y;}
 
 float Vector::scalar(Vector u){
-   return x * u.get_x() + y * u.get_y(); 
+   return x * u.get_x() + y * u.get_y();
 }
 
 void Vector::write_serial(){
@@ -137,7 +137,7 @@ float diff_cap(float cap1, float cap2)
 {
     // un cap est entre -Pi et Pi
     float diff = cap1 - cap2;
-    if (diff > PI) 
+    if (diff > PI)
     {
         return diff - 2 * PI;
     }

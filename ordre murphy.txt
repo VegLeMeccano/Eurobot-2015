@@ -65,4 +65,12 @@ S4 -> BF_avance
 S5 -> BF_droite
 S6 -> BF_cercle
 S7 -> set speed (0:slow, 1:medium, 2:fast)
-S8 -> reprise
+S8 -> set gain PIDs (type Kp Kv Ki) type: 1 deplacement, 0 rotation  
+S9 -> stop asserv (moteur)
+
+
+EVITEMENT (base roulante)
+------------------------------
+E0 -> Desactivation evitement
+E1 -> Activation evitement
+E2 -> Debug sonar

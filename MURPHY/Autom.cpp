@@ -78,71 +78,25 @@ void Autom::send_cmd(){
     int cmd_g = control.get_cmd_g();
     int cmd_d = control.get_cmd_d();
 
-    // bridage des commandes (cmd entre 0 et 100)
-    if(cmd_g>CMD_MAX)
-    {
-        cmd_g = CMD_MAX;
-    }
-    if(cmd_d>CMD_MAX)
-    {
-        cmd_d = CMD_MAX;
-    }
-
-    // to test
-    //cmd_g = 20;
-    //cmd_d = 20; // for testing motor signs
-    //fw_g = true;
-    //fw_d = true;
-
-    bool fw_g = control.get_fw_g();
-    bool fw_d = control.get_fw_d();
-
     int PWM_moteur_G = MOTEUR_PROPU_GAUCHE_ARRET;
     int PWM_moteur_D = MOTEUR_PROPU_DROIT_ARRET;
 
-    double delta_G = 0;
-    double delta_D = 0;
+    // incrementation des commandes en ordre
+    PWM_moteur_G += cmd_g;
+    PWM_moteur_D += cmd_d;
 
-    if(fw_g)
-    {
-        delta_G = 1.0*cmd_g/(1.0*CMD_MAX)*(MOTEUR_PROPU_GAUCHE_MAX_AVANT - MOTEUR_PROPU_GAUCHE_ARRET);
-    }
-    else
-    {
-        delta_G = 1.0*cmd_g/(1.0*CMD_MAX)*(MOTEUR_PROPU_GAUCHE_MAX_ARRIERE - MOTEUR_PROPU_GAUCHE_ARRET);
-    }
-
-    if(fw_d)
-    {
-        delta_D = 1.0*cmd_d/(1.0*CMD_MAX)*(MOTEUR_PROPU_DROIT_MAX_AVANT - MOTEUR_PROPU_DROIT_ARRET);
-    }
-    else
-    {
-        delta_D = 1.0*cmd_d/(1.0*CMD_MAX)*(MOTEUR_PROPU_DROIT_MAX_ARRIERE - MOTEUR_PROPU_DROIT_ARRET);
-    }
-
-    PWM_moteur_G += (int)delta_G;
-    PWM_moteur_D += (int)delta_D;
+    // envoi des commande aux moteurs
     moteur_droit.writeMicroseconds(PWM_moteur_D);
     moteur_gauche.writeMicroseconds(PWM_moteur_G);
-
-    //Serial.print("ordre droite : ");
-    //Serial.println(PWM_moteur_D);
-
-    //Serial.print("ordre gauche : ");
-    //Serial.println(PWM_moteur_G);
-
-
 }
 
 /** arret des moteurs
 **/
 void Autom::stop()
 {
-    //analogWrite(PIN_MOT_CMDG, 0);
-    //analogWrite(PIN_MOT_CMDD, 0);
     moteur_droit.writeMicroseconds(MOTEUR_PROPU_DROIT_ARRET);
     moteur_gauche.writeMicroseconds(MOTEUR_PROPU_GAUCHE_ARRET);
+    // mettre la fin d'asserv
 }
 
 /** affiche les commandes
@@ -162,7 +116,6 @@ void Autom::write_cmd(int cmd_g, int cmd_d, bool fw_g, bool fw_d){
 /** boucle d'asserv
 **/
 void Autom::run(){
-    /* this is where all the magic happends */
 
     // periode des coordonnes
     if (period_update_coords.is_over())

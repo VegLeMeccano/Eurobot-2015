@@ -36,7 +36,7 @@ void Sonar::turn_on(){
 }
 
 void Sonar::turn_off(){
-    on = true;
+    on = false;
 }
 
 void Sonar::write_debug(){

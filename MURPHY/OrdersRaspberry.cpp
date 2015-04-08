@@ -79,9 +79,10 @@ void OrdersRaspberry::executeinstr()
     std::string x;
     std::string y;
     std::string z;
+    std::string v;
     int r = 0;
-    int v = 0;
-    int s=0;
+    //int v = 0;
+    int s = 0;
     bool precis;
     Coord target;
     switch (ordre)
@@ -398,33 +399,47 @@ void OrdersRaspberry::executeinstr()
             break;
 
 
-        case 3: //BFCap
-            Serial.print("SET X Y CAP :");
+
+        /** BFCap
+        **/
+        case 3:
+            Serial.print("SET CAP :");
             stream >> cap;
-            target = Coord(0, 0, 3.14 * atoi(cap.c_str()) / 180.0);
+            target = Coord(0, 0, 3.1416 * atoi(cap.c_str()) / 180.0);
             Serial.print ("BFCap ");
             Serial.println(atoi(cap.c_str()));
             slave->get_control()->set_BF(BFCAP, target);
             break;
 
 
-        case 4: //BFAvance
 
+        /** BF Avance
+         x -> distance droit devant
+         v -> vitesse de consigne (0 slow, 1 medium, 2 fast)
+        **/
+        case 4:
             stream >> x >> v;
+
             Serial.println("BFAvance");
             Serial.print(" ");
             Serial.print(atoi(x.c_str()));
             Serial.print(" ");
-            Serial.println(v);
-            target = Coord(atoi(x.c_str()), 0, 0);
-            slave->get_control()->set_BF(BFFW, target);
+            Serial.print(atoi(v.c_str()));
 
-            //vit=determinerVitesse(v);
-      //      slave->set<BFAvance>(x , vit );
+            target = Coord(atoi(x.c_str()), 0, 0);
+
+            slave->get_control()->set_speed(atoi(v.c_str()));
+            slave->get_control()->set_BF(BFFW, target);
             break;
+
+
+        /** BF Droite
+         x -> distance droit devant
+         v -> vitesse de consigne (0 slow, 1 medium, 2 fast)
+        **/
         case 5: //BFDroite
 
-            stream>>x >>y >> cap>> v;
+            stream >> x >> y >> cap >> v;
 
             Serial.print ("BFDroite ");
             Serial.print(atoi(x.c_str()));
@@ -440,36 +455,35 @@ void OrdersRaspberry::executeinstr()
             //vit=determinerVitesse(v);
         //    slave->set<BFDroite>(x,y,cap ,vit,precis);
             break;
-        case 6: //BFCercle
-            stream>> x >> y >> r >> cap>> s >> v;
-            /*
-            Serial.println("BFCercle");
-            Serial.print(x);
-            Serial.print(" ");
-            Serial.print(y);
-            Serial.print(" ");
-            Serial.print(r);
-            Serial.print(" ");
-            //Serial.print(cap);
-            Serial.print(" ");
-            Serial.print(s);
-            Serial.print(" ");
-            Serial.println(v);
-            //vit=determinerVitesse(v);
-         //   slave->set<BFCercle>(x,y,r, cap ,s,  vit);
-            break;*/
 
+
+        /** BF cercle
+         x -> distance droit devant
+         v -> vitesse de consigne (0 slow, 1 medium, 2 fast)
+        **/
+        case 6: //BFCercle
+            stream >> x >> y >> r >> cap >> s >> v;
+            Serial.println("PAS FINI !!!!!");
+            break;
+
+
+
+        /** Set speed
+         v -> vitesse de consigne (0 slow, 1 medium, 2 fast)
+        **/
         case 7: //set speed
             Serial.println("Set speed");
-            stream >> x;
+            stream >> v;
             Serial.print("speed ");
-            Serial.println(atoi(x.c_str()));
-
+            Serial.println(atoi(v.c_str()));
             slave->get_control()->set_speed(atoi(x.c_str()));
-
-         //   slave->set<ARRET_ROBOT>();
             break;
-        case 8: //Reprendre
+
+
+        /** Set gain PIDs
+         x -> 0 gain dep, 1 gain cap
+        **/
+        case 8:
             Serial.println(" SET GAINS (DEBUG) ");
 
             stream>> x >> y >> z >> cap;
@@ -495,23 +509,46 @@ void OrdersRaspberry::executeinstr()
             }
             break;
 
+        /** Arret moteur
+        **/
         case 9:
-
-			//slave->get_control()->debuggDistance_d();
-            /*
-            stream>> x >> y >> cap;
-            Serial.println("setXYCap");
-            Serial.print(x);
-            Serial.print(" ");
-            Serial.print(y);
-            Serial.print(" ");
-            //Serial.print(cap);
-            Serial.println(" ");
-          //  slave->setXYCap(x, y ,cap);*/
+            slave->stop();
             break;
         }
-        return;
+
+
+
+
+    /*****************************************************
+        ordre de type evitement
+    ******************************************************/
+    case 'E' :
+
+        switch (ind)
+        {
+
+        /** desactivation evitement
+        **/
+        case 0:
+            slave->turn_off_evit();
+            break;
+
+
+        /** activation evitement
+        **/
+        case 1:
+            slave->turn_on_evit();
+            break;
+
+
+        /** debugg sonar
+        **/
+        case 2:
+            slave->get_control()->write_debug();
+            break;
+        }
     }
+    return;
 
 
 }

@@ -1,4 +1,5 @@
 #include "ControlLoop.h"
+//#include "const.h"
 
 /**
  CONSTRUCTEUR de la boucle de controle (base roulante)
@@ -10,6 +11,7 @@ ControlLoop::ControlLoop():
     asserv_state(DONE),
     cmd_d(0),
     cmd_g(0),
+    fw_g(true),
     fw_d(true),
     real_coord(),
     target_position(),
@@ -17,10 +19,7 @@ ControlLoop::ControlLoop():
     late_pos(),
     detect_on(false),
     sonarg(PIN_SONAR_GAUCHE, Coord(100., -159., 0.)),
-    sonard(PIN_SONAR_DROITE, Coord(100., 159., 0.)),
-
-
-    fw_g(true)
+    sonard(PIN_SONAR_DROITE, Coord(100., 159., 0.))
     {
         set_speed(SLOW);        // on defini la vitesse initiale comme slow
         //sonarg.turn_off();      // evitement off
@@ -78,12 +77,14 @@ void ControlLoop::set_speed(int speed)
 }
 
 
-/** recalage : on recule et on attend le blocage
+/** recalage :
+on recule et on attend le blocage
 **/
 void ControlLoop::recaler(){
     set_speed(SLOW);                        // on fait ca en vitesse lente, quand meme
     set_BF(BFFW, Coord(-1000, 0, 0));       // recule de 1m ?? wtf
 }
+
 
 /** set la BF a faire avec le point objectif
     BF : BFCAP, BFavance, BF droite, BF cercle....
@@ -121,6 +122,7 @@ void ControlLoop::set_BF(int bf_type_, Coord target_position_){
         case BFCAP:
             target_position.set_cap(target_position_.get_cap());
             pidcap.setTarget(target_position.get_cap());
+            //piddep.setTarget(0.0);
             //Serial.println(target_position.get_cap());
             break;
 
@@ -160,23 +162,22 @@ void ControlLoop::next_asserv_state(){
 /** calcul des PID pour le deplacement
 **/
 void ControlLoop::compute_pids(){
-    /* update cmd_dep ;
-     * cmd_cap */
-
+    // vecteur position
+    // depart: coord reel
+    // arrivee: target/cible
     Vector to_target;
-    //real_coord.write_serial();
     to_target = Vector(real_coord, target_position);
 
+    // les PIDs dependent des BF a faire....
     switch (bf_type){
 
         /** arret, on renvoi rien **/
         case STOP:
-            //Serial.println("coucou stop");
             cmd_cap = 0;
             cmd_dep = 0;
             break;
 
-
+/******************************************* MODIF A FAIRE....
         /** BF AVANCE **/
         case BFFW:
             //Serial.println("coucou BFFW");
@@ -208,7 +209,7 @@ void ControlLoop::compute_pids(){
             }
             break;
 
-
+/******************************************* MODIF A FAIRE....
         /** BF CAP **/
         case BFCAP:
             //Serial.println("coucou BFCAP");
@@ -216,22 +217,16 @@ void ControlLoop::compute_pids(){
             //Serial.println(real_coord.get_cap());
             //Serial.print ("  CAP  ");
             cmd_cap = pidcap.compute(real_coord.get_cap());
-            //Serial.print ("  DEP  ");
-            //cmd_dep = - piddep.compute(to_target.scalar(Vector(real_coord))); // the error is a scalar product
             cmd_dep = 0;
 
-            //Vector(real_coord).write_serial();
-            //to_target.write_serial();
             if (pidcap.check_if_over(asserv_state))
             {
                next_asserv_state();
             }
-
-            //Serial.println(cmd_cap);
             break;
 
 
-
+/******************************************* MODIF A FAIRE....
         /** BF droite **/
         case BFXYCAP:
             /* later ! */
@@ -277,15 +272,14 @@ void ControlLoop::compute_pids(){
 **/
 void ControlLoop::compute_cmds(){
     /* compute the command G and D of the motors */
-    cmd_g = (cmd_dep / 2) - (cmd_cap / 2);
-    cmd_d = (cmd_dep / 2) + (cmd_cap / 2);
+    cmd_g = (cmd_dep) - (cmd_cap);
+    cmd_d = (cmd_dep) + (cmd_cap);
 
-    fw_g = cmd_g <= 0;
-    fw_d = cmd_d <= 0;
-
-    if (cmd_g <0){ cmd_g = - cmd_g;}
-    if (cmd_d <0){ cmd_d = - cmd_d;}
-
+    // bridage des commandes
+    if (cmd_g > MIN_MAX_FAST){cmd_g = MIN_MAX_FAST;}
+    if (cmd_d > MIN_MAX_FAST){cmd_d = MIN_MAX_FAST;}
+    if (cmd_g < -MIN_MAX_FAST){cmd_g = -MIN_MAX_FAST;}
+    if (cmd_d < -MIN_MAX_FAST){cmd_d = -MIN_MAX_FAST;}
 }
 
 
