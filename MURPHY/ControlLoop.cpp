@@ -50,9 +50,9 @@ void ControlLoop::bf_avance(float d){
 /** definition des vitesses
 // a check sur PID
 **/
-#define MIN_MAX_SLOW 200
+#define MIN_MAX_SLOW 150
 #define MIN_MAX_MEDIUM 250
-#define MIN_MAX_FAST 400
+#define MIN_MAX_FAST 250
 void ControlLoop::set_speed(int speed)
 {
     switch(speed){
@@ -187,6 +187,7 @@ void ControlLoop::compute_pids(){
             //Serial.println("coucou BFFW");
             //cmd_cap = 0;
             //Serial.println(to_target.scalar(dir));
+            /*
             double Xt, Yt, Xr, Yr, erreur_deplacement;
             Xt = target_position.get_x();
             Yt = target_position.get_y();
@@ -194,13 +195,13 @@ void ControlLoop::compute_pids(){
             Yr = real_coord.get_y();
 
             erreur_deplacement = sqrt( (Xt-Xr)*(Xt-Xr) + (Yt-Yr)*(Yt-Yr) );
-
+            */
             // commande de PID sur le deplacement
-            cmd_dep = piddep.compute(erreur_deplacement);
+            //cmd_dep = piddep.compute(erreur_deplacement);
 
 
             // truc a jambou, j'ai pas confiance...
-            //cmd_dep = piddep.compute( to_target.scalar(Vector(real_coord)));
+            cmd_dep = piddep.compute( to_target.scalar(Vector(real_coord)));
             // the error is a scalar product >> UN PEU MOISI, c'est juste pour la partie angulaire
             // vaudrait mieux la norme du vecteur distance entre les deux nan?
 
@@ -310,8 +311,22 @@ void ControlLoop::compute_pids(){
 **/
 void ControlLoop::compute_cmds(){
     /* compute the command G and D of the motors */
-    cmd_g = (cmd_dep) - (cmd_cap);
-    cmd_d = (cmd_dep) + (cmd_cap);
+    /*
+    Serial.print("cmd_dep : ");
+    Serial.println(cmd_dep);
+    Serial.print("cmd_cap : ");
+    Serial.println(cmd_cap);
+    Serial.println(" ");
+    */
+    cmd_g = (cmd_dep) + (cmd_cap);
+    cmd_d = (cmd_dep) - (cmd_cap);
+
+    fw_g = cmd_g <= 0;
+    fw_d = cmd_d <= 0;
+
+    if (cmd_g <0){ cmd_g = - cmd_g;}
+    if (cmd_d <0){ cmd_d = - cmd_d;}
+
 
     // bridage des commandes
     if (cmd_g > MIN_MAX_FAST){cmd_g = MIN_MAX_FAST;}
@@ -335,6 +350,7 @@ void ControlLoop::run(Coord real_coord_){
     }
     if (bf_type != STOP)
     {
+        // pour tester a remettre apres
         check_blockage();                       // check blocage, ....
     }
   }

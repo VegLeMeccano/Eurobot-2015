@@ -44,13 +44,14 @@ MURPHY
 */
 
 //*
-#define PIN_ODO_PROPU_GAUCHE_A_INC 5 // == pin 3 (interrupt 0)
-#define PIN_ODO_PROPU_GAUCHE_B_DIR 22
+#define PIN_ODO_PROPU_GAUCHE_A_INC 5//0//5 // == pin 3 (interrupt 0)
+#define PIN_ODO_PROPU_GAUCHE_B_DIR 22//4//22
+
 #define PIN_ODO_PROPU_DROITE_A_INC 4 // == pin 2 (interrupt 1)
 #define PIN_ODO_PROPU_DROITE_B_DIR 23
 
-#define PIN_ODO_ASC_GAUCHE_A_INC 0 // == pin 18 (interrupt 5)
-#define PIN_ODO_ASC_GAUCHE_B_DIR 4
+#define PIN_ODO_ASC_GAUCHE_A_INC 0//5//0 // == pin 18 (interrupt 5)
+#define PIN_ODO_ASC_GAUCHE_B_DIR 4//22//4
 
 #define PIN_ODO_ASC_DROITE_A_INC 1 // == pin 19 (interrupt 4)
 #define PIN_ODO_ASC_DROITE_B_DIR 5

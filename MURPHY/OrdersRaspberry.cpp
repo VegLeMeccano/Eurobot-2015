@@ -428,7 +428,7 @@ void OrdersRaspberry::executeinstr()
 
             target = Coord(atoi(x.c_str()), 0, 0);
 
-            slave->get_control()->set_speed(atoi(v.c_str()));
+            //slave->get_control()->set_speed(atoi(v.c_str()));
             slave->get_control()->set_BF(BFFW, target);
             break;
 

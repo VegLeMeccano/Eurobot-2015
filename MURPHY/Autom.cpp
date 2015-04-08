@@ -1,14 +1,17 @@
 #include "Autom.h"
 #include "Const.h"
 
+#define PERIODE_PID 40
+#define PERIODE_COORD 10
+
 /**
 Autom implementation
 */
 Autom::Autom():
     real_coord(),
-    period_update_coords(10),
+    period_update_coords(PERIODE_COORD),
     control(),
-    period_pid_loop(40),
+    period_pid_loop(PERIODE_PID),
     gain_inter_odos(GAIN_ODO_inter),
     gain_odo_g(GAIN_ODO_G),
     gain_odo_d(GAIN_ODO_D),
@@ -77,17 +80,72 @@ void Autom::send_cmd(){
 
     int cmd_g = control.get_cmd_g();
     int cmd_d = control.get_cmd_d();
+    bool fw_g = control.get_fw_g();
+    bool fw_d = control.get_fw_d();
+
+    //int PWM_moteur_G = MOTEUR_PROPU_GAUCHE_ARRET;
+    //int PWM_moteur_D = MOTEUR_PROPU_DROIT_ARRET;
+
+    // incrementation des commandes en ordre
+    //PWM_moteur_G += cmd_g;
+    //PWM_moteur_D += cmd_d;
+
+    // envoi des commande aux moteurs
+    //moteur_droit.writeMicroseconds(PWM_moteur_D);
+    //moteur_gauche.writeMicroseconds(PWM_moteur_G);
+
+
+        // to test
+    //cmd_g = 20;
+    //cmd_d = 20; // for testing motor signs
+    //fw_g = true;
+    //fw_d = true;
+
+
 
     int PWM_moteur_G = MOTEUR_PROPU_GAUCHE_ARRET;
     int PWM_moteur_D = MOTEUR_PROPU_DROIT_ARRET;
 
+    double delta_G = 0;
+    double delta_D = 0;
+    /*
     // incrementation des commandes en ordre
     PWM_moteur_G += cmd_g;
     PWM_moteur_D += cmd_d;
+    */
+
+    if(fw_g)
+    {
+        delta_G = 1.0*cmd_g/(1.0*CMD_MAX)*(MOTEUR_PROPU_GAUCHE_MAX_AVANT - MOTEUR_PROPU_GAUCHE_ARRET);
+    }
+    else
+    {
+        delta_G = 1.0*cmd_g/(1.0*CMD_MAX)*(MOTEUR_PROPU_GAUCHE_MAX_ARRIERE - MOTEUR_PROPU_GAUCHE_ARRET);
+    }
+
+    if(fw_d)
+    {
+        delta_D = 1.0*cmd_d/(1.0*CMD_MAX)*(MOTEUR_PROPU_DROIT_MAX_AVANT - MOTEUR_PROPU_DROIT_ARRET);
+    }
+    else
+    {
+        delta_D = 1.0*cmd_d/(1.0*CMD_MAX)*(MOTEUR_PROPU_DROIT_MAX_ARRIERE - MOTEUR_PROPU_DROIT_ARRET);
+    }
+
+    PWM_moteur_G += (int)delta_G;
+    PWM_moteur_D += (int)delta_D;
 
     // envoi des commande aux moteurs
     moteur_droit.writeMicroseconds(PWM_moteur_D);
     moteur_gauche.writeMicroseconds(PWM_moteur_G);
+
+    //Serial.print("ordre droite : ");
+    //Serial.println(PWM_moteur_D);
+
+    //Serial.print("ordre gauche : ");
+    //Serial.println(PWM_moteur_G);
+
+
 }
 
 /** arret des moteurs

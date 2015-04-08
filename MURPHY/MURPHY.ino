@@ -58,23 +58,32 @@ void setup()
     bumper_Strat_1.reverse();
     bumper_Strat_2.reverse();
 
-    pinMode(2, INPUT);
-    pinMode(3, INPUT);
-    digitalWrite(2,HIGH);
-    digitalWrite(3,HIGH);
+    // pin ODO
+    pinMode(19, INPUT);
+    pinMode(18, INPUT);
+    digitalWrite(19,HIGH);
+    digitalWrite(18,HIGH);
+
     pinMode(PIN_ODO_PROPU_GAUCHE_B_DIR, INPUT);
     pinMode(PIN_ODO_PROPU_DROITE_B_DIR, INPUT);
-
-    pinMode(18, INPUT);
-    pinMode(19, INPUT);
-    digitalWrite(18,HIGH);
-    digitalWrite(19,HIGH);
-    pinMode(PIN_ODO_ASC_GAUCHE_B_DIR, INPUT);
-    pinMode(PIN_ODO_ASC_DROITE_B_DIR, INPUT);
+    digitalWrite(PIN_ODO_PROPU_GAUCHE_B_DIR,HIGH);
+    digitalWrite(PIN_ODO_PROPU_GAUCHE_B_DIR,HIGH);
 
     // attachement des odos de propu
     attachInterrupt(PIN_ODO_PROPU_GAUCHE_A_INC, inc_ticG, RISING);
     attachInterrupt(PIN_ODO_PROPU_DROITE_A_INC, inc_ticD, RISING);
+
+
+    pinMode(2, OUTPUT);
+    pinMode(3, OUTPUT);
+    digitalWrite(2,LOW);
+    digitalWrite(3,LOW);
+    pinMode(PIN_ODO_ASC_GAUCHE_B_DIR, OUTPUT);
+    pinMode(PIN_ODO_ASC_DROITE_B_DIR, OUTPUT);
+    digitalWrite(PIN_ODO_ASC_GAUCHE_B_DIR,LOW);
+    digitalWrite(PIN_ODO_ASC_GAUCHE_B_DIR,LOW);
+
+
 
     // attachement des odos Ascenseur
     //attachInterrupt(PIN_ODO_ASC_GAUCHE_A_INC, inc_ticG_ASC, RISING);
