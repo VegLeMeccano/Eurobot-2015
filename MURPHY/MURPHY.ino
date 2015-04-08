@@ -101,7 +101,7 @@ void setup()
     com = new OrdersRaspberry(slave,io);
     Serial.println("INIT OrdersRaspberry");
 
-    write_serial_strat();
+    //write_serial_strat();
     Serial.println("");
     Serial.println("________________________");
 

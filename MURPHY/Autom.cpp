@@ -12,7 +12,6 @@ Autom::Autom():
     gain_inter_odos(GAIN_ODO_inter),
     gain_odo_g(GAIN_ODO_G),
     gain_odo_d(GAIN_ODO_D),
-    //camera(),
     last_ticG(0),
     last_ticD(0),
     distance_g(0),
@@ -27,14 +26,16 @@ Autom::Autom():
         stop();
    }
 
-
+/** Actualisation du cap
+**/
 void Autom::update_cap(){
     /* attention ici, faudra tester la precision*/
     float cap = (ticD * gain_odo_d - ticG * gain_odo_g) * gain_inter_odos;
     real_coord.set_cap(real_coord.get_cap() + cap);
-    //Serial.println(ticG);
 }
 
+/** Actualisation des coordonnees
+**/
 void Autom::update_coords(){
     /* peut etre prendre la moyenne des caps ou autre technique d'integration? */
     update_cap();
@@ -45,8 +46,10 @@ void Autom::update_coords(){
 
     reset_tics_odos();
 
-    // distance moyennee sur les deux odos 1/2(Distance roue gauche + distance roue droite)
+    // distance moyennee parcourue
+    // sur les deux odos 1/2(Distance roue gauche + distance roue droite)
     float d = (delta_ticG * gain_odo_g + delta_ticD * gain_odo_d) * 0.5;
+    real_coord.forward_translation(d);
 
     //pour test et debug de gain
     distance_d += delta_ticD * gain_odo_d;
@@ -54,20 +57,22 @@ void Autom::update_coords(){
     tic_total_g += delta_ticG;
     tic_total_d += delta_ticD;
 
-    real_coord.forward_translation(d);
     /* maybe add a delta cond on distance to avoid noise ? */
     last_ticD = ticD;
     last_ticG = ticG;
-};
+}
 
-// remet a zero les compteurs (pour le start)
+
+/** remet a zero les compteurs (pour le start)
+**/
 void Autom::reset_tics_odos(){
     ticG = 0;
     ticD = 0;
 }
 
-#define CMD_MAX 30
-
+#define CMD_MAX 500
+/** envoi les commandes aux moteurs
+**/
 void Autom::send_cmd(){
 
     int cmd_g = control.get_cmd_g();
@@ -118,21 +123,20 @@ void Autom::send_cmd(){
 
     PWM_moteur_G += (int)delta_G;
     PWM_moteur_D += (int)delta_D;
-
-    //PWM_moteur_G = MOTEUR_PROPU_GAUCHE_ARRET + delta_G;
-    //PWM_moteur_D = MOTEUR_PROPU_DROIT_ARRET + delta_D;
-
     moteur_droit.writeMicroseconds(PWM_moteur_D);
+    moteur_gauche.writeMicroseconds(PWM_moteur_G);
+
     //Serial.print("ordre droite : ");
     //Serial.println(PWM_moteur_D);
-    moteur_gauche.writeMicroseconds(PWM_moteur_G);
+
     //Serial.print("ordre gauche : ");
     //Serial.println(PWM_moteur_G);
 
 
 }
 
-
+/** arret des moteurs
+**/
 void Autom::stop()
 {
     //analogWrite(PIN_MOT_CMDG, 0);
@@ -141,6 +145,8 @@ void Autom::stop()
     moteur_gauche.writeMicroseconds(MOTEUR_PROPU_GAUCHE_ARRET);
 }
 
+/** affiche les commandes
+**/
 void Autom::write_cmd(int cmd_g, int cmd_d, bool fw_g, bool fw_d){
     Serial.print(" cmdG  ");
     Serial.print(cmd_g);
@@ -153,16 +159,20 @@ void Autom::write_cmd(int cmd_g, int cmd_d, bool fw_g, bool fw_d){
 }
 
 
-
+/** boucle d'asserv
+**/
 void Autom::run(){
     /* this is where all the magic happends */
 
+    // periode des coordonnes
     if (period_update_coords.is_over())
     {
         period_update_coords.reset();
         update_coords();
         //real_coord.write_serial();
     }
+
+    // peridode des PIDs
     if (period_pid_loop.is_over())
     {
         period_pid_loop.reset();
@@ -181,11 +191,14 @@ void Autom::run(){
     }
 }
 
+/** renvoi la main sur l'asserv
+**/
 ControlLoop* Autom::get_control(){
     return &control;
 }
 
-
+/** ecriture de la strat?
+**/
 void write_serial_strat()
 {
    Serial.print("* START : ");
@@ -199,26 +212,32 @@ void write_serial_strat()
 
     }
 
-
+/** set X Y CAP
+**/
 void Autom::setxycap(Coord new_coord)
 {
     real_coord = new_coord;
     get_control()->setxycap(new_coord);
 }
 
-
+/** set X Y CAP
+**/
 void Autom::setxycap_no_x(int y, float cap)
 {
     real_coord = Coord(real_coord.get_x(), y, cap);
     get_control()->setxycap(real_coord);
 }
 
+/** set X Y CAP
+**/
 void Autom::setxycap_no_y(int x, float cap)
 {
     real_coord = Coord(x, real_coord.get_y(), cap);
     get_control()->setxycap(real_coord);
 }
 
+/** debugg distance reset
+**/
 void Autom::debuggDistanceInit()
 {
 	distance_g = 0;
@@ -260,9 +279,17 @@ void Autom::setTuningDep(float Kp, float Ki, float Kd )
     get_control()->setTuningDep(Kp, Ki, Kd);
 }
 
-
+/** activation de l'evitement
+**/
 void Autom::turn_on_evit()
 {
     get_control()->turn_on_evit();
+}
+
+/** desactivation de l'evitement
+**/
+void Autom::turn_off_evit()
+{
+    get_control()->turn_off_evit();
 }
 

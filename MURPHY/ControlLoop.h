@@ -20,15 +20,15 @@
 #define FAST 2
 
 // gain PID deplacement
-#define GAIN_KP_DEP 0.25
+#define GAIN_KP_DEP 5
 #define GAIN_KI_DEP 0.00
 #define GAIN_KD_DEP 0.00
 // norme sur les etats de transistion proche  et fini
 #define NEAR_ERROR_DEP 70.0
-#define DONE_ERROR_DEP  30.0
+#define DONE_ERROR_DEP  20.0
 
 // gain PID cap (rotation)
-#define GAIN_KP_CAP 1  //Ku = 260
+#define GAIN_KP_CAP 30  //Ku = 260
 #define GAIN_KI_CAP 0 //52.0 //70.0
 #define GAIN_KD_CAP 0 //18.0 //40.0
 
@@ -88,6 +88,7 @@ class ControlLoop
         void setTuningCap(float Kp, float Ki, float Kd );
         void setTuningDep(float Kp, float Ki, float Kd );
         void turn_on_evit();
+        void turn_off_evit();
 
 };
 

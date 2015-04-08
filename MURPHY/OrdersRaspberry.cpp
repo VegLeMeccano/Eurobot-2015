@@ -401,16 +401,13 @@ void OrdersRaspberry::executeinstr()
         case 3: //BFCap
             Serial.print("SET X Y CAP :");
             stream >> cap;
-            /*if(!(stream >>cap>> precis))
-            {
-                Serial.print ("err ");
-            }*/
             target = Coord(0, 0, 3.14 * atoi(cap.c_str()) / 180.0);
             Serial.print ("BFCap ");
             Serial.println(atoi(cap.c_str()));
             slave->get_control()->set_BF(BFCAP, target);
-         //   slave->set<BFCap>(cap,precis);
             break;
+
+
         case 4: //BFAvance
 
             stream >> x >> v;
