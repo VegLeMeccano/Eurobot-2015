@@ -113,18 +113,23 @@ void OrdersRaspberry::executeinstr()
         switch (ind)
         {
         case 0:
+            Serial.print("chenille secondaire : OFF");
             io->get_ChenilleSecondaire()->OFF();
             break;
         case 1:
+            Serial.print("chenille secondaire : ON");
             io->get_ChenilleSecondaire()->ON();
             break;
         case 2:
+            Serial.print("chenille secondaire : rangee");
             io->get_ChenilleSecondaire()->position_rangee();
             break;
         case 3:
+            Serial.print("chenille secondaire : mi hauteur");
             io->get_ChenilleSecondaire()->position_miHauteur();
             break;
         case 4:
+            Serial.print("chenille secondaire : sol");
             io->get_ChenilleSecondaire()->position_auSol();
             break;
        }
@@ -164,12 +169,17 @@ break;
         switch (ind)
         {
         case 0:
+            Serial.print("recalage face");
             io->get_ChenillePrincipale()->recalage_face();
             break;
         case 1:
+            Serial.print("recalage gauche");
+            // renvoyer (# AssFINI) par le port serie
             io->get_ChenillePrincipale()->recalage_gauche();
             break;
         case 2:
+            Serial.print("recalage droite");
+            // renvoyer (# AssFINI) par le port serie
             io->get_ChenillePrincipale()->recalage_droite();
             break;
        }
@@ -184,9 +194,11 @@ break;
         {
         case 0:
             Serial.print("SET temps :");
+            // faire en sorte que l'on s'arrrete en rotation lateral sur des demi tour de roue
             stream >> temps;
             Serial.println(atoi(temps.c_str()));
             io->get_ChenillePrincipale()->decalage_avant(atoi(temps.c_str()));
+            // renvoye ennemi detectee
             break;
         case 1:
             Serial.print("SET temps :");
@@ -211,9 +223,29 @@ break;
         switch (ind)
         {
         case 0:
-
+            Serial.print("Debug IMU");
+            // renvoye les angles
+            // + accelerations?
             break;
         case 1:
+            Serial.print("Debug Bumper");
+           break;
+        case 2:
+            Serial.print("Debug IR");
+            break;
+       }
+    break;
+
+
+        // EVITEMENT
+	case 'E' :
+        switch (ind)
+        {
+        case 0:
+            Serial.print("Desactivation de l'evitement");
+            break;
+        case 1:
+            Serial.print("Activation de l'evitement");
 
            break;
         case 2:

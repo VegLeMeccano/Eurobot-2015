@@ -188,11 +188,16 @@ void OrdersRaspberry::executeinstr()
 			case 0:
 				Serial.print("aspiration des balles : ON");
 				io->get_Aspiration()->on();
+				io->get_Claps_droite()->ouverture();        // upgrade pour tube telescopique
+				io->get_Claps_gauche()->ouverture();
+				// mettre un timer pour la pompe, histoire de securise si jamais on recoit pas d'ordre
 				break;
 
 			case 1:
 				Serial.print("aspiration des balles : OFF");
 				io->get_Aspiration()->off();
+				io->get_Claps_droite()->fermeture();
+				io->get_Claps_gauche()->fermeture();
 			break;
 
             case 2:
