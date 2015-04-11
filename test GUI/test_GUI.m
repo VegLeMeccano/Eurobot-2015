@@ -151,7 +151,7 @@ function reset_Callback(hObject, eventdata, handles)
 % hObject    handle to reset (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-fprintf(s,'S2')
+fprintf(handles.fileID,'S2\n')
 
 %initialize_gui(gcbf, handles, true);
 
@@ -249,11 +249,11 @@ KP_CAP = getappdata(0,'KP_CAP')
 KD_CAP = getappdata(0,'KD_CAP')
 KI_CAP = getappdata(0,'KI_CAP')
 espace = 32
-message = strcat('S8 0 ',espace,KP_CAP,espace,KD_CAP,espace,KI_CAP)
-fprintf(s,message)
-while s.BytesAvailable>0
-    data = fscanf(s)
-end
+message = strcat('S8 0 ',espace,KP_CAP,espace,KD_CAP,espace,KI_CAP,'\n')
+fprintf(handles.fileID,message)
+% while s.BytesAvailable>0
+%     data = fscanf(s)
+% end
 
 
 
@@ -362,7 +362,7 @@ function pushbutton19_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton19 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-fprintf(s,'P3')
+fprintf(handles.fileID,'P3\n')
 
 
 % --- Executes on button press in pushbutton18.
@@ -370,7 +370,7 @@ function pushbutton18_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton18 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-fprintf(s,'P2')
+fprintf(handles.fileID,'P2\n')
 
 
 % --- Executes on button press in pushbutton15.
@@ -378,7 +378,11 @@ function pushbutton15_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton15 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-fprintf(s,'P0')
+fprintf(handles.fileID,'P0\n')
+while handles.fileID.BytesAvailable>0
+      data = fscanf(handles.fileID)
+      pause(0.1)
+end
 
 
 % --- Executes on button press in pushbutton14.
@@ -386,7 +390,11 @@ function pushbutton14_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton14 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-fprintf(s,'P1')
+fprintf(handles.fileID,'P1\n')
+while handles.fileID.BytesAvailable>0
+      data = fscanf(handles.fileID)
+      pause(0.1)
+end
 
 
 % --- Executes on button press in pushbutton25.
@@ -394,7 +402,7 @@ function pushbutton25_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton25 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-fprintf(s,'C1')
+fprintf(handles.fileID,'C1\n')
 
 
 % --- Executes on button press in pushbutton24.
@@ -402,7 +410,7 @@ function pushbutton24_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton24 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-fprintf(s,'C0')
+fprintf(handles.fileID,'C0\n')
 
 
 % --- Executes on button press in pushbutton22.
@@ -410,7 +418,7 @@ function pushbutton22_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton22 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-fprintf(s,'C2')
+fprintf(handles.fileID,'C2\n')
 
 
 % --- Executes on button press in pushbutton23.
@@ -418,7 +426,7 @@ function pushbutton23_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton23 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-fprintf(s,'C3')
+fprintf(handles.fileID,'C3\n')
 
 
 % --- Executes on button press in pushbutton47.
@@ -426,14 +434,14 @@ function pushbutton47_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton47 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-fprintf(s,'D0')
+fprintf(handles.fileID,'D0\n')
 
 % --- Executes on button press in pushbutton48.
 function pushbutton48_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton48 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-fprintf(s,'D4')
+fprintf(handles.fileID,'D4\n')
 
 
 % --- Executes on button press in pushbutton49.
@@ -441,35 +449,35 @@ function pushbutton49_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton49 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-fprintf(s,'D2')
+fprintf(handles.fileID,'D2\n')
 
 % --- Executes on button press in pushbutton50.
 function pushbutton50_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton50 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-fprintf(s,'D1')
+fprintf(handles.fileID,'D1\n')
 
 % --- Executes on button press in pushbutton51.
 function pushbutton51_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton51 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-fprintf(s,'D5')
+fprintf(handles.fileID,'D5\n')
 
 % --- Executes on button press in pushbutton52.
 function pushbutton52_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton52 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-fprintf(s,'D6')
+fprintf(handles.fileID,'D6\n')
 
 % --- Executes on button press in pushbutton46.
 function pushbutton46_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton46 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-fprintf(s,'G6')
+fprintf(handles.fileID,'G6\n')
 
 
 % --- Executes on button press in pushbutton45.
@@ -477,7 +485,7 @@ function pushbutton45_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton45 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-fprintf(s,'G5')
+fprintf(handles.fileID,'G5\n')
 
 
 % --- Executes on button press in pushbutton44.
@@ -485,7 +493,7 @@ function pushbutton44_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton44 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-fprintf(s,'G1')
+fprintf(handles.fileID,'G1\n')
 
 
 % --- Executes on button press in pushbutton43.
@@ -493,7 +501,7 @@ function pushbutton43_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton43 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-fprintf(s,'G2')
+fprintf(handles.fileID,'G2\n')
 
 
 % --- Executes on button press in pushbutton32.
@@ -501,7 +509,7 @@ function pushbutton32_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton32 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-fprintf(s,'G4')
+fprintf(handles.fileID,'G4\n')
 
 
 % --- Executes on button press in pushbutton31.
@@ -509,7 +517,7 @@ function pushbutton31_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton31 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-fprintf(s,'G0')
+fprintf(handles.fileID,'G0\n')
 
 
 % --- Executes on button press in Connection.
@@ -518,22 +526,31 @@ function Connection_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 %global s
-persistent s
-s = fopen('exp.txt','w')
 
 
-% portCOM = get(handles.edit_portCOM,'String')
-% setappdata(0,'portCOM',portCOM) 
-% portCOM = getappdata(0,'portCOM') 
-% delete(instrfind) 
+
+portCOM = get(handles.edit_portCOM,'String')
+setappdata(0,'portCOM',portCOM) 
+portCOM = getappdata(0,'portCOM') 
+delete(instrfind) 
 % s = serial(portCOM)
 % set(s,'BaudRate',9600)
 % fopen(s)
 % disp('Connection')
-% pause(5)
-% while s.BytesAvailable>0
-%     data = fscanf(s)
-% end
+
+%fileName = 'exp.txt';
+%fileID  = fopen(fileName,'w')
+fileID = serial(portCOM)
+set(fileID,'BaudRate',9600)
+handles.fileID = fileID;
+fopen(fileID)
+
+pause(3)
+while handles.fileID.BytesAvailable>0
+      data = fscanf(handles.fileID)
+      %pause(0.01)
+end
+guidata(hObject, handles);
 
 
 
@@ -567,7 +584,11 @@ function pushbutton42_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton42 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-fprintf(s,'B2')
+fprintf(handles.fileID,'B2\n')
+while handles.fileID.BytesAvailable>0
+      data = fscanf(handles.fileID)
+      %pause(0.01)
+end
 
 
 % --- Executes on button press in pushbutton41.
@@ -575,7 +596,11 @@ function pushbutton41_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton41 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-fprintf(s,'B3')
+fprintf(handles.fileID,'B3\n')
+while handles.fileID.BytesAvailable>0
+      data = fscanf(handles.fileID)
+      %pause(0.01)
+end
 
 
 % --- Executes on button press in pushbutton39.
@@ -583,7 +608,11 @@ function pushbutton39_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton39 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-fprintf(s,'B1')
+fprintf(handles.fileID,'B1\n')
+while handles.fileID.BytesAvailable>0
+      data = fscanf(handles.fileID)
+      %pause(0.01)
+end
 
 
 % --- Executes on button press in pushbutton40.
@@ -591,7 +620,11 @@ function pushbutton40_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton40 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-fprintf(s,'B0')
+fprintf(handles.fileID,'B0\n')
+while handles.fileID.BytesAvailable>0
+      data = fscanf(handles.fileID)
+      %pause(0.01)
+end
 
 
 % --- Executes on button press in pushbutton53.
@@ -703,21 +736,33 @@ function pushbutton59_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton59 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-fprintf(s,'E1')
+fprintf(handles.fileID,'E1\n')
+while handles.fileID.BytesAvailable>0
+      data = fscanf(handles.fileID)
+      %pause(0.01)
+end
 
 % --- Executes on button press in pushbutton58.
 function pushbutton58_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton58 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-fprintf(s,'E0')
+fprintf(handles.fileID,'E0\n')
+while handles.fileID.BytesAvailable>0
+      data = fscanf(handles.fileID)
+      %pause(0.01)
+end
 
 % --- Executes on button press in pushbutton62.
 function pushbutton62_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton62 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-fprintf(s,'E2')
+fprintf(handles.fileID,'E2\n')
+while handles.fileID.BytesAvailable>0
+      data = fscanf(handles.fileID)
+      %pause(0.01)
+end
 
 
 % --- Executes on button press in pushbutton64.
@@ -725,7 +770,11 @@ function pushbutton64_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton64 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-fprintf(s,'I1')
+fprintf(handles.fileID,'I1\n')
+while handles.fileID.BytesAvailable>0
+      data = fscanf(handles.fileID)
+      %pause(0.01)
+end
 
 
 % --- Executes on button press in pushbutton63.
@@ -733,7 +782,11 @@ function pushbutton63_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton63 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-fprintf(s,'I0')
+fprintf(handles.fileID,'I0\n')
+while handles.fileID.BytesAvailable>0
+      data = fscanf(handles.fileID)
+      %pause(0.01)
+end
 
 
 % --- Executes on button press in pushbutton66.
@@ -741,7 +794,11 @@ function pushbutton66_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton66 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-fprintf(s,'S1')
+fprintf(handles.fileID,'S1\n')
+while handles.fileID.BytesAvailable>0
+      data = fscanf(handles.fileID)
+      %pause(0.01)
+end
 
 % --- Executes on button press in pushbutton67.
 function pushbutton67_Callback(hObject, eventdata, handles)
@@ -755,21 +812,33 @@ function pushbutton70_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton70 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-fprintf(s,'S6 2')
+fprintf(handles.fileID,'S6 2\n')
+while handles.fileID.BytesAvailable>0
+      data = fscanf(handles.fileID)
+      %pause(0.01)
+end
 
 % --- Executes on button press in pushbutton71.
 function pushbutton71_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton71 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-fprintf(s,'S6 1')
+fprintf(handles.fileID,'S6 1\n')
+while handles.fileID.BytesAvailable>0
+      data = fscanf(handles.fileID)
+      %pause(0.01)
+end
 
 % --- Executes on button press in pushbutton73.
 function pushbutton73_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton73 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-fprintf(s,'S6 0')
+fprintf(handles.fileID,'S6 0\n')
+while handles.fileID.BytesAvailable>0
+      data = fscanf(handles.fileID)
+      %pause(0.01)
+end
 
 
 % --- Executes on button press in pushbutton74.
@@ -777,7 +846,11 @@ function pushbutton74_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton74 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-fprintf(s,'S7 2')
+fprintf(handles.fileID,'S7 2\n')
+while handles.fileID.BytesAvailable>0
+      data = fscanf(handles.fileID)
+      %pause(0.01)
+end
 
 
 % --- Executes on button press in pushbutton75.
@@ -785,7 +858,11 @@ function pushbutton75_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton75 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-fprintf(s,'S7 1')
+fprintf(handles.fileID,'S7 1\n')
+while handles.fileID.BytesAvailable>0
+      data = fscanf(handles.fileID)
+      %pause(0.01)
+end
 
 
 % --- Executes on button press in pushbutton76.
@@ -793,7 +870,11 @@ function pushbutton76_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton76 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-fprintf(s,'S7 0')
+fprintf(handles.fileID,'S7 0\n')
+while handles.fileID.BytesAvailable>0
+      data = fscanf(handles.fileID)
+      %pause(0.01)
+end
 
 
 
@@ -886,10 +967,14 @@ KP_DEP = getappdata(0,'KP_DEP')
 KD_DEP = getappdata(0,'KD_DEP')
 KI_DEP = getappdata(0,'KI_DEP')
 espace = 32
-message = strcat('S8 1 ',espace,KP_DEP,espace,KD_DEP,espace,KI_DEP)
-fprintf(s,message)
-while s.BytesAvailable>0
-    data = fscanf(s)
+message = strcat('S8 1 ',espace,KP_DEP,espace,KD_DEP,espace,KI_DEP,'\n')
+fprintf(handles.fileID,message)
+% while s.BytesAvailable>0
+%     data = fscanf(s)
+% end
+while handles.fileID.BytesAvailable>0
+      data = fscanf(handles.fileID)
+      %pause(0.01)
 end
 
 
@@ -983,8 +1068,12 @@ SETXYCAP_X = getappdata(0,'SETXYCAP_X')
 SETXYCAP_Y = getappdata(0,'SETXYCAP_Y')
 SETXYCAP_CAP = getappdata(0,'SETXYCAP_CAP')
 espace = 32
-message = strcat('S0 ',espace,SETXYCAP_X,espace,SETXYCAP_Y,espace,SETXYCAP_CAP)
-fprintf(s,message)
+message = strcat('S0 ',espace,SETXYCAP_X,espace,SETXYCAP_Y,espace,SETXYCAP_CAP,'\n')
+fprintf(handles.fileID,message)
+while handles.fileID.BytesAvailable>0
+      data = fscanf(handles.fileID)
+      %pause(0.01)
+end
 
 
 
@@ -993,7 +1082,11 @@ function pushbutton82_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton82 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-fprintf(s,'S1')
+fprintf(handles.fileID,'S1\n')
+while handles.fileID.BytesAvailable>0
+      data = fscanf(handles.fileID)
+      %pause(0.01)
+end
 
 
 
@@ -1157,7 +1250,11 @@ BFDROITE_Y = getappdata(0,'BFDROITE_Y')
 BFDROITE_CAP = getappdata(0,'BFDROITE_CAP')
 espace = 32
 message = strcat('S5 ',espace,BFDROITE_X,espace,BFDROITE_Y,espace,BFDROITE_CAP)
-fprintf(s,message)
+fprintf(handles.fileID,message)
+while handles.fileID.BytesAvailable>0
+      data = fscanf(handles.fileID)
+      %pause(0.01)
+end
 
 
 % --- Executes on button press in pushbutton85.
@@ -1165,7 +1262,11 @@ function pushbutton85_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton85 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-fprintf(s,'S2')
+fprintf(handles.fileID,'S2\n')
+while handles.fileID.BytesAvailable>0
+      data = fscanf(handles.fileID)
+      %pause(0.01)
+end
 
 
 
@@ -1203,8 +1304,11 @@ setappdata(0,'BFAVANCE_D',BFAVANCE_D)
 BFAVANCE_D = getappdata(0,'BFAVANCE_D')
 espace = 32
 message = strcat('S4 ',espace,BFAVANCE_D)
-fprintf(s,message)
-fprintf(s,'S4 0')
+fprintf(handles.fileID,message)
+while handles.fileID.BytesAvailable>0
+      data = fscanf(handles.fileID)
+      %pause(0.01)
+end
 
 
 % --- Executes on button press in pushbutton83.
@@ -1217,7 +1321,11 @@ setappdata(0,'BFCAP_CAP',BFCAP_CAP)
 BFCAP_CAP = getappdata(0,'BFCAP_CAP')
 espace = 32
 message = strcat('S3 ',espace,BFCAP_CAP)
-fprintf(s,message)
+fprintf(handles.fileID,message)
+while handles.fileID.BytesAvailable>0
+      data = fscanf(handles.fileID)
+      %pause(0.01)
+end
 
 
 function edit_BFCAP_CAP_Callback(hObject, eventdata, handles)
@@ -1249,4 +1357,5 @@ function pushbutton99_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton99 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-fclose(s)
+
+fclose(handles.fileID)
