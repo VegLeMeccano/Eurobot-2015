@@ -41,7 +41,7 @@ IO* io;
 OrdersRaspberry* com;
 
 // pour test uniquement
-MPU6050 accelgyro;
+//MPU6050 accelgyro;
 
 
 
@@ -57,9 +57,7 @@ int led_on;
 long timer;
 long TEMPS_PARTIE = 10000; //en ms mettre 90
 
-int16_t ax, ay, az;
-int16_t gx, gy, gz;
-int16_t Rx, Ry, Rz;
+
 
 
 
@@ -91,25 +89,6 @@ void setup()
     com = new OrdersRaspberry(io);
     Serial.println("INIT OrdersRaspberry");
 
-	// initialisation gyro
-	accelgyro.initialize();
-	// verify connection
-    Serial.println("Testing connection gyro...");
-    Serial.println(accelgyro.testConnection() ? "MPU6050 connection successful" : "MPU6050 connection failed");
-
-
-    //Serial.println("Updating internal sensor offsets...");
-    // -76	-2359	1688	0	0	0
-    Serial.print(accelgyro.getXAccelOffset()); Serial.print("\t"); // -76
-    Serial.print(accelgyro.getYAccelOffset()); Serial.print("\t"); // -2359
-    Serial.print(accelgyro.getZAccelOffset()); Serial.print("\t"); // 1688
-    Serial.print(accelgyro.getXGyroOffset()); Serial.print("\t"); // 0
-    Serial.print(accelgyro.getYGyroOffset()); Serial.print("\t"); // 0
-    Serial.print(accelgyro.getZGyroOffset()); Serial.print("\t"); // 0
-    Serial.print("\n");
-    //accelgyro.setXGyroOffset(220);
-    //accelgyro.setYGyroOffset(76);
-    //accelgyro.setZGyroOffset(-85);
 
     state = ALLUMAGE;
     //state = GAME;

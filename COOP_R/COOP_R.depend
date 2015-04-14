@@ -2011,7 +2011,7 @@
 
 1401412600 c:\program files\codeblocks\include\pnew.cpp
 
-1428982341 source:c:\eurobot-2015\coop_r\coop_r.ino
+1429021072 source:c:\eurobot-2015\coop_r\coop_r.ino
 	<Arduino.h>
 	<Servo.h>
 	"IO.h"
@@ -2024,7 +2024,7 @@
 	"MPU6050.h"
 	"Wire.h"
 
-1428983129 c:\eurobot-2015\coop_r\io.h
+1429027458 c:\eurobot-2015\coop_r\io.h
 	"Const.h"
 	"pins.h"
 	<Arduino.h>
@@ -2033,10 +2033,12 @@
 	"./Utils/SwitchAnalog.h"
 	<Servo.h>
 	"NewPing.h"
+	"I2Cdev.h"
+	"MPU6050.h"
 
-1426876920 c:\eurobot-2015\coop_r\const.h
+1429025852 c:\eurobot-2015\coop_r\const.h
 
-1428979736 c:\eurobot-2015\coop_r\pins.h
+1429025260 c:\eurobot-2015\coop_r\pins.h
 
 1426763107 c:\eurobot-2015\coop_r\utils\period.h
 	"Arduino.h"
@@ -2053,7 +2055,7 @@
 	<iostream>
 	<sstream>
 
-1428717984 source:c:\eurobot-2015\coop_r\ordersraspberry.cpp
+1429026147 source:c:\eurobot-2015\coop_r\ordersraspberry.cpp
 	"OrdersRaspberry.h"
 
 1401412600 source:c:\eurobot-2015\coop_r\utils\coord.cpp
@@ -2096,7 +2098,7 @@
 1426005514 source:c:\eurobot-2015\coop_r\utils\switchanalog.cpp
 	"SwitchAnalog.h"
 
-1428982242 source:c:\eurobot-2015\coop_r\io.cpp
+1429026825 source:c:\eurobot-2015\coop_r\io.cpp
 	"IO.h"
 	<string.h>
 

@@ -9,6 +9,8 @@
 #include "./Utils/SwitchAnalog.h"
 #include <Servo.h>
 #include "NewPing.h"
+#include "I2Cdev.h"
+#include "MPU6050.h"
 
 // IMU
 // http://www.seeedstudio.com/wiki/Xadow_-_IMU_6DOF
@@ -40,14 +42,14 @@ class ChenilleSecondaire
 *****************************************************/
 // base roulante, slave bis
 #define LONGI_GAUCHE_STOP 1500
-#define LONGI_GAUCHE_AVANCE 1500
-#define LONGI_GAUCHE_RECULE 1500
+#define LONGI_GAUCHE_AVANCE 1700
+#define LONGI_GAUCHE_RECULE 1300
 #define LONGI_DROITE_STOP 1500
-#define LONGI_DROITE_AVANCE 1500
-#define LONGI_DROITE_RECULE 1500
+#define LONGI_DROITE_AVANCE 1700
+#define LONGI_DROITE_RECULE 1300
 #define LATERAL_STOP 1500
-#define LATERAL_GAUCHE 1500
-#define LATERAL_DROITE 1500
+#define LATERAL_GAUCHE 1000
+#define LATERAL_DROITE 2000
 
 class ChenillePrincipale
 {
@@ -284,6 +286,36 @@ class Sonar
         void afficheADV();
 };
 
+#define PERIODE_CENTRALE 50         // temps d'echantillonage (dt)
+#define RAD_TO_DEG_CONV 57.3        // radians to degree conversion
+#define FILTER_GAIN 1//0.95            // gain angle = angle_gyro*Filter_gain + angle_accel*(1-Filter_gain)
+#define CONSTANTE_G 9.81
+/****************************************************
+   Centrale inertielle
+*****************************************************/
+class Centrale_Inertielle
+{
+    private:
+        Period period_centrale;
+        MPU6050 accelgyro;
+        float angle_x_gyro, angle_y_gyro, angle_z_gyro;
+        float angle_x_accel, angle_y_accel, angle_z_accel;
+        float angle_x, angle_y, angle_z;
+        int16_t ax, ay, az;     // acceleration
+        int16_t gx, gy, gz;     // gyration
+        int16_t ax_OC, ay_OC, az_OC;     // acceleration
+        int16_t gx_OC, gy_OC, gz_OC;     // gyration
+        float dt;
+
+    public:
+        Centrale_Inertielle();
+        void run();
+        float angle_x_out();
+        float angle_y_out();
+        float angle_z_out();
+        void affiche();
+};
+
 
 /****************************************************
    IO
@@ -295,6 +327,7 @@ class IO
         ChenilleSecondaire chenilleSecondaire;
         ChenillePrincipale chenillePrincipale;
         Sonar sonar;
+        //Centrale_Inertielle centrale;
 
     public:
         IO();

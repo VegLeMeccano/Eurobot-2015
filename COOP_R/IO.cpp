@@ -55,55 +55,81 @@ ChenillePrincipale::ChenillePrincipale():
     period_run(50),
     period_asserv(100)
 {
+    bumper_av_g.reverse();
+    bumper_av_d.reverse();
+    bumper_g_av.reverse();
+    bumper_g_ar.reverse();
+    bumper_d_av.reverse();
+    bumper_d_ar.reverse();
     chenille_laterale.attach(PIN_PWM_MOTEUR_CHENILLE_LATERALE);
     chenille_gauche.attach(PIN_PWM_MOTEUR_CHENILLE_G);
     chenille_droite.attach(PIN_PWM_MOTEUR_CHENILLE_D);
     arret();
 }
 
-
+/** deplacement longitudinale, chenille gauche arret moteur
+*/
 void ChenillePrincipale::longi_gauche_stop()
 {
     chenille_gauche.writeMicroseconds(LONGI_GAUCHE_STOP);
 }
 
+/** deplacement longitudinale, chenille gauche avance
+*/
 void ChenillePrincipale::longi_gauche_avance()
 {
     chenille_gauche.writeMicroseconds(LONGI_GAUCHE_AVANCE);
 }
 
+/** deplacement longitudinale, chenille gauche recule
+*/
 void ChenillePrincipale::longi_gauche_recule()
 {
     chenille_gauche.writeMicroseconds(LONGI_GAUCHE_RECULE);
 }
 
+
+/** deplacement longitudinale, chenille droite arret moteur
+*/
 void ChenillePrincipale::longi_droite_stop()
 {
     chenille_droite.writeMicroseconds(LONGI_DROITE_STOP);
 }
+
+/** deplacement longitudinale, chenille droite avance
+*/
 void ChenillePrincipale::longi_droite_avance()
 {
     chenille_droite.writeMicroseconds(LONGI_DROITE_AVANCE);
 }
 
+/** deplacement longitudinale, chenille droite recule
+*/
 void ChenillePrincipale::longi_droite_recule()
 {
     chenille_droite.writeMicroseconds(LONGI_DROITE_RECULE);
 }
 
+
+/** deplacement laterale gauche
+*/
 void ChenillePrincipale::lateral_gauche()
 {
-    chenille_laterale.writeMicroseconds(LATERAL_GAUCHE);
+    chenille_laterale.writeMicroseconds(CHENILLE_LATERALE_DEPLACEMENT_GAUCHE);
 }
 
+/** deplacement laterale droite
+*/
 void ChenillePrincipale::lateral_droite()
 {
-    chenille_laterale.writeMicroseconds(LATERAL_DROITE);
+    chenille_laterale.writeMicroseconds(CHENILLE_LATERALE_DEPLACEMENT_DROITE);
 }
 
+/** deplacement laterale arrret moteur
+*/
 void ChenillePrincipale::lateral_stop()
 {
-    chenille_laterale.writeMicroseconds(LATERAL_STOP);
+    chenille_laterale.writeMicroseconds(CHENILLE_LATERALE_ARRET);
 }
 
 // arrete toutes les chaines sans scrupules
@@ -114,12 +140,22 @@ void ChenillePrincipale::arret(){
 }
 
 
+
+
+/** boucle de control
+*/
 void ChenillePrincipale::run(){
     if (period_run.is_over())
     {
         period_run.reset();
 
         // mettre action specifique asserv
+
+        // mettre les triggers
+
+
+        // bumper et tout
+
     }
 }
 
@@ -127,26 +163,31 @@ void ChenillePrincipale::run(){
 void ChenillePrincipale::recalage_gauche(){
     // tant qu'on a pas bumper a gauche on continu
     // a mettre dans une boucle d'asserv ?
-
+/*
     if(bumper_g_ar.is_on() && bumper_g_av.is_on()){
         lateral_stop();
     }
     else{
         lateral_gauche();
     }
+    */
+    lateral_gauche();
 }
 
 //va bumper a gauche et s'arrete
 void ChenillePrincipale::recalage_droite(){
     // tant qu'on a pas bumper a gauche on continu
     // a mettre dans une boucle d'asserv ?
-
+/*
     if(bumper_d_ar.is_on() && bumper_d_av.is_on()){
         lateral_stop();
     }
     else{
         lateral_droite();
     }
+
+    */
+    lateral_droite();
 }
 
 // va bumper en face et s'arrete
@@ -745,6 +786,147 @@ bool Sonar::adv_face()
     }
 }
 
+/****************************************************
+   Centrale inertielle
+*****************************************************/
+Centrale_Inertielle::Centrale_Inertielle():
+    period_centrale(PERIODE_CENTRALE),
+    angle_x_gyro(0), angle_y_gyro(0), angle_z_gyro(0),
+    angle_x_accel(0), angle_y_accel(0), angle_z_accel(0),
+    angle_x(0), angle_y(0), angle_z(0),
+    ax(0), ay(0), az(0),
+    gx(0), gy(0), gz(0),
+    dt(PERIODE_CENTRALE)
+{
+
+    // initialisation gyro
+    accelgyro.initialize();
+    // verify connection
+    Serial.println("Testing connection gyro...");
+    Serial.println(accelgyro.testConnection() ? "MPU6050 connection successful" : "MPU6050 connection failed");
+
+        accelgyro.getMotion6(&ax, &ay, &az, &gx, &gy, &gz);
+        Serial.print("g:\t");
+        Serial.print(gx); Serial.print("\t");
+        Serial.print(gy); Serial.print("\t");
+        Serial.print(gz); Serial.print("\t");
+        Serial.println();
+        Serial.print("a:\t");
+        Serial.print(ax); Serial.print("\t");
+        Serial.print(ay); Serial.print("\t");
+        Serial.print(az); Serial.print("\t");
+        Serial.println();
+
+
+
+        //Serial.println("Updating internal sensor offsets...");
+    // -76	-2359	1688	0	0	0
+    Serial.print(accelgyro.getXAccelOffset()); Serial.print("\t"); // -76
+    Serial.print(accelgyro.getYAccelOffset()); Serial.print("\t"); // -2359
+    Serial.print(accelgyro.getZAccelOffset()); Serial.print("\t"); // 1688
+    Serial.print(accelgyro.getXGyroOffset()); Serial.print("\t"); // 0
+    Serial.print(accelgyro.getYGyroOffset()); Serial.print("\t"); // 0
+    Serial.print(accelgyro.getZGyroOffset()); Serial.print("\t"); // 0
+    Serial.print("\n");
+    // premiere mesure
+    //accelgyro.reset();
+    //accelgyro.setDLPFMode(0);
+    //accelgyro.setFullScaleAccelRange(0);
+    delay(100);
+
+    // offset, et calibration
+    accelgyro.getMotion6(&ax_OC, &ay_OC, &az_OC, &gx_OC, &gy_OC, &gz_OC);
+   // accelgyro.setXGyroOffset(gx_OC);
+    //accelgyro.setYGyroOffset(gy_OC);
+    //accelgyro.setZGyroOffset(gz_OC);
+    //accelgyro.setXAccelOffset(ax_OC);
+    //accelgyro.setYAccelOffset(ay_OC);
+    //accelgyro.setZAccelOffset(az_OC);
+    delay(100);
+    // mettre un 1g qq part
+
+    accelgyro.getMotion6(&ax, &ay, &az, &gx, &gy, &gz);
+        Serial.print("g:\t");
+        Serial.print(gx); Serial.print("\t");
+        Serial.print(gy); Serial.print("\t");
+        Serial.print(gz); Serial.print("\t");
+        Serial.println();
+        Serial.print("a:\t");
+        Serial.print(ax); Serial.print("\t");
+        Serial.print(ay); Serial.print("\t");
+        Serial.print(az); Serial.print("\t");
+        Serial.println();
+}
+
+
+void Centrale_Inertielle::run()
+{
+     if (period_centrale.is_over())
+    {
+        period_centrale.reset();
+
+        /** Lecture des mesures */
+        accelgyro.getMotion6(&ax, &ay, &az, &gx, &gy, &gz);
+        Serial.print("g:\t");
+        Serial.print(gx); Serial.print("\t");
+        Serial.print(gy); Serial.print("\t");
+        Serial.print(gz); Serial.print("\t");
+        Serial.print("a:\t");
+        Serial.print(ax); Serial.print("\t");
+        Serial.print(ay); Serial.print("\t");
+        Serial.print(az); Serial.print("\t");
+        Serial.println();
+        Serial.println();
+
+        /** Calcul des angles */
+        // derive du gyro
+        angle_x_gyro = gx*dt/1000 + angle_x_gyro;
+        angle_y_gyro = gy*dt/1000 + angle_y_gyro;
+        angle_z_gyro = gz*dt/1000 + angle_z_gyro;
+
+        angle_z_accel = atan(az/sqrt(ay*ay + ax*ax))*(float)RAD_TO_DEG_CONV;
+        angle_y_accel = -atan(ax/sqrt(ay*ay + az*az))*(float)RAD_TO_DEG_CONV;
+        angle_x_accel = atan(ay/sqrt(ax*ax + az*az))*(float)RAD_TO_DEG_CONV;
+
+        angle_x = FILTER_GAIN*angle_x_gyro + (1-FILTER_GAIN)*angle_x_accel;
+        angle_y = FILTER_GAIN*angle_y_gyro + (1-FILTER_GAIN)*angle_y_accel;
+        angle_z = FILTER_GAIN*angle_z_gyro + (1-FILTER_GAIN)*angle_z_accel;
+
+        //affiche();
+    }
+}
+
+float Centrale_Inertielle::angle_x_out()
+{
+    return angle_x;
+}
+
+float Centrale_Inertielle::angle_y_out()
+{
+    return angle_y;
+}
+
+float Centrale_Inertielle::angle_z_out()
+{
+    return angle_z;
+}
+
+void Centrale_Inertielle::affiche()
+{
+    Serial.print("angle X : ");
+    Serial.print(angle_x);
+    Serial.println(" deg");
+    Serial.print("angle Y : ");
+    Serial.print(angle_y);
+    Serial.println(" deg");
+    Serial.print("angle Z : ");
+    Serial.print(angle_z);
+    Serial.println(" deg");
+    Serial.println("");
+
+}
+
+
 
 
 /*********************************************************************
@@ -756,6 +938,7 @@ IO::IO():
     deposeurTapis(),
     chenilleSecondaire(),
     chenillePrincipale(),
+    //centrale(),
     sonar() // a mettre dans chenille pricipale car uniquement pour elle
 {
 
@@ -768,7 +951,8 @@ void IO::run()
     //Serial.println("IO run");
     deposeurTapis.run();
     chenillePrincipale.run();
-    sonar.run();
+    //sonar.run();
+    //centrale.run();
 }
 
 DeposeurTapis* IO::get_DeposeurTapis()

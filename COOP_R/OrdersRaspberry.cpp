@@ -133,7 +133,7 @@ void OrdersRaspberry::executeinstr()
             io->get_ChenilleSecondaire()->position_auSol();
             break;
        }
-break;
+    break;
 
 
     // Depose tapis
@@ -172,16 +172,19 @@ break;
             Serial.print("recalage face");
             io->get_ChenillePrincipale()->recalage_face();
             break;
+
         case 1:
             Serial.print("recalage gauche");
             // renvoyer (# AssFINI) par le port serie
             io->get_ChenillePrincipale()->recalage_gauche();
             break;
+
         case 2:
             Serial.print("recalage droite");
             // renvoyer (# AssFINI) par le port serie
             io->get_ChenillePrincipale()->recalage_droite();
             break;
+
        }
        break;
 
@@ -237,6 +240,63 @@ break;
     break;
 
 
+
+
+    // test des chenilles principales en mode debug
+	case 'Q' :
+        // ordre de type Tacle Laterale
+        switch (ind)
+        {
+        case 0:
+            Serial.print("laterale gauche");
+            io->get_ChenillePrincipale()->lateral_gauche();
+            //io->get_ChenillePrincipale()->decalage_avant();
+            break;
+        case 1:
+            Serial.print("laterale droite");
+            // renvoyer (# AssFINI) par le port serie
+            io->get_ChenillePrincipale()->lateral_droite();
+            //io->get_ChenillePrincipale()->decalage_gauche();
+            break;
+        case 2:
+            Serial.print("laterale stop");
+            // renvoyer (# AssFINI) par le port serie
+            io->get_ChenillePrincipale()->lateral_stop();
+            //io->get_ChenillePrincipale()->decalage_droite();
+            break;
+
+
+        case 3:
+            Serial.print("avance droite");
+            io->get_ChenillePrincipale()->longi_droite_avance();
+            break;
+        case 4:
+            Serial.print("recule droite");
+            io->get_ChenillePrincipale()->longi_droite_recule();
+            break;
+        case 5:
+            Serial.print("stop droite");
+            io->get_ChenillePrincipale()->longi_droite_stop();
+            break;
+
+
+        case 6:
+            Serial.print("avance gauche");
+            io->get_ChenillePrincipale()->longi_gauche_avance();
+            break;
+        case 7:
+            Serial.print("recule gauche");
+            io->get_ChenillePrincipale()->longi_gauche_recule();
+            break;
+        case 8:
+            Serial.print("stop gauche");
+            io->get_ChenillePrincipale()->longi_gauche_stop();
+            break;
+       }
+       break;
+
+
+
         // EVITEMENT
 	case 'E' :
         switch (ind)
@@ -253,6 +313,7 @@ break;
             break;
        }
     break;
+
 return;
     }
 
