@@ -57,6 +57,7 @@ ChenillePrincipale::ChenillePrincipale():
     period_run(50),
     sonar(),
     state(SLAVE_STATE_REPOS),
+    time_asserv_started(0),
     time_asserv_to_do(0),         // temps d'asserv pour l'asser en cours
     time_asserv_remaining(0),     // temps restant si interruption par l'evitement, rajouter un dela temps
     time_delta_time_after_interrupt(100),
@@ -77,6 +78,8 @@ ChenillePrincipale::ChenillePrincipale():
     Serial.println("[INIT] CHENILLE PRINCIPAL");
 
     arret();
+    set_evitement_OFF();
+    in_state_func();
 }
 
 void ChenillePrincipale::set_evitement_OFF()
@@ -164,9 +167,6 @@ void ChenillePrincipale::arret(){
 
 
 
-
-
-
 // tempo
 void ChenillePrincipale::set_time_out(int dt_)
 {
@@ -197,15 +197,76 @@ bool ChenillePrincipale::is_time_out()
 /** boucle de control
 */
 void ChenillePrincipale::run(){
+
+    // actualisation des sonars pour deplacement
     sonar.run();
 
     if (period_run.is_over())
     {
         period_run.reset();
+
+        // si le temps est fini
         if (is_time_out())
         {
             trigger(SLAVE_TRIGGER_TIME_OUT);
         }
+
+        // si on bump devant
+        if (bumper_av_d.is_on() && bumper_av_g.is_on())
+        {
+            trigger(SLAVE_TRIGGER_BUMP_FACE);
+        }
+
+        // si on bump a gauche
+        if (bumper_g_ar.is_on() && bumper_g_av.is_on())
+        {
+            trigger(SLAVE_TRIGGER_BUMP_GAUCHE);
+        }
+
+        // si on bump a droite
+        if (bumper_d_ar.is_on() && bumper_d_av.is_on())
+        {
+            trigger(SLAVE_TRIGGER_BUMP_DROITE);
+        }
+
+        // si on detecte ennemi
+        if(evitement_actif)
+        {
+            // en face
+            if(state == SLAVE_STATE_DEPLACEMENT_AVANT_ACTION)
+            {
+                if(sonar.adv_face())
+                {
+                    trigger(SLAVE_TRIGGER_PAUSE);
+                    Serial.println("# ADV DETECTED FACE");
+                    // mettre le restant
+                }
+            }
+
+            // a gauche
+            if(state == SLAVE_STATE_DEPLACEMENT_GAUCHE_ACTION)
+            {
+                if(sonar.adv_gauche())
+                {
+                    trigger(SLAVE_TRIGGER_PAUSE);
+                    Serial.println("# ADV DETECTED GAUCHE");
+                    // mettre le restant
+                }
+            }
+
+            // a droite
+             if(state == SLAVE_STATE_DEPLACEMENT_DROITE_ACTION)
+            {
+                if(sonar.adv_droite())
+                {
+                    trigger(SLAVE_TRIGGER_PAUSE);
+                    Serial.println("# ADV DETECTED DROITE");
+                    // mettre le restant
+                }
+            }
+        }
+
+
     }
 
 }
@@ -274,6 +335,268 @@ void ChenillePrincipale::reprise()
     trigger(SLAVE_TRIGGER_REPRISE);
 }
 
+
+// appel de transistion MAE
+void ChenillePrincipale::trigger(int transition)
+{
+    Serial.println("");
+    Serial.print("appel trigger slave : ");
+    Serial.println(transition);
+
+    if (transition == SLAVE_TRIGGER_BUMP_DROITE || transition == SLAVE_TRIGGER_BUMP_GAUCHE || transition == SLAVE_TRIGGER_BUMP_FACE )
+    {
+         Serial.println(" ");
+         Serial.print("[SLAVE] TRANSISTION AUTOMATIQUE: BUMPER ACTIF");
+         Serial.println(transition);
+    }
+
+    if (transition == SLAVE_TRIGGER_LATERAL_DROITE || transition == SLAVE_TRIGGER_LATERAL_GAUCHE || transition == SLAVE_TRIGGER_LONGITUDINAL_ARRIERE || transition == SLAVE_TRIGGER_LONGITUDINAL_AVANT )
+    {
+         Serial.println(" ");
+         Serial.print("[SLAVE] TRANSISTION FORCEE: DEPLACEMENT");
+         Serial.println(transition);
+    }
+
+    if (transition == SLAVE_TRIGGER_PAUSE || transition == SLAVE_TRIGGER_REPRISE )
+    {
+         Serial.println(" ");
+         Serial.print("[SLAVE] TRANSISTION FORCEE: PAUSE");
+         Serial.println(transition);
+    }
+
+    if (transition == SLAVE_TRIGGER_REPRISE )
+    {
+         Serial.println(" ");
+         Serial.print("[SLAVE] TRANSISTION FORCEE: REPRISE");
+         Serial.println(transition);
+    }
+
+    if (transition == TRANS_TAPIS_TIME_OUT  )
+    {
+         Serial.println(" ");
+         Serial.print("[SLAVE] TRANSITION AUTOMATIQUE: TIME OUT");
+         Serial.println(transition);
+
+    }
+   Serial.print("[SLAVE] ACTUAL STATE ->  ");
+   Serial.println(state);
+   int old_state;
+   old_state = state;
+   switch(state)
+    {
+        case SLAVE_STATE_REPOS  :
+           if (transition == SLAVE_TRIGGER_LATERAL_GAUCHE )
+           {
+                state = SLAVE_STATE_DEPLACEMENT_GAUCHE_ACTION;
+                time_asserv_started = millis();
+                Serial.println("[SLAVE] Deplacement gauche");
+           }
+           if (transition == SLAVE_TRIGGER_LATERAL_DROITE )
+           {
+                state = SLAVE_STATE_DEPLACEMENT_DROITE_ACTION;
+                time_asserv_started = millis();
+                Serial.println("[SLAVE] Deplacement droite");
+           }
+           if (transition == SLAVE_TRIGGER_LONGITUDINAL_AVANT )
+           {
+                state = SLAVE_STATE_DEPLACEMENT_AVANT_ACTION;
+                time_asserv_started = millis();
+                Serial.println("[SLAVE] Deplacement avant");
+           }
+           if (transition == SLAVE_TRIGGER_LONGITUDINAL_ARRIERE )
+           {
+                state = SLAVE_STATE_DEPLACEMENT_ARRIERE_ACTION;
+                Serial.println("[SLAVE] Deplacement arriere");
+           }
+           break;
+
+
+        case SLAVE_STATE_DEPLACEMENT_GAUCHE_ACTION  :
+           if (transition == SLAVE_TRIGGER_TIME_OUT )
+           {
+                state = SLAVE_STATE_REPOS;
+                Serial.println("[SLAVE] Deplacement gauche fin, time out");
+                Serial.println("# ASSFINI");
+           }
+           if (transition == SLAVE_TRIGGER_BUMP_GAUCHE )
+           {
+                state = SLAVE_STATE_REPOS;
+                Serial.println("[SLAVE] Deplacement gauche fin, bumpers actifs");
+                Serial.println("# ASSFINI");
+           }
+           if (transition == SLAVE_TRIGGER_PAUSE )
+           {
+                state = SLAVE_STATE_DEPLACEMENT_GAUCHE_PAUSE;
+                // temps restant a faire pour l'asserv
+                time_asserv_remaining = time_asserv_to_do - (millis() - time_asserv_started);
+                if(time_asserv_remaining <=0 ){time_asserv_remaining=0;}
+                // to do after reprise
+                time_asserv_to_do = time_asserv_remaining + time_delta_time_after_interrupt;
+                Serial.println("[SLAVE] Deplacement gauche interruption");
+                Serial.println("# PAUSE");
+           }
+
+           break;
+
+
+        case SLAVE_STATE_DEPLACEMENT_GAUCHE_PAUSE  :
+           if (transition == SLAVE_TRIGGER_REPRISE )
+           {
+                state = SLAVE_STATE_DEPLACEMENT_GAUCHE_ACTION;
+                time_asserv_started = millis();
+                Serial.println("[SLAVE] Deplacement gauche reprise");
+           }
+           break;
+
+
+        case SLAVE_STATE_DEPLACEMENT_DROITE_ACTION  :
+           if (transition == SLAVE_TRIGGER_TIME_OUT )
+           {
+                state = SLAVE_STATE_REPOS;
+                Serial.println("[SLAVE] Deplacement droite fin, time out");
+                Serial.println("# ASSFINI");
+           }
+           if (transition == SLAVE_TRIGGER_BUMP_DROITE)
+           {
+                state = SLAVE_STATE_REPOS;
+                Serial.println("[SLAVE] Deplacement droite fin, bumpers actifs");
+                Serial.println("# ASSFINI");
+           }
+           if (transition == SLAVE_TRIGGER_PAUSE )
+           {
+                state = SLAVE_STATE_DEPLACEMENT_DROITE_PAUSE;
+                // temps restant a faire pour l'asserv
+                time_asserv_remaining = time_asserv_to_do - (millis() - time_asserv_started);
+                if(time_asserv_remaining <=0 ){time_asserv_remaining=0;}
+                // to do after reprise
+                time_asserv_to_do = time_asserv_remaining + time_delta_time_after_interrupt;
+                Serial.println("[SLAVE] Deplacement droite interruption");
+                Serial.println("# PAUSE");
+           }
+           break;
+
+
+        case SLAVE_STATE_DEPLACEMENT_DROITE_PAUSE  :
+           if (transition == SLAVE_TRIGGER_REPRISE )
+           {
+                state = SLAVE_STATE_DEPLACEMENT_DROITE_ACTION;
+                time_asserv_started = millis();
+                Serial.println("[SLAVE] Deplacement droite reprise");
+           }
+           break;
+
+        case SLAVE_STATE_DEPLACEMENT_AVANT_ACTION  :
+           if (transition == SLAVE_TRIGGER_TIME_OUT )
+           {
+                state = SLAVE_STATE_REPOS;
+                Serial.println("[SLAVE] Deplacement avant fin, time out");
+                Serial.println("# ASSFINI");
+           }
+           if (transition == SLAVE_TRIGGER_BUMP_FACE)
+           {
+                state = SLAVE_STATE_REPOS;
+                Serial.println("[SLAVE] Deplacement avant fin, bumpers actifs");
+                Serial.println("# ASSFINI");
+           }
+           if (transition == SLAVE_TRIGGER_PAUSE )
+           {
+                state = SLAVE_STATE_DEPLACEMENT_AVANT_PAUSE;
+                // temps restant a faire pour l'asserv
+                time_asserv_remaining = time_asserv_to_do - (millis() - time_asserv_started);
+                if(time_asserv_remaining <=0 ){time_asserv_remaining=0;}
+                // to do after reprise
+                time_asserv_to_do = time_asserv_remaining + time_delta_time_after_interrupt;
+                Serial.println("[SLAVE] Deplacement avant interruption");
+                Serial.println("# PAUSE");
+           }
+           break;
+
+
+        case SLAVE_STATE_DEPLACEMENT_AVANT_PAUSE  :
+           if (transition == SLAVE_TRIGGER_REPRISE )
+           {
+                state = SLAVE_STATE_DEPLACEMENT_AVANT_ACTION;
+                time_asserv_started = millis();
+                Serial.println("[SLAVE] Deplacement avant reprise");
+           }
+           break;
+
+        case SLAVE_STATE_DEPLACEMENT_ARRIERE_ACTION  :
+           if (transition == SLAVE_TRIGGER_TIME_OUT )
+           {
+                state = SLAVE_STATE_REPOS;
+                Serial.println("[SLAVE] Deplacement arriere fin, time out");
+                Serial.println("# ASSFINI");
+           }
+           break;
+    }
+   if (old_state != state)
+    {
+        Serial.print("[SLAVE] NEW STATE ->  ");
+        Serial.println(state);
+        reset_time_out();
+        in_state_func();
+    }
+}
+
+
+
+void ChenillePrincipale::in_state_func()
+{
+    switch (state)
+    {
+        case SLAVE_STATE_REPOS  :
+           Serial.println("[SLAVE][ETAT] REPOS]");
+           arret();
+           break;
+
+
+        case SLAVE_STATE_DEPLACEMENT_GAUCHE_ACTION  :
+           Serial.println("[SLAVE][ETAT] DEPLACEMENT LATERAL GAUCHE ACTION");
+           set_time_out(time_asserv_to_do);
+           lateral_gauche();
+           break;
+
+
+        case SLAVE_STATE_DEPLACEMENT_GAUCHE_PAUSE  :
+           Serial.println("[SLAVE][ETAT] DEPLACEMENT LATERAL GAUCHE PAUSE");
+           lateral_stop();
+           break;
+
+        case SLAVE_STATE_DEPLACEMENT_DROITE_ACTION  :
+           Serial.println("[SLAVE][ETAT] DEPLACEMENT LATERAL DROITE ACTION");
+           set_time_out(time_asserv_to_do);
+           lateral_droite();
+           break;
+
+
+        case SLAVE_STATE_DEPLACEMENT_DROITE_PAUSE  :
+           Serial.println("[SLAVE][ETAT] DEPLACEMENT LATERAL DROITE PAUSE");
+           lateral_droite();
+           break;
+
+        case SLAVE_STATE_DEPLACEMENT_AVANT_ACTION  :
+           Serial.println("[SLAVE][ETAT] DEPLACEMENT AVANT ACTION");
+           set_time_out(time_asserv_to_do);
+           longi_droite_avance();
+           longi_gauche_avance();
+           break;
+
+
+        case SLAVE_STATE_DEPLACEMENT_AVANT_PAUSE  :
+           Serial.println("[SLAVE][ETAT] DEPLACEMENT AVANT PAUSE");
+           longi_droite_stop();
+           longi_gauche_stop();
+           break;
+
+        case SLAVE_STATE_DEPLACEMENT_ARRIERE_ACTION  :
+           Serial.println("[SLAVE][ETAT] DEPLACEMENT ARRIERE ACTION");
+           set_time_out(time_asserv_to_do);
+           longi_droite_recule();
+           longi_gauche_recule();
+           break;
+    }
+}
 
 
 /*********************************************************************

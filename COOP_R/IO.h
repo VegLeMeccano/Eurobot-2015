@@ -83,9 +83,9 @@ class ChenilleSecondaire
 #define SLAVE_STATE_DEPLACEMENT_DROITE_ACTION 3
 #define SLAVE_STATE_DEPLACEMENT_DROITE_PAUSE 4
 #define SLAVE_STATE_DEPLACEMENT_AVANT_ACTION 5
-#define SLAVE_STATE_DEPLACEMENT_AVANT_ACTION 6
-#define SLAVE_STATE_DEPLACEMENT_ARRIERE_ACTION 5
-#define SLAVE_STATE_DEPLACEMENT_ARRIIERE_ACTION 6
+#define SLAVE_STATE_DEPLACEMENT_AVANT_PAUSE 6
+#define SLAVE_STATE_DEPLACEMENT_ARRIERE_ACTION 7
+#define SLAVE_STATE_DEPLACEMENT_ARRIIERE_PAUSE 8
 
 // les declencheurs
 #define SLAVE_TRIGGER_TIME_OUT 0
@@ -96,7 +96,10 @@ class ChenilleSecondaire
 #define SLAVE_TRIGGER_PAUSE 6
 #define SLAVE_TRIGGER_REPRISE 7
 
-#define SLAVE_TRIGGER
+#define SLAVE_TRIGGER_BUMP_GAUCHE 8
+#define SLAVE_TRIGGER_BUMP_DROITE 9
+#define SLAVE_TRIGGER_BUMP_FACE 10
+
 class ChenillePrincipale
 {
     private:
@@ -125,6 +128,7 @@ class ChenillePrincipale
 
         // gestion des temps
         Period period_run;
+        long time_asserv_started;
         long time_asserv_to_do;         // temps d'asserv pour l'asser en cours
         long time_asserv_remaining;     // temps restant si interruption par l'evitement, rajouter un dela temps
         long time_delta_time_after_interrupt;
@@ -138,7 +142,6 @@ class ChenillePrincipale
 
     public:
         ChenillePrincipale();
-        void trigger(int transition);
 
         // activation ou pas de l'evitement, intervient dans le run
         void set_evitement_ON();
@@ -178,6 +181,8 @@ class ChenillePrincipale
         void set_time_out(int dt_);
         void reset_time_out();
         bool is_time_out();
+        void in_state_func();
+        void trigger(int transition);
 
         // chaine secondaire
         void chenilleSecondaire_ON();

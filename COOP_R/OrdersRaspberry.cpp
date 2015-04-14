@@ -161,42 +161,14 @@ void OrdersRaspberry::executeinstr()
        break;
 
 
-    // Base roulante (chenille)
-
-    // recalage
-	case 'R' :
-        // ordre de type recalage
-        switch (ind)
-        {
-        case 0:
-            Serial.print("recalage face");
-            io->get_ChenillePrincipale()->recalage_face();
-            break;
-
-        case 1:
-            Serial.print("recalage gauche");
-            // renvoyer (# AssFINI) par le port serie
-            io->get_ChenillePrincipale()->recalage_gauche();
-            break;
-
-        case 2:
-            Serial.print("recalage droite");
-            // renvoyer (# AssFINI) par le port serie
-            io->get_ChenillePrincipale()->recalage_droite();
-            break;
-
-       }
-       break;
-
-
 
     // avance
 	case 'A' :
-        // ordre de type Tacle Laterale
+        // AVANCE LA BASE ROULANTE
         switch (ind)
         {
         case 0:
-            Serial.print("SET temps :");
+            Serial.print("BASE ROULANTE, decalage avant :");
             // faire en sorte que l'on s'arrrete en rotation lateral sur des demi tour de roue
             stream >> temps;
             Serial.println(atoi(temps.c_str()));
@@ -204,18 +176,53 @@ void OrdersRaspberry::executeinstr()
             // renvoye ennemi detectee
             break;
         case 1:
-            Serial.print("SET temps :");
+            Serial.print("BASE ROULANTE, decalage arriere :");
             stream >> temps;
             Serial.println(atoi(temps.c_str()));
-            io->get_ChenillePrincipale()->decalage_avant(atoi(temps.c_str()));
+            io->get_ChenillePrincipale()->decalage_arriere(atoi(temps.c_str()));
             break;
         case 2:
-            Serial.print("SET temps :");
+            Serial.print("BASE ROULANTE, decalage droite :");
             stream >> temps;
             Serial.println(atoi(temps.c_str()));
-            io->get_ChenillePrincipale()->decalage_avant(atoi(temps.c_str()));
+            io->get_ChenillePrincipale()->decalage_droite(atoi(temps.c_str()));
             break;
+        case 3:
+            Serial.print("BASE ROULANTE, decalage gauche :");
+            stream >> temps;
+            Serial.println(atoi(temps.c_str()));
+            io->get_ChenillePrincipale()->decalage_gauche(atoi(temps.c_str()));
+            break;
+
+        case 4:
+            Serial.print("BASE ROULANTE, pause :");
+            io->get_ChenillePrincipale()->pause_asserv();
+            break;
+
+        case 5:
+            Serial.print("BASE ROULANTE, reprise :");
+            io->get_ChenillePrincipale()->reprise();
+            break;
+
+        case 6:
+            Serial.print("BASE ROULANTE, recalage face");
+            io->get_ChenillePrincipale()->recalage_face();
+            break;
+
+        case 7:
+            Serial.print("BASE ROULANTE, recalage gauche");
+            // renvoyer (# AssFINI) par le port serie
+            io->get_ChenillePrincipale()->recalage_gauche();
+            break;
+
+        case 8:
+            Serial.print("BASE ROULANTE, recalage droite");
+            // renvoyer (# AssFINI) par le port serie
+            io->get_ChenillePrincipale()->recalage_droite();
+            break;
+
        }
+
        break;
 
 
@@ -303,14 +310,12 @@ void OrdersRaspberry::executeinstr()
         {
         case 0:
             Serial.print("Desactivation de l'evitement");
+            io->get_ChenillePrincipale()->set_evitement_OFF();
             break;
         case 1:
             Serial.print("Activation de l'evitement");
-
+            io->get_ChenillePrincipale()->set_evitement_ON();
            break;
-        case 2:
-
-            break;
        }
     break;
 
