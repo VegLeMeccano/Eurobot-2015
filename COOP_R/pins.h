@@ -8,13 +8,13 @@ COOP'R
 
 
 // bumpers recalage gauche
-#define PIN_BUMPER_RECALAGE_AV_G A6
-#define PIN_BUMPER_RECALAGE_G_AV A8
+#define PIN_BUMPER_RECALAGE_AV_G A8
+#define PIN_BUMPER_RECALAGE_G_AV A6
 #define PIN_BUMPER_RECALAGE_G_AR A10
 
 // bumpers recalage droite
-#define PIN_BUMPER_RECALAGE_AV_D A7
-#define PIN_BUMPER_RECALAGE_D_AV A9
+#define PIN_BUMPER_RECALAGE_AV_D A9
+#define PIN_BUMPER_RECALAGE_D_AV A7
 #define PIN_BUMPER_RECALAGE_D_AR A11
 
 // bumpers strat

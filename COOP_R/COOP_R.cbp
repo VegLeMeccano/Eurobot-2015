@@ -656,8 +656,12 @@
 			<Option link="1" />
 		</Unit>
 		<Unit filename="Const.h" />
+		<Unit filename="I2Cdev.cpp" />
+		<Unit filename="I2Cdev.h" />
 		<Unit filename="IO.cpp" />
 		<Unit filename="IO.h" />
+		<Unit filename="MPU6050.cpp" />
+		<Unit filename="MPU6050.h" />
 		<Unit filename="OrdersRaspberry.cpp" />
 		<Unit filename="OrdersRaspberry.h" />
 		<Unit filename="Utils/Coord.cpp" />

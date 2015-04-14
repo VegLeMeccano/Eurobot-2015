@@ -15,6 +15,9 @@
 #include "Const.h"
 #include "OrdersRaspberry.h"
 #include <pnew.cpp>
+#include "./Utils/SwitchAnalog.h"
+//#include "./Utils/Switch.h"
+
 #include "I2Cdev.h"
 #include "MPU6050.h"
 
@@ -30,9 +33,18 @@
 #define GAME 2
 #define END 3
 
+
+
 IO* io;
 OrdersRaspberry* com;
+
+// pour test uniquement
 MPU6050 accelgyro;
+
+// bumper de strat
+SwitchAnalog bumper_start(PIN_BUMPER_STRAT_START,SEUIL_BUMPER);
+SwitchAnalog bumper_couleur(PIN_BUMPER_STRAT_COULEUR,SEUIL_BUMPER);
+SwitchAnalog bumper_strategie(PIN_BUMPER_STRAT_STRAT,SEUIL_BUMPER);
 
 
 int state;
@@ -42,11 +54,16 @@ long TEMPS_PARTIE = 10000; //en ms mettre 90
 
 int16_t ax, ay, az;
 int16_t gx, gy, gz;
+int16_t Rx, Ry, Rz;
+
 
 
 /** INITIALISATION **/
 void setup()
 {
+    bumper_couleur.reverse(); //bumper du haut
+    bumper_strategie.reverse(); // bumper du bas
+
 	// initialisation port I2C (wire)
 	// join I2C bus (I2Cdev library doesn't do this automatically)
     #if I2CDEV_IMPLEMENTATION == I2CDEV_ARDUINO_WIRE
@@ -64,13 +81,19 @@ void setup()
     // initialisation des PINS IN et OUT
     io = new IO();
     Serial.println("INIT IO");
-	
+
+    // initialisation du protocol de communication via le port serie
+    com = new OrdersRaspberry(io);
+    Serial.println("INIT OrdersRaspberry");
+
 	// initialisation gyro
 	accelgyro.initialize();
-	s// verify connection
-    Serial.println("Testing device connections...");
+	// verify connection
+    Serial.println("Testing connection gyro...");
     Serial.println(accelgyro.testConnection() ? "MPU6050 connection successful" : "MPU6050 connection failed");
-	    Serial.println("Updating internal sensor offsets...");
+
+
+    //Serial.println("Updating internal sensor offsets...");
     // -76	-2359	1688	0	0	0
     Serial.print(accelgyro.getXAccelOffset()); Serial.print("\t"); // -76
     Serial.print(accelgyro.getYAccelOffset()); Serial.print("\t"); // -2359
@@ -79,26 +102,33 @@ void setup()
     Serial.print(accelgyro.getYGyroOffset()); Serial.print("\t"); // 0
     Serial.print(accelgyro.getZGyroOffset()); Serial.print("\t"); // 0
     Serial.print("\n");
-    accelgyro.setXGyroOffset(220);
-    accelgyro.setYGyroOffset(76);
-    accelgyro.setZGyroOffset(-85);
-    Serial.print(accelgyro.getXAccelOffset()); Serial.print("\t"); // -76
-    Serial.print(accelgyro.getYAccelOffset()); Serial.print("\t"); // -2359
-    Serial.print(accelgyro.getZAccelOffset()); Serial.print("\t"); // 1688
-    Serial.print(accelgyro.getXGyroOffset()); Serial.print("\t"); // 0
-    Serial.print(accelgyro.getYGyroOffset()); Serial.print("\t"); // 0
-    Serial.print(accelgyro.getZGyroOffset()); Serial.print("\t"); // 0
-    Serial.print("\n");
-	
+    //accelgyro.setXGyroOffset(220);
+    //accelgyro.setYGyroOffset(76);
+    //accelgyro.setZGyroOffset(-85);
 
-    // initialisation du protocol de communication via le port serie
-    com = new OrdersRaspberry(io);
-    Serial.println("INIT OrdersRaspberry");
-
-    //write_serial_strat();
     state = ALLUMAGE;
     //state = GAME;
     timer = 0;
+
+    Serial.println("");
+    Serial.println("________________________");
+
+
+    // initialisation du timer et de l'etat de depart
+    timer = 0;
+    Serial.println("etat init");
+
+    Serial.print("* START : ");
+    Serial.println((int)bumper_start.is_on());
+
+    Serial.print("* COULEUR : ");
+    Serial.println((int)bumper_couleur.is_on());
+
+    Serial.print("* STRAT 1 : ");
+    Serial.println((int)bumper_strategie.is_on());
+
+    Serial.println("");
+    Serial.println("________________________");
 }
 
 
@@ -107,15 +137,16 @@ BOUCLE DE CONTROL
 */
 void loop(){
 
+/******** BOUCLE de jeux
     // enclenchement du start
-   if (state == ALLUMAGE && analogRead(PIN_BUMPER_STRAT_START) > SEUIL_BUMPER)
+   if (state == ALLUMAGE && bumper_start.is_on())
     {
         state = STARTMIS;
         Serial.println("# STARTIN");
     }
 
     // debut de jeu quand le start est releve
-    if (state == STARTMIS && analogRead(PIN_BUMPER_STRAT_START) < SEUIL_BUMPER)
+    if (state == STARTMIS && bumper_start.is_off())
     {
         state = GAME ;
         Serial.println("# START");
@@ -146,25 +177,55 @@ void loop(){
 
 
    delay(1);
-   
-   /* telemesure
-       // read raw accel/gyro measurements from device
-    accelgyro.getMotion6(&ax, &ay, &az, &gx, &gy, &gz);
-
-    // these methods (and a few others) are also available
-    //accelgyro.getAcceleration(&ax, &ay, &az);
-    //accelgyro.getRotation(&gx, &gy, &gz);
-	
-	        // display tab-separated accel/gyro x/y/z values
-        Serial.print("a/g:\t");
-        Serial.print(ax); Serial.print("\t");
-        Serial.print(ay); Serial.print("\t");
-        Serial.print(az); Serial.print("\t");
-        Serial.print(gx); Serial.print("\t");
-        Serial.print(gy); Serial.print("\t");
-        Serial.println(gz);
-	
-
 */
+
+/**
+    // telemesure gyrometre/accelero
+    // read raw accel/gyro measurements from device
+    //accelgyro.getMotion6(&ax, &ay, &az, &gx, &gy, &gz);
+    accelgyro.getRotation(&Rx, &Ry, &Rz);
+    // display tab-separated accel/gyro x/y/z values
+        Serial.print("g:\t");
+        //Serial.print(ax); Serial.print("\t");
+        //Serial.print(ay); Serial.print("\t");
+        //Serial.print(az); Serial.print("\t");
+        Serial.print(Rx); Serial.print("\t");
+        Serial.print(Ry); Serial.print("\t");
+        Serial.println(Rz);
+        delay(50);
+*/
+
+//**
+    //test des bumpers
+        // test US
+    Serial.print("IR BAS : ");
+    Serial.println(analogRead(PIN_IR_BAS));
+
+    Serial.print("IR HAUT : ");
+    Serial.println(analogRead(PIN_IR_HAUT));
+
+   // test des IR des ASCENSEUR
+    Serial.print("BUMPER AVANT GAUCHE : ");
+    Serial.println(analogRead(PIN_BUMPER_RECALAGE_AV_G));
+
+    Serial.print("BUMPER AVANT DROIT : ");
+    Serial.println(analogRead(PIN_BUMPER_RECALAGE_AV_D));
+
+    Serial.print("BUMPER RAMPE GAUCHE AR: ");
+    Serial.println(analogRead(PIN_BUMPER_RECALAGE_G_AR));
+
+    Serial.print("BUMPER RAMPE GAUCHE AV : ");
+    Serial.println(analogRead(PIN_BUMPER_RECALAGE_G_AV));
+
+    Serial.print("BUMPER RAMPE DROITE AR : ");
+    Serial.println(analogRead(PIN_BUMPER_RECALAGE_D_AR));
+
+    Serial.print("BUMPER RAMPE DROITE AV : ");
+    Serial.println(analogRead(PIN_BUMPER_RECALAGE_D_AV));
+
+    Serial.println();
+
+    delay(500);
+//*/
 }
 
