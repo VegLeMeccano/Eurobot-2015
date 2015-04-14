@@ -11,6 +11,19 @@ void Period::reset()
     time_last_reset = millis();
 }
 
+long Period::time_remaining()
+{
+    if(is_over())
+    {
+        return 0;
+    }
+    else
+    {
+        long t = millis();
+        return (period - t - time_last_reset);
+    }
+}
+
 bool Period::is_over(){
     long t = millis();
     if (t - time_last_reset > period){

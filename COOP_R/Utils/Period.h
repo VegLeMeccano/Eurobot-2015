@@ -11,6 +11,7 @@ class Period
         bool is_over();
         void reset();
         void set_periode(int period_);
+        long time_remaining();
     private:
         long period;
         long time_last_reset;

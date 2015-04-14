@@ -16,6 +16,31 @@
 // http://www.seeedstudio.com/wiki/Xadow_-_IMU_6DOF
 
 
+
+/****************************************************
+   SONAR
+*****************************************************/
+class Sonar
+{
+    private:
+        Period period_sonar;
+        NewPing sonar_gauche;//(PIN_PWM_SONAR_G_TRIGGER,PIN_PWM_SONAR_G_Echo,SONAR_DISTANCE_MAX);
+        NewPing sonar_droite;//(PIN_PWM_SONAR_D_TRIGGER,PIN_PWM_SONAR_D_Echo,SONAR_DISTANCE_MAX);
+        NewPing sonar_face;//(PIN_PWM_SONAR_C_TRIGGER,PIN_PWM_SONAR_C_Echo,SONAR_DISTANCE_MAX);
+        unsigned int sonar_distance_droite;
+        unsigned int sonar_distance_gauche;
+        unsigned int sonar_distance_face;
+
+    public:
+        Sonar();
+        void run();
+        bool adv_gauche();
+        bool adv_droite();
+        bool adv_face();
+        void affiche();
+        void afficheADV();
+};
+
 /****************************************************
    CHENILLE SECONDAIRE
 *****************************************************/
@@ -51,57 +76,75 @@ class ChenilleSecondaire
 #define LATERAL_GAUCHE 1000
 #define LATERAL_DROITE 2000
 
+// les etats de
+#define SLAVE_STATE_REPOS 0
+#define SLAVE_STATE_DEPLACEMENT_GAUCHE_ACTION 1
+#define SLAVE_STATE_DEPLACEMENT_GAUCHE_PAUSE 2
+#define SLAVE_STATE_DEPLACEMENT_DROITE_ACTION 3
+#define SLAVE_STATE_DEPLACEMENT_DROITE_PAUSE 4
+#define SLAVE_STATE_DEPLACEMENT_AVANT_ACTION 5
+#define SLAVE_STATE_DEPLACEMENT_AVANT_ACTION 6
+#define SLAVE_STATE_DEPLACEMENT_ARRIERE_ACTION 5
+#define SLAVE_STATE_DEPLACEMENT_ARRIIERE_ACTION 6
+
+// les declencheurs
+#define SLAVE_TRIGGER_TIME_OUT 0
+#define SLAVE_TRIGGER_LATERAL_GAUCHE 1
+#define SLAVE_TRIGGER_LATERAL_DROITE 3
+#define SLAVE_TRIGGER_LONGITUDINAL_AVANT 4
+#define SLAVE_TRIGGER_LONGITUDINAL_ARRIERE 5
+#define SLAVE_TRIGGER_PAUSE 6
+#define SLAVE_TRIGGER_REPRISE 7
+
+#define SLAVE_TRIGGER
 class ChenillePrincipale
 {
     private:
-
-        double temps_distance_lateral;
-
-        //faire une classe??
+        //pour commande des moteurs
         Servo chenille_laterale;
         Servo chenille_gauche;
         Servo chenille_droite;
-
-
         //rampe IR avant
 		SwitchAnalog val_ir_bas;
         SwitchAnalog val_ir_haut;
-
         //rampe avant
         SwitchAnalog bumper_av_g;
         SwitchAnalog bumper_av_d;
-
         //rampe gauche
         SwitchAnalog bumper_g_av;
         SwitchAnalog bumper_g_ar;
-
         //rampe droite
         SwitchAnalog bumper_d_av;
         SwitchAnalog bumper_d_ar;
-
         // sonar (pour l'evitement)
-        double val_sonar_avant;
-        double val_sonar_gauche;
-        double val_sonar_droit;
+        Sonar sonar;
+
         // penser a mettre un timer
-
-
         bool assFini;
-        long tempo;
-        long tempo_remaining;
-        int asserv_set; // recalage, tempo, si pause activated
         bool pause;
 
+        // gestion des temps
         Period period_run;
-        Period period_asserv;
+        long time_asserv_to_do;         // temps d'asserv pour l'asser en cours
+        long time_asserv_remaining;     // temps restant si interruption par l'evitement, rajouter un dela temps
+        long time_delta_time_after_interrupt;
 
-
+        // pour MAE
+        int state;
+        bool time_out_on;
+        long t_over;
+        bool evitement_actif;       // pour savoir si on consulte les sonar ou pas
+        bool interruption_par_evitement;
 
     public:
         ChenillePrincipale();
-        // mouvement + bumper
+        void trigger(int transition);
 
-        //briques de base
+        // activation ou pas de l'evitement, intervient dans le run
+        void set_evitement_ON();
+        void set_evitement_OFF();
+
+        // briques de base : mouvement basique
         void longi_gauche_stop();
         void longi_gauche_avance();
         void longi_gauche_recule();
@@ -111,34 +154,30 @@ class ChenillePrincipale
         void lateral_gauche();
         void lateral_droite();
         void lateral_stop();
+        void arret();            // arret des chaines
 
 
-        void stop();
-
-
-
+        // trigger MAE, ordre haut niveau
         void recalage_gauche();
         void recalage_droite();
         void recalage_face(); //tak droite et gauche, mettre un timer de sortie
 
-
-        void set_asserv(int asserv);
-        // dans la periode de run tout se passe
-
         // evitement a integrer (sur base de sonar)
-        void decalage_droite(double tempsTotAction);
-        void decalage_gauche(double tempsTotAction); // mettre un timer
-        void decalage_avant(double tempsTotAction);
-        void decalage_arriere(double tempsTotAction);
+        void decalage_droite(long tempsTotAction);
+        void decalage_gauche(long tempsTotAction); // mettre un timer
+        void decalage_avant(long tempsTotAction);
+        void decalage_arriere(long tempsTotAction);
+
+        // a faire si temps.... j'en doute :\
         void rotation(double tempsTotAction); //couplage avec IMU???
 
         // mise en place escalier
-        void arret(); // arret de l'asserv en cours
         void pause_asserv(); //pause de l'asserv en cours (timer)
         void reprise(); //reprise de l'asserv en cours, si existe
         void run();
-        void asservFini(); //envoi au master l'ordre de fin
-        bool isFini();
+        void set_time_out(int dt_);
+        void reset_time_out();
+        bool is_time_out();
 
         // chaine secondaire
         void chenilleSecondaire_ON();
@@ -262,30 +301,6 @@ class DeposeurTapis
 };
 
 
-/****************************************************
-   SONAR
-*****************************************************/
-class Sonar
-{
-    private:
-        Period period_sonar;
-        NewPing sonar_gauche;//(PIN_PWM_SONAR_G_TRIGGER,PIN_PWM_SONAR_G_Echo,SONAR_DISTANCE_MAX);
-        NewPing sonar_droite;//(PIN_PWM_SONAR_D_TRIGGER,PIN_PWM_SONAR_D_Echo,SONAR_DISTANCE_MAX);
-        NewPing sonar_face;//(PIN_PWM_SONAR_C_TRIGGER,PIN_PWM_SONAR_C_Echo,SONAR_DISTANCE_MAX);
-        unsigned int sonar_distance_droite;
-        unsigned int sonar_distance_gauche;
-        unsigned int sonar_distance_face;
-
-    public:
-        Sonar();
-        void run();
-        bool adv_gauche();
-        bool adv_droite();
-        bool adv_face();
-        void affiche();
-        void afficheADV();
-};
-
 #define PERIODE_CENTRALE 50         // temps d'echantillonage (dt)
 #define RAD_TO_DEG_CONV 57.3        // radians to degree conversion
 #define FILTER_GAIN 1//0.95            // gain angle = angle_gyro*Filter_gain + angle_accel*(1-Filter_gain)
@@ -326,7 +341,7 @@ class IO
         DeposeurTapis deposeurTapis;
         ChenilleSecondaire chenilleSecondaire;
         ChenillePrincipale chenillePrincipale;
-        Sonar sonar;
+
         //Centrale_Inertielle centrale;
 
     public:

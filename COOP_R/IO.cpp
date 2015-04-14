@@ -37,6 +37,8 @@ void ChenilleSecondaire::position_auSol(){
 }
 
 
+
+#define PERIODE_SLAVE 50
 /*********************************************************************
     CHAINE PRINCIPALE
 *********************************************************************/
@@ -53,7 +55,15 @@ ChenillePrincipale::ChenillePrincipale():
     bumper_d_av(PIN_BUMPER_RECALAGE_D_AV,SEUIL_BUMPER),
     bumper_d_ar(PIN_BUMPER_RECALAGE_D_AR,SEUIL_BUMPER),
     period_run(50),
-    period_asserv(100)
+    sonar(),
+    state(SLAVE_STATE_REPOS),
+    time_asserv_to_do(0),         // temps d'asserv pour l'asser en cours
+    time_asserv_remaining(0),     // temps restant si interruption par l'evitement, rajouter un dela temps
+    time_delta_time_after_interrupt(100),
+    time_out_on(false),
+    t_over(false),
+    evitement_actif(false),       // pour savoir si on consulte les sonar ou pas
+    interruption_par_evitement(false)
 {
     bumper_av_g.reverse();
     bumper_av_d.reverse();
@@ -64,8 +74,21 @@ ChenillePrincipale::ChenillePrincipale():
     chenille_laterale.attach(PIN_PWM_MOTEUR_CHENILLE_LATERALE);
     chenille_gauche.attach(PIN_PWM_MOTEUR_CHENILLE_G);
     chenille_droite.attach(PIN_PWM_MOTEUR_CHENILLE_D);
+    Serial.println("[INIT] CHENILLE PRINCIPAL");
+
     arret();
 }
+
+void ChenillePrincipale::set_evitement_OFF()
+{
+    evitement_actif = false;
+}
+
+void ChenillePrincipale::set_evitement_ON()
+{
+    evitement_actif = true;
+}
+
 
 /** deplacement longitudinale, chenille gauche arret moteur
 */
@@ -142,94 +165,115 @@ void ChenillePrincipale::arret(){
 
 
 
+
+
+// tempo
+void ChenillePrincipale::set_time_out(int dt_)
+{
+    t_over = millis() + dt_;
+    time_out_on = true;
+    //trigger_to_be = trigger;
+    Serial.print("time_out set ");
+    //Serial.println(trigger);
+}
+
+// reset time out
+void ChenillePrincipale::reset_time_out()
+{
+    time_out_on = false;
+}
+
+// es ce que c'est fini
+bool ChenillePrincipale::is_time_out()
+{
+   if (time_out_on && t_over < millis())
+   {
+     time_out_on = false;
+     return true;
+   }
+   return false;
+}
+
 /** boucle de control
 */
 void ChenillePrincipale::run(){
+    sonar.run();
+
     if (period_run.is_over())
     {
         period_run.reset();
-
-        // mettre action specifique asserv
-
-        // mettre les triggers
-
-
-        // bumper et tout
-
+        if (is_time_out())
+        {
+            trigger(SLAVE_TRIGGER_TIME_OUT);
+        }
     }
+
 }
+
 
 // va bumper a droite et s'arrete
 void ChenillePrincipale::recalage_gauche(){
-    // tant qu'on a pas bumper a gauche on continu
-    // a mettre dans une boucle d'asserv ?
-/*
-    if(bumper_g_ar.is_on() && bumper_g_av.is_on()){
-        lateral_stop();
-    }
-    else{
-        lateral_gauche();
-    }
-    */
-    lateral_gauche();
+    trigger(SLAVE_TRIGGER_LATERAL_GAUCHE);
+    time_asserv_to_do = 15000; //par default 15s si ca fini pas on passe ailleurs
+    set_evitement_OFF();
 }
 
 //va bumper a gauche et s'arrete
 void ChenillePrincipale::recalage_droite(){
-    // tant qu'on a pas bumper a gauche on continu
-    // a mettre dans une boucle d'asserv ?
-/*
-    if(bumper_d_ar.is_on() && bumper_d_av.is_on()){
-        lateral_stop();
-    }
-    else{
-        lateral_droite();
-    }
-
-    */
-    lateral_droite();
+    trigger(SLAVE_TRIGGER_LATERAL_DROITE);
+    time_asserv_to_do = 15000; //par default 15s si ca fini pas on passe ailleurs
+    set_evitement_OFF();
 }
 
 // va bumper en face et s'arrete
 void ChenillePrincipale::recalage_face(){
-    if(bumper_av_g.is_on() && bumper_av_d.is_on()){
-        longi_droite_stop();
-        longi_gauche_stop();
-        // send asserv fini
-    }
-    else{
-        if(bumper_av_g.is_on()){
-            longi_gauche_stop();
-        }
-        else{
-            longi_gauche_avance();
-        }
-
-        if(bumper_av_d.is_on()){
-            longi_droite_stop();
-        }
-        else{
-            longi_droite_avance();
-        }
-    }
+    trigger(SLAVE_TRIGGER_LONGITUDINAL_AVANT);
+    time_asserv_to_do = 15000; //par default 15s si ca fini pas on passe ailleurs
+    set_evitement_OFF();
 }
 
 
-void ChenillePrincipale::decalage_droite(double tempsTotAction){
-
+void ChenillePrincipale::decalage_droite(long tempsTotAction){
+    trigger(SLAVE_TRIGGER_LATERAL_DROITE);
+    time_asserv_to_do = tempsTotAction;
+    set_evitement_ON();
+    // il faut activer l'evitement de l'exterieur
 }
 
-void ChenillePrincipale::decalage_gauche(double tempsTotAction){
-
+void ChenillePrincipale::decalage_gauche(long tempsTotAction){
+    trigger(SLAVE_TRIGGER_LATERAL_GAUCHE);
+    time_asserv_to_do = tempsTotAction;
+    set_evitement_ON();
+    // il faut activer l'evitement de l'exterieur
 }
 
-void ChenillePrincipale::decalage_avant(double tempsTotAction){
-
+void ChenillePrincipale::decalage_avant(long tempsTotAction){
+    trigger(SLAVE_TRIGGER_LONGITUDINAL_AVANT);
+    time_asserv_to_do = tempsTotAction;
+    set_evitement_ON();
+    // il faut activer l'evitement de l'exterieur
 }
 
-void ChenillePrincipale::decalage_arriere(double tempsTotAction){
 
+void ChenillePrincipale::decalage_arriere(long tempsTotAction){
+    trigger(SLAVE_TRIGGER_LATERAL_DROITE);
+    time_asserv_to_do = tempsTotAction;
+    set_evitement_OFF();        // pas besoin ici et puis ya pas de sonar derrriere :P
+    // il faut activer l'evitement de l'exterieur
 }
+
+// pause l'asserv manuellement pour test, sinon c'est automatique avec l'evitement
+void ChenillePrincipale::pause_asserv()
+{
+    trigger(SLAVE_TRIGGER_PAUSE);
+}
+
+// reprise de l'asser en cours
+void ChenillePrincipale::reprise()
+{
+    trigger(SLAVE_TRIGGER_REPRISE);
+}
+
 
 
 /*********************************************************************
@@ -937,9 +981,9 @@ void Centrale_Inertielle::affiche()
 IO::IO():
     deposeurTapis(),
     chenilleSecondaire(),
-    chenillePrincipale(),
-    //centrale(),
-    sonar() // a mettre dans chenille pricipale car uniquement pour elle
+    chenillePrincipale()
+    //centrale()
+     // a mettre dans chenille pricipale car uniquement pour elle
 {
 
 
