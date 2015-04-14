@@ -715,7 +715,7 @@ bool Sonar::adv_gauche()
     }
     else
     {
-        Serial.println("# ADV GAUCHE");
+        Serial.println("# ADV GAUCHE");  // a mettre plutot dans la sorte de slave roue
         return true;
     }
 }
@@ -756,7 +756,7 @@ IO::IO():
     deposeurTapis(),
     chenilleSecondaire(),
     chenillePrincipale(),
-    sonar()
+    sonar() // a mettre dans chenille pricipale car uniquement pour elle
 {
 
 

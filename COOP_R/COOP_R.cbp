@@ -662,6 +662,8 @@
 		<Unit filename="IO.h" />
 		<Unit filename="MPU6050.cpp" />
 		<Unit filename="MPU6050.h" />
+		<Unit filename="NewPing.cpp" />
+		<Unit filename="NewPing.h" />
 		<Unit filename="OrdersRaspberry.cpp" />
 		<Unit filename="OrdersRaspberry.h" />
 		<Unit filename="Utils/Coord.cpp" />
