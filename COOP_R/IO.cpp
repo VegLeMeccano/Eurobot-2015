@@ -66,12 +66,14 @@ ChenillePrincipale::ChenillePrincipale():
     evitement_actif(false),       // pour savoir si on consulte les sonar ou pas
     interruption_par_evitement(false)
 {
+    /*
     bumper_av_g.reverse();
     bumper_av_d.reverse();
     bumper_g_av.reverse();
     bumper_g_ar.reverse();
     bumper_d_av.reverse();
     bumper_d_ar.reverse();
+    */
     chenille_laterale.attach(PIN_PWM_MOTEUR_CHENILLE_LATERALE);
     chenille_gauche.attach(PIN_PWM_MOTEUR_CHENILLE_G);
     chenille_droite.attach(PIN_PWM_MOTEUR_CHENILLE_D);
