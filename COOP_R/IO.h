@@ -30,6 +30,7 @@ class Sonar
         unsigned int sonar_distance_droite;
         unsigned int sonar_distance_gauche;
         unsigned int sonar_distance_face;
+        bool bavardeur;
 
     public:
         Sonar();
@@ -39,6 +40,8 @@ class Sonar
         bool adv_face();
         void affiche();
         void afficheADV();
+        void bavard();
+        void muet();
 };
 
 /****************************************************
@@ -188,6 +191,7 @@ class ChenillePrincipale
         void chenilleSecondaire_ON();
         void chenilleSecondaire_OFF();
 
+        Sonar* get_Sonar();
 };
 
 
@@ -306,7 +310,7 @@ class DeposeurTapis
 };
 
 
-#define PERIODE_CENTRALE 50         // temps d'echantillonage (dt)
+#define PERIODE_CENTRALE 40         // temps d'echantillonage (dt)
 #define RAD_TO_DEG_CONV 57.3        // radians to degree conversion
 #define FILTER_GAIN 1//0.95            // gain angle = angle_gyro*Filter_gain + angle_accel*(1-Filter_gain)
 #define CONSTANTE_G 9.81
@@ -326,6 +330,7 @@ class Centrale_Inertielle
         int16_t ax_OC, ay_OC, az_OC;     // acceleration
         int16_t gx_OC, gy_OC, gz_OC;     // gyration
         float dt;
+        bool bavardeur;
 
     public:
         Centrale_Inertielle();
@@ -334,6 +339,9 @@ class Centrale_Inertielle
         float angle_y_out();
         float angle_z_out();
         void affiche();
+        void bavard();
+        void muet();
+        void reset_angle();    // juste avant la monteee, tolerance a 5deg, on va s'incliner de pres de 20deg
 };
 
 
@@ -346,8 +354,7 @@ class IO
         DeposeurTapis deposeurTapis;
         ChenilleSecondaire chenilleSecondaire;
         ChenillePrincipale chenillePrincipale;
-
-        //Centrale_Inertielle centrale;
+        Centrale_Inertielle centrale;
 
     public:
         IO();
@@ -355,6 +362,8 @@ class IO
         DeposeurTapis* get_DeposeurTapis();
         ChenilleSecondaire* get_ChenilleSecondaire();
         ChenillePrincipale* get_ChenillePrincipale();
+        Centrale_Inertielle* get_Centrale_Inertielle();
+        void monte_escalier();
 
 };
 

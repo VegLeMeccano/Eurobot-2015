@@ -233,16 +233,31 @@ void OrdersRaspberry::executeinstr()
         switch (ind)
         {
         case 0:
-            Serial.print("Debug IMU");
-            // renvoye les angles
-            // + accelerations?
+            Serial.print("Debug IMU, on");
+            io->get_Centrale_Inertielle()->bavard();
             break;
         case 1:
-            Serial.print("Debug Bumper");
+            Serial.print("Debug IMU, off");
+            io->get_Centrale_Inertielle()->muet();
            break;
-        case 2:
-            Serial.print("Debug IR");
+
+        case 4:
+            Serial.print("Debug IR, on");
             break;
+
+        case 5:
+            Serial.print("Debug IR, off");
+            break;
+
+        case 2:
+            Serial.print("Debug SONAR, on");
+            io->get_ChenillePrincipale()->get_Sonar()->bavard();
+            break;
+        case 3:
+            Serial.print("Debug SONAR, off");
+            io->get_ChenillePrincipale()->get_Sonar()->muet();
+            break;
+
        }
     break;
 

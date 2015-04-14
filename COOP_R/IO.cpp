@@ -39,6 +39,8 @@ void ChenilleSecondaire::position_auSol(){
 
 
 #define PERIODE_SLAVE 50
+#define SLAVE_TIME_SUP_APRES_STOP 1000 // 1s a checke en vrai
+#define SLAVE_TIME_OUT_RECALAGE 15000 //15s
 /*********************************************************************
     CHAINE PRINCIPALE
 *********************************************************************/
@@ -60,20 +62,12 @@ ChenillePrincipale::ChenillePrincipale():
     time_asserv_started(0),
     time_asserv_to_do(0),         // temps d'asserv pour l'asser en cours
     time_asserv_remaining(0),     // temps restant si interruption par l'evitement, rajouter un dela temps
-    time_delta_time_after_interrupt(100),
+    time_delta_time_after_interrupt(SLAVE_TIME_SUP_APRES_STOP),
     time_out_on(false),
     t_over(false),
     evitement_actif(false),       // pour savoir si on consulte les sonar ou pas
     interruption_par_evitement(false)
 {
-    /*
-    bumper_av_g.reverse();
-    bumper_av_d.reverse();
-    bumper_g_av.reverse();
-    bumper_g_ar.reverse();
-    bumper_d_av.reverse();
-    bumper_d_ar.reverse();
-    */
     chenille_laterale.attach(PIN_PWM_MOTEUR_CHENILLE_LATERALE);
     chenille_gauche.attach(PIN_PWM_MOTEUR_CHENILLE_G);
     chenille_droite.attach(PIN_PWM_MOTEUR_CHENILLE_D);
@@ -82,6 +76,11 @@ ChenillePrincipale::ChenillePrincipale():
     arret();
     set_evitement_OFF();
     in_state_func();
+}
+
+Sonar* ChenillePrincipale::get_Sonar()
+{
+    return &sonar;
 }
 
 void ChenillePrincipale::set_evitement_OFF()
@@ -214,19 +213,19 @@ void ChenillePrincipale::run(){
         }
 
         // si on bump devant
-        if (bumper_av_d.is_on() && bumper_av_g.is_on())
+        if (bumper_av_d.is_on() && bumper_av_g.is_on() && state == SLAVE_STATE_DEPLACEMENT_AVANT_ACTION)
         {
             trigger(SLAVE_TRIGGER_BUMP_FACE);
         }
 
         // si on bump a gauche
-        if (bumper_g_ar.is_on() && bumper_g_av.is_on())
+        if (bumper_g_ar.is_on() && bumper_g_av.is_on() && state == SLAVE_STATE_DEPLACEMENT_GAUCHE_ACTION)
         {
             trigger(SLAVE_TRIGGER_BUMP_GAUCHE);
         }
 
         // si on bump a droite
-        if (bumper_d_ar.is_on() && bumper_d_av.is_on())
+        if (bumper_d_ar.is_on() && bumper_d_av.is_on() && state == SLAVE_STATE_DEPLACEMENT_DROITE_ACTION)
         {
             trigger(SLAVE_TRIGGER_BUMP_DROITE);
         }
@@ -276,53 +275,60 @@ void ChenillePrincipale::run(){
 
 // va bumper a droite et s'arrete
 void ChenillePrincipale::recalage_gauche(){
+
+    time_asserv_to_do = SLAVE_TIME_OUT_RECALAGE; //par default 15s si ca fini pas on passe ailleurs
+    //set_evitement_OFF();
     trigger(SLAVE_TRIGGER_LATERAL_GAUCHE);
-    time_asserv_to_do = 15000; //par default 15s si ca fini pas on passe ailleurs
-    set_evitement_OFF();
 }
 
 //va bumper a gauche et s'arrete
 void ChenillePrincipale::recalage_droite(){
+
+    time_asserv_to_do = SLAVE_TIME_OUT_RECALAGE; //par default 15s si ca fini pas on passe ailleurs
+    //set_evitement_OFF();
     trigger(SLAVE_TRIGGER_LATERAL_DROITE);
-    time_asserv_to_do = 15000; //par default 15s si ca fini pas on passe ailleurs
-    set_evitement_OFF();
 }
 
 // va bumper en face et s'arrete
 void ChenillePrincipale::recalage_face(){
+
+    time_asserv_to_do = SLAVE_TIME_OUT_RECALAGE; //par default 15s si ca fini pas on passe ailleurs
+    //set_evitement_OFF();
     trigger(SLAVE_TRIGGER_LONGITUDINAL_AVANT);
-    time_asserv_to_do = 15000; //par default 15s si ca fini pas on passe ailleurs
-    set_evitement_OFF();
 }
 
 
 void ChenillePrincipale::decalage_droite(long tempsTotAction){
-    trigger(SLAVE_TRIGGER_LATERAL_DROITE);
+
     time_asserv_to_do = tempsTotAction;
-    set_evitement_ON();
+    //set_evitement_ON();
     // il faut activer l'evitement de l'exterieur
+    trigger(SLAVE_TRIGGER_LATERAL_DROITE);
 }
 
 void ChenillePrincipale::decalage_gauche(long tempsTotAction){
-    trigger(SLAVE_TRIGGER_LATERAL_GAUCHE);
+
     time_asserv_to_do = tempsTotAction;
-    set_evitement_ON();
+    //set_evitement_ON();
     // il faut activer l'evitement de l'exterieur
+    trigger(SLAVE_TRIGGER_LATERAL_GAUCHE);
 }
 
 void ChenillePrincipale::decalage_avant(long tempsTotAction){
-    trigger(SLAVE_TRIGGER_LONGITUDINAL_AVANT);
+
     time_asserv_to_do = tempsTotAction;
-    set_evitement_ON();
+    //set_evitement_ON();
     // il faut activer l'evitement de l'exterieur
+    trigger(SLAVE_TRIGGER_LONGITUDINAL_AVANT);
 }
 
 
 void ChenillePrincipale::decalage_arriere(long tempsTotAction){
-    trigger(SLAVE_TRIGGER_LATERAL_DROITE);
+
     time_asserv_to_do = tempsTotAction;
-    set_evitement_OFF();        // pas besoin ici et puis ya pas de sonar derrriere :P
+    //set_evitement_OFF();        // pas besoin ici et puis ya pas de sonar derrriere :P
     // il faut activer l'evitement de l'exterieur
+    trigger(SLAVE_TRIGGER_LATERAL_DROITE);
 }
 
 // pause l'asserv manuellement pour test, sinon c'est automatique avec l'evitement
@@ -555,6 +561,8 @@ void ChenillePrincipale::in_state_func()
 
         case SLAVE_STATE_DEPLACEMENT_GAUCHE_ACTION  :
            Serial.println("[SLAVE][ETAT] DEPLACEMENT LATERAL GAUCHE ACTION");
+           Serial.print("time asserv to do : ");
+           Serial.println(time_asserv_to_do);
            set_time_out(time_asserv_to_do);
            lateral_gauche();
            break;
@@ -567,6 +575,8 @@ void ChenillePrincipale::in_state_func()
 
         case SLAVE_STATE_DEPLACEMENT_DROITE_ACTION  :
            Serial.println("[SLAVE][ETAT] DEPLACEMENT LATERAL DROITE ACTION");
+           Serial.print("time asserv to do : ");
+           Serial.println(time_asserv_to_do);
            set_time_out(time_asserv_to_do);
            lateral_droite();
            break;
@@ -574,11 +584,13 @@ void ChenillePrincipale::in_state_func()
 
         case SLAVE_STATE_DEPLACEMENT_DROITE_PAUSE  :
            Serial.println("[SLAVE][ETAT] DEPLACEMENT LATERAL DROITE PAUSE");
-           lateral_droite();
+           lateral_stop();
            break;
 
         case SLAVE_STATE_DEPLACEMENT_AVANT_ACTION  :
            Serial.println("[SLAVE][ETAT] DEPLACEMENT AVANT ACTION");
+           Serial.print("time asserv to do : ");
+           Serial.println(time_asserv_to_do);
            set_time_out(time_asserv_to_do);
            longi_droite_avance();
            longi_gauche_avance();
@@ -594,6 +606,8 @@ void ChenillePrincipale::in_state_func()
         case SLAVE_STATE_DEPLACEMENT_ARRIERE_ACTION  :
            Serial.println("[SLAVE][ETAT] DEPLACEMENT ARRIERE ACTION");
            set_time_out(time_asserv_to_do);
+           Serial.print("time asserv to do : ");
+           Serial.println(time_asserv_to_do);
            longi_droite_recule();
            longi_gauche_recule();
            break;
@@ -1080,10 +1094,21 @@ Sonar::Sonar():
     sonar_face(PIN_PWM_SONAR_C_TRIGGER,PIN_PWM_SONAR_C_Echo,SONAR_DISTANCE_MAX),
     sonar_distance_droite(SONAR_DISTANCE_MAX),
     sonar_distance_gauche(SONAR_DISTANCE_MAX),
-    sonar_distance_face(SONAR_DISTANCE_MAX)
+    sonar_distance_face(SONAR_DISTANCE_MAX),
+    bavardeur(false)
     {
 
     }
+
+void Sonar::bavard()
+{
+    bavardeur = true;
+}
+
+void Sonar::muet()
+{
+    bavardeur = false;
+}
 
 void Sonar::run()
 {
@@ -1094,7 +1119,11 @@ void Sonar::run()
         sonar_distance_droite = sonar_droite.ping_cm();
         sonar_distance_gauche = sonar_gauche.ping_cm();
         sonar_distance_face = sonar_face.ping_cm();
-        afficheADV();
+        if(bavardeur)
+        {
+            afficheADV();
+        }
+
     }
 }
 void Sonar::affiche()
@@ -1225,6 +1254,8 @@ Centrale_Inertielle::Centrale_Inertielle():
         Serial.print(ay); Serial.print("\t");
         Serial.print(az); Serial.print("\t");
         Serial.println();
+
+        muet();
 }
 
 
@@ -1236,19 +1267,10 @@ void Centrale_Inertielle::run()
 
         /** Lecture des mesures */
         accelgyro.getMotion6(&ax, &ay, &az, &gx, &gy, &gz);
-        Serial.print("g:\t");
-        Serial.print(gx); Serial.print("\t");
-        Serial.print(gy); Serial.print("\t");
-        Serial.print(gz); Serial.print("\t");
-        Serial.print("a:\t");
-        Serial.print(ax); Serial.print("\t");
-        Serial.print(ay); Serial.print("\t");
-        Serial.print(az); Serial.print("\t");
-        Serial.println();
-        Serial.println();
 
         /** Calcul des angles */
         // derive du gyro
+        /*
         angle_x_gyro = gx*dt/1000 + angle_x_gyro;
         angle_y_gyro = gy*dt/1000 + angle_y_gyro;
         angle_z_gyro = gz*dt/1000 + angle_z_gyro;
@@ -1260,7 +1282,40 @@ void Centrale_Inertielle::run()
         angle_x = FILTER_GAIN*angle_x_gyro + (1-FILTER_GAIN)*angle_x_accel;
         angle_y = FILTER_GAIN*angle_y_gyro + (1-FILTER_GAIN)*angle_y_accel;
         angle_z = FILTER_GAIN*angle_z_gyro + (1-FILTER_GAIN)*angle_z_accel;
+        */
+        // affiche
+        if(bavardeur)
+        {
+            gx_OC = -250;
+            gy_OC = 195;
+            gz_OC = 170;
+            float vx, vy,vz;
+            vx = gx-gx_OC;
+            vy = gy-gy_OC;
+            vz = gz-gz_OC;
 
+            if(abs(vx)<40){vx = 0;}
+            if(abs(vy)<40){vy = 0;}
+            if(abs(vz)<40){vz = 0;}
+
+            angle_x_gyro = vx*dt/1000 + angle_x_gyro;
+            angle_y_gyro = vy*dt/1000 + angle_y_gyro;
+            angle_z_gyro = vz*dt/1000 + angle_z_gyro;
+
+
+            Serial.print("g:\t");
+            Serial.print(vx); Serial.print("\t");
+            Serial.print(vy); Serial.print("\t");
+            Serial.print(vz); Serial.print("\t");
+
+
+            Serial.print("a:\t");
+            Serial.print(angle_x_gyro/100); Serial.print("\t");
+            Serial.print(angle_y_gyro/100); Serial.print("\t");
+            Serial.print(angle_z_gyro/100); Serial.print("\t");
+            Serial.println();
+            Serial.println();
+        }
         //affiche();
     }
 }
@@ -1295,6 +1350,14 @@ void Centrale_Inertielle::affiche()
 
 }
 
+void Centrale_Inertielle::bavard()
+{
+    bavardeur = true;
+}
+void Centrale_Inertielle::muet()
+{
+    bavardeur = false;
+}
 
 
 
@@ -1306,8 +1369,8 @@ void Centrale_Inertielle::affiche()
 IO::IO():
     deposeurTapis(),
     chenilleSecondaire(),
-    chenillePrincipale()
-    //centrale()
+    chenillePrincipale(),
+    centrale()
      // a mettre dans chenille pricipale car uniquement pour elle
 {
 
@@ -1320,8 +1383,7 @@ void IO::run()
     //Serial.println("IO run");
     deposeurTapis.run();
     chenillePrincipale.run();
-    //sonar.run();
-    //centrale.run();
+    centrale.run();
 }
 
 DeposeurTapis* IO::get_DeposeurTapis()
@@ -1337,4 +1399,9 @@ ChenilleSecondaire* IO::get_ChenilleSecondaire()
 ChenillePrincipale* IO::get_ChenillePrincipale()
 {
     return &chenillePrincipale;
+}
+
+Centrale_Inertielle* IO::get_Centrale_Inertielle()
+{
+    return &centrale;
 }
