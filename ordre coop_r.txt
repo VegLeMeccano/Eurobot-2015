@@ -12,10 +12,11 @@ T3 -> replis tapis 2
 
 Chaine secondaire
 -----------------------------
-S0 -> deployement
-S1 -> replis
-S2 -> ON
-S3 -> OFF
+S0 -> desactivation de la chaine
+S1 -> activation de la chaine
+S2 -> position rangée
+S3 -> position mi-hauteur
+S4 -> position basse (attaque ou pompe)
 
 
 Chaine Principale (asserv base roulante)
@@ -23,7 +24,7 @@ Chaine Principale (asserv base roulante)
 P0 -> recalage face
 P1 -> recalage gauche
 P2 -> recalage droite
-P3 -> deplacement face   + distance � parcourir
+P3 -> deplacement face   + distance à parcourir
 P4 -> deplacement gauche
 P5 -> deplacement droite
 
