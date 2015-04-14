@@ -8,7 +8,7 @@
 #include <Utils/SwitchAnalog.h>
 #include "./Utils/SwitchAnalog.h"
 #include <Servo.h>
-
+#include "NewPing.h"
 
 // IMU
 // http://www.seeedstudio.com/wiki/Xadow_-_IMU_6DOF
@@ -260,6 +260,30 @@ class DeposeurTapis
 };
 
 
+/****************************************************
+   SONAR
+*****************************************************/
+class Sonar
+{
+    private:
+        Period period_sonar;
+        NewPing sonar_gauche;//(PIN_PWM_SONAR_G_TRIGGER,PIN_PWM_SONAR_G_Echo,SONAR_DISTANCE_MAX);
+        NewPing sonar_droite;//(PIN_PWM_SONAR_D_TRIGGER,PIN_PWM_SONAR_D_Echo,SONAR_DISTANCE_MAX);
+        NewPing sonar_face;//(PIN_PWM_SONAR_C_TRIGGER,PIN_PWM_SONAR_C_Echo,SONAR_DISTANCE_MAX);
+        unsigned int sonar_distance_droite;
+        unsigned int sonar_distance_gauche;
+        unsigned int sonar_distance_face;
+
+    public:
+        Sonar();
+        void run();
+        bool adv_gauche();
+        bool adv_droite();
+        bool adv_face();
+        void affiche();
+        void afficheADV();
+};
+
 
 /****************************************************
    IO
@@ -270,6 +294,7 @@ class IO
         DeposeurTapis deposeurTapis;
         ChenilleSecondaire chenilleSecondaire;
         ChenillePrincipale chenillePrincipale;
+        Sonar sonar;
 
     public:
         IO();
@@ -279,5 +304,9 @@ class IO
         ChenillePrincipale* get_ChenillePrincipale();
 
 };
+
+
+
+
 
 #endif

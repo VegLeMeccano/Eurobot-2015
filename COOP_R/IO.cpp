@@ -656,6 +656,94 @@ void DeposeurTapis::in_state_func()
 }
 
 
+#define SONAR_DISTANCE_MAX 100 //en cm default=500
+#define SONAR_PING_INTERVAL 33
+#define SONAR_SEUIL_DETECTION_ADV_LAT 30 //cm
+#define SONAR_SEUIL_DETECTION_ADV_FACE 40 //cm
+/****************************************************
+   SONAR
+*****************************************************/
+Sonar::Sonar():
+    period_sonar(SONAR_PING_INTERVAL),
+    sonar_gauche(PIN_PWM_SONAR_G_TRIGGER,PIN_PWM_SONAR_G_Echo,SONAR_DISTANCE_MAX),
+    sonar_droite(PIN_PWM_SONAR_D_TRIGGER,PIN_PWM_SONAR_D_Echo,SONAR_DISTANCE_MAX),
+    sonar_face(PIN_PWM_SONAR_C_TRIGGER,PIN_PWM_SONAR_C_Echo,SONAR_DISTANCE_MAX),
+    sonar_distance_droite(SONAR_DISTANCE_MAX),
+    sonar_distance_gauche(SONAR_DISTANCE_MAX),
+    sonar_distance_face(SONAR_DISTANCE_MAX)
+    {
+
+    }
+
+void Sonar::run()
+{
+     if (period_sonar.is_over())
+    {
+        period_sonar.reset();
+        // to do telemesure
+        sonar_distance_droite = sonar_droite.ping_cm();
+        sonar_distance_gauche = sonar_gauche.ping_cm();
+        sonar_distance_face = sonar_face.ping_cm();
+        afficheADV();
+    }
+}
+void Sonar::affiche()
+{
+    Serial.print("Sonar gauche : ");
+    Serial.print(sonar_distance_gauche);
+    Serial.println(" cm");
+    Serial.print("Sonar droite : ");
+    Serial.print(sonar_distance_droite);
+    Serial.println(" cm");
+    Serial.print("Sonar face   : ");
+    Serial.print(sonar_distance_face);
+    Serial.println(" cm");
+}
+
+void Sonar::afficheADV()
+{
+    adv_droite();
+    adv_gauche();
+    adv_face();
+}
+
+bool Sonar::adv_gauche()
+{
+    if(sonar_distance_gauche>SONAR_SEUIL_DETECTION_ADV_LAT || sonar_distance_gauche==0)
+    {
+        return false;
+    }
+    else
+    {
+        Serial.println("# ADV GAUCHE");
+        return true;
+    }
+}
+
+bool Sonar::adv_droite()
+{
+    if(sonar_distance_droite>SONAR_SEUIL_DETECTION_ADV_LAT || sonar_distance_droite==0)
+    {
+        return false;
+    }
+    else
+    {
+        Serial.println("# ADV DROITE");
+        return true;
+    }
+}
+bool Sonar::adv_face()
+{
+    if(sonar_distance_face>SONAR_SEUIL_DETECTION_ADV_FACE || sonar_distance_face==0)
+    {
+        return false;
+    }
+    else
+    {
+        Serial.println("# ADV FACE");
+        return true;
+    }
+}
 
 
 
@@ -667,7 +755,8 @@ void DeposeurTapis::in_state_func()
 IO::IO():
     deposeurTapis(),
     chenilleSecondaire(),
-    chenillePrincipale()
+    chenillePrincipale(),
+    sonar()
 {
 
 
@@ -679,6 +768,7 @@ void IO::run()
     //Serial.println("IO run");
     deposeurTapis.run();
     chenillePrincipale.run();
+    sonar.run();
 }
 
 DeposeurTapis* IO::get_DeposeurTapis()

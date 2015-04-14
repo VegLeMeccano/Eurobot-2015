@@ -17,9 +17,11 @@
 #include <pnew.cpp>
 #include "./Utils/SwitchAnalog.h"
 //#include "./Utils/Switch.h"
+#include <Utils/Period.h>
 
 #include "I2Cdev.h"
 #include "MPU6050.h"
+
 
 #if I2CDEV_IMPLEMENTATION == I2CDEV_ARDUINO_WIRE
     #include "Wire.h"
@@ -34,12 +36,15 @@
 #define END 3
 
 
-
+// IN/OUT et COM
 IO* io;
 OrdersRaspberry* com;
 
 // pour test uniquement
 MPU6050 accelgyro;
+
+
+
 
 // bumper de strat
 SwitchAnalog bumper_start(PIN_BUMPER_STRAT_START,SEUIL_BUMPER);
@@ -195,7 +200,7 @@ void loop(){
         delay(50);
 */
 
-//**
+/**
     //test des bumpers
         // test US
     Serial.print("IR BAS : ");
@@ -226,6 +231,10 @@ void loop(){
     Serial.println();
 
     delay(500);
-//*/
+*/
+
+    com->run();
+    io->run();
+    delay(1);
 }
 
