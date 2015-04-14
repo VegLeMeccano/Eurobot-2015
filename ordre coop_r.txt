@@ -21,20 +21,24 @@ S4 -> position basse (attaque ou pompe)
 
 Chaine Principale (asserv base roulante)
 -----------------------------
-P3 -> deplacement face   + distance à parcourir
-P4 -> deplacement gauche
-P5 -> deplacement droite
+A0 -> deplacement avant   (+ temps d'excecution en ms) s'arrette si bump ou evitement activé, need reprise
+A1 -> deplacement arriere (+ temps d'excecution en ms)
+A2 -> deplacement droite (+ temps d'excecution en ms)
+A3 -> deplacement gauche (+ temps d'excecution en ms)
+A4 -> pause asserv
+A5 -> reprise asserv (+ 1s pour compenser la perte de vitesse)
+A6 -> recalage avant 
+A7 -> recalage gauche
+A8 -> recalae droite
 
-Chaine Principale (asserv base roulante)
+DEBUG
 -----------------------------
-R0 -> recalage face
-R1 -> recalage gauche
-R2 -> recalage droite
+D0 -> IMU bavard
+D1 -> IMU muet
+D2 -> SONAR bavard
+D3 -> SONAR muet
+D4 -> 
 
-
-atteinte escalier? IR
-
-P9 -> reprise asserv
 
 rotation? asserv sur IMU
 
