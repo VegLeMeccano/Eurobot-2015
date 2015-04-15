@@ -16,6 +16,40 @@
 // http://www.seeedstudio.com/wiki/Xadow_-_IMU_6DOF
 
 
+#define PERIODE_CENTRALE 50         // temps d'echantillonage (dt)
+#define RAD_TO_DEG_CONV 57.3        // radians to degree conversion
+#define FILTER_GAIN 1//0.95            // gain angle = angle_gyro*Filter_gain + angle_accel*(1-Filter_gain)
+#define CONSTANTE_G 9.81
+/****************************************************
+   Centrale inertielle
+*****************************************************/
+class Centrale_Inertielle
+{
+    private:
+        Period period_centrale;
+        MPU6050 accelgyro;
+        float angle_x_gyro, angle_y_gyro, angle_z_gyro;
+        float angle_x_accel, angle_y_accel, angle_z_accel;
+        float angle_x, angle_y, angle_z;
+        int16_t ax, ay, az;     // acceleration
+        int16_t gx, gy, gz;     // gyration
+        int16_t ax_OC, ay_OC, az_OC;     // acceleration
+        int16_t gx_OC, gy_OC, gz_OC;     // gyration
+        float dt;
+        bool bavardeur;
+
+    public:
+        Centrale_Inertielle();
+        void run();
+        float angle_x_out();
+        float angle_y_out();
+        float angle_z_out();
+        void affiche();
+        void bavard();
+        void muet();
+        void reset_angle();    // juste avant la monteee, tolerance a 5deg, on va s'incliner de pres de 20deg
+};
+
 
 /****************************************************
    SONAR
@@ -44,6 +78,23 @@ class Sonar
         void muet();
 };
 
+
+#define PERIODE_CHENILLE_SECONDAIRE 50
+
+#define STATE_CHENILLE_SECONDAIRE_RANGEE 0
+#define STATE_CHENILLE_SECONDAIRE_DEPLOYEMENT 1
+#define STATE_CHENILLE_SECONDAIRE_GRIMPE 2
+#define STATE_CHENILLE_SECONDAIRE_GRIMPE_TEMPO 3
+#define STATE_CHENILLE_SECONDAIRE_FIN_MONTEE 4 // attente
+#define STATE_CHENILLE_SECONDAIRE_DEBUT_RANGEMENT 5 // attente
+
+
+#define TRIGGER_CHENILLE_SECONDAIRE_TIME_OUT 0
+#define TRIGGER_CHENILLE_SECONDAIRE_DEPLOYEMENT 1
+#define TRIGGER_CHENILLE_SECONDAIRE_GRIMPE 2
+#define TRIGGER_CHENILLE_SECONDAIRE_STABILISATION 3 // vers fin de montee quand centrale se stabilise a moins de 5 deg
+
+
 /****************************************************
    CHENILLE SECONDAIRE
 *****************************************************/
@@ -52,16 +103,33 @@ class ChenilleSecondaire
     private:
         Servo bascule;
         Servo chenille_secondaire;
-        bool etat_chaine;
-        bool etat_levier;
+        Centrale_Inertielle centrale_Inertielle;   // a integrer proprement
+        Period period_run;
+        int state;
+        bool time_out_on;
+        long t_over;
+        float angle_tangage;
 
     public:
         ChenilleSecondaire();
+        void run();
+        void set_time_out(int dt_);
+        void reset_time_out();
+        bool is_time_out();
+        void in_state_func();
+        void trigger(int transition);
         void ON();
         void OFF();
         void position_rangee();
         void position_miHauteur(); // pour preparer le rangement
         void position_auSol();
+        Centrale_Inertielle* get_Centrale_Inertielle();
+
+        // commande haut niveau MAE
+        void deployement();
+        void grimpe();
+
+
 };
 
 
@@ -310,40 +378,6 @@ class DeposeurTapis
 };
 
 
-#define PERIODE_CENTRALE 40         // temps d'echantillonage (dt)
-#define RAD_TO_DEG_CONV 57.3        // radians to degree conversion
-#define FILTER_GAIN 1//0.95            // gain angle = angle_gyro*Filter_gain + angle_accel*(1-Filter_gain)
-#define CONSTANTE_G 9.81
-/****************************************************
-   Centrale inertielle
-*****************************************************/
-class Centrale_Inertielle
-{
-    private:
-        Period period_centrale;
-        MPU6050 accelgyro;
-        float angle_x_gyro, angle_y_gyro, angle_z_gyro;
-        float angle_x_accel, angle_y_accel, angle_z_accel;
-        float angle_x, angle_y, angle_z;
-        int16_t ax, ay, az;     // acceleration
-        int16_t gx, gy, gz;     // gyration
-        int16_t ax_OC, ay_OC, az_OC;     // acceleration
-        int16_t gx_OC, gy_OC, gz_OC;     // gyration
-        float dt;
-        bool bavardeur;
-
-    public:
-        Centrale_Inertielle();
-        void run();
-        float angle_x_out();
-        float angle_y_out();
-        float angle_z_out();
-        void affiche();
-        void bavard();
-        void muet();
-        void reset_angle();    // juste avant la monteee, tolerance a 5deg, on va s'incliner de pres de 20deg
-};
-
 
 /****************************************************
    IO
@@ -354,7 +388,7 @@ class IO
         DeposeurTapis deposeurTapis;
         ChenilleSecondaire chenilleSecondaire;
         ChenillePrincipale chenillePrincipale;
-        Centrale_Inertielle centrale;
+        //Centrale_Inertielle centrale;
 
     public:
         IO();
@@ -362,7 +396,7 @@ class IO
         DeposeurTapis* get_DeposeurTapis();
         ChenilleSecondaire* get_ChenilleSecondaire();
         ChenillePrincipale* get_ChenillePrincipale();
-        Centrale_Inertielle* get_Centrale_Inertielle();
+        //Centrale_Inertielle* get_Centrale_Inertielle();
         void monte_escalier();
 
 };

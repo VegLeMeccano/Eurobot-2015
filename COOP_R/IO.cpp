@@ -6,12 +6,19 @@
 /*********************************************************************
     CHAINE SECONDAIRE
 *********************************************************************/
-ChenilleSecondaire::ChenilleSecondaire()
+ChenilleSecondaire::ChenilleSecondaire():
+        period_run(PERIODE_CHENILLE_SECONDAIRE),
+        state(STATE_CHENILLE_SECONDAIRE_RANGEE),
+        time_out_on(false),
+        t_over(0),
+        angle_tangage(0),
+        centrale_Inertielle()
 {
     chenille_secondaire.attach(PIN_PWM_MOTEUR_CHENILLE_SECONDAIRE);
     bascule.attach(PIN_PWM_SERVO_BASCULE);
     OFF();
     position_rangee();
+    in_state_func();
 }
 
 void ChenilleSecondaire::OFF(){
@@ -35,6 +42,230 @@ void ChenilleSecondaire::position_miHauteur(){
 void ChenilleSecondaire::position_auSol(){
     bascule.writeMicroseconds(CHAINE_SECONDAIRE_POSITION_SOL);
 }
+
+void ChenilleSecondaire::deployement()
+{
+    // centrale.resestangle();
+    trigger(TRIGGER_CHENILLE_SECONDAIRE_DEPLOYEMENT);
+}
+void ChenilleSecondaire::grimpe()
+{
+    trigger(TRIGGER_CHENILLE_SECONDAIRE_GRIMPE);
+}
+
+// tempo
+void ChenilleSecondaire::set_time_out(int dt_)
+{
+    t_over = millis() + dt_;
+    time_out_on = true;
+    //trigger_to_be = trigger;
+    Serial.print("time_out set ");
+    //Serial.println(trigger);
+}
+
+// reset time out
+void ChenilleSecondaire::reset_time_out()
+{
+    time_out_on = false;
+}
+
+// es ce que c'est fini
+bool ChenilleSecondaire::is_time_out()
+{
+   if (time_out_on && t_over < millis())
+   {
+     time_out_on = false;
+     return true;
+   }
+   return false;
+}
+
+
+Centrale_Inertielle* ChenilleSecondaire::get_Centrale_Inertielle()
+{
+    return &centrale_Inertielle;
+}
+
+
+/** boucle de control
+*/
+#define SEUIL_TANGAGE 4 // deg
+void ChenilleSecondaire::run(){
+
+    // actualisation des donnees pour deplacement
+    centrale_Inertielle.run();
+    angle_tangage = centrale_Inertielle.angle_x_out();
+
+    if (period_run.is_over())
+    {
+        period_run.reset();
+
+        // si le temps est fini
+        if (is_time_out())
+        {
+            trigger(TRIGGER_CHENILLE_SECONDAIRE_TIME_OUT);
+        }
+
+        // si on est stabiliser en fin de montee, on remonte la chenille
+        if (state == STATE_CHENILLE_SECONDAIRE_GRIMPE_TEMPO)
+        {
+            Serial.print("angle_tangage : ");
+            Serial.println(angle_tangage);
+            if (abs(angle_tangage) < SEUIL_TANGAGE)
+            {
+                trigger(TRIGGER_CHENILLE_SECONDAIRE_STABILISATION);
+            }
+
+        }
+    }
+}
+
+
+
+// appel de transistion MAE
+void ChenilleSecondaire::trigger(int transition)
+{
+    Serial.println("");
+    Serial.print("appel trigger slave : ");
+    Serial.println(transition);
+
+    if (transition == TRIGGER_CHENILLE_SECONDAIRE_STABILISATION  )
+    {
+         Serial.println(" ");
+         Serial.print("[SCIE] TRANSISTION AUTOMATIQUE: STABILISATION GYRO");
+         Serial.println(transition);
+    }
+
+    if (transition == TRIGGER_CHENILLE_SECONDAIRE_GRIMPE || transition == TRIGGER_CHENILLE_SECONDAIRE_DEPLOYEMENT )
+    {
+         Serial.println(" ");
+         Serial.print("[SCIE] TRANSISTION FORCEE");
+         Serial.println(transition);
+    }
+
+    if (transition == TRIGGER_CHENILLE_SECONDAIRE_TIME_OUT )
+    {
+         Serial.println(" ");
+         Serial.print("[SCIE] TRANSISTION AUTOMATIQUE: TIME OUT");
+         Serial.println(transition);
+    }
+
+   Serial.print("[SCIE] ACTUAL STATE ->  ");
+   Serial.println(state);
+   int old_state;
+   old_state = state;
+   switch(state)
+    {
+        case STATE_CHENILLE_SECONDAIRE_RANGEE  :
+           if (transition == TRIGGER_CHENILLE_SECONDAIRE_DEPLOYEMENT )
+           {
+                state = STATE_CHENILLE_SECONDAIRE_DEPLOYEMENT;
+                Serial.println("[SCIE] Deployement");
+           }
+           break;
+
+        case STATE_CHENILLE_SECONDAIRE_DEPLOYEMENT  :
+           if (transition == TRIGGER_CHENILLE_SECONDAIRE_GRIMPE )
+           {
+                state = STATE_CHENILLE_SECONDAIRE_GRIMPE;
+                Serial.println("[SCIE] Grimpe");
+           }
+           break;
+
+        case STATE_CHENILLE_SECONDAIRE_GRIMPE  :
+           if (transition == TRIGGER_CHENILLE_SECONDAIRE_TIME_OUT)
+           {
+                state = STATE_CHENILLE_SECONDAIRE_GRIMPE_TEMPO;
+                Serial.println("[SCIE] grimpe tempo");
+           }
+           break;
+
+        case STATE_CHENILLE_SECONDAIRE_GRIMPE_TEMPO  :
+           if (transition == TRIGGER_CHENILLE_SECONDAIRE_STABILISATION )
+           {
+                state = STATE_CHENILLE_SECONDAIRE_FIN_MONTEE;
+                Serial.println("[SCIE] Fin de montee, stabilisation");
+           }
+           if (transition == TRIGGER_CHENILLE_SECONDAIRE_TIME_OUT)
+           {
+                state = STATE_CHENILLE_SECONDAIRE_FIN_MONTEE;
+                Serial.println("[SCIE] Fin de montee, time out");
+           }
+           break;
+
+        case STATE_CHENILLE_SECONDAIRE_FIN_MONTEE  :
+           if (transition == TRIGGER_CHENILLE_SECONDAIRE_TIME_OUT )
+           {
+                state = STATE_CHENILLE_SECONDAIRE_DEBUT_RANGEMENT;
+                Serial.println("[SCIE] Debut du Rangement");
+           }
+           break;
+
+         case STATE_CHENILLE_SECONDAIRE_DEBUT_RANGEMENT  :
+           if (transition == TRIGGER_CHENILLE_SECONDAIRE_TIME_OUT )
+           {
+                state = STATE_CHENILLE_SECONDAIRE_RANGEE;
+                Serial.println("[SCIE] fin du Rangement");
+           }
+           break;
+
+    }
+   if (old_state != state)
+    {
+        Serial.print("[SLAVE] NEW STATE ->  ");
+        Serial.println(state);
+        reset_time_out();
+        in_state_func();
+    }
+}
+
+
+
+void ChenilleSecondaire::in_state_func()
+{
+    switch (state)
+    {
+        case STATE_CHENILLE_SECONDAIRE_RANGEE  :
+           Serial.println("[SCIE][ETAT] RANGEE]");
+           position_rangee();
+           OFF();
+           break;
+
+
+        case STATE_CHENILLE_SECONDAIRE_DEPLOYEMENT  :
+           Serial.println("[SCIE][ETAT] DEPLOYEMENT");
+           Serial.println("reset angle");
+           centrale_Inertielle.reset_angle();
+           position_auSol();
+           break;
+
+
+         case STATE_CHENILLE_SECONDAIRE_GRIMPE  :
+           Serial.println("[SCIE][ETAT] GRIMPE");
+           set_time_out(5000); // au cas ou ca chie a la montee ou que l'imu est morte
+           ON();
+           break;
+
+         case STATE_CHENILLE_SECONDAIRE_GRIMPE_TEMPO  :
+           Serial.println("[SCIE][ETAT] GRIMPE TEMPO");
+           set_time_out(10000); // au cas ou ca chie a la montee ou que l'imu est morte
+           break;
+
+         case STATE_CHENILLE_SECONDAIRE_FIN_MONTEE  :
+           Serial.println("[SCIE][ETAT] FIN MONTEE");
+           set_time_out(3000);
+           break;
+
+         case STATE_CHENILLE_SECONDAIRE_DEBUT_RANGEMENT  :
+           Serial.println("[SCIE][ETAT] DEBUT RANGEMENT");
+           set_time_out(2000);
+           Serial.println("# FIN MONTEE");
+           position_miHauteur();
+           OFF();
+           break;
+    }
+}
+
 
 
 
@@ -1202,7 +1433,7 @@ Centrale_Inertielle::Centrale_Inertielle():
     // verify connection
     Serial.println("Testing connection gyro...");
     Serial.println(accelgyro.testConnection() ? "MPU6050 connection successful" : "MPU6050 connection failed");
-
+/*
         accelgyro.getMotion6(&ax, &ay, &az, &gx, &gy, &gz);
         Serial.print("g:\t");
         Serial.print(gx); Serial.print("\t");
@@ -1214,18 +1445,18 @@ Centrale_Inertielle::Centrale_Inertielle():
         Serial.print(ay); Serial.print("\t");
         Serial.print(az); Serial.print("\t");
         Serial.println();
-
+*/
 
 
         //Serial.println("Updating internal sensor offsets...");
     // -76	-2359	1688	0	0	0
-    Serial.print(accelgyro.getXAccelOffset()); Serial.print("\t"); // -76
-    Serial.print(accelgyro.getYAccelOffset()); Serial.print("\t"); // -2359
-    Serial.print(accelgyro.getZAccelOffset()); Serial.print("\t"); // 1688
-    Serial.print(accelgyro.getXGyroOffset()); Serial.print("\t"); // 0
-    Serial.print(accelgyro.getYGyroOffset()); Serial.print("\t"); // 0
-    Serial.print(accelgyro.getZGyroOffset()); Serial.print("\t"); // 0
-    Serial.print("\n");
+    //Serial.print(accelgyro.getXAccelOffset()); Serial.print("\t"); // -76
+   // Serial.print(accelgyro.getYAccelOffset()); Serial.print("\t"); // -2359
+   // Serial.print(accelgyro.getZAccelOffset()); Serial.print("\t"); // 1688
+    //Serial.print(accelgyro.getXGyroOffset()); Serial.print("\t"); // 0
+    //Serial.print(accelgyro.getYGyroOffset()); Serial.print("\t"); // 0
+    //Serial.print(accelgyro.getZGyroOffset()); Serial.print("\t"); // 0
+    //Serial.print("\n");
     // premiere mesure
     //accelgyro.reset();
     //accelgyro.setDLPFMode(0);
@@ -1234,15 +1465,15 @@ Centrale_Inertielle::Centrale_Inertielle():
 
     // offset, et calibration
     accelgyro.getMotion6(&ax_OC, &ay_OC, &az_OC, &gx_OC, &gy_OC, &gz_OC);
-   // accelgyro.setXGyroOffset(gx_OC);
-    //accelgyro.setYGyroOffset(gy_OC);
-    //accelgyro.setZGyroOffset(gz_OC);
+    accelgyro.setXGyroOffset(0);
+    accelgyro.setYGyroOffset(0);
+    accelgyro.setZGyroOffset(0);
     //accelgyro.setXAccelOffset(ax_OC);
     //accelgyro.setYAccelOffset(ay_OC);
     //accelgyro.setZAccelOffset(az_OC);
     delay(100);
     // mettre un 1g qq part
-
+/*
     accelgyro.getMotion6(&ax, &ay, &az, &gx, &gy, &gz);
         Serial.print("g:\t");
         Serial.print(gx); Serial.print("\t");
@@ -1254,7 +1485,7 @@ Centrale_Inertielle::Centrale_Inertielle():
         Serial.print(ay); Serial.print("\t");
         Serial.print(az); Serial.print("\t");
         Serial.println();
-
+*/
         muet();
 }
 
@@ -1283,36 +1514,42 @@ void Centrale_Inertielle::run()
         angle_y = FILTER_GAIN*angle_y_gyro + (1-FILTER_GAIN)*angle_y_accel;
         angle_z = FILTER_GAIN*angle_z_gyro + (1-FILTER_GAIN)*angle_z_accel;
         */
-        // affiche
-        if(bavardeur)
-        {
-            gx_OC = -250;
-            gy_OC = 195;
-            gz_OC = 170;
+
+            gx_OC = -251.3;
+            gy_OC = 192.18;
+            gz_OC = 167.59;
             float vx, vy,vz;
             vx = gx-gx_OC;
             vy = gy-gy_OC;
             vz = gz-gz_OC;
 
-            if(abs(vx)<40){vx = 0;}
-            if(abs(vy)<40){vy = 0;}
-            if(abs(vz)<40){vz = 0;}
 
-            angle_x_gyro = vx*dt/1000 + angle_x_gyro;
-            angle_y_gyro = vy*dt/1000 + angle_y_gyro;
-            angle_z_gyro = vz*dt/1000 + angle_z_gyro;
+            if(abs(vx)<20){vx = 0;}
+            if(abs(vy)<20){vy = 0;}
+            if(abs(vz)<20){vz = 0;}
 
+            angle_x_gyro = vx*dt/100000 + angle_x_gyro;
+            angle_y_gyro = vy*dt/100000 + angle_y_gyro;
+            angle_z_gyro = vz*dt/100000 + angle_z_gyro;
 
+        // affiche
+        if(bavardeur)
+        {
             Serial.print("g:\t");
+            Serial.print(gx); Serial.print("\t");
+            Serial.print(gy); Serial.print("\t");
+            Serial.print(gz); Serial.print("\t");
+
+            Serial.print("v:\t");
             Serial.print(vx); Serial.print("\t");
             Serial.print(vy); Serial.print("\t");
             Serial.print(vz); Serial.print("\t");
 
 
-            Serial.print("a:\t");
-            Serial.print(angle_x_gyro/100); Serial.print("\t");
-            Serial.print(angle_y_gyro/100); Serial.print("\t");
-            Serial.print(angle_z_gyro/100); Serial.print("\t");
+            Serial.print("static:\t");
+            Serial.print(angle_x_gyro); Serial.print("\t");
+            Serial.print(angle_y_gyro); Serial.print("\t");
+            Serial.print(angle_z_gyro); Serial.print("\t");
             Serial.println();
             Serial.println();
         }
@@ -1322,17 +1559,17 @@ void Centrale_Inertielle::run()
 
 float Centrale_Inertielle::angle_x_out()
 {
-    return angle_x;
+    return angle_x_gyro;
 }
 
 float Centrale_Inertielle::angle_y_out()
 {
-    return angle_y;
+    return angle_y_gyro;
 }
 
 float Centrale_Inertielle::angle_z_out()
 {
-    return angle_z;
+    return angle_z_gyro;
 }
 
 void Centrale_Inertielle::affiche()
@@ -1359,6 +1596,13 @@ void Centrale_Inertielle::muet()
     bavardeur = false;
 }
 
+void Centrale_Inertielle::reset_angle()
+{
+    angle_x_gyro = 0;
+    angle_y_gyro = 0;
+    angle_z_gyro = 0;
+}
+
 
 
 /*********************************************************************
@@ -1369,8 +1613,8 @@ void Centrale_Inertielle::muet()
 IO::IO():
     deposeurTapis(),
     chenilleSecondaire(),
-    chenillePrincipale(),
-    centrale()
+    chenillePrincipale()//,
+    //centrale()
      // a mettre dans chenille pricipale car uniquement pour elle
 {
 
@@ -1383,7 +1627,8 @@ void IO::run()
     //Serial.println("IO run");
     deposeurTapis.run();
     chenillePrincipale.run();
-    centrale.run();
+    chenilleSecondaire.run();
+    //centrale.run();
 }
 
 DeposeurTapis* IO::get_DeposeurTapis()
@@ -1399,9 +1644,4 @@ ChenilleSecondaire* IO::get_ChenilleSecondaire()
 ChenillePrincipale* IO::get_ChenillePrincipale()
 {
     return &chenillePrincipale;
-}
-
-Centrale_Inertielle* IO::get_Centrale_Inertielle()
-{
-    return &centrale;
 }

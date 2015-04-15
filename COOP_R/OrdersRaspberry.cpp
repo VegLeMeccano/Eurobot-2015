@@ -132,6 +132,18 @@ void OrdersRaspberry::executeinstr()
             Serial.print("chenille secondaire : sol");
             io->get_ChenilleSecondaire()->position_auSol();
             break;
+
+         case 5:
+            Serial.print("chenille secondaire : MAE deployement");
+            io->get_ChenilleSecondaire()->deployement();
+            break;
+
+        case 6:
+            Serial.print("chenille secondaire : MAE grimpe");
+            io->get_ChenillePrincipale()->set_evitement_OFF();      // pour pas avoir de merde, si une mascotte s'approche, et puis on desactive en haut des marche
+            io->get_ChenillePrincipale()->recalage_face();          // en fin de montee ca va bumper
+            io->get_ChenilleSecondaire()->grimpe();                 // grimpe enn meme temps que la chaine principale
+            break;
        }
     break;
 
@@ -234,11 +246,11 @@ void OrdersRaspberry::executeinstr()
         {
         case 0:
             Serial.print("Debug IMU, on");
-            io->get_Centrale_Inertielle()->bavard();
+            io->get_ChenilleSecondaire()->get_Centrale_Inertielle()->bavard();
             break;
         case 1:
             Serial.print("Debug IMU, off");
-            io->get_Centrale_Inertielle()->muet();
+            io->get_ChenilleSecondaire()->get_Centrale_Inertielle()->muet();
            break;
 
         case 4:
