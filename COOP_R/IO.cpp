@@ -1,7 +1,85 @@
 #include "IO.h"
 #include <string.h>
 
+/****************************************************
+   IR compteur de roue
+*****************************************************/
+IR_compteur::IR_compteur():
+    period_run(50),
+    IR(PIN_IR_BAS,SEUIL_IR_BAS),
+    alignement(false),
+    vu(false),
+    compteur(0)
+{
+      // init
+}
 
+void IR_compteur::run()
+{
+    if (period_run.is_over())
+    {
+        period_run.reset();
+        // si le temps est fini
+        if(bavardeur)
+        {
+            affiche();
+        }
+
+        // si IR obstruee,
+        alignement = true;
+        vu = true;
+
+        // quand on le quite
+        alignement = false;
+        vu = false;
+
+        // quand revient
+        if (vu == false && alignement == true)
+        {
+            incremente_compteur();
+            vu = true;
+        }
+
+        // a completer
+
+    }
+
+}
+
+void IR_compteur::affiche()
+{
+    Serial.print("valeur ir : ");
+    Serial.println(analogRead(PIN_IR_BAS));
+}
+
+void IR_compteur::reset_compteur()
+{
+    compteur = 0;
+}
+
+void IR_compteur::incremente_compteur()
+{
+    compteur++;
+}
+int IR_compteur::nbr_compteur()
+{
+    return compteur;
+}
+bool IR_compteur::est_aligne()
+{
+    return alignement;
+}
+
+void IR_compteur::bavard()
+{
+    bavardeur = true;
+}
+
+
+void IR_compteur::muet()
+{
+    bavardeur = false;
+}
 
 /*********************************************************************
     CHAINE SECONDAIRE
@@ -279,14 +357,13 @@ void ChenilleSecondaire::in_state_func()
 CONSTRUCTEUR
 */
 ChenillePrincipale::ChenillePrincipale():
-    val_ir_bas(PIN_IR_BAS,SEUIL_IR_BAS),
-    val_ir_haut(PIN_IR_HAUT,SEUIL_IR_HAUT),
     bumper_av_g(PIN_BUMPER_RECALAGE_AV_G,SEUIL_BUMPER),
     bumper_av_d(PIN_BUMPER_RECALAGE_AV_D,SEUIL_BUMPER),
     bumper_g_av(PIN_BUMPER_RECALAGE_G_AV,SEUIL_BUMPER),
     bumper_g_ar(PIN_BUMPER_RECALAGE_G_AR,SEUIL_BUMPER),
     bumper_d_av(PIN_BUMPER_RECALAGE_D_AV,SEUIL_BUMPER),
     bumper_d_ar(PIN_BUMPER_RECALAGE_D_AR,SEUIL_BUMPER),
+    ir_compteur_lat(),
     period_run(50),
     sonar(),
     state(SLAVE_STATE_REPOS),
@@ -432,6 +509,7 @@ void ChenillePrincipale::run(){
 
     // actualisation des sonars pour deplacement
     sonar.run();
+    ir_compteur_lat.run();
 
     if (period_run.is_over())
     {
@@ -843,6 +921,11 @@ void ChenillePrincipale::in_state_func()
            longi_gauche_recule();
            break;
     }
+}
+
+IR_compteur* ChenillePrincipale::get_IR_compteur()
+{
+    return &ir_compteur_lat;
 }
 
 
@@ -1425,7 +1508,9 @@ Centrale_Inertielle::Centrale_Inertielle():
     angle_x(0), angle_y(0), angle_z(0),
     ax(0), ay(0), az(0),
     gx(0), gy(0), gz(0),
-    dt(PERIODE_CENTRALE)
+    dt(PERIODE_CENTRALE),
+    force_x_accel(0), force_y_accel(0),force_z_accel(0),
+    vitesse_x_accel(0),vitesse_y_accel(0),vitesse_z_accel(0)
 {
 
     // initialisation gyro
@@ -1468,9 +1553,9 @@ Centrale_Inertielle::Centrale_Inertielle():
     accelgyro.setXGyroOffset(0);
     accelgyro.setYGyroOffset(0);
     accelgyro.setZGyroOffset(0);
-    //accelgyro.setXAccelOffset(ax_OC);
-    //accelgyro.setYAccelOffset(ay_OC);
-    //accelgyro.setZAccelOffset(az_OC);
+    accelgyro.setXAccelOffset(0);
+    accelgyro.setYAccelOffset(0);
+    accelgyro.setZAccelOffset(0);
     delay(100);
     // mettre un 1g qq part
 /*
@@ -1486,7 +1571,8 @@ Centrale_Inertielle::Centrale_Inertielle():
         Serial.print(az); Serial.print("\t");
         Serial.println();
 */
-        muet();
+        muet_gyro();
+        muet_accelero();
 }
 
 
@@ -1515,25 +1601,25 @@ void Centrale_Inertielle::run()
         angle_z = FILTER_GAIN*angle_z_gyro + (1-FILTER_GAIN)*angle_z_accel;
         */
 
-            gx_OC = -251.3;
-            gy_OC = 192.18;
-            gz_OC = 167.59;
+            gx_OC = -221;
+            gy_OC = 194;
+            gz_OC = 127;
             float vx, vy,vz;
             vx = gx-gx_OC;
             vy = gy-gy_OC;
             vz = gz-gz_OC;
 
 
-            if(abs(vx)<20){vx = 0;}
-            if(abs(vy)<20){vy = 0;}
-            if(abs(vz)<20){vz = 0;}
+            if(abs(vx)<30){vx = 0;}
+            if(abs(vy)<30){vy = 0;}
+            if(abs(vz)<30){vz = 0;}
 
             angle_x_gyro = vx*dt/100000 + angle_x_gyro;
             angle_y_gyro = vy*dt/100000 + angle_y_gyro;
             angle_z_gyro = vz*dt/100000 + angle_z_gyro;
 
         // affiche
-        if(bavardeur)
+        if(bavardeur_gyro)
         {
             Serial.print("g:\t");
             Serial.print(gx); Serial.print("\t");
@@ -1552,6 +1638,50 @@ void Centrale_Inertielle::run()
             Serial.print(angle_z_gyro); Serial.print("\t");
             Serial.println();
             Serial.println();
+        }
+
+
+        float acc_x, acc_y, acc_z;
+        ax_OC = -2708;
+        ay_OC = -19298;
+        az_OC = -13373;
+        acc_x = ax-ax_OC;
+        acc_y = ay-ay_OC;
+        acc_z = az-az_OC;
+
+            if(abs(acc_x)<100){acc_x = 0;}
+            if(abs(acc_y)<100){acc_y = 0;}
+            if(abs(acc_z)<100){acc_z = 0;}
+
+        force_x_accel = acc_x/100;
+        force_y_accel = acc_y/100;
+        force_z_accel = acc_z/100;
+
+            vitesse_x_accel = acc_x*dt/100000 + vitesse_x_accel;
+            vitesse_y_accel = acc_y*dt/100000 + vitesse_y_accel;
+            vitesse_z_accel = acc_z*dt/100000 + vitesse_z_accel;
+
+        if(bavardeur_accelero)
+        {
+            Serial.print("g:\t");
+            Serial.print(ax); Serial.print("\t");
+            Serial.print(ay); Serial.print("\t");
+            Serial.print(az); Serial.print("\t");
+
+            Serial.print("g0:\t");
+            Serial.print(acc_x); Serial.print("\t");
+            Serial.print(acc_y); Serial.print("\t");
+            Serial.print(acc_z); Serial.print("\t");
+
+
+            Serial.print("vitesse:\t");
+            Serial.print(vitesse_x_accel); Serial.print("\t");
+            Serial.print(vitesse_y_accel); Serial.print("\t");
+            Serial.print(vitesse_z_accel); Serial.print("\t");
+            Serial.println();
+            Serial.println();
+
+
         }
         //affiche();
     }
@@ -1587,13 +1717,22 @@ void Centrale_Inertielle::affiche()
 
 }
 
-void Centrale_Inertielle::bavard()
+void Centrale_Inertielle::bavard_gyro()
 {
-    bavardeur = true;
+    bavardeur_gyro = true;
 }
-void Centrale_Inertielle::muet()
+void Centrale_Inertielle::muet_gyro()
 {
-    bavardeur = false;
+    bavardeur_gyro = false;
+}
+
+void Centrale_Inertielle::bavard_accelero()
+{
+    bavardeur_accelero = true;
+}
+void Centrale_Inertielle::muet_accelero()
+{
+    bavardeur_accelero = false;
 }
 
 void Centrale_Inertielle::reset_angle()
@@ -1603,6 +1742,12 @@ void Centrale_Inertielle::reset_angle()
     angle_z_gyro = 0;
 }
 
+void Centrale_Inertielle::reset_vitesse()
+{
+    vitesse_x_accel = 0;
+    vitesse_y_accel = 0;
+    vitesse_z_accel = 0;
+}
 
 
 /*********************************************************************

@@ -15,6 +15,33 @@
 // IMU
 // http://www.seeedstudio.com/wiki/Xadow_-_IMU_6DOF
 
+/****************************************************
+   IR compteur de roue
+*****************************************************/
+class IR_compteur
+{
+    private:
+        Period period_run;
+        SwitchAnalog IR;
+        bool alignement;
+        bool vu;
+        int compteur;
+        bool bavardeur;
+        void incremente_compteur();
+
+    public:
+        IR_compteur();
+        void bavard();
+        void muet();
+        void run();
+        void affiche();
+        void reset_compteur();
+        int nbr_compteur();
+        bool est_aligne();
+};
+
+
+
 
 #define PERIODE_CENTRALE 50         // temps d'echantillonage (dt)
 #define RAD_TO_DEG_CONV 57.3        // radians to degree conversion
@@ -31,12 +58,15 @@ class Centrale_Inertielle
         float angle_x_gyro, angle_y_gyro, angle_z_gyro;
         float angle_x_accel, angle_y_accel, angle_z_accel;
         float angle_x, angle_y, angle_z;
+        float force_x_accel, force_y_accel, force_z_accel;
+        float vitesse_x_accel, vitesse_y_accel, vitesse_z_accel;
         int16_t ax, ay, az;     // acceleration
         int16_t gx, gy, gz;     // gyration
         int16_t ax_OC, ay_OC, az_OC;     // acceleration
         int16_t gx_OC, gy_OC, gz_OC;     // gyration
         float dt;
-        bool bavardeur;
+        bool bavardeur_gyro;
+        bool bavardeur_accelero;
 
     public:
         Centrale_Inertielle();
@@ -44,10 +74,16 @@ class Centrale_Inertielle
         float angle_x_out();
         float angle_y_out();
         float angle_z_out();
+        float accel_x_out();
+        float accel_y_out();
+        float accel_z_out();
         void affiche();
-        void bavard();
-        void muet();
+        void bavard_gyro();
+        void bavard_accelero();
+        void muet_gyro();
+        void muet_accelero();
         void reset_angle();    // juste avant la monteee, tolerance a 5deg, on va s'incliner de pres de 20deg
+        void reset_vitesse();    // juste avant la monteee, tolerance a 5deg, on va s'incliner de pres de 20deg
 };
 
 
@@ -179,8 +215,8 @@ class ChenillePrincipale
         Servo chenille_gauche;
         Servo chenille_droite;
         //rampe IR avant
-		SwitchAnalog val_ir_bas;
-        SwitchAnalog val_ir_haut;
+		//SwitchAnalog val_ir_bas;
+        //SwitchAnalog val_ir_haut;
         //rampe avant
         SwitchAnalog bumper_av_g;
         SwitchAnalog bumper_av_d;
@@ -192,6 +228,8 @@ class ChenillePrincipale
         SwitchAnalog bumper_d_ar;
         // sonar (pour l'evitement)
         Sonar sonar;
+
+        IR_compteur ir_compteur_lat;
 
         // penser a mettre un timer
         bool assFini;
@@ -260,6 +298,7 @@ class ChenillePrincipale
         void chenilleSecondaire_OFF();
 
         Sonar* get_Sonar();
+        IR_compteur* get_IR_compteur();
 };
 
 

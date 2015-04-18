@@ -245,31 +245,50 @@ void OrdersRaspberry::executeinstr()
         switch (ind)
         {
         case 0:
-            Serial.print("Debug IMU, on");
-            io->get_ChenilleSecondaire()->get_Centrale_Inertielle()->bavard();
+            Serial.print("Debug IMU, gyro on");
+            io->get_ChenilleSecondaire()->get_Centrale_Inertielle()->bavard_gyro();
             break;
         case 1:
-            Serial.print("Debug IMU, off");
-            io->get_ChenilleSecondaire()->get_Centrale_Inertielle()->muet();
+            Serial.print("Debug IMU, gyro off");
+            io->get_ChenilleSecondaire()->get_Centrale_Inertielle()->muet_gyro();
+           break;
+
+        case 2:
+            Serial.print("Debug IMU, accelero on");
+            io->get_ChenilleSecondaire()->get_Centrale_Inertielle()->bavard_accelero();
+            break;
+        case 3:
+            Serial.print("Debug IMU, accelero off");
+            io->get_ChenilleSecondaire()->get_Centrale_Inertielle()->muet_accelero();
            break;
 
         case 4:
-            Serial.print("Debug IR, on");
+            Serial.print("Debug IMU, reset angle");
+            io->get_ChenilleSecondaire()->get_Centrale_Inertielle()->reset_angle();
             break;
-
         case 5:
-            Serial.print("Debug IR, off");
+            Serial.print("Debug IMU, reset vitesse");
+            io->get_ChenilleSecondaire()->get_Centrale_Inertielle()->reset_vitesse();
             break;
 
-        case 2:
+        case 6:
             Serial.print("Debug SONAR, on");
             io->get_ChenillePrincipale()->get_Sonar()->bavard();
             break;
-        case 3:
+        case 7:
             Serial.print("Debug SONAR, off");
             io->get_ChenillePrincipale()->get_Sonar()->muet();
             break;
 
+        case 8:
+            Serial.print("Debug IR, on");
+            io->get_ChenillePrincipale()->get_IR_compteur()->bavard();
+            break;
+
+        case 9:
+            Serial.print("Debug IR, off");
+            io->get_ChenillePrincipale()->get_IR_compteur()->muet();
+            break;
        }
     break;
 
