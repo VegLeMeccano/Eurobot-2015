@@ -22,9 +22,6 @@ using namespace std;
 
 Master* master;
 Protocole_COM* protocole_com;
-int portSerie;
-
-
 
 
 
@@ -34,7 +31,8 @@ int main()
 {
     cout << "[MASTER_COOP'R] lancement du programme" << endl;
 
-    int portSerie = serialOpen(SERIAL_DEV, SPEED) ;
+    extern int portSerie;
+    portSerie = serialOpen(SERIAL_DEV, SPEED) ;
     cout << "portSerie -> "<<portSerie << endl;
     cout << "carac dispo :"<<serialDataAvail(portSerie) << endl;
     //serialPrintf (portSerie, "D0 ") ;

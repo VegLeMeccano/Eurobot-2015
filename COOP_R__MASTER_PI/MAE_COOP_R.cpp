@@ -2,7 +2,7 @@
 #include "MAE_COOP_R.h"
 //#include "extern_declaration.h"
 #include <wiringSerial.h>
-extern int portSerie;
+int portSerie;
 
 MAE_COOP_R::AnyState::~AnyState() {
 }
