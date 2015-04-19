@@ -1,5 +1,8 @@
 
 #include "MAE_COOP_R.h"
+//#include "extern_declaration.h"
+#include <wiringSerial.h>
+extern int portSerie;
 
 MAE_COOP_R::AnyState::~AnyState() {
 }
@@ -154,6 +157,9 @@ void MAE_COOP_R::MAE_COOP_R_State::Jeu_State::attente_State::_doentry(MAE_COOP_R
 #endif
   //master->set_time_out(100);
   //master->set_time_out(10);
+  cout << "portSerie -> "<<portSerie << endl;
+  //serialPrintf(portSerie,"D0 ");
+  serialPrintf (portSerie, "D0 \n") ;
 }
 
 MAE_COOP_R::MAE_COOP_R_State::Jeu_State::fin_de_jeu_State::~fin_de_jeu_State() {
@@ -294,6 +300,7 @@ void MAE_COOP_R::MAE_COOP_R_State::Jeu_State::_doentry(MAE_COOP_R & stm) {
   	puts("DEBUG : execute entry behavior of .MAE_COOP_R.Jeu");
 #endif
   cout<<"etat game"<<endl;
+  serialPrintf (portSerie, "D0 \n") ;
 }
 
 // returns the state containing the current

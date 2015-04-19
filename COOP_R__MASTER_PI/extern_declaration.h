@@ -4,5 +4,6 @@
 #include "Master.h"
 
 //extern Master * master;
+//extern int portSerie;
 
 #endif // EXTERN_DECLARATION_H
