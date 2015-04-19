@@ -33,6 +33,21 @@ class MAE_COOP_R {
         // the current state doesn't manage the event ass_fini, give it to the upper state
         virtual void ass_fini(MAE_COOP_R & stm);
 
+        // the current state doesn't manage the event adversaire, give it to the upper state
+        virtual void adversaire(MAE_COOP_R & stm);
+
+        // the current state doesn't manage the event assFini, give it to the upper state
+        virtual void assFini(MAE_COOP_R & stm);
+
+        // the current state doesn't manage the event ioFini, give it to the upper state
+        virtual void ioFini(MAE_COOP_R & stm);
+
+        // the current state doesn't manage the event tour_roue_4, give it to the upper state
+        virtual void tour_roue_4(MAE_COOP_R & stm);
+
+        // the current state doesn't manage the event if(master->get_tour<4), give it to the upper state
+        virtual void if(master->get_tour<4)(MAE_COOP_R & stm);
+
     };
     
     // implement the state MAE_COOP_R
@@ -97,6 +112,129 @@ class MAE_COOP_R {
 
             };
             
+            // implement the state deployement
+            class deployement_State : public AnyState {
+              public:
+                virtual ~deployement_State();
+
+                // to manage the event time_out
+                virtual void time_out(MAE_COOP_R & stm);
+
+                // to manage the event create
+                virtual void create(MAE_COOP_R & stm);
+
+                // perform the 'entry behavior'
+                void _doentry(MAE_COOP_R & stm);
+
+                // returns the state containing the current
+                virtual AnyState * _upper(MAE_COOP_R & stm);
+
+            };
+            
+            // implement the state reprise
+            class reprise_State : public AnyState {
+              public:
+                virtual ~reprise_State();
+
+                // to manage the event adversaire
+                virtual void adversaire(MAE_COOP_R & stm);
+
+                // to manage the event assFini
+                virtual void assFini(MAE_COOP_R & stm);
+
+                // to manage the event create
+                virtual void create(MAE_COOP_R & stm);
+
+                // perform the 'entry behavior'
+                void _doentry(MAE_COOP_R & stm);
+
+                // returns the state containing the current
+                virtual AnyState * _upper(MAE_COOP_R & stm);
+
+            };
+            
+            // implement the state fin deplacement lateral
+            class fin_deplacement_lateral_State : public AnyState {
+              public:
+                virtual ~fin_deplacement_lateral_State();
+
+                // to manage the event assFini
+                virtual void assFini(MAE_COOP_R & stm);
+
+                // to manage the event create
+                virtual void create(MAE_COOP_R & stm);
+
+                // perform the 'entry behavior'
+                void _doentry(MAE_COOP_R & stm);
+
+                // returns the state containing the current
+                virtual AnyState * _upper(MAE_COOP_R & stm);
+
+            };
+            
+            // implement the state bumper en bas des marches
+            class bumper_en_bas_des_marches_State : public AnyState {
+              public:
+                virtual ~bumper_en_bas_des_marches_State();
+
+                // to manage the event assFini
+                virtual void assFini(MAE_COOP_R & stm);
+
+                // to manage the event create
+                virtual void create(MAE_COOP_R & stm);
+
+                // perform the 'entry behavior'
+                void _doentry(MAE_COOP_R & stm);
+
+                // returns the state containing the current
+                virtual AnyState * _upper(MAE_COOP_R & stm);
+
+            };
+            
+            // implement the state attente evitement
+            class attente_evitement_State : public AnyState {
+              public:
+                virtual ~attente_evitement_State();
+
+                // to manage the event time_out
+                virtual void time_out(MAE_COOP_R & stm);
+
+                // to manage the event create
+                virtual void create(MAE_COOP_R & stm);
+
+                // perform the 'entry behavior'
+                void _doentry(MAE_COOP_R & stm);
+
+                // returns the state containing the current
+                virtual AnyState * _upper(MAE_COOP_R & stm);
+
+            };
+            
+            // implement the state Evitement
+            class Evitement_State : public AnyState {
+              public:
+                virtual ~Evitement_State();
+
+                // to manage the event tour_roue_4
+                virtual void tour_roue_4(MAE_COOP_R & stm);
+
+                // to manage the event if(master->get_tour<4)
+                virtual void if(master->get_tour<4)(MAE_COOP_R & stm);
+
+                // to manage the event time_out
+                virtual void time_out(MAE_COOP_R & stm);
+
+                // to manage the event create
+                virtual void create(MAE_COOP_R & stm);
+
+                // perform the 'entry behavior'
+                void _doentry(MAE_COOP_R & stm);
+
+                // returns the state containing the current
+                virtual AnyState * _upper(MAE_COOP_R & stm);
+
+            };
+            
             // implement the state fin de jeu
             class fin_de_jeu_State : public AnyState {
               public:
@@ -104,6 +242,12 @@ class MAE_COOP_R {
 
                 // returns the state containing the current
                 virtual AnyState * _upper(MAE_COOP_R & stm);
+
+                // to manage the event create
+                virtual void create(MAE_COOP_R & stm);
+
+                // perform the 'entry behavior'
+                void _doentry(MAE_COOP_R & stm);
 
             };
             
@@ -115,6 +259,17 @@ class MAE_COOP_R {
                 // returns the state containing the current
                 virtual AnyState * _upper(MAE_COOP_R & stm);
 
+                virtual bool _completion(MAE_COOP_R & stm);
+
+                // to manage the event ioFini
+                virtual void ioFini(MAE_COOP_R & stm);
+
+                // to manage the event create
+                virtual void create(MAE_COOP_R & stm);
+
+                // perform the 'entry behavior'
+                void _doentry(MAE_COOP_R & stm);
+
             };
             
             // implement the state preparation pose second tapis
@@ -124,6 +279,15 @@ class MAE_COOP_R {
 
                 // returns the state containing the current
                 virtual AnyState * _upper(MAE_COOP_R & stm);
+
+                // to manage the event ioFini
+                virtual void ioFini(MAE_COOP_R & stm);
+
+                // to manage the event create
+                virtual void create(MAE_COOP_R & stm);
+
+                // perform the 'entry behavior'
+                void _doentry(MAE_COOP_R & stm);
 
             };
             
@@ -135,6 +299,15 @@ class MAE_COOP_R {
                 // returns the state containing the current
                 virtual AnyState * _upper(MAE_COOP_R & stm);
 
+                // to manage the event assFini
+                virtual void assFini(MAE_COOP_R & stm);
+
+                // to manage the event create
+                virtual void create(MAE_COOP_R & stm);
+
+                // perform the 'entry behavior'
+                void _doentry(MAE_COOP_R & stm);
+
             };
             
             // implement the state remonte
@@ -144,6 +317,15 @@ class MAE_COOP_R {
 
                 // returns the state containing the current
                 virtual AnyState * _upper(MAE_COOP_R & stm);
+
+                // to manage the event ioFini
+                virtual void ioFini(MAE_COOP_R & stm);
+
+                // to manage the event create
+                virtual void create(MAE_COOP_R & stm);
+
+                // perform the 'entry behavior'
+                void _doentry(MAE_COOP_R & stm);
 
             };
             
@@ -155,6 +337,15 @@ class MAE_COOP_R {
                 // returns the state containing the current
                 virtual AnyState * _upper(MAE_COOP_R & stm);
 
+                // to manage the event ioFini
+                virtual void ioFini(MAE_COOP_R & stm);
+
+                // to manage the event create
+                virtual void create(MAE_COOP_R & stm);
+
+                // perform the 'entry behavior'
+                void _doentry(MAE_COOP_R & stm);
+
             };
             
             // implement the state decalage gauche
@@ -165,6 +356,15 @@ class MAE_COOP_R {
                 // returns the state containing the current
                 virtual AnyState * _upper(MAE_COOP_R & stm);
 
+                // to manage the event assFini
+                virtual void assFini(MAE_COOP_R & stm);
+
+                // to manage the event create
+                virtual void create(MAE_COOP_R & stm);
+
+                // perform the 'entry behavior'
+                void _doentry(MAE_COOP_R & stm);
+
             };
             
             // implement the state ascension
@@ -174,6 +374,15 @@ class MAE_COOP_R {
 
                 // returns the state containing the current
                 virtual AnyState * _upper(MAE_COOP_R & stm);
+
+                // to manage the event assFini
+                virtual void assFini(MAE_COOP_R & stm);
+
+                // to manage the event create
+                virtual void create(MAE_COOP_R & stm);
+
+                // perform the 'entry behavior'
+                void _doentry(MAE_COOP_R & stm);
 
             };
             
@@ -188,6 +397,15 @@ class MAE_COOP_R {
                 // to manage the event time_out
                 virtual void time_out(MAE_COOP_R & stm);
 
+                // to manage the event create
+                virtual void create(MAE_COOP_R & stm);
+
+                // perform the 'entry behavior'
+                void _doentry(MAE_COOP_R & stm);
+
+                // perform the 'exit behavior'
+                void _doexit(MAE_COOP_R & stm);
+
             };
             
             // implement the state deplacement lateral
@@ -200,6 +418,18 @@ class MAE_COOP_R {
 
                 // to manage the event ass_fini
                 virtual void ass_fini(MAE_COOP_R & stm);
+
+                // to manage the event adversaire
+                virtual void adversaire(MAE_COOP_R & stm);
+
+                // to manage the event assFini
+                virtual void assFini(MAE_COOP_R & stm);
+
+                // to manage the event create
+                virtual void create(MAE_COOP_R & stm);
+
+                // perform the 'entry behavior'
+                void _doentry(MAE_COOP_R & stm);
 
             };
             
@@ -251,6 +481,24 @@ class MAE_COOP_R {
 
             // returns the state containing the current
             virtual AnyState * _upper(MAE_COOP_R & stm);
+
+            // memorize the instance of the state Evitement, internal
+            Evitement_State _evitement_state;
+
+            // memorize the instance of the state attente evitement, internal
+            attente_evitement_State _attente_evitement_state;
+
+            // memorize the instance of the state bumper en bas des marches, internal
+            bumper_en_bas_des_marches_State _bumper_en_bas_des_marches_state;
+
+            // memorize the instance of the state fin deplacement lateral, internal
+            fin_deplacement_lateral_State _fin_deplacement_lateral_state;
+
+            // memorize the instance of the state reprise, internal
+            reprise_State _reprise_state;
+
+            // memorize the instance of the state deployement, internal
+            deployement_State _deployement_state;
 
         };
         
@@ -328,6 +576,27 @@ class MAE_COOP_R {
     // the operation you call to signal the event ass_fini
     bool ass_fini();
 
+    // the operation you call to signal the event adversaire
+    bool adversaire();
+
+    // the operation you call to signal the event assFini
+    bool assFini();
+
+    // the operation you call to signal the event ioFini
+    bool ioFini();
+
+    // the operation you call to signal the event tour_roue_4
+    bool tour_roue_4();
+
+    // the operation you call to signal the event if(master->get_tour<4)
+    bool if(master->get_tour<4)();
+
+  friend class MAE_COOP_R_State::Jeu_State::Evitement_State;
+  friend class MAE_COOP_R_State::Jeu_State::attente_evitement_State;
+  friend class MAE_COOP_R_State::Jeu_State::bumper_en_bas_des_marches_State;
+  friend class MAE_COOP_R_State::Jeu_State::fin_deplacement_lateral_State;
+  friend class MAE_COOP_R_State::Jeu_State::reprise_State;
+  friend class MAE_COOP_R_State::Jeu_State::deployement_State;
 };
 // change the current state, internal
 inline void MAE_COOP_R::_set_currentState(MAE_COOP_R::AnyState & st) {

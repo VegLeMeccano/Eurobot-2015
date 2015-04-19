@@ -46,3 +46,43 @@ return (_current_state != 0);
     _current_state->ass_fini(*this);
   }
   return (_current_state != 0);
+!!!158850.cpp!!!	adversaire() : bool
+  if (_current_state != 0) {
+#ifdef VERBOSE_STATE_MACHINE
+    puts("DEBUG : fire trigger adversaire");
+#endif
+    _current_state->adversaire(*this);
+  }
+  return (_current_state != 0);
+!!!159234.cpp!!!	assFini() : bool
+  if (_current_state != 0) {
+#ifdef VERBOSE_STATE_MACHINE
+    puts("DEBUG : fire trigger assFini");
+#endif
+    _current_state->assFini(*this);
+  }
+  return (_current_state != 0);
+!!!167426.cpp!!!	ioFini() : bool
+  if (_current_state != 0) {
+#ifdef VERBOSE_STATE_MACHINE
+    puts("DEBUG : fire trigger ioFini");
+#endif
+    _current_state->ioFini(*this);
+  }
+  return (_current_state != 0);
+!!!169986.cpp!!!	tour_roue_4() : bool
+  if (_current_state != 0) {
+#ifdef VERBOSE_STATE_MACHINE
+    puts("DEBUG : fire trigger tour_roue_4");
+#endif
+    _current_state->tour_roue_4(*this);
+  }
+  return (_current_state != 0);
+!!!170370.cpp!!!	if(master->get_tour<4)() : bool
+  if (_current_state != 0) {
+#ifdef VERBOSE_STATE_MACHINE
+    puts("DEBUG : fire trigger if(master->get_tour<4)");
+#endif
+    _current_state->if(master->get_tour<4)(*this);
+  }
+  return (_current_state != 0);

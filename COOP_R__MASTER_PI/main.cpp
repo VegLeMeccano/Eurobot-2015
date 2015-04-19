@@ -30,9 +30,22 @@ int main()
 {
     cout << "[MASTER_COOP'R] lancement du programme" << endl;
 
+    /** CONNEXION SERIAL ARDUINO
+    */
     extern int portSerie;
     portSerie = serialOpen(SERIAL_DEV, SPEED) ;
-    cout << "portSerie -> "<<portSerie << endl;
+    if(portSerie >-1)
+    {
+        cout << "[SERIAL] Connection success -> "<<portSerie << endl;
+    }
+    else{
+        cout << "[SERIAL] Connection failed -> "<<portSerie << endl;
+    }
+
+
+
+
+    //cout << "portSerie -> "<<portSerie << endl;
     cout << "carac dispo :"<<serialDataAvail(portSerie) << endl;
     //serialPrintf (portSerie, "D0 ") ;
     serialPutchar(portSerie,'t');

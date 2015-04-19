@@ -7,6 +7,7 @@ class attente_State
 #ifdef VERBOSE_STATE_MACHINE
     puts("DEBUG : current state is now .MAE_COOP_R.Jeu.deplacement lateral");
 #endif
+    stm._mae_coop_r_state._jeu_state._deplacement_lateral_state.create(stm);
   }
 !!!151426.cpp!!!	create(inout stm : MAE_COOP_R) : void
 	_doentry(stm);
@@ -15,3 +16,5 @@ class attente_State
 	puts("DEBUG : execute entry behavior of .MAE_COOP_R.Jeu.attente");
 #endif
 master->set_time_out(100);
+// activation de l'evitement
+serialPrintf (portSerie, "E1 \n") ;

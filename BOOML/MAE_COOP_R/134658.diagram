@@ -2,54 +2,74 @@ format 76
 
 statecanvas 128002 state_ref 128386 // Jeu
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 183.3 278.9 2000 1305 964
+  xyzwh 188.4 281.4 2000 1495 1029
 end
 pseudostatecanvas 128130 pseudostate_ref 134658 // initial
-   xyz 404.6 340.7 2005
+   xyz 350.4 346.5 2005
 end
 statecanvas 130818 state_ref 135042 // attente
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 317 383.4 2005 229 65
+  xyzwh 245.1 404.6 2005 229 89
 end
 statecanvas 131074 state_ref 135170 // deplacement lateral
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 300.2 531.4 2005 229 109
+  xyzwh 220.4 521.7 2005 281 189
 end
 statecanvas 131330 state_ref 135298 // attente recalibration
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 645.2 543.6 2005 169 95
+  xyzwh 1155.4 383.2 2005 251 105
 end
 statecanvas 131586 state_ref 135426 // ascension
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 937.6 541 2005 185 95
+  xyzwh 1179.3 664.2 2005 214 95
 end
 statecanvas 131842 state_ref 135554 // decalage gauche
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 717.4 731.4 2005 134 40
+  xyzwh 933.8 791.4 2005 214 75
 end
 statecanvas 131970 state_ref 135682 // preparation pose premier tapis
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 921.8 734 2005 196 33
+  xyzwh 913.9 904.1 2005 256 75
 end
 statecanvas 132098 state_ref 135810 // remonte
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 986 820.2 2005 69 33
+  xyzwh 937.3 1063.3 2005 216 75
 end
 statecanvas 132226 state_ref 135938 // decalage droite
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 735.6 885.2 2005 106 33
+  xyzwh 1363.9 788 2005 214 75
 end
 statecanvas 132354 state_ref 136066 // preparation pose second tapis
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 957.8 904 2005 194 33
+  xyzwh 1344 914.1 2005 254 75
 end
 statecanvas 132482 state_ref 136194 // remonte 2
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 1015.6 998.2 2005 77 33
+  xyzwh 1364.1 1051.2 2005 216 75
 end
 statecanvas 133378 state_ref 136322 // fin de jeu
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 857.8 1099 2005 74 33
+  xyzwh 1145.2 1163.1 2005 324 75
+end
+statecanvas 133890 state_ref 142850 // Evitement
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  xyzwh 203.6 809.8 2005 496 159
+end
+statecanvas 134274 state_ref 143106 // bumper en bas des marches
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  xyzwh 571.6 386 2005 446 100
+end
+statecanvas 134402 state_ref 143234 // fin deplacement lateral
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  xyzwh 575.6 569.6 2010 259 103
+end
+statecanvas 134786 state_ref 143362 // reprise
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  xyzwh 549.4 1009.6 2005 316 201
+end
+statecanvas 135682 state_ref 143490 // deployement
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  xyzwh 1155.1 529.7 2005 261 89
 end
 transitioncanvas 130946 transition_ref 147970 // <transition>
   
@@ -58,17 +78,95 @@ transitioncanvas 130946 transition_ref 147970 // <transition>
 end
 transitioncanvas 133506 transition_ref 154498 // <transition>
   
-  from ref 130818 z 2006 label "time_out" xyz 400.5 482 3000 to ref 131074
+  from ref 130818 z 2006 label "time_out" xyz 337 497 2006 to ref 131074
   write_horizontally default show_definition default drawing_language default
 end
-transitioncanvas 133634 transition_ref 154626 // <transition>
+transitioncanvas 134018 transition_ref 161282 // <transition>
   
-  from ref 131074 z 2006 label "ass_fini" xyz 567 578 3000 to ref 131330
+  from ref 131074 z 2006 label "adversaire" xyz 381 750 2006 to ref 133890
   write_horizontally default show_definition default drawing_language default
 end
-transitioncanvas 133762 transition_ref 154754 // <transition>
+transitioncanvas 134530 transition_ref 161410 // <transition>
   
-  from ref 131330 z 2006 label "time_out" xyz 854 580 3000 to ref 131586
+  from ref 133890 z 2011 label "tour_roue_4" xyz 556.5 732 2011 to ref 134402
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 135042 transition_ref 161794 // <transition>
+  decenter_begin 27
+  decenter_end 472
+  
+  from ref 134786 z 2006 label "adversaire" xyz 456.5 985.5 2006 to ref 133890
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 135170 transition_ref 161922 // <transition>
+  
+  from ref 134786 z 2011 label "assFini" xyz 709 834 2011 to ref 134402
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 135298 transition_ref 162050 // <transition>
+  
+  from ref 131074 z 2011 label "assFini" xyz 517 603 2011 to ref 134402
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 135426 transition_ref 162178 // <transition>
+  
+  from ref 134402 z 2011 label "assFini" xyz 729 518 2011 to ref 134274
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 135554 transition_ref 162306 // <transition>
+  
+  from ref 134274 z 2006 label "assFini" xyz 1065 417 2006 to ref 131330
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 135810 transition_ref 162434 // <transition>
+  
+  from ref 131330 z 2006 label "time_out" xyz 1260 500 2006 to ref 135682
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 135938 transition_ref 162562 // <transition>
+  
+  from ref 135682 z 2006 label "time_out" xyz 1265 632 2006 to ref 131586
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 136066 transition_ref 162690 // <transition>
+  
+  from ref 131586 z 2006 label "assFini" xyz 1114 754 2006 to ref 131842
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 136194 transition_ref 162818 // <transition>
+  
+  from ref 131842 z 2006 label "assFini" xyz 999 875 2006 to ref 131970
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 136322 transition_ref 162946 // <transition>
+  
+  from ref 131970 z 2006 label "ioFini" xyz 1047 1010 2006 to ref 132098
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 136450 transition_ref 163074 // <transition>
+  
+  from ref 132226 z 2006 label "assFini" xyz 1473 882 2006 to ref 132354
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 136578 transition_ref 163202 // <transition>
+  
+  from ref 132354 z 2006 label "ioFini" xyz 1483 1015 2006 to ref 132482
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 136834 transition_ref 163458 // <transition>
+  
+  from ref 132482 z 2006 label "ioFini" xyz 1343 1130 2006 to ref 133378
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 136962 transition_ref 163586 // <transition>
+  
+  from ref 132098 z 2006 label "ioFini" xyz 1233 944 2006 to ref 132226
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 137218 transition_ref 170114 // <transition>
+  decenter_begin 779
+  
+  from ref 133890 z 2006 label "time_out" xyz 587 979 3000 to ref 134786
   write_horizontally default show_definition default drawing_language default
 end
 end

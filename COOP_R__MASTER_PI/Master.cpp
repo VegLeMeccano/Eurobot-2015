@@ -13,6 +13,23 @@ Master::Master():
     mae_coop_r.stratEnleve();
     mae_coop_r.evitement();
     cout << "[MASTER_COOP'R] initialisation" << endl;
+    //mae_coop_r.s
+}
+
+
+int Master::get_Couleur()
+{
+    return couleur;
+}
+
+bool Master::is_Vert()()
+{
+    return (couleur==COULEUR_VERT);
+}
+
+bool Master::is_Jaune()()()
+{
+    return (couleur==COULEUR_JAUNE);
 }
 
 

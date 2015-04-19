@@ -25,6 +25,10 @@ class Master
 
         void set_couleur(int couleur_);
         MAE_COOP_R* get_MAE_COOP_R();
+        int get_Couleur();
+        bool is_Vert();
+        bool is_Jaune();
+
 
     private:
         //static Master masterInstance;
