@@ -1,0 +1,41 @@
+# depslib dependency file v1.0
+1429418692 source:d:\club robotique iron menad 2\eurobot 2015 iron menad\eurobot-2015\coop_r__master_pi\main.cpp
+	<iostream>
+	<unistd.h>
+	"Master.h"
+	"Period.h"
+	"util.h"
+
+1429418005 d:\club robotique iron menad 2\eurobot 2015 iron menad\eurobot-2015\coop_r__master_pi\master.h
+	"Period.h"
+	"MAE_COOP_R.h"
+
+1429413829 source:d:\club robotique iron menad 2\eurobot 2015 iron menad\eurobot-2015\coop_r__master_pi\master.cpp
+	"Master.h"
+
+1429408004 source:d:\club robotique iron menad 2\eurobot 2015 iron menad\eurobot-2015\coop_r__master_pi\period.cpp
+	"Period.h"
+
+1429407965 d:\club robotique iron menad 2\eurobot 2015 iron menad\eurobot-2015\coop_r__master_pi\period.h
+	<ctime>
+
+1429418978 d:\club robotique iron menad 2\eurobot 2015 iron menad\eurobot-2015\coop_r__master_pi\mae_coop_r.h
+	<iostream>
+
+1429418392 source:d:\club robotique iron menad 2\eurobot 2015 iron menad\eurobot-2015\coop_r__master_pi\mae_coop_r.cpp
+	"MAE_COOP_R.h"
+
+1429412187 source:d:\club robotique iron menad 2\eurobot 2015 iron menad\eurobot-2015\coop_r__master_pi\protocole_com.cpp
+	"Protocole_COM.h"
+
+1429412187 d:\club robotique iron menad 2\eurobot 2015 iron menad\eurobot-2015\coop_r__master_pi\protocole_com.h
+
+1429413268 d:\club robotique iron menad 2\eurobot 2015 iron menad\eurobot-2015\coop_r__master_pi\util.h
+	<ctime>
+
+1429418591 d:\club robotique iron menad 2\eurobot 2015 iron menad\eurobot-2015\coop_r__master_pi\extern_declaration.h
+	"Master.h"
+
+1429418593 source:d:\club robotique iron menad 2\eurobot 2015 iron menad\eurobot-2015\coop_r__master_pi\extern_declaration.cpp
+	"extern_declaration.h"
+

@@ -1,0 +1,74 @@
+format 76
+
+statecanvas 128002 state_ref 128386 // Jeu
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  xyzwh 183.3 278.9 2000 1305 964
+end
+pseudostatecanvas 128130 pseudostate_ref 134658 // initial
+   xyz 404.6 340.7 2005
+end
+statecanvas 130818 state_ref 135042 // attente
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  xyzwh 317 383.4 2005 229 65
+end
+statecanvas 131074 state_ref 135170 // deplacement lateral
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  xyzwh 300.2 531.4 2005 229 109
+end
+statecanvas 131330 state_ref 135298 // attente recalibration
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  xyzwh 645.2 543.6 2005 169 95
+end
+statecanvas 131586 state_ref 135426 // ascension
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  xyzwh 937.6 541 2005 185 95
+end
+statecanvas 131842 state_ref 135554 // decalage gauche
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  xyzwh 717.4 731.4 2005 134 40
+end
+statecanvas 131970 state_ref 135682 // preparation pose premier tapis
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  xyzwh 921.8 734 2005 196 33
+end
+statecanvas 132098 state_ref 135810 // remonte
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  xyzwh 986 820.2 2005 69 33
+end
+statecanvas 132226 state_ref 135938 // decalage droite
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  xyzwh 735.6 885.2 2005 106 33
+end
+statecanvas 132354 state_ref 136066 // preparation pose second tapis
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  xyzwh 957.8 904 2005 194 33
+end
+statecanvas 132482 state_ref 136194 // remonte 2
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  xyzwh 1015.6 998.2 2005 77 33
+end
+statecanvas 133378 state_ref 136322 // fin de jeu
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  xyzwh 857.8 1099 2005 74 33
+end
+transitioncanvas 130946 transition_ref 147970 // <transition>
+  
+  from ref 128130 z 2006 to ref 130818
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 133506 transition_ref 154498 // <transition>
+  
+  from ref 130818 z 2006 label "time_out" xyz 400.5 482 3000 to ref 131074
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 133634 transition_ref 154626 // <transition>
+  
+  from ref 131074 z 2006 label "ass_fini" xyz 567 578 3000 to ref 131330
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 133762 transition_ref 154754 // <transition>
+  
+  from ref 131330 z 2006 label "time_out" xyz 854 580 3000 to ref 131586
+  write_horizontally default show_definition default drawing_language default
+end
+end

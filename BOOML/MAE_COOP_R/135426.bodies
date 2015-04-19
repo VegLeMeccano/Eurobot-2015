@@ -1,0 +1,10 @@
+class attente_recalibration_State
+!!!140034.cpp!!!	_upper(inout stm : MAE_COOP_R) : MAE_COOP_R::AnyState
+  return &stm._mae_coop_r_state._jeu_state;
+!!!151298.cpp!!!	time_out(inout stm : MAE_COOP_R) : void
+  {
+    stm._set_currentState(stm._mae_coop_r_state._jeu_state._ascension_state);
+#ifdef VERBOSE_STATE_MACHINE
+    puts("DEBUG : current state is now .MAE_COOP_R.Jeu.ascension");
+#endif
+  }

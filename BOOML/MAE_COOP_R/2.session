@@ -1,0 +1,24 @@
+window_sizes 1600 878 356 1238 600 82
+diagrams
+  statediagram_ref 128130 // Principal
+    1238 692 100 0 0 0
+  active  statediagram_ref 134658 // Jeu
+    1238 722 80 0 192 58
+end
+show_stereotypes
+selected 
+  package_ref 129 // MAE_COOP_R
+open
+  state_ref 135042 // attente
+  state_ref 135170 // deplacement lateral
+  state_ref 135298 // attente recalibration
+  state_ref 135426 // ascension
+  state_ref 135554 // decalage gauche
+  state_ref 135682 // preparation pose premier tapis
+  state_ref 135810 // remonte
+  state_ref 135938 // decalage droite
+  state_ref 136066 // preparation pose second tapis
+  state_ref 136194 // remonte 2
+  deploymentview_ref 128130 // MaeMaster
+end
+end

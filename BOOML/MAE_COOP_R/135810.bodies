@@ -1,0 +1,3 @@
+class preparation_pose_premier_tapis_State
+!!!141314.cpp!!!	_upper(inout stm : MAE_COOP_R) : MAE_COOP_R::AnyState
+  return &stm._mae_coop_r_state._jeu_state;

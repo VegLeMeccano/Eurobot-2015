@@ -1,0 +1,37 @@
+class AnyState
+!!!137602.cpp!!!	stratEnleve(inout stm : MAE_COOP_R) : void
+  AnyState * st = _upper(stm);
+
+  if (st != 0)
+    st->stratEnleve(stm);
+#ifdef VERBOSE_STATE_MACHINE
+  else
+    puts("DEBUG : transition stratEnleve not expected");
+#endif
+!!!138370.cpp!!!	evitement(inout stm : MAE_COOP_R) : void
+  AnyState * st = _upper(stm);
+
+  if (st != 0)
+    st->evitement(stm);
+#ifdef VERBOSE_STATE_MACHINE
+  else
+    puts("DEBUG : transition evitement not expected");
+#endif
+!!!150658.cpp!!!	time_out(inout stm : MAE_COOP_R) : void
+  AnyState * st = _upper(stm);
+
+  if (st != 0)
+    st->time_out(stm);
+#ifdef VERBOSE_STATE_MACHINE
+  else
+    puts("DEBUG : transition time_out not expected");
+#endif
+!!!151042.cpp!!!	ass_fini(inout stm : MAE_COOP_R) : void
+  AnyState * st = _upper(stm);
+
+  if (st != 0)
+    st->ass_fini(stm);
+#ifdef VERBOSE_STATE_MACHINE
+  else
+    puts("DEBUG : transition ass_fini not expected");
+#endif
