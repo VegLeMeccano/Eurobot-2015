@@ -12,9 +12,14 @@ Master::Master():
     //mae_coop_r.doActivity();
     mae_coop_r.stratEnleve();
     mae_coop_r.evitement();
-    cout << "[MASTER_COOP'R] init master" << endl;
+    cout << "[MASTER_COOP'R] initialisation" << endl;
 }
 
+
+MAE_COOP_R* Master::get_MAE_COOP_R()
+{
+    return &mae_coop_r;
+}
 
 void Master::set_couleur(int couleur_)
 {

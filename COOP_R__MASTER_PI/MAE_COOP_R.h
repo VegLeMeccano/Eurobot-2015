@@ -1,10 +1,8 @@
 #ifndef _MAE_COOP_R_H
 #define _MAE_COOP_R_H
-//#include "extern_declaration.h"
+
 #include <iostream>
 using namespace std;
-
-
 
 
 // implement the state machine MAE_COOP_R
@@ -36,7 +34,7 @@ class MAE_COOP_R {
         virtual void ass_fini(MAE_COOP_R & stm);
 
     };
-
+    
     // implement the state MAE_COOP_R
     class MAE_COOP_R_State : public AnyState {
       public:
@@ -58,7 +56,7 @@ class MAE_COOP_R {
             virtual AnyState * _upper(MAE_COOP_R & stm);
 
         };
-
+        
         // implement the state Evitement
         class Evitement_State : public AnyState {
           public:
@@ -76,7 +74,7 @@ class MAE_COOP_R {
             virtual AnyState * _upper(MAE_COOP_R & stm);
 
         };
-
+        
         // implement the state Jeu
         class Jeu_State : public AnyState {
           public:
@@ -98,7 +96,7 @@ class MAE_COOP_R {
                 void _doentry(MAE_COOP_R & stm);
 
             };
-
+            
             // implement the state fin de jeu
             class fin_de_jeu_State : public AnyState {
               public:
@@ -108,7 +106,7 @@ class MAE_COOP_R {
                 virtual AnyState * _upper(MAE_COOP_R & stm);
 
             };
-
+            
             // implement the state remonte 2
             class remonte_2_State : public AnyState {
               public:
@@ -118,7 +116,7 @@ class MAE_COOP_R {
                 virtual AnyState * _upper(MAE_COOP_R & stm);
 
             };
-
+            
             // implement the state preparation pose second tapis
             class preparation_pose_second_tapis_State : public AnyState {
               public:
@@ -128,7 +126,7 @@ class MAE_COOP_R {
                 virtual AnyState * _upper(MAE_COOP_R & stm);
 
             };
-
+            
             // implement the state decalage droite
             class decalage_droite_State : public AnyState {
               public:
@@ -138,7 +136,7 @@ class MAE_COOP_R {
                 virtual AnyState * _upper(MAE_COOP_R & stm);
 
             };
-
+            
             // implement the state remonte
             class remonte_State : public AnyState {
               public:
@@ -148,7 +146,7 @@ class MAE_COOP_R {
                 virtual AnyState * _upper(MAE_COOP_R & stm);
 
             };
-
+            
             // implement the state preparation pose premier tapis
             class preparation_pose_premier_tapis_State : public AnyState {
               public:
@@ -158,7 +156,7 @@ class MAE_COOP_R {
                 virtual AnyState * _upper(MAE_COOP_R & stm);
 
             };
-
+            
             // implement the state decalage gauche
             class decalage_gauche_State : public AnyState {
               public:
@@ -168,7 +166,7 @@ class MAE_COOP_R {
                 virtual AnyState * _upper(MAE_COOP_R & stm);
 
             };
-
+            
             // implement the state ascension
             class ascension_State : public AnyState {
               public:
@@ -178,7 +176,7 @@ class MAE_COOP_R {
                 virtual AnyState * _upper(MAE_COOP_R & stm);
 
             };
-
+            
             // implement the state attente recalibration
             class attente_recalibration_State : public AnyState {
               public:
@@ -191,7 +189,7 @@ class MAE_COOP_R {
                 virtual void time_out(MAE_COOP_R & stm);
 
             };
-
+            
             // implement the state deplacement lateral
             class deplacement_lateral_State : public AnyState {
               public:
@@ -204,7 +202,7 @@ class MAE_COOP_R {
                 virtual void ass_fini(MAE_COOP_R & stm);
 
             };
-
+            
             virtual ~Jeu_State();
 
             // memorize the instance of the state attente, internal
@@ -255,7 +253,7 @@ class MAE_COOP_R {
             virtual AnyState * _upper(MAE_COOP_R & stm);
 
         };
-
+        
         virtual ~MAE_COOP_R_State();
 
         // memorize the instance of the state Attente, internal
@@ -274,7 +272,7 @@ class MAE_COOP_R {
         virtual AnyState * _upper(MAE_COOP_R &);
 
     };
-
+    
     // memorize the instance of the state MAE_COOP_R, internal
     MAE_COOP_R_State _mae_coop_r_state;
 

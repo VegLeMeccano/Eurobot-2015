@@ -1,9 +1,5 @@
-#include "Master.h"
-extern Master * master;
+
 #include "MAE_COOP_R.h"
-//#include "extern_declaration.h"
-//extern Master * master;
-//extern Master *master;
 
 MAE_COOP_R::AnyState::~AnyState() {
 }
@@ -88,7 +84,6 @@ void MAE_COOP_R::MAE_COOP_R_State::Attente_State::_doentry(MAE_COOP_R & stm) {
   	puts("DEBUG : execute entry behavior of .MAE_COOP_R.Attente");
 #endif
   cout<<"etat attente"<<endl;
-  master->set_couleur(1);
 }
 
 // returns the state containing the current
@@ -157,7 +152,8 @@ void MAE_COOP_R::MAE_COOP_R_State::Jeu_State::attente_State::_doentry(MAE_COOP_R
 #ifdef VERBOSE_STATE_MACHINE
   	puts("DEBUG : execute entry behavior of .MAE_COOP_R.Jeu.attente");
 #endif
-//  master->set_time_out(10);
+  //master->set_time_out(100);
+  //master->set_time_out(10);
 }
 
 MAE_COOP_R::MAE_COOP_R_State::Jeu_State::fin_de_jeu_State::~fin_de_jeu_State() {
@@ -270,9 +266,7 @@ void MAE_COOP_R::MAE_COOP_R_State::Jeu_State::evitement(MAE_COOP_R & stm) {
 #ifdef VERBOSE_STATE_MACHINE
       puts("DEBUG : current state is now .MAE_COOP_R.Evitement");
 #endif
-
       stm._mae_coop_r_state._evitement_state.create(stm);
-
     }
 }
 

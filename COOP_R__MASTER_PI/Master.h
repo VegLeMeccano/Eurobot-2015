@@ -24,6 +24,7 @@ class Master
         bool is_time_out();
 
         void set_couleur(int couleur_);
+        MAE_COOP_R* get_MAE_COOP_R();
 
     private:
         //static Master masterInstance;
@@ -35,8 +36,10 @@ class Master
         bool est_jaune;         // couleur de jeu
         int couleur;
         int strategie;
+
+
 };
 
-
+extern Master* master;
 
 #endif // MASTER_H

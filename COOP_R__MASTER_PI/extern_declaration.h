@@ -3,6 +3,6 @@
 
 #include "Master.h"
 
-extern Master * master;
+//extern Master * master;
 
 #endif // EXTERN_DECLARATION_H

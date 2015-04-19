@@ -1,3 +1,3 @@
 #include "extern_declaration.h"
 
-Master * master = new Master();
+//Master * master = new Master();
