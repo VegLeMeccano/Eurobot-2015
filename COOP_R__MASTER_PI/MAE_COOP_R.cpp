@@ -1,8 +1,9 @@
 
 #include "MAE_COOP_R.h"
-//#include "extern_declaration.h"
+#include "Master.h"
 #include <wiringSerial.h>
 int portSerie;
+Master* master;
 
 MAE_COOP_R::AnyState::~AnyState() {
 }
@@ -159,7 +160,9 @@ void MAE_COOP_R::MAE_COOP_R_State::Jeu_State::attente_State::_doentry(MAE_COOP_R
   //master->set_time_out(10);
   cout << "portSerie -> "<<portSerie << endl;
   //serialPrintf(portSerie,"D0 ");
-  serialPrintf (portSerie, "D0 \n") ;
+  serialPrintf (portSerie, "D1 \n") ;
+  //master->set_couleur(COULEUR_JAUNE);
+
 }
 
 MAE_COOP_R::MAE_COOP_R_State::Jeu_State::fin_de_jeu_State::~fin_de_jeu_State() {

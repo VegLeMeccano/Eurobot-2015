@@ -19,7 +19,7 @@ class Master
         Master();
         //static Master* getInstance{ return &masterInstance;}
         void run();
-        void set_time_out(int dt_);
+        void set_time_out(int dt_);     // besoin d'avoir acces de l'exterieur, pour mettre les tempos
         void reset_time_out();
         bool is_time_out();
 

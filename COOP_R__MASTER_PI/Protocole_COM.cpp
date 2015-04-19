@@ -1,5 +1,6 @@
 #include "Protocole_COM.h"
 
+int portSerie;
 
 /** Constructeur COM
 */
@@ -10,6 +11,8 @@ Protocole_COM::Protocole_COM(Master* master_ ):
 {
     treated = true;
     cout << "[COM] initialisation" << endl;
+    master->set_couleur(COULEUR_VERT);
+
 }
 
 
@@ -44,15 +47,15 @@ void Protocole_COM::run()
 void Protocole_COM::treatSerial()
 {
     char serial_char;
-/*
+
     // Ici on traite les différents messages reçus.
-    while(Serial.available()>0 && serial_count < 28)
+    while(serialDataAvail(portSerie)>0 && serial_count < 28)
     {
-        serial_char= Serial.read();
+        serial_char= serialGetchar(portSerie);
 
         if (serial_char =='\n')
         {
-            Serial.println("Fin de ligne");
+            cout<<"Fin de ligne"<<endl;
             //on ne traite que les instructions de minimum 2 char
             if (serial_count<1)
             {
@@ -62,17 +65,15 @@ void Protocole_COM::treatSerial()
             {
                 treated = false;
             }
-            Serial.print("Enregistre : ");
-            Serial.print(s.c_str());
-            Serial.print("  serial_count  ");
-            Serial.println(serial_count);
+             cout<<"Enregistre : "<<s.c_str()<<endl;
+             cout<<"serial_count :"<<serial_count<<endl;
             return;
         }
         //Serial.println(serial_count);
         s = s + serial_char;
         serial_count = serial_count + 1;
     }
-    */
+
 }
 
 

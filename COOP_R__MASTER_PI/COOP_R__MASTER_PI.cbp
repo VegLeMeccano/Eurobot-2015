@@ -45,12 +45,7 @@
 		<Unit filename="Period.h" />
 		<Unit filename="Protocole_COM.cpp" />
 		<Unit filename="Protocole_COM.h" />
-		<Unit filename="extern_declaration.cpp" />
-		<Unit filename="extern_declaration.h" />
 		<Unit filename="main.cpp" />
-		<Unit filename="main.h">
-			<Option target="&lt;{~None~}&gt;" />
-		</Unit>
 		<Unit filename="util.h" />
 		<Extensions>
 			<code_completion />

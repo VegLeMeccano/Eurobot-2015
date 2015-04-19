@@ -45,6 +45,8 @@ void Master::run()
             // execution des instructions
             mae_coop_r.doActivity();
 
+            // les transistions autre que time_out provienne du protocole de COM par ordre retour
+
             // check les time out
             if(is_time_out())
             {

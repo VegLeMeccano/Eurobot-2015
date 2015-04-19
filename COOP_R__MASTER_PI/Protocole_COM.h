@@ -6,6 +6,7 @@
 #include <sstream>
 #include "Period.h"
 #include "Master.h"
+#include <wiringSerial.h>
 
 #define PERIODE_COM 50
 

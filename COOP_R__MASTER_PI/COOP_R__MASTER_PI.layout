@@ -1,11 +1,23 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Debug" />
-	<File name="MAE_COOP_R.cpp" open="1" top="1" tabpos="2">
-		<Cursor position="469" topLine="0" />
+	<File name="MAE_COOP_R.cpp" open="1" top="0" tabpos="2">
+		<Cursor position="4685" topLine="138" />
+	</File>
+	<File name="Master.cpp" open="1" top="1" tabpos="6">
+		<Cursor position="680" topLine="24" />
+	</File>
+	<File name="Master.h" open="1" top="0" tabpos="5">
+		<Cursor position="456" topLine="6" />
+	</File>
+	<File name="Protocole_COM.cpp" open="1" top="0" tabpos="3">
+		<Cursor position="2143" topLine="98" />
+	</File>
+	<File name="Protocole_COM.h" open="1" top="0" tabpos="4">
+		<Cursor position="156" topLine="0" />
 	</File>
 	<File name="main.cpp" open="1" top="0" tabpos="1">
-		<Cursor position="576" topLine="15" />
+		<Cursor position="85" topLine="0" />
 	</File>
 	<File name="util.h" open="0" top="0" tabpos="0">
 		<Cursor position="177" topLine="0" />

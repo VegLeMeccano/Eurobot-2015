@@ -20,8 +20,7 @@
 
 using namespace std;
 
-Master* master;
-Protocole_COM* protocole_com;
+
 
 
 
@@ -65,10 +64,14 @@ int main()
 
 
     // initialisation du Master
+    extern Master* master;
     master = new Master();
 
     // initialisation du protocole de COM
+    Protocole_COM* protocole_com;
     protocole_com = new Protocole_COM(master);
+
+    //master->set_couleur(COULEUR_JAUNE);
 
     while(1)
     {

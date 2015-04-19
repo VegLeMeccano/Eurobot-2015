@@ -51,8 +51,10 @@
 
 1425833972 d:\club robotique iron menad 2\eurobot 2015 iron menad\eurobot-2015\coop_r__master_pi\wiringpi\wiringpi.h
 
-1429452969 source:/home/pi/.git/Eurobot-2015/COOP_R__MASTER_PI/MAE_COOP_R.cpp
+1429470702 source:/home/pi/.git/Eurobot-2015/COOP_R__MASTER_PI/MAE_COOP_R.cpp
 	"MAE_COOP_R.h"
+	"Master.h"
+	<wiringSerial.h>
 
 1429452969 /home/pi/.git/Eurobot-2015/COOP_R__MASTER_PI/MAE_COOP_R.h
 	<iostream>
@@ -73,12 +75,13 @@
 1429452969 source:/home/pi/.git/Eurobot-2015/COOP_R__MASTER_PI/Protocole_COM.cpp
 	"Protocole_COM.h"
 
-1429452969 /home/pi/.git/Eurobot-2015/COOP_R__MASTER_PI/Protocole_COM.h
+1429471532 /home/pi/.git/Eurobot-2015/COOP_R__MASTER_PI/Protocole_COM.h
 	<string>
 	<iostream>
 	<sstream>
 	"Period.h"
 	"Master.h"
+	<wiringSerial.h>
 
 1429452969 source:/home/pi/.git/Eurobot-2015/COOP_R__MASTER_PI/extern_declaration.cpp
 	"extern_declaration.h"
@@ -86,11 +89,12 @@
 1429465873 /home/pi/.git/Eurobot-2015/COOP_R__MASTER_PI/extern_declaration.h
 	"Master.h"
 
-1429455449 source:/home/pi/.git/Eurobot-2015/COOP_R__MASTER_PI/main.cpp
+1429470885 source:/home/pi/.git/Eurobot-2015/COOP_R__MASTER_PI/main.cpp
 	<iostream>
 	<wiringPi.h>
 	<wiringSerial.h>
 	<unistd.h>
+	"extern_declaration.h"
 	"Master.h"
 	"Protocole_COM.h"
 	"Period.h"
