@@ -70,6 +70,7 @@ class Centrale_Inertielle
 
     public:
         Centrale_Inertielle();
+        void recalibrage();
         void run();
         float angle_x_out();
         float angle_y_out();
@@ -227,6 +228,9 @@ class ChenillePrincipale
         SwitchAnalog bumper_d_av;
         SwitchAnalog bumper_d_ar;
         // sonar (pour l'evitement)
+
+        bool bavardeur_bumper;
+
         Sonar sonar;
 
         IR_compteur ir_compteur_lat;
@@ -299,6 +303,9 @@ class ChenillePrincipale
 
         Sonar* get_Sonar();
         IR_compteur* get_IR_compteur();
+        void debug_bumper_muet();
+        void debug_bumper_bavard();
+        void affiche_bumper();
 };
 
 

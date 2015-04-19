@@ -9,9 +9,13 @@ IR_compteur::IR_compteur():
     IR(PIN_IR_BAS,SEUIL_IR_BAS),
     alignement(false),
     vu(false),
-    compteur(0)
+    compteur(0),
+    bavardeur(false)
 {
       // init
+      muet();
+      reset_compteur();
+
 }
 
 void IR_compteur::run()
@@ -98,6 +102,7 @@ ChenilleSecondaire::ChenilleSecondaire():
     position_rangee();
     in_state_func();
 }
+
 
 void ChenilleSecondaire::OFF(){
     chenille_secondaire.writeMicroseconds(CHAINE_SECONDAIRE_STOP);
@@ -374,13 +379,15 @@ ChenillePrincipale::ChenillePrincipale():
     time_out_on(false),
     t_over(false),
     evitement_actif(false),       // pour savoir si on consulte les sonar ou pas
-    interruption_par_evitement(false)
+    interruption_par_evitement(false),
+    bavardeur_bumper(false)
 {
     chenille_laterale.attach(PIN_PWM_MOTEUR_CHENILLE_LATERALE);
     chenille_gauche.attach(PIN_PWM_MOTEUR_CHENILLE_G);
     chenille_droite.attach(PIN_PWM_MOTEUR_CHENILLE_D);
     Serial.println("[INIT] CHENILLE PRINCIPAL");
 
+    debug_bumper_muet();
     arret();
     set_evitement_OFF();
     in_state_func();
@@ -515,6 +522,12 @@ void ChenillePrincipale::run(){
     {
         period_run.reset();
 
+        // affiche bumper
+        if(bavardeur_bumper)
+        {
+            affiche_bumper();
+        }
+
         // si le temps est fini
         if (is_time_out())
         {
@@ -578,6 +591,27 @@ void ChenillePrincipale::run(){
 
 
     }
+
+}
+
+// pour le debug
+void ChenillePrincipale::affiche_bumper()
+{
+    Serial.print("[BUMPER] ");
+    Serial.print((int)bumper_g_ar.is_on());
+    Serial.print(" ");
+    Serial.print((int)bumper_g_av.is_on());
+    Serial.print("\t");
+
+    Serial.print((int)bumper_av_g.is_on());
+    Serial.print(" ");
+    Serial.print((int)bumper_av_d.is_on());
+    Serial.print("\t");
+
+    Serial.print((int)bumper_d_av.is_on());
+    Serial.print(" ");
+    Serial.print((int)bumper_d_ar.is_on());
+    Serial.println();
 
 }
 
@@ -928,6 +962,15 @@ IR_compteur* ChenillePrincipale::get_IR_compteur()
     return &ir_compteur_lat;
 }
 
+
+void ChenillePrincipale::debug_bumper_muet()
+{
+    bavardeur_bumper = false;
+}
+void ChenillePrincipale::debug_bumper_bavard()
+{
+    bavardeur_bumper = true;
+}
 
 /*********************************************************************
     TURBINE
@@ -1518,34 +1561,7 @@ Centrale_Inertielle::Centrale_Inertielle():
     // verify connection
     Serial.println("Testing connection gyro...");
     Serial.println(accelgyro.testConnection() ? "MPU6050 connection successful" : "MPU6050 connection failed");
-/*
-        accelgyro.getMotion6(&ax, &ay, &az, &gx, &gy, &gz);
-        Serial.print("g:\t");
-        Serial.print(gx); Serial.print("\t");
-        Serial.print(gy); Serial.print("\t");
-        Serial.print(gz); Serial.print("\t");
-        Serial.println();
-        Serial.print("a:\t");
-        Serial.print(ax); Serial.print("\t");
-        Serial.print(ay); Serial.print("\t");
-        Serial.print(az); Serial.print("\t");
-        Serial.println();
-*/
 
-
-        //Serial.println("Updating internal sensor offsets...");
-    // -76	-2359	1688	0	0	0
-    //Serial.print(accelgyro.getXAccelOffset()); Serial.print("\t"); // -76
-   // Serial.print(accelgyro.getYAccelOffset()); Serial.print("\t"); // -2359
-   // Serial.print(accelgyro.getZAccelOffset()); Serial.print("\t"); // 1688
-    //Serial.print(accelgyro.getXGyroOffset()); Serial.print("\t"); // 0
-    //Serial.print(accelgyro.getYGyroOffset()); Serial.print("\t"); // 0
-    //Serial.print(accelgyro.getZGyroOffset()); Serial.print("\t"); // 0
-    //Serial.print("\n");
-    // premiere mesure
-    //accelgyro.reset();
-    //accelgyro.setDLPFMode(0);
-    //accelgyro.setFullScaleAccelRange(0);
     delay(100);
 
     // offset, et calibration
@@ -1558,21 +1574,41 @@ Centrale_Inertielle::Centrale_Inertielle():
     accelgyro.setZAccelOffset(0);
     delay(100);
     // mettre un 1g qq part
-/*
-    accelgyro.getMotion6(&ax, &ay, &az, &gx, &gy, &gz);
-        Serial.print("g:\t");
-        Serial.print(gx); Serial.print("\t");
-        Serial.print(gy); Serial.print("\t");
-        Serial.print(gz); Serial.print("\t");
-        Serial.println();
-        Serial.print("a:\t");
-        Serial.print(ax); Serial.print("\t");
-        Serial.print(ay); Serial.print("\t");
-        Serial.print(az); Serial.print("\t");
-        Serial.println();
-*/
-        muet_gyro();
-        muet_accelero();
+    muet_gyro();
+    muet_accelero();
+    recalibrage();
+}
+
+#define MESURE_RECALIBRATION 300
+#define MESURE_TIME_PAUSE 5
+void Centrale_Inertielle::recalibrage()
+{
+    Serial.println("[CENTRALE] debut recalibration");
+    gx_OC = -221;
+    gy_OC = 194;
+    gz_OC = 127;
+
+    float moy_gx, moy_gy, moy_gz;
+    moy_gx = 0;
+    moy_gy = 0;
+    moy_gz = 0;
+
+
+    for(int i = 0; i<MESURE_RECALIBRATION;i++)
+    {
+        /** Lecture des mesures */
+        accelgyro.getMotion6(&ax, &ay, &az, &gx, &gy, &gz);
+        moy_gx += gx/((float)MESURE_RECALIBRATION);
+        moy_gy += gy/((float)MESURE_RECALIBRATION);
+        moy_gz += gz/((float)MESURE_RECALIBRATION);
+        delay(MESURE_TIME_PAUSE);
+    }
+
+    gx_OC = moy_gx;
+    gy_OC = moy_gy;
+    gz_OC = moy_gz;
+    Serial.println("[CENTRALE] fin recalibration");
+
 }
 
 
@@ -1587,23 +1623,9 @@ void Centrale_Inertielle::run()
 
         /** Calcul des angles */
         // derive du gyro
-        /*
-        angle_x_gyro = gx*dt/1000 + angle_x_gyro;
-        angle_y_gyro = gy*dt/1000 + angle_y_gyro;
-        angle_z_gyro = gz*dt/1000 + angle_z_gyro;
 
-        angle_z_accel = atan(az/sqrt(ay*ay + ax*ax))*(float)RAD_TO_DEG_CONV;
-        angle_y_accel = -atan(ax/sqrt(ay*ay + az*az))*(float)RAD_TO_DEG_CONV;
-        angle_x_accel = atan(ay/sqrt(ax*ax + az*az))*(float)RAD_TO_DEG_CONV;
 
-        angle_x = FILTER_GAIN*angle_x_gyro + (1-FILTER_GAIN)*angle_x_accel;
-        angle_y = FILTER_GAIN*angle_y_gyro + (1-FILTER_GAIN)*angle_y_accel;
-        angle_z = FILTER_GAIN*angle_z_gyro + (1-FILTER_GAIN)*angle_z_accel;
-        */
 
-            gx_OC = -221;
-            gy_OC = 194;
-            gz_OC = 127;
             float vx, vy,vz;
             vx = gx-gx_OC;
             vy = gy-gy_OC;

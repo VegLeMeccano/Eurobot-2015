@@ -254,12 +254,14 @@ void OrdersRaspberry::executeinstr()
            break;
 
         case 2:
-            Serial.print("Debug IMU, accelero on");
-            io->get_ChenilleSecondaire()->get_Centrale_Inertielle()->bavard_accelero();
+            Serial.print("Debug Bumper,  on");
+            //io->get_ChenilleSecondaire()->get_Centrale_Inertielle()->bavard_accelero();
+            io->get_ChenillePrincipale()->debug_bumper_bavard();
             break;
         case 3:
-            Serial.print("Debug IMU, accelero off");
-            io->get_ChenilleSecondaire()->get_Centrale_Inertielle()->muet_accelero();
+            Serial.print("Debug bumper,  off");
+            //io->get_ChenilleSecondaire()->get_Centrale_Inertielle()->muet_accelero();
+            io->get_ChenillePrincipale()->debug_bumper_muet();
            break;
 
         case 4:
