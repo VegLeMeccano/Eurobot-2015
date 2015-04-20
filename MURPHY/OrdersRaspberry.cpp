@@ -179,7 +179,7 @@ void OrdersRaspberry::executeinstr()
 
 
     /*****************************************************
-        ordre de type Pop corn
+        ordre de type Pop corn / gobelet saisie
     ******************************************************/
     case 'P' : // p comme poop corn
 
@@ -208,6 +208,22 @@ void OrdersRaspberry::executeinstr()
             case 3:
 				Serial.print("fermeture du capot arriere");
 				io->get_Capot()->fermeture();
+			break;
+
+            case 4:
+				Serial.print("relache gobelet");
+				io->get_Elevator_gobelet()->lache();
+			break;
+
+            case 5:
+				Serial.print("souleve gobelet");
+				io->get_Elevator_gobelet()->souleve();
+			break;
+
+            case 6:
+				Serial.print("drop gobelet");
+				io->get_Capot()->ouverture_balle();
+				io->get_Elevator_gobelet()->lache();
 			break;
 		}
         break;

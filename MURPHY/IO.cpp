@@ -1,5 +1,31 @@
 #include "IO.h"
 
+#define ELEVATOR_GOBELET_GAUCHE_LACHE 1500
+#define ELEVATOR_GOBELET_GAUCHE_SOULEVE 1500
+#define ELEVATOR_GOBELET_DROITE_LACHE 1500
+#define ELEVATOR_GOBELET_DROITE_SOULEVE 1500
+/****************************************************
+   ELEVATOR GOBELET
+*****************************************************/
+Elevator_Gobelet::Elevator_Gobelet()
+{
+    servo_elevator_droite.attach(PIN_PWM_SERVOS_ELEVATOR_DROITE);
+    servo_elevator_gauche.attach(PIN_PWM_SERVOS_ELEVATOR_GAUCHE);
+    lache();
+    Serial.println(" elevator gobelet init");
+}
+
+void Elevator_Gobelet::lache()
+{
+    servo_elevator_droite.writeMicroseconds(ELEVATOR_GOBELET_DROITE_LACHE);
+    servo_elevator_gauche.writeMicroseconds(ELEVATOR_GOBELET_GAUCHE_LACHE);
+}
+
+void Elevator_Gobelet::souleve()
+{
+    servo_elevator_droite.writeMicroseconds(ELEVATOR_GOBELET_DROITE_SOULEVE);
+    servo_elevator_gauche.writeMicroseconds(ELEVATOR_GOBELET_GAUCHE_SOULEVE);
+}
 
 
 
@@ -1540,6 +1566,7 @@ void Constructeur_pile::in_state_func()
    IO
 *****************************************************/
 IO::IO():
+        elevator_gobelet(),
         clap_gauche(false),
         clap_droite(true),
         constructeur_pile_gauche(false,PIN_BUMPER_ASC_BAS_GAUCHE,PIN_BUMPER_RECALAGE_DROITE),//PIN_BUMPER_ASC_HAUT_GAUCHE
@@ -1553,6 +1580,11 @@ IO::IO():
         to_be_ejected_gauche(true)
 {
     Serial.println(" IO declaration");
+}
+
+Elevator_Gobelet* IO::get_Elevator_gobelet()
+{
+    return &elevator_gobelet;
 }
 
 void IO::balle_droite_trigger(int transition)

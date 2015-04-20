@@ -14,6 +14,22 @@
 #define TIC_HAUT 100
 #define TIC_BAS 0
 
+/****************************************************
+   ELEVATOR GOBELET
+*****************************************************/
+class Elevator_Gobelet
+{
+    private:
+        Servo servo_elevator_gauche;
+        Servo servo_elevator_droite;
+
+    public:
+        Elevator_Gobelet();
+        void lache();
+        void souleve();
+};
+
+
 
 /****************************************************
    CLAPS
@@ -379,6 +395,7 @@ class Constructeur_pile
 class IO
 {
     private:
+        Elevator_Gobelet elevator_gobelet;
         Balle_droite balle_droite;
         Balle_gauche balle_gauche;
         Claps clap_gauche;
@@ -400,6 +417,7 @@ class IO
         void write_debug();
         void run();
         void balle_droite_trigger(int transition);
+        Elevator_Gobelet* get_Elevator_gobelet();
         Claps* get_Claps_droite();
         Claps* get_Claps_gauche();
         Constructeur_pile* get_Constructeur_pile_gauche();
