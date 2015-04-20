@@ -81,13 +81,6 @@ void setup()
     Serial.println("#SERIAL READY");
     Serial.println("#BAS NIVEAU COOP'R");
 
-    // initialisation des PINS IN et OUT
-    io = new IO();
-    Serial.println("INIT IO");
-
-    // initialisation du protocol de communication via le port serie
-    com = new OrdersRaspberry(io);
-    Serial.println("INIT OrdersRaspberry");
 
 
     state = ALLUMAGE;
@@ -106,10 +99,23 @@ void setup()
     Serial.println((int)bumper_start.is_on());
 
     Serial.print("* COULEUR : ");
-    Serial.println((int)bumper_couleur.is_on());
+    extern int couleur;
+    couleur = (int)bumper_couleur.is_on();
+    Serial.println(couleur);
 
     Serial.print("* STRAT 1 : ");
     Serial.println((int)bumper_strategie.is_on());
+
+    Serial.println("");
+    Serial.println("________________________");
+
+    // initialisation des PINS IN et OUT
+    io = new IO();
+    Serial.println("INIT IO");
+
+    // initialisation du protocol de communication via le port serie
+    com = new OrdersRaspberry(io);
+    Serial.println("INIT OrdersRaspberry");
 
     Serial.println("");
     Serial.println("________________________");

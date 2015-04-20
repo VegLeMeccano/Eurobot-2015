@@ -14,7 +14,7 @@
 
 // IMU
 // http://www.seeedstudio.com/wiki/Xadow_-_IMU_6DOF
-
+#define SEUIL_IR_ALIGNEMENT 530 //au dessus c que c'est bon
 /****************************************************
    IR compteur de roue
 *****************************************************/
@@ -207,6 +207,7 @@ class ChenilleSecondaire
 #define SLAVE_TRIGGER_BUMP_GAUCHE 8
 #define SLAVE_TRIGGER_BUMP_DROITE 9
 #define SLAVE_TRIGGER_BUMP_FACE 10
+#define SLAVE_TRIGGER_STOP 11
 
 class ChenillePrincipale
 {
@@ -246,6 +247,10 @@ class ChenillePrincipale
         long time_asserv_remaining;     // temps restant si interruption par l'evitement, rajouter un dela temps
         long time_delta_time_after_interrupt;
 
+        //gestion des tours de roue, en lateral
+        int tour_a_faire;
+        int tour_effectuee;
+
         // pour MAE
         int state;
         bool time_out_on;
@@ -255,6 +260,8 @@ class ChenillePrincipale
 
     public:
         ChenillePrincipale();
+
+        void alignementLaterale();
 
         // activation ou pas de l'evitement, intervient dans le run
         void set_evitement_ON();
@@ -288,6 +295,7 @@ class ChenillePrincipale
         void rotation(double tempsTotAction); //couplage avec IMU???
 
         // mise en place escalier
+        void stop_asserv();  //sort de l'asserv en cours, si pausee
         void pause_asserv(); //pause de l'asserv en cours (timer)
         void reprise(); //reprise de l'asserv en cours, si existe
         void run();

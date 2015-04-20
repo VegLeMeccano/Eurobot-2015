@@ -1,21 +1,23 @@
 #include "IO.h"
 #include <string.h>
+int couleur;
 
 /****************************************************
    IR compteur de roue
 *****************************************************/
+
 IR_compteur::IR_compteur():
     period_run(50),
-    IR(PIN_IR_BAS,SEUIL_IR_BAS),
+    IR(PIN_IR_BAS,SEUIL_IR_ALIGNEMENT),
     alignement(false),
     vu(false),
     compteur(0),
     bavardeur(false)
 {
       // init
-      muet();
-      reset_compteur();
-
+      muet();               // on met pas de merde
+      reset_compteur();     // on met les compteurs a zero
+      IR.reverse();
 }
 
 void IR_compteur::run()
@@ -29,23 +31,20 @@ void IR_compteur::run()
             affiche();
         }
 
-        // si IR obstruee,
-        alignement = true;
-        vu = true;
-
-        // quand on le quite
-        alignement = false;
-        vu = false;
-
-        // quand revient
-        if (vu == false && alignement == true)
+        if(IR.is_on())
         {
-            incremente_compteur();
-            vu = true;
+            alignement = true;
+            if(vu == false)
+            {
+                incremente_compteur();
+                vu = true;
+            }
         }
-
-        // a completer
-
+        else
+        {
+            alignement = false;
+            vu = false;
+        }
     }
 
 }
@@ -53,7 +52,11 @@ void IR_compteur::run()
 void IR_compteur::affiche()
 {
     Serial.print("valeur ir : ");
-    Serial.println(analogRead(PIN_IR_BAS));
+    Serial.print(analogRead(PIN_IR_BAS));
+    Serial.print("\t alignement: ");
+    Serial.print((int)est_aligne());
+    Serial.print("\t compteur: ");
+    Serial.println(nbr_compteur());
 }
 
 void IR_compteur::reset_compteur()
@@ -71,7 +74,7 @@ int IR_compteur::nbr_compteur()
 }
 bool IR_compteur::est_aligne()
 {
-    return alignement;
+    return IR.is_on();
 }
 
 void IR_compteur::bavard()
@@ -385,12 +388,14 @@ ChenillePrincipale::ChenillePrincipale():
     chenille_laterale.attach(PIN_PWM_MOTEUR_CHENILLE_LATERALE);
     chenille_gauche.attach(PIN_PWM_MOTEUR_CHENILLE_G);
     chenille_droite.attach(PIN_PWM_MOTEUR_CHENILLE_D);
-    Serial.println("[INIT] CHENILLE PRINCIPAL");
+
+    alignementLaterale();
 
     debug_bumper_muet();
     arret();
     set_evitement_OFF();
     in_state_func();
+    Serial.println("[INIT] CHENILLE PRINCIPAL");
 }
 
 Sonar* ChenillePrincipale::get_Sonar()
@@ -615,6 +620,47 @@ void ChenillePrincipale::affiche_bumper()
 
 }
 
+void ChenillePrincipale::alignementLaterale()
+{
+    Serial.println("[Chaine principale] alignement en cours");
+    Serial.print("rotation : ");
+
+    if(couleur == COULEUR_JAUNE)
+        {
+            Serial.println("droite");
+        }
+        if(couleur == COULEUR_VERT)
+        {
+            Serial.println("gauche");
+        }
+    Serial.print("couleur : ");
+    Serial.println(couleur);
+    int cpt(0);
+    while(!ir_compteur_lat.est_aligne())
+    {
+        cpt++;
+        Serial.print(cpt);
+        Serial.print(" ");
+        if(couleur == COULEUR_JAUNE)
+        {
+            lateral_droite();
+        }
+        if(couleur == COULEUR_VERT)
+        {
+            lateral_gauche();
+        }
+        delay(30);
+
+        if(cpt>100)
+        {
+            Serial.println("\n[ALIGNEMENT] ECHEC");
+            lateral_stop();
+            return;
+        }
+    }
+    lateral_stop();
+    Serial.println("\n[ALIGNEMENT] SUCCESS");
+}
 
 // va bumper a droite et s'arrete
 void ChenillePrincipale::recalage_gauche(){
@@ -674,6 +720,11 @@ void ChenillePrincipale::decalage_arriere(long tempsTotAction){
     trigger(SLAVE_TRIGGER_LATERAL_DROITE);
 }
 
+void ChenillePrincipale::stop_asserv()
+{
+    trigger(SLAVE_TRIGGER_STOP);
+}
+
 // pause l'asserv manuellement pour test, sinon c'est automatique avec l'evitement
 void ChenillePrincipale::pause_asserv()
 {
@@ -708,10 +759,10 @@ void ChenillePrincipale::trigger(int transition)
          Serial.println(transition);
     }
 
-    if (transition == SLAVE_TRIGGER_PAUSE || transition == SLAVE_TRIGGER_REPRISE )
+    if (transition == SLAVE_TRIGGER_PAUSE || transition == SLAVE_TRIGGER_REPRISE || transition== SLAVE_TRIGGER_STOP)
     {
          Serial.println(" ");
-         Serial.print("[SLAVE] TRANSISTION FORCEE: PAUSE");
+         Serial.print("[SLAVE] TRANSISTION FORCEE: PAUSE/STOP");
          Serial.println(transition);
     }
 
@@ -797,6 +848,11 @@ void ChenillePrincipale::trigger(int transition)
                 time_asserv_started = millis();
                 Serial.println("[SLAVE] Deplacement gauche reprise");
            }
+           if (transition == SLAVE_TRIGGER_STOP )
+           {
+                state = SLAVE_STATE_REPOS;
+                Serial.println("[SLAVE] STOP");
+           }
            break;
 
 
@@ -834,6 +890,11 @@ void ChenillePrincipale::trigger(int transition)
                 time_asserv_started = millis();
                 Serial.println("[SLAVE] Deplacement droite reprise");
            }
+           if (transition == SLAVE_TRIGGER_STOP )
+           {
+                state = SLAVE_STATE_REPOS;
+                Serial.println("[SLAVE] STOP");
+           }
            break;
 
         case SLAVE_STATE_DEPLACEMENT_AVANT_ACTION  :
@@ -869,6 +930,11 @@ void ChenillePrincipale::trigger(int transition)
                 state = SLAVE_STATE_DEPLACEMENT_AVANT_ACTION;
                 time_asserv_started = millis();
                 Serial.println("[SLAVE] Deplacement avant reprise");
+           }
+           if (transition == SLAVE_TRIGGER_STOP )
+           {
+                state = SLAVE_STATE_REPOS;
+                Serial.println("[SLAVE] STOP");
            }
            break;
 

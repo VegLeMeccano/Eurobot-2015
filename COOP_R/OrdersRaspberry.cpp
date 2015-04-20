@@ -233,6 +233,11 @@ void OrdersRaspberry::executeinstr()
             io->get_ChenillePrincipale()->recalage_droite();
             break;
 
+        case 9:
+            Serial.print("BASE ROULANTE, stop asserv");
+            // renvoyer (# AssFINI) par le port serie
+            io->get_ChenillePrincipale()->stop_asserv();
+            break;
        }
 
        break;
