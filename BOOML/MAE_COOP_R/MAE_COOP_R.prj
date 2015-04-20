@@ -1,6 +1,6 @@
 format 76
 "MAE_COOP_R"
-  revision 16
+  revision 18
   modified_by 2 "Link"
   cpp_root_dir "D:/Club Robotique IRON MENAD 2/Eurobot 2015 Iron Menad/Eurobot-2015/COOP_R__MASTER_PI/"
 
@@ -128,27 +128,15 @@ if(master->est_Vert()){
 // on part sur la gauche
 serialPrintf (portSerie, \"A3 5\\n\") ;
 }"
-	  transition 154626 "<transition>"
-	    on state_ref 135298 // attente recalibration
-	      cpp_trigger "ass_fini"
-	    external 
-	  end
-
-	  transition 161282 "<transition>"
-	    on state_ref 142850 // Evitement
-	      cpp_trigger "adversaire"
-	    external 
-	  end
-
-	  transition 162050 "<transition>"
-	    on state_ref 143234 // fin deplacement lateral
-	      cpp_trigger "assFini"
-	    external 
-	  end
-
 	  transition 176642 "<transition>"
 	    on pseudostate_ref 141186 // choice
 	      cpp_trigger "adversaire"
+	    external 
+	  end
+
+	  transition 183554 "<transition>"
+	    on state_ref 143234 // fin deplacement lateral
+	      cpp_trigger "assFini"
 	    external 
 	  end
 	end
@@ -228,11 +216,6 @@ serialPrintf (portSerie, \"T2 \\n\") ;"
 	state 136194 "remonte 2"
 	    cpp_on_entry "// replis du premier tapis
 serialPrintf (portSerie, \"T3 \\n\") ;"
-	  transition 163330 "<transition>"
-	    on state_ref 128386 // Jeu
-	    external 
-	  end
-
 	  transition 163458 "<transition>"
 	    on state_ref 136322 // fin de jeu
 	      cpp_trigger "ioFini"
@@ -254,19 +237,7 @@ serialPrintf (portSerie, \"A \\n\") ;
 master->set_time_out(1000)
 increment_cycle_attente()
 "
-	  transition 161410 "<transition>"
-	    on state_ref 143234 // fin deplacement lateral
-	      cpp_trigger "tour_roue_4"
-	    external 
-	  end
-
-	  transition 161538 "<transition>"
-	    on state_ref 142978 // attente evitement
-	      cpp_trigger "if(master->get_tour<4)"
-	    external 
-	  end
-
-	  transition 170114 "<transition>"
+	  transition 183426 "<transition>"
 	    on state_ref 143362 // reprise
 	      cpp_trigger "time_out"
 	    external 

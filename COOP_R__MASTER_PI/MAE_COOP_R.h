@@ -30,9 +30,6 @@ class MAE_COOP_R {
         // the current state doesn't manage the event time_out, give it to the upper state
         virtual void time_out(MAE_COOP_R & stm);
 
-        // the current state doesn't manage the event ass_fini, give it to the upper state
-        virtual void ass_fini(MAE_COOP_R & stm);
-
         // the current state doesn't manage the event adversaire, give it to the upper state
         virtual void adversaire(MAE_COOP_R & stm);
 
@@ -41,12 +38,6 @@ class MAE_COOP_R {
 
         // the current state doesn't manage the event ioFini, give it to the upper state
         virtual void ioFini(MAE_COOP_R & stm);
-
-        // the current state doesn't manage the event tour_roue_4, give it to the upper state
-        virtual void tour_roue_4(MAE_COOP_R & stm);
-
-        // the current state doesn't manage the event if(master->get_tour<4), give it to the upper state
-        virtual void if(master->get_tour<4)(MAE_COOP_R & stm);
 
     };
     
@@ -215,12 +206,6 @@ class MAE_COOP_R {
               public:
                 virtual ~Evitement_State();
 
-                // to manage the event tour_roue_4
-                virtual void tour_roue_4(MAE_COOP_R & stm);
-
-                // to manage the event if(master->get_tour<4)
-                virtual void if(master->get_tour<4)(MAE_COOP_R & stm);
-
                 // to manage the event time_out
                 virtual void time_out(MAE_COOP_R & stm);
 
@@ -258,8 +243,6 @@ class MAE_COOP_R {
 
                 // returns the state containing the current
                 virtual AnyState * _upper(MAE_COOP_R & stm);
-
-                virtual bool _completion(MAE_COOP_R & stm);
 
                 // to manage the event ioFini
                 virtual void ioFini(MAE_COOP_R & stm);
@@ -416,9 +399,6 @@ class MAE_COOP_R {
                 // returns the state containing the current
                 virtual AnyState * _upper(MAE_COOP_R & stm);
 
-                // to manage the event ass_fini
-                virtual void ass_fini(MAE_COOP_R & stm);
-
                 // to manage the event adversaire
                 virtual void adversaire(MAE_COOP_R & stm);
 
@@ -573,9 +553,6 @@ class MAE_COOP_R {
     // the operation you call to signal the event time_out
     bool time_out();
 
-    // the operation you call to signal the event ass_fini
-    bool ass_fini();
-
     // the operation you call to signal the event adversaire
     bool adversaire();
 
@@ -584,12 +561,6 @@ class MAE_COOP_R {
 
     // the operation you call to signal the event ioFini
     bool ioFini();
-
-    // the operation you call to signal the event tour_roue_4
-    bool tour_roue_4();
-
-    // the operation you call to signal the event if(master->get_tour<4)
-    bool if(master->get_tour<4)();
 
   friend class MAE_COOP_R_State::Jeu_State::Evitement_State;
   friend class MAE_COOP_R_State::Jeu_State::attente_evitement_State;
