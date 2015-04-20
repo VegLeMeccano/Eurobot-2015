@@ -1,4 +1,4 @@
-
+#include "Master.h"
 #include "MAE_COOP_R.h"
 
 MAE_COOP_R::AnyState::~AnyState() {
@@ -14,7 +14,7 @@ void MAE_COOP_R::AnyState::create(MAE_COOP_R &) {
 // the current state doesn't manage the event stratEnleve, give it to the upper state
 void MAE_COOP_R::AnyState::stratEnleve(MAE_COOP_R & stm) {
     AnyState * st = _upper(stm);
-  
+
     if (st != 0)
       st->stratEnleve(stm);
 #ifdef VERBOSE_STATE_MACHINE
@@ -26,7 +26,7 @@ void MAE_COOP_R::AnyState::stratEnleve(MAE_COOP_R & stm) {
 // the current state doesn't manage the event evitement, give it to the upper state
 void MAE_COOP_R::AnyState::evitement(MAE_COOP_R & stm) {
     AnyState * st = _upper(stm);
-  
+
     if (st != 0)
       st->evitement(stm);
 #ifdef VERBOSE_STATE_MACHINE
@@ -38,7 +38,7 @@ void MAE_COOP_R::AnyState::evitement(MAE_COOP_R & stm) {
 // the current state doesn't manage the event time_out, give it to the upper state
 void MAE_COOP_R::AnyState::time_out(MAE_COOP_R & stm) {
     AnyState * st = _upper(stm);
-  
+
     if (st != 0)
       st->time_out(stm);
 #ifdef VERBOSE_STATE_MACHINE
@@ -50,7 +50,7 @@ void MAE_COOP_R::AnyState::time_out(MAE_COOP_R & stm) {
 // the current state doesn't manage the event ass_fini, give it to the upper state
 void MAE_COOP_R::AnyState::ass_fini(MAE_COOP_R & stm) {
     AnyState * st = _upper(stm);
-  
+
     if (st != 0)
       st->ass_fini(stm);
 #ifdef VERBOSE_STATE_MACHINE
@@ -62,7 +62,7 @@ void MAE_COOP_R::AnyState::ass_fini(MAE_COOP_R & stm) {
 // the current state doesn't manage the event adversaire, give it to the upper state
 void MAE_COOP_R::AnyState::adversaire(MAE_COOP_R & stm) {
     AnyState * st = _upper(stm);
-  
+
     if (st != 0)
       st->adversaire(stm);
 #ifdef VERBOSE_STATE_MACHINE
@@ -74,7 +74,7 @@ void MAE_COOP_R::AnyState::adversaire(MAE_COOP_R & stm) {
 // the current state doesn't manage the event assFini, give it to the upper state
 void MAE_COOP_R::AnyState::assFini(MAE_COOP_R & stm) {
     AnyState * st = _upper(stm);
-  
+
     if (st != 0)
       st->assFini(stm);
 #ifdef VERBOSE_STATE_MACHINE
@@ -86,7 +86,7 @@ void MAE_COOP_R::AnyState::assFini(MAE_COOP_R & stm) {
 // the current state doesn't manage the event ioFini, give it to the upper state
 void MAE_COOP_R::AnyState::ioFini(MAE_COOP_R & stm) {
     AnyState * st = _upper(stm);
-  
+
     if (st != 0)
       st->ioFini(stm);
 #ifdef VERBOSE_STATE_MACHINE
@@ -98,7 +98,7 @@ void MAE_COOP_R::AnyState::ioFini(MAE_COOP_R & stm) {
 // the current state doesn't manage the event tour_roue_4, give it to the upper state
 void MAE_COOP_R::AnyState::tour_roue_4(MAE_COOP_R & stm) {
     AnyState * st = _upper(stm);
-  
+
     if (st != 0)
       st->tour_roue_4(stm);
 #ifdef VERBOSE_STATE_MACHINE
@@ -110,7 +110,7 @@ void MAE_COOP_R::AnyState::tour_roue_4(MAE_COOP_R & stm) {
 // the current state doesn't manage the event if(master->get_tour<4), give it to the upper state
 void MAE_COOP_R::AnyState::if(master->get_tour<4)(MAE_COOP_R & stm) {
     AnyState * st = _upper(stm);
-  
+
     if (st != 0)
       st->if(master->get_tour<4)(stm);
 #ifdef VERBOSE_STATE_MACHINE
@@ -296,7 +296,7 @@ void MAE_COOP_R::MAE_COOP_R_State::Jeu_State::reprise_State::_doentry(MAE_COOP_R
   	// reprise asserv en cours
   	serialPrintf (portSerie, "A5 \n") ;
   }
-  
+
 }
 
 // returns the state containing the current
@@ -329,7 +329,7 @@ void MAE_COOP_R::MAE_COOP_R_State::Jeu_State::fin_deplacement_lateral_State::_do
   	puts("DEBUG : execute entry behavior of .MAE_COOP_R.Jeu.fin deplacement lateral");
 #endif
   // recalage des roues alignement
-  
+
   // desactivation de l'evitement
   serialPrintf (portSerie, "E0 \n") ;
 }
@@ -455,7 +455,7 @@ void MAE_COOP_R::MAE_COOP_R_State::Jeu_State::Evitement_State::_doentry(MAE_COOP
   // si on a atteint au moins 4 tours de roues, on stoppe l'asserv
   // on raligne les roues (finir, ou attente d'asserv toujours sur un tour de roue fix)
   serialPrintf (portSerie, "A \n") ;
-  
+
   // mettre des etats de transistions...
   master->set_time_out(1000)
   increment_cycle_attente()

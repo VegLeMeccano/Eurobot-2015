@@ -77,7 +77,7 @@ int main()
 
 
     // initialisation du Master
-    extern Master* master;
+    //extern Master* master;
     master = new Master();
 
     // initialisation du protocole de COM
