@@ -1,6 +1,10 @@
 
 #include "MAE_COOP_R.h"
 
+#include "Master.h"
+#include <sirinSerial.h>
+int portSerie;
+
 MAE_COOP_R::AnyState::~AnyState() {
 }
 

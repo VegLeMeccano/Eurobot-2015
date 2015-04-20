@@ -1,20 +1,4 @@
 class Evitement_State
-!!!170242.cpp!!!	tour_roue_4(inout stm : MAE_COOP_R) : void
-  {
-    stm._set_currentState(stm._mae_coop_r_state._jeu_state._fin_deplacement_lateral_state);
-#ifdef VERBOSE_STATE_MACHINE
-    puts("DEBUG : current state is now .MAE_COOP_R.Jeu.fin deplacement lateral");
-#endif
-    stm._mae_coop_r_state._jeu_state._fin_deplacement_lateral_state.create(stm);
-  }
-!!!170626.cpp!!!	if(master->get_tour<4)(inout stm : MAE_COOP_R) : void
-  {
-    stm._set_currentState(stm._mae_coop_r_state._jeu_state._attente_evitement_state);
-#ifdef VERBOSE_STATE_MACHINE
-    puts("DEBUG : current state is now .MAE_COOP_R.Jeu.attente evitement");
-#endif
-    stm._mae_coop_r_state._jeu_state._attente_evitement_state.create(stm);
-  }
 !!!170754.cpp!!!	time_out(inout stm : MAE_COOP_R) : void
   {
     stm._set_currentState(stm._mae_coop_r_state._jeu_state._reprise_state);

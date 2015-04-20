@@ -1,21 +1,26 @@
 class deplacement_lateral_State
 !!!139778.cpp!!!	_upper(inout stm : MAE_COOP_R) : MAE_COOP_R::AnyState
   return &stm._mae_coop_r_state._jeu_state;
-!!!151170.cpp!!!	ass_fini(inout stm : MAE_COOP_R) : void
-  {
-    stm._set_currentState(stm._mae_coop_r_state._jeu_state._attente_recalibration_state);
-#ifdef VERBOSE_STATE_MACHINE
-    puts("DEBUG : current state is now .MAE_COOP_R.Jeu.attente recalibration");
-#endif
-    stm._mae_coop_r_state._jeu_state._attente_recalibration_state.create(stm);
-  }
 !!!159106.cpp!!!	adversaire(inout stm : MAE_COOP_R) : void
   {
-    stm._set_currentState(stm._mae_coop_r_state._jeu_state._evitement_state);
+    stm._set_currentState(stm._mae_coop_r_state._jeu_state);
 #ifdef VERBOSE_STATE_MACHINE
-    puts("DEBUG : current state is now .MAE_COOP_R.Jeu.Evitement");
+    puts("DEBUG : current state is now .MAE_COOP_R.Jeu");
 #endif
-    stm._mae_coop_r_state._jeu_state._evitement_state.create(stm);
+    if (tour_roue>4) {
+      stm._set_currentState(stm._mae_coop_r_state._jeu_state._fin_deplacement_lateral_state);
+#ifdef VERBOSE_STATE_MACHINE
+      puts("DEBUG : current state is now .MAE_COOP_R.Jeu.fin deplacement lateral");
+#endif
+      stm._mae_coop_r_state._jeu_state._fin_deplacement_lateral_state.create(stm);
+    }
+    else if (tour_roue<4) {
+      stm._set_currentState(stm._mae_coop_r_state._jeu_state._evitement_state);
+#ifdef VERBOSE_STATE_MACHINE
+      puts("DEBUG : current state is now .MAE_COOP_R.Jeu.Evitement");
+#endif
+      stm._mae_coop_r_state._jeu_state._evitement_state.create(stm);
+    }
   }
 !!!159490.cpp!!!	assFini(inout stm : MAE_COOP_R) : void
   {

@@ -26,15 +26,6 @@ class AnyState
   else
     puts("DEBUG : transition time_out not expected");
 #endif
-!!!151042.cpp!!!	ass_fini(inout stm : MAE_COOP_R) : void
-  AnyState * st = _upper(stm);
-
-  if (st != 0)
-    st->ass_fini(stm);
-#ifdef VERBOSE_STATE_MACHINE
-  else
-    puts("DEBUG : transition ass_fini not expected");
-#endif
 !!!158978.cpp!!!	adversaire(inout stm : MAE_COOP_R) : void
   AnyState * st = _upper(stm);
 
@@ -61,22 +52,4 @@ class AnyState
 #ifdef VERBOSE_STATE_MACHINE
   else
     puts("DEBUG : transition ioFini not expected");
-#endif
-!!!170114.cpp!!!	tour_roue_4(inout stm : MAE_COOP_R) : void
-  AnyState * st = _upper(stm);
-
-  if (st != 0)
-    st->tour_roue_4(stm);
-#ifdef VERBOSE_STATE_MACHINE
-  else
-    puts("DEBUG : transition tour_roue_4 not expected");
-#endif
-!!!170498.cpp!!!	if(master->get_tour<4)(inout stm : MAE_COOP_R) : void
-  AnyState * st = _upper(stm);
-
-  if (st != 0)
-    st->if(master->get_tour<4)(stm);
-#ifdef VERBOSE_STATE_MACHINE
-  else
-    puts("DEBUG : transition if(master->get_tour<4) not expected");
 #endif

@@ -1,6 +1,6 @@
 format 76
 "MAE_COOP_R"
-  revision 18
+  revision 19
   modified_by 2 "Link"
   cpp_root_dir "D:/Club Robotique IRON MENAD 2/Eurobot 2015 Iron Menad/Eurobot-2015/COOP_R__MASTER_PI/"
 
@@ -303,7 +303,7 @@ else
 	end
 
 	state 143490 "deployement"
-	    cpp_on_entry "set_time_out(2000);
+	    cpp_on_entry "master->set_time_out(2000);
 // deployement des chaines secondaires
 serialPrintf (portSerie, \"S5 \\n\") ;"
 	  transition 162562 "<transition>"
@@ -487,24 +487,6 @@ ${inlines}
 	  comment " the current state doesn't manage the event time_out, give it to the upper state"
 	end
 
-	operation 151042 "ass_fini"
-	  force_body_gen cpp_virtual public explicit_return_type "void"
-	  nparams 1
-	    param inout name "stm" type class_ref 134530 // MAE_COOP_R
-	  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
-"
-	  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
-  ${body}}
-"
-	  
-	  
-	  
-	  
-	  ncouples 1
-	  key "STM generated" value ""
-	  comment " the current state doesn't manage the event ass_fini, give it to the upper state"
-	end
-
 	operation 158978 "adversaire"
 	  force_body_gen cpp_virtual public explicit_return_type "void"
 	  nparams 1
@@ -559,41 +541,6 @@ ${inlines}
 	  comment " the current state doesn't manage the event ioFini, give it to the upper state"
 	end
 
-	operation 170114 "tour_roue_4"
-	  force_body_gen cpp_virtual public explicit_return_type "void"
-	  nparams 1
-	    param inout name "stm" type class_ref 134530 // MAE_COOP_R
-	  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
-"
-	  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
-  ${body}}
-"
-	  
-	  
-	  
-	  
-	  ncouples 1
-	  key "STM generated" value ""
-	  comment " the current state doesn't manage the event tour_roue_4, give it to the upper state"
-	end
-
-	operation 170498 "if(master->get_tour<4)"
-	  force_body_gen cpp_virtual public explicit_return_type "void"
-	  nparams 1
-	    param inout name "stm" type class_ref 134530 // MAE_COOP_R
-	  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
-"
-	  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
-  ${body}}
-"
-	  
-	  
-	  
-	  
-	  ncouples 1
-	  key "STM generated" value ""
-	  comment " the current state doesn't manage the event if(master->get_tour<4), give it to the upper state"
-	end
       end
 
       class 134786 "MAE_COOP_R_State"
@@ -1578,42 +1525,6 @@ ${inlines}
 		b parent class_ref 134658 // AnyState
 	    end
 
-	    operation 170242 "tour_roue_4"
-	      force_body_gen cpp_virtual public explicit_return_type "void"
-	      nparams 1
-	        param inout name "stm" type class_ref 134530 // MAE_COOP_R
-	      cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
-"
-	      cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
-  ${body}}
-"
-	      
-	      
-	      
-	      
-	      ncouples 1
-	      key "STM generated" value ""
-	      comment " to manage the event tour_roue_4"
-	    end
-
-	    operation 170626 "if(master->get_tour<4)"
-	      force_body_gen cpp_virtual public explicit_return_type "void"
-	      nparams 1
-	        param inout name "stm" type class_ref 134530 // MAE_COOP_R
-	      cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
-"
-	      cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
-  ${body}}
-"
-	      
-	      
-	      
-	      
-	      ncouples 1
-	      key "STM generated" value ""
-	      comment " to manage the event if(master->get_tour<4)"
-	    end
-
 	    operation 170754 "time_out"
 	      force_body_gen cpp_virtual public explicit_return_type "void"
 	      nparams 1
@@ -1836,23 +1747,6 @@ ${inlines}
 	      ncouples 1
 	      key "STM generated" value ""
 	      comment " returns the state containing the current"
-	    end
-
-	    operation 169218 "_completion"
-	      force_body_gen cpp_virtual public explicit_return_type "bool"
-	      nparams 1
-	        param inout name "stm" type class_ref 134530 // MAE_COOP_R
-	      cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
-"
-	      cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
-  ${body}}
-"
-	      
-	      
-	      
-	      
-	      ncouples 1
-	      key "STM generated" value ""
 	    end
 
 	    operation 169346 "ioFini"
@@ -2769,24 +2663,6 @@ ${inlines}
 	      comment " returns the state containing the current"
 	    end
 
-	    operation 151170 "ass_fini"
-	      force_body_gen cpp_virtual public explicit_return_type "void"
-	      nparams 1
-	        param inout name "stm" type class_ref 134530 // MAE_COOP_R
-	      cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
-"
-	      cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
-  ${body}}
-"
-	      
-	      
-	      
-	      
-	      ncouples 1
-	      key "STM generated" value ""
-	      comment " to manage the event ass_fini"
-	    end
-
 	    operation 159106 "adversaire"
 	      force_body_gen cpp_virtual public explicit_return_type "void"
 	      nparams 1
@@ -3605,23 +3481,6 @@ ${inlines}
 	comment " the operation you call to signal the event time_out"
       end
 
-      operation 150914 "ass_fini"
-	force_body_gen public explicit_return_type "bool"
-	nparams 0
-	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
-"
-	cpp_def "${comment}${inline}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
-  ${body}}
-"
-	
-	
-	
-	
-	ncouples 1
-	key "STM generated" value ""
-	comment " the operation you call to signal the event ass_fini"
-      end
-
       operation 158850 "adversaire"
 	force_body_gen public explicit_return_type "bool"
 	nparams 0
@@ -3671,40 +3530,6 @@ ${inlines}
 	ncouples 1
 	key "STM generated" value ""
 	comment " the operation you call to signal the event ioFini"
-      end
-
-      operation 169986 "tour_roue_4"
-	force_body_gen public explicit_return_type "bool"
-	nparams 0
-	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
-"
-	cpp_def "${comment}${inline}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
-  ${body}}
-"
-	
-	
-	
-	
-	ncouples 1
-	key "STM generated" value ""
-	comment " the operation you call to signal the event tour_roue_4"
-      end
-
-      operation 170370 "if(master->get_tour<4)"
-	force_body_gen public explicit_return_type "bool"
-	nparams 0
-	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
-"
-	cpp_def "${comment}${inline}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
-  ${body}}
-"
-	
-	
-	
-	
-	ncouples 1
-	key "STM generated" value ""
-	comment " the operation you call to signal the event if(master->get_tour<4)"
       end
 
       classrelation 145026 // <dependency>
@@ -3785,6 +3610,10 @@ ${namespace_end}
 "
       cpp_src "${comment}
 ${includes}
+#include \"Master.h\"
+#include <sirinSerial.h>
+int portSerie;
+
 ${namespace_start}
 ${members}
 ${namespace_end}"
