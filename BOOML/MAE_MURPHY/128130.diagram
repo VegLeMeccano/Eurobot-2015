@@ -1,0 +1,55 @@
+format 76
+
+statecanvas 128002 state_ref 128130 // MAE_MURPHY
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  xyzwh 97 68 2000 705 437
+end
+pseudostatecanvas 128130 pseudostate_ref 128130 // initial
+   xyz 453 119 2005
+end
+statecanvas 128258 state_ref 128258 // Initialisation
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  xyzwh 352 156 2005 223 61
+end
+statecanvas 128386 state_ref 128386 // Jeu
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  xyzwh 166 404 2005 215 61
+end
+statecanvas 128514 state_ref 128514 // Evitement
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  xyzwh 525 404 2005 239 61
+end
+statecanvas 130050 state_ref 135042 // Recalage Initial
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  xyzwh 347 255 2005 231 61
+end
+pseudostatecanvas 130434 pseudostate_ref 141314 // exit_point
+   xyz 350 301 3005 label_xy 324 320
+end
+transitioncanvas 128642 transition_ref 128130 // <transition>
+  
+  from ref 128130 z 2006 to ref 128258
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 128898 transition_ref 128386 // <transition>
+  
+  from ref 128386 z 2006 label "evitement" xyz 409.5 481 2006 to point 463 474
+  line 129538 z 2006 to ref 128514
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 129666 transition_ref 134914 // <transition>
+  
+  from ref 128514 z 2006 to ref 128386
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 130178 transition_ref 147970 // <transition>
+  
+  from ref 128258 z 2006 label "strat_mis" xyz 467 227 3000 to ref 130050
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 130562 transition_ref 150018 // <transition>
+  
+  from ref 130434 z 3006 label "start_enleve" xyz 319 362 3000 to ref 128386
+  write_horizontally default show_definition default drawing_language default
+end
+end

@@ -1,0 +1,332 @@
+format 76
+"MAE_MURPHY"
+  revision 20
+  modified_by 2 "Link"
+  cpp_root_dir "D:/Club Robotique IRON MENAD 2/Eurobot 2015 Iron Menad/Eurobot-2015/COOP_R__MASTER_PI/"
+
+
+  
+  // class settings
+  default_attribute_visibility private default_relation_visibility private default_operation_visibility public
+  //class diagram settings
+  draw_all_relations yes hide_attributes no hide_operations no hide_getset_operations no show_members_full_definition no show_members_visibility no show_members_stereotype no show_members_context no show_members_multiplicity no show_members_initialization no show_attribute_modifiers no member_max_width 127 show_parameter_dir yes show_parameter_name yes package_name_in_tab no class_drawing_mode natural drawing_language uml show_context_mode no auto_label_position yes show_relation_modifiers no show_relation_visibility no show_infonote no shadow yes show_stereotype_properties no
+  //use case diagram settings
+  package_name_in_tab no show_context no auto_label_position yes draw_all_relations yes class_drawing_mode actor shadow yes show_stereotype_properties no
+  //sequence diagram settings
+  show_full_operations_definition no write_horizontally yes class_drawing_mode natural drawing_language uml draw_all_relations yes shadow yes show_stereotype_properties no show_class_context_mode no show_msg_context_mode no
+  //collaboration diagram settings
+  show_full_operations_definition no show_hierarchical_rank no write_horizontally yes class_drawing_mode natural drawing_language uml package_name_in_tab no show_context no show_msg_context no draw_all_relations yes shadow yes show_stereotype_properties no
+  //object diagram settings
+   write_horizontally yes package_name_in_tab no show_context no auto_label_position yes draw_all_relations yes shadow yes show_stereotype_properties no
+  //component diagram settings
+  package_name_in_tab no show_context no auto_label_position yes draw_all_relations yes shadow yes
+  draw_component_as_icon no show_component_req_prov no show_component_rea no show_stereotype_properties no
+  //deployment diagram settings
+  package_name_in_tab no show_context no write_horizontally yes auto_label_position yes draw_all_relations yes shadow yes
+  draw_component_as_icon no show_component_req_prov no show_component_rea no show_stereotype_properties no
+  //state diagram settings
+  package_name_in_tab no show_context no auto_label_position yes write_trans_label_horizontally yes show_trans_definition no draw_all_relations yes shadow yes
+  show_activities yes region_horizontally yes drawing_language uml show_stereotype_properties no
+  //activity diagram settings
+  package_name_in_tab no show_context no show_opaque_action_definition no auto_label_position yes write_flow_label_horizontally no draw_all_relations yes shadow yes
+  show_infonote yes drawing_language uml show_stereotype_properties no
+  
+  class_color yellow duration_color transparent continuation_color gray note_color blue fragment_color transparent subject_color transparent usecase_color yellow package_color transparent component_color green artifact_color green deploymentnode_color gray state_color yellow stateaction_color transparent activity_color transparent activityregion_color transparent activitypartition_color transparent activityaction_color transparent parameterpin_color white 
+  font_size 8
+  diagram_format A0
+
+  image_root_dir ""
+
+  mark_for_import
+  
+  ncouples 1
+  key "check-out-cmd" value "specify the command containing %file and %dir or %dironly"
+  classview 128130 "MAE_MURPHY"
+    //class diagram settings
+    draw_all_relations yes hide_attributes yes hide_operations yes hide_getset_operations yes show_members_full_definition yes show_members_visibility yes show_members_stereotype yes show_members_context default show_members_multiplicity yes show_members_initialization yes show_attribute_modifiers yes member_max_width 0 show_parameter_dir yes show_parameter_name yes package_name_in_tab yes class_drawing_mode default drawing_language c++ show_context_mode default auto_label_position yes show_relation_modifiers yes show_relation_visibility yes show_infonote yes shadow yes show_stereotype_properties yes
+    //collaboration diagram settings
+    show_full_operations_definition default show_hierarchical_rank default write_horizontally default class_drawing_mode default drawing_language default package_name_in_tab default show_context default show_msg_context default draw_all_relations default shadow default show_stereotype_properties default
+    //object diagram settings
+     write_horizontally default package_name_in_tab default show_context default auto_label_position default draw_all_relations default shadow default show_stereotype_properties default
+    //sequence diagram settings
+    show_full_operations_definition default write_horizontally default class_drawing_mode default drawing_language default draw_all_relations default shadow default show_stereotype_properties default show_class_context_mode default show_msg_context_mode default
+    //state diagram settings
+    package_name_in_tab default show_context default auto_label_position default write_trans_label_horizontally default show_trans_definition default draw_all_relations default shadow default
+    show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+    //class settings
+    //activity diagram settings
+    package_name_in_tab default show_context default show_opaque_action_definition default auto_label_position default write_flow_label_horizontally default draw_all_relations default shadow default
+    show_infonote default drawing_language default show_stereotype_properties default
+    state 128130 "MAE_MURPHY"
+      stereotype "machine"
+      statediagram 128130 "Principal"
+	package_name_in_tab yes show_context default auto_label_position yes write_trans_label_horizontally yes show_trans_definition yes draw_all_relations no shadow yes
+	show_activities yes region_horizontally yes drawing_language c++ show_stereotype_properties yes
+	size A0
+      end
+
+      pseudostate 128130 initial 
+	transition 128130 "<transition>"
+	  on state_ref 128258 // Initialisation
+	  external 
+	end
+      end
+
+      state 128258 "Initialisation"
+	  cpp_on_entry "cout<<\"etat attente\"<<endl;"
+	transition 147970 "<transition>"
+	  on state_ref 135042 // Recalage Initial
+	    cpp_trigger "strat_mis"
+	  external 
+	end
+      end
+
+      state 128386 "Jeu"
+	  cpp_on_entry "cout<<\"etat game\"<<endl;"
+	associated_diagram statediagram_ref 134658 // Jeu
+	comment "faire une mission par élément de jeu proche
+"
+	transition 128386 "<transition>"
+	  on state_ref 128514 // Evitement
+	    cpp_trigger "evitement"
+	  external 
+	end
+
+	statediagram 134658 "Jeu"
+	  package_name_in_tab yes show_context default auto_label_position yes write_trans_label_horizontally yes show_trans_definition yes draw_all_relations no shadow yes
+	  show_activities yes region_horizontally yes drawing_language c++ show_stereotype_properties yes
+	  size A0
+	end
+
+	pseudostate 134658 initial 
+	end
+
+	transition 141442 "<transition>"
+	  on state_ref 128386 // Jeu
+	end
+
+	state 142850 "mission pillage distrib"
+	    cpp_on_entry "// pille le distrib et les pillier autour"
+	end
+
+	state 142978 "mission attrap balle et chiage"
+	    cpp_on_entry "// zone de depart
+"
+	end
+
+	state 143106 "mission claps zone depart et "
+	end
+
+	state 143234 "mission rush zone centrale"
+	end
+
+	pseudostate 141442 junction 
+	  transition 150146 "<transition>"
+	    on state_ref 143362 // etat de decision
+	    external 
+	  end
+	end
+
+	state 143362 "etat de decision"
+	    cpp_on_entry "// consultation du gestionnaire de mission
+// ou sequentiel"
+	  transition 150274 "<transition>"
+	    on state_ref 142978 // mission attrap balle et chiage
+	    external 
+	  end
+
+	  transition 150402 "<transition>"
+	    on state_ref 143106 // mission claps zone depart et 
+	    external 
+	  end
+
+	  transition 150530 "<transition>"
+	    on state_ref 143234 // mission rush zone centrale
+	    external 
+	  end
+
+	  transition 150658 "<transition>"
+	    on state_ref 142850 // mission pillage distrib
+	    external 
+	  end
+
+	  transition 150786 "<transition>"
+	    on state_ref 143490 // mission depot de tour
+	    external 
+	  end
+	end
+
+	state 143490 "mission depot de tour"
+	end
+      end
+
+      state 128514 "Evitement"
+	  cpp_on_entry "cout<<\"etat évitement\"<<endl;"
+	transition 134914 "<transition>"
+	  on state_ref 128386 // Jeu
+	  external 
+	end
+      end
+
+      state 135042 "Recalage Initial"
+	  cpp_on_entry "cout<<\"etat recalage\"<<endl;"
+	associated_diagram statediagram_ref 141186 // Recalage
+	statediagram 141186 "Recalage"
+	  package_name_in_tab yes show_context default auto_label_position yes write_trans_label_horizontally yes show_trans_definition yes draw_all_relations yes shadow yes
+	  show_activities yes region_horizontally yes drawing_language c++ show_stereotype_properties yes
+	  size A0
+	end
+
+	pseudostate 141186 initial 
+	  transition 148226 "<transition>"
+	    on state_ref 141570 // Recule
+	    external 
+	  end
+	end
+
+	state 141570 "Recule"
+	    cpp_on_entry "// recle (recalage au cul)
+serialPrint(portSerie,\"S2 \\n\")"
+	  transition 148994 "<transition>"
+	    on state_ref 141698 // set X CAP
+	      cpp_trigger "blocage"
+	    external 
+	  end
+	end
+
+	state 141698 "set X CAP"
+	    cpp_on_entry "if(couleurJaune){
+// X = -1500 + offset robot (200)
+serialPrint(portSerie,\"S0 -1500 0 0 \\n\")
+}
+if(couleurVert){
+// X = 1500 - offset robot (200)
+serialPrint(portSerie,\"S0 1500 0 180 \\n\")
+}
+
+set_time_out(100);"
+	  transition 149250 "<transition>"
+	    on state_ref 142466 // avance un peu
+	      cpp_trigger "time_out"
+	    external 
+	  end
+	end
+
+	state 141826 "BF 90 deg"
+	    cpp_on_entry "if(couleurJaune){
+// tourne vers les marches
+serialPrint(portSerie,\"S0 -1500 0 0 \\n\")
+}
+if(couleurVert){
+// X = 1500 - offset robot (200)
+serialPrint(portSerie,\"S0 1500 0 180 \\n\")
+}"
+	  transition 149122 "<transition>"
+	    on state_ref 141954 // Recule bordure claps
+	      cpp_trigger "assFini"
+	    external 
+	  end
+	end
+
+	state 141954 "Recule bordure claps"
+	  transition 149506 "<transition>"
+	    on state_ref 142594 // set Y
+	      cpp_trigger "blocage"
+	    external 
+	  end
+	end
+
+	state 142082 "BF -90 deg"
+	  transition 148482 "<transition>"
+	    on state_ref 142338 // Recule depart
+	      cpp_trigger "assFini"
+	    external 
+	  end
+	end
+
+	state 142210 "avance"
+	  transition 148610 "<transition>"
+	    on state_ref 142082 // BF -90 deg
+	      cpp_trigger "assFini"
+	    external 
+	  end
+	end
+
+	state 142338 "Recule depart"
+	  transition 149634 "<transition>"
+	    on state_ref 142722 // Re set x cap
+	      cpp_trigger "blocage"
+	    external 
+	  end
+	end
+
+	pseudostate 141314 exit_point "sortie recalage"
+	  transition 150018 "<transition>"
+	    on state_ref 128386 // Jeu
+	      cpp_trigger "start_enleve"
+	    external 
+	  end
+	end
+
+	state 142466 "avance un peu"
+	    cpp_on_entry "// avance de 400mm
+serialPrint(portSerie,\"S4 300 \\n\")
+"
+	  transition 149378 "<transition>"
+	    on state_ref 141826 // BF 90 deg
+	      cpp_trigger "assFini"
+	    external 
+	  end
+	end
+
+	state 142594 "set Y"
+	  transition 149762 "<transition>"
+	    on state_ref 142210 // avance
+	      cpp_trigger "time_out"
+	    external 
+	  end
+	end
+
+	state 142722 "Re set x cap"
+	  transition 149890 "<transition>"
+	    on pseudostate_ref 141314 // exit_point
+	      cpp_trigger "time_out"
+	    external 
+	  end
+	end
+      end
+    end
+  end
+
+  deploymentview 128130 "MAE_MURPHY"
+    //deployment diagram settings
+    package_name_in_tab default show_context default write_horizontally default auto_label_position default draw_all_relations default shadow default
+    draw_component_as_icon default show_component_req_prov default show_component_rea default show_stereotype_properties default
+    artifact 128130 "MAE_MURPHY"
+      stereotype "source"
+      cpp_h "#ifndef ${NAMESPACE}_${NAME}_H
+#define ${NAMESPACE}_${NAME}_H
+
+#include <iostream>
+using namespace std;
+
+${comment}
+${includes}
+${declarations}
+${namespace_start}
+${definition}
+${namespace_end}
+#endif
+"
+      cpp_src "${comment}
+${includes}
+${namespace_start}
+${members}
+${namespace_end}"
+      associated_classes
+      end
+      ncouples 1
+      key "master" value ""
+    end
+  end
+end

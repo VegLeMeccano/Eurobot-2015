@@ -1,0 +1,11 @@
+window_sizes 1600 878 356 1238 600 82
+show_stereotypes
+selected statediagram_ref 128130 // Principal
+open
+  state_ref 128258 // Initialisation
+  state_ref 128386 // Jeu
+  state_ref 128514 // Evitement
+  state_ref 135042 // Recalage Initial
+  deploymentview_ref 128130 // MAE_MURPHY
+end
+end

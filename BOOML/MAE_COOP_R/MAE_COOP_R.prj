@@ -1,6 +1,6 @@
 format 76
 "MAE_COOP_R"
-  revision 15
+  revision 16
   modified_by 2 "Link"
   cpp_root_dir "D:/Club Robotique IRON MENAD 2/Eurobot 2015 Iron Menad/Eurobot-2015/COOP_R__MASTER_PI/"
 
@@ -143,6 +143,12 @@ serialPrintf (portSerie, \"A3 5\\n\") ;
 	  transition 162050 "<transition>"
 	    on state_ref 143234 // fin deplacement lateral
 	      cpp_trigger "assFini"
+	    external 
+	  end
+
+	  transition 176642 "<transition>"
+	    on pseudostate_ref 141186 // choice
+	      cpp_trigger "adversaire"
 	    external 
 	  end
 	end
@@ -332,6 +338,20 @@ serialPrintf (portSerie, \"S5 \\n\") ;"
 	  transition 162562 "<transition>"
 	    on state_ref 135426 // ascension
 	      cpp_trigger "time_out"
+	    external 
+	  end
+	end
+
+	pseudostate 141186 choice 
+	  transition 176770 "<transition>"
+	    on state_ref 143234 // fin deplacement lateral
+	      cpp_guard "tour_roue>4"
+	    external 
+	  end
+
+	  transition 176898 "<transition>"
+	    on state_ref 142850 // Evitement
+	      cpp_guard "tour_roue<4"
 	    external 
 	  end
 	end
@@ -3720,7 +3740,7 @@ ${inlines}
 	relation 145026 -_->
 	  stereotype "friend"
 	  a default
-	    cpp default "#include in source"
+	    cpp default "${type}"
 	    classrelation_ref 145026 // <dependency>
 	  b parent class_ref 143106 // Evitement_State
       end
@@ -3729,7 +3749,7 @@ ${inlines}
 	relation 145282 -_->
 	  stereotype "friend"
 	  a default
-	    cpp default "#include in source"
+	    cpp default "${type}"
 	    classrelation_ref 145282 // <dependency>
 	  b parent class_ref 143234 // attente_evitement_State
       end
@@ -3738,7 +3758,7 @@ ${inlines}
 	relation 145538 -_->
 	  stereotype "friend"
 	  a default
-	    cpp default "#include in source"
+	    cpp default "${type}"
 	    classrelation_ref 145538 // <dependency>
 	  b parent class_ref 143362 // bumper_en_bas_des_marches_State
       end
@@ -3747,7 +3767,7 @@ ${inlines}
 	relation 145794 -_->
 	  stereotype "friend"
 	  a default
-	    cpp default "#include in source"
+	    cpp default "${type}"
 	    classrelation_ref 145794 // <dependency>
 	  b parent class_ref 143490 // fin_deplacement_lateral_State
       end
@@ -3756,7 +3776,7 @@ ${inlines}
 	relation 146050 -_->
 	  stereotype "friend"
 	  a default
-	    cpp default "#include in source"
+	    cpp default "${type}"
 	    classrelation_ref 146050 // <dependency>
 	  b parent class_ref 143618 // reprise_State
       end
@@ -3765,7 +3785,7 @@ ${inlines}
 	relation 146306 -_->
 	  stereotype "friend"
 	  a default
-	    cpp default "#include in source"
+	    cpp default "${type}"
 	    classrelation_ref 146306 // <dependency>
 	  b parent class_ref 143746 // deployement_State
       end
