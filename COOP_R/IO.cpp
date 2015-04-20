@@ -620,6 +620,7 @@ void ChenillePrincipale::affiche_bumper()
 
 }
 
+// a utiliser que pour le debut (init), car bloquante
 void ChenillePrincipale::alignementLaterale()
 {
     Serial.println("[Chaine principale] alignement en cours");
