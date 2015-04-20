@@ -222,7 +222,7 @@ void OrdersRaspberry::executeinstr()
 
             case 6:
 				Serial.print("drop gobelet");
-				io->get_Capot()->ouverture_balle();
+				io->get_Capot()->ouverture_gobelet();
 				io->get_Elevator_gobelet()->lache();
 			break;
 		}
