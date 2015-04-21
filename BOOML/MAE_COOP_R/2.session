@@ -1,12 +1,6 @@
 window_sizes 1600 878 356 1238 600 82
-diagrams
-  statediagram_ref 128130 // Principal
-    1238 692 100 0 0 0
-  active  statediagram_ref 134658 // Jeu
-    1238 722 80 0 104 7
-end
 show_stereotypes
-selected state_ref 128130 // MAE_COOP_R
+selected classview_ref 128130 // MAE_COOP_R
 open
   state_ref 135042 // attente
   state_ref 135170 // deplacement lateral
