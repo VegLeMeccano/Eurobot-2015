@@ -67,6 +67,8 @@ void IR_compteur::reset_compteur()
 void IR_compteur::incremente_compteur()
 {
     compteur++;
+    Serial.print("compteur: ");
+    Serial.println(compteur);
 }
 int IR_compteur::nbr_compteur()
 {
@@ -383,7 +385,9 @@ ChenillePrincipale::ChenillePrincipale():
     t_over(false),
     evitement_actif(false),       // pour savoir si on consulte les sonar ou pas
     interruption_par_evitement(false),
-    bavardeur_bumper(false)
+    bavardeur_bumper(false),
+    tour_a_faire(0),
+    tour_effectuee(0)
 {
     chenille_laterale.attach(PIN_PWM_MOTEUR_CHENILLE_LATERALE);
     chenille_gauche.attach(PIN_PWM_MOTEUR_CHENILLE_G);
@@ -539,61 +543,98 @@ void ChenillePrincipale::run(){
             trigger(SLAVE_TRIGGER_TIME_OUT);
         }
 
-        // si on bump devant
-        if (bumper_av_d.is_on() && bumper_av_g.is_on() && state == SLAVE_STATE_DEPLACEMENT_AVANT_ACTION)
+        /** DEPLACEMENT AVANT */
+        if (state == SLAVE_STATE_DEPLACEMENT_AVANT_ACTION)
         {
-            trigger(SLAVE_TRIGGER_BUMP_FACE);
-        }
-
-        // si on bump a gauche
-        if (bumper_g_ar.is_on() && bumper_g_av.is_on() && state == SLAVE_STATE_DEPLACEMENT_GAUCHE_ACTION)
-        {
-            trigger(SLAVE_TRIGGER_BUMP_GAUCHE);
-        }
-
-        // si on bump a droite
-        if (bumper_d_ar.is_on() && bumper_d_av.is_on() && state == SLAVE_STATE_DEPLACEMENT_DROITE_ACTION)
-        {
-            trigger(SLAVE_TRIGGER_BUMP_DROITE);
-        }
-
-        // si on detecte ennemi
-        if(evitement_actif)
-        {
-            // en face
-            if(state == SLAVE_STATE_DEPLACEMENT_AVANT_ACTION)
+            // detection adversaire prioitaire
+            if(evitement_actif && sonar.adv_face())
             {
-                if(sonar.adv_face())
-                {
                     trigger(SLAVE_TRIGGER_PAUSE);
                     Serial.println("# ADV DETECTED FACE");
-                    // mettre le restant
-                }
             }
-
-            // a gauche
-            if(state == SLAVE_STATE_DEPLACEMENT_GAUCHE_ACTION)
+            else
             {
-                if(sonar.adv_gauche())
+                // detection aux bumpers ensuite
+                if(bumper_av_d.is_on() && bumper_av_g.is_on())
                 {
-                    trigger(SLAVE_TRIGGER_PAUSE);
-                    Serial.println("# ADV DETECTED GAUCHE");
-                    // mettre le restant
-                }
-            }
-
-            // a droite
-             if(state == SLAVE_STATE_DEPLACEMENT_DROITE_ACTION)
-            {
-                if(sonar.adv_droite())
-                {
-                    trigger(SLAVE_TRIGGER_PAUSE);
-                    Serial.println("# ADV DETECTED DROITE");
-                    // mettre le restant
+                    trigger(SLAVE_TRIGGER_BUMP_FACE);
                 }
             }
         }
 
+        /** DEPLACEMENT GAUCHE */
+        if (state == SLAVE_STATE_DEPLACEMENT_GAUCHE_ACTION)
+        {
+            // detection adversaire prioitaire
+            if(evitement_actif && sonar.adv_gauche())
+            {
+                    trigger(SLAVE_TRIGGER_PAUSE);
+                    Serial.println("# ADV DETECTED GAUCHE");
+            }
+            else
+            {
+                // detection aux bumpers ensuite
+                if(bumper_g_ar.is_on() && bumper_g_av.is_on())
+                {
+                    trigger(SLAVE_TRIGGER_BUMP_GAUCHE);
+                }
+                else
+                {
+                    // on check les tours de roues
+                    if(ir_compteur_lat.nbr_compteur()>=tour_a_faire && ir_compteur_lat.est_aligne())
+                    {
+                        trigger(SLAVE_TRIGGER_TOUR_ROUE_ATTEINT);
+                    }
+                }
+            }
+        }
+
+
+        if(state == SLAVE_STATE_DEPLACEMENT_GAUCHE_ACTION_FINISHING)
+        {
+            if(ir_compteur_lat.est_aligne())
+            {
+                trigger(SLAVE_TRIGGER_TOUR_ROUE_FINISH);
+            }
+        }
+
+        if(state == SLAVE_STATE_DEPLACEMENT_DROITE_ACTION_FINISHING)
+        {
+            if(ir_compteur_lat.est_aligne())
+            {
+                trigger(SLAVE_TRIGGER_TOUR_ROUE_FINISH);
+            }
+        }
+
+
+
+
+        /** DEPLACEMENT DROITE */
+        if (state == SLAVE_STATE_DEPLACEMENT_DROITE_ACTION)
+        {
+            // detection adversaire prioitaire
+            if(evitement_actif && sonar.adv_droite())
+            {
+                    trigger(SLAVE_TRIGGER_PAUSE);
+                    Serial.println("# ADV DETECTED DROITE");
+            }
+            else
+            {
+                // detection aux bumpers ensuite
+                if(bumper_d_ar.is_on() && bumper_d_av.is_on())
+                {
+                    trigger(SLAVE_TRIGGER_BUMP_DROITE);
+                }
+                else
+                {
+                    // on check les tours de roues
+                    if(ir_compteur_lat.nbr_compteur()>=tour_a_faire && ir_compteur_lat.est_aligne())
+                    {
+                        trigger(SLAVE_TRIGGER_TOUR_ROUE_ATTEINT);
+                    }
+                }
+            }
+        }
 
     }
 
@@ -665,7 +706,8 @@ void ChenillePrincipale::alignementLaterale()
 
 // va bumper a droite et s'arrete
 void ChenillePrincipale::recalage_gauche(){
-
+    ir_compteur_lat.reset_compteur();
+    tour_a_faire = 6; // just in case
     time_asserv_to_do = SLAVE_TIME_OUT_RECALAGE; //par default 15s si ca fini pas on passe ailleurs
     //set_evitement_OFF();
     trigger(SLAVE_TRIGGER_LATERAL_GAUCHE);
@@ -673,7 +715,8 @@ void ChenillePrincipale::recalage_gauche(){
 
 //va bumper a gauche et s'arrete
 void ChenillePrincipale::recalage_droite(){
-
+    ir_compteur_lat.reset_compteur();
+    tour_a_faire = 6; // just in case
     time_asserv_to_do = SLAVE_TIME_OUT_RECALAGE; //par default 15s si ca fini pas on passe ailleurs
     //set_evitement_OFF();
     trigger(SLAVE_TRIGGER_LATERAL_DROITE);
@@ -681,24 +724,26 @@ void ChenillePrincipale::recalage_droite(){
 
 // va bumper en face et s'arrete
 void ChenillePrincipale::recalage_face(){
-
     time_asserv_to_do = SLAVE_TIME_OUT_RECALAGE; //par default 15s si ca fini pas on passe ailleurs
     //set_evitement_OFF();
     trigger(SLAVE_TRIGGER_LONGITUDINAL_AVANT);
 }
 
-
-void ChenillePrincipale::decalage_droite(long tempsTotAction){
-
-    time_asserv_to_do = tempsTotAction;
+// decalage lateral avec compteur de tour de roue
+void ChenillePrincipale::decalage_droite(int tour_de_roue){
+    time_asserv_to_do = 20000;       // au cas ou
+    tour_a_faire = tour_de_roue;
+    ir_compteur_lat.reset_compteur();
     //set_evitement_ON();
     // il faut activer l'evitement de l'exterieur
     trigger(SLAVE_TRIGGER_LATERAL_DROITE);
 }
 
-void ChenillePrincipale::decalage_gauche(long tempsTotAction){
 
-    time_asserv_to_do = tempsTotAction;
+void ChenillePrincipale::decalage_gauche(int tour_de_roue){
+    time_asserv_to_do = 20000;      // au cas ou
+    tour_a_faire = tour_de_roue;
+    ir_compteur_lat.reset_compteur();
     //set_evitement_ON();
     // il faut activer l'evitement de l'exterieur
     trigger(SLAVE_TRIGGER_LATERAL_GAUCHE);
@@ -714,7 +759,6 @@ void ChenillePrincipale::decalage_avant(long tempsTotAction){
 
 
 void ChenillePrincipale::decalage_arriere(long tempsTotAction){
-
     time_asserv_to_do = tempsTotAction;
     //set_evitement_OFF();        // pas besoin ici et puis ya pas de sonar derrriere :P
     // il faut activer l'evitement de l'exterieur
@@ -763,7 +807,7 @@ void ChenillePrincipale::trigger(int transition)
     if (transition == SLAVE_TRIGGER_PAUSE || transition == SLAVE_TRIGGER_REPRISE || transition== SLAVE_TRIGGER_STOP)
     {
          Serial.println(" ");
-         Serial.print("[SLAVE] TRANSISTION FORCEE: PAUSE/STOP");
+         Serial.print("[SLAVE] TRANSISTION FORCEE: PAUSE/STOP/REPRISE");
          Serial.println(transition);
     }
 
@@ -771,6 +815,19 @@ void ChenillePrincipale::trigger(int transition)
     {
          Serial.println(" ");
          Serial.print("[SLAVE] TRANSISTION FORCEE: REPRISE");
+         Serial.println(transition);
+    }
+    if (transition == SLAVE_TRIGGER_TOUR_ROUE_FINISH )
+    {
+         Serial.println(" ");
+         Serial.print("[SLAVE] TRANSISTION FORCEE: FIN DU TOUR DE ROUE ACTUEL");
+         Serial.println(transition);
+    }
+
+    if (transition == SLAVE_TRIGGER_TOUR_ROUE_ATTEINT)
+    {
+         Serial.println(" ");
+         Serial.print("[SLAVE] TRANSISTION FORCEE: FIN DU TOUR DE ROUE ATTEINT");
          Serial.println(transition);
     }
 
@@ -815,6 +872,12 @@ void ChenillePrincipale::trigger(int transition)
 
 
         case SLAVE_STATE_DEPLACEMENT_GAUCHE_ACTION  :
+           if(transition == SLAVE_TRIGGER_TOUR_ROUE_ATTEINT)
+           {
+                state = SLAVE_STATE_REPOS;
+                Serial.println("[SLAVE] Deplacement gauche fin, tour de roue atteint");
+                Serial.println("# ASSFINI");
+           }
            if (transition == SLAVE_TRIGGER_TIME_OUT )
            {
                 state = SLAVE_STATE_REPOS;
@@ -829,24 +892,36 @@ void ChenillePrincipale::trigger(int transition)
            }
            if (transition == SLAVE_TRIGGER_PAUSE )
            {
-                state = SLAVE_STATE_DEPLACEMENT_GAUCHE_PAUSE;
-                // temps restant a faire pour l'asserv
-                time_asserv_remaining = time_asserv_to_do - (millis() - time_asserv_started);
-                if(time_asserv_remaining <=0 ){time_asserv_remaining=0;}
-                // to do after reprise
-                time_asserv_to_do = time_asserv_remaining + time_delta_time_after_interrupt;
-                Serial.println("[SLAVE] Deplacement gauche interruption");
+                state = SLAVE_STATE_DEPLACEMENT_GAUCHE_ACTION_FINISHING;
+                Serial.println("[SLAVE] Deplacement gauche interruption, vers fin du tour de roue");
                 Serial.println("# PAUSE");
            }
-
            break;
+
+
+       case SLAVE_STATE_DEPLACEMENT_GAUCHE_ACTION_FINISHING  :
+           if (transition == SLAVE_TRIGGER_TOUR_ROUE_FINISH)
+           {
+                state = SLAVE_STATE_DEPLACEMENT_GAUCHE_PAUSE;
+                Serial.println("[SLAVE] Deplacement gauche tour de roue alignement");
+           }
+           if(transition == SLAVE_TRIGGER_TIME_OUT)
+           {
+                state = SLAVE_STATE_DEPLACEMENT_GAUCHE_PAUSE;
+                Serial.println("[SLAVE] Deplacement gauche tour de roue alignement.... time out, fail alignement");
+           }
+           break;
+
 
 
         case SLAVE_STATE_DEPLACEMENT_GAUCHE_PAUSE  :
            if (transition == SLAVE_TRIGGER_REPRISE )
            {
                 state = SLAVE_STATE_DEPLACEMENT_GAUCHE_ACTION;
-                time_asserv_started = millis();
+                tour_effectuee = ir_compteur_lat.nbr_compteur();
+                ir_compteur_lat.reset_compteur();
+                tour_a_faire -= tour_effectuee;
+                if(tour_a_faire<0){tour_a_faire=0;}
                 Serial.println("[SLAVE] Deplacement gauche reprise");
            }
            if (transition == SLAVE_TRIGGER_STOP )
@@ -858,6 +933,12 @@ void ChenillePrincipale::trigger(int transition)
 
 
         case SLAVE_STATE_DEPLACEMENT_DROITE_ACTION  :
+           if(transition == SLAVE_TRIGGER_TOUR_ROUE_ATTEINT)
+           {
+                state = SLAVE_STATE_REPOS;
+                Serial.println("[SLAVE] Deplacement gauche fin, tour de roue atteint");
+                Serial.println("# ASSFINI");
+           }
            if (transition == SLAVE_TRIGGER_TIME_OUT )
            {
                 state = SLAVE_STATE_REPOS;
@@ -872,23 +953,33 @@ void ChenillePrincipale::trigger(int transition)
            }
            if (transition == SLAVE_TRIGGER_PAUSE )
            {
-                state = SLAVE_STATE_DEPLACEMENT_DROITE_PAUSE;
-                // temps restant a faire pour l'asserv
-                time_asserv_remaining = time_asserv_to_do - (millis() - time_asserv_started);
-                if(time_asserv_remaining <=0 ){time_asserv_remaining=0;}
-                // to do after reprise
-                time_asserv_to_do = time_asserv_remaining + time_delta_time_after_interrupt;
-                Serial.println("[SLAVE] Deplacement droite interruption");
+                state = SLAVE_STATE_DEPLACEMENT_DROITE_ACTION_FINISHING;
+                Serial.println("[SLAVE] Deplacement droite interruption, vers fin de tour roue");
                 Serial.println("# PAUSE");
            }
            break;
 
+       case SLAVE_STATE_DEPLACEMENT_DROITE_ACTION_FINISHING  :
+           if (transition == SLAVE_TRIGGER_TOUR_ROUE_FINISH)
+           {
+                state = SLAVE_STATE_DEPLACEMENT_DROITE_PAUSE;
+                Serial.println("[SLAVE] Deplacement droite tour de roue alignement");
+           }
+           if(transition == SLAVE_TRIGGER_TIME_OUT)
+           {
+                state = SLAVE_STATE_DEPLACEMENT_DROITE_PAUSE;
+                Serial.println("[SLAVE] Deplacement droite tour de roue alignement.... time out, fail alignement");
+           }
+           break;
 
         case SLAVE_STATE_DEPLACEMENT_DROITE_PAUSE  :
            if (transition == SLAVE_TRIGGER_REPRISE )
            {
                 state = SLAVE_STATE_DEPLACEMENT_DROITE_ACTION;
-                time_asserv_started = millis();
+                tour_effectuee = ir_compteur_lat.nbr_compteur();
+                ir_compteur_lat.reset_compteur();
+                tour_a_faire -= tour_effectuee;
+                if(tour_a_faire<0){tour_a_faire=0;}
                 Serial.println("[SLAVE] Deplacement droite reprise");
            }
            if (transition == SLAVE_TRIGGER_STOP )
@@ -972,25 +1063,43 @@ void ChenillePrincipale::in_state_func()
         case SLAVE_STATE_DEPLACEMENT_GAUCHE_ACTION  :
            Serial.println("[SLAVE][ETAT] DEPLACEMENT LATERAL GAUCHE ACTION");
            Serial.print("time asserv to do : ");
-           Serial.println(time_asserv_to_do);
-           set_time_out(time_asserv_to_do);
+           Serial.println("10s before time out");
+           Serial.print("tour de roue a faire : ");
+           Serial.println(tour_a_faire);
+           set_time_out(10000);
            lateral_gauche();
            break;
 
+        case SLAVE_STATE_DEPLACEMENT_GAUCHE_ACTION_FINISHING  :
+           Serial.println("[SLAVE][ETAT] DEPLACEMENT LATERAL GAUCHE ACTION FINISHING");
+           set_time_out(5000);   // si jamais on a un blocage IR
+           Serial.print("tour de roue fait : ");
+           Serial.println(ir_compteur_lat.nbr_compteur());
+           break;
 
         case SLAVE_STATE_DEPLACEMENT_GAUCHE_PAUSE  :
            Serial.println("[SLAVE][ETAT] DEPLACEMENT LATERAL GAUCHE PAUSE");
+           Serial.print("tour de roue fait : ");
+           Serial.println(ir_compteur_lat.nbr_compteur());
            lateral_stop();
            break;
 
         case SLAVE_STATE_DEPLACEMENT_DROITE_ACTION  :
            Serial.println("[SLAVE][ETAT] DEPLACEMENT LATERAL DROITE ACTION");
            Serial.print("time asserv to do : ");
-           Serial.println(time_asserv_to_do);
-           set_time_out(time_asserv_to_do);
+           Serial.println("10s before time out");
+           Serial.print("tour de roue a faire : ");
+           Serial.println(tour_a_faire);
+           set_time_out(10000);
            lateral_droite();
            break;
 
+        case SLAVE_STATE_DEPLACEMENT_DROITE_ACTION_FINISHING  :
+           Serial.println("[SLAVE][ETAT] DEPLACEMENT LATERAL DROITE ACTION FINISHING");
+           set_time_out(5000);   // si jamais on a un blocage IR
+           Serial.print("tour de roue fait : ");
+           Serial.println(ir_compteur_lat.nbr_compteur());
+           break;
 
         case SLAVE_STATE_DEPLACEMENT_DROITE_PAUSE  :
            Serial.println("[SLAVE][ETAT] DEPLACEMENT LATERAL DROITE PAUSE");

@@ -187,8 +187,10 @@ class ChenilleSecondaire
 // les etats de
 #define SLAVE_STATE_REPOS 0
 #define SLAVE_STATE_DEPLACEMENT_GAUCHE_ACTION 1
+#define SLAVE_STATE_DEPLACEMENT_GAUCHE_ACTION_FINISHING 11
 #define SLAVE_STATE_DEPLACEMENT_GAUCHE_PAUSE 2
 #define SLAVE_STATE_DEPLACEMENT_DROITE_ACTION 3
+#define SLAVE_STATE_DEPLACEMENT_DROITE_ACTION_FINISHING 33
 #define SLAVE_STATE_DEPLACEMENT_DROITE_PAUSE 4
 #define SLAVE_STATE_DEPLACEMENT_AVANT_ACTION 5
 #define SLAVE_STATE_DEPLACEMENT_AVANT_PAUSE 6
@@ -208,6 +210,8 @@ class ChenilleSecondaire
 #define SLAVE_TRIGGER_BUMP_DROITE 9
 #define SLAVE_TRIGGER_BUMP_FACE 10
 #define SLAVE_TRIGGER_STOP 11
+#define SLAVE_TRIGGER_TOUR_ROUE_FINISH 12
+#define SLAVE_TRIGGER_TOUR_ROUE_ATTEINT 13
 
 class ChenillePrincipale
 {
@@ -286,8 +290,8 @@ class ChenillePrincipale
         void recalage_face(); //tak droite et gauche, mettre un timer de sortie
 
         // evitement a integrer (sur base de sonar)
-        void decalage_droite(long tempsTotAction);
-        void decalage_gauche(long tempsTotAction); // mettre un timer
+        void decalage_droite(int tour_de_roue);
+        void decalage_gauche(int tour_de_roue); // mettre un timer
         void decalage_avant(long tempsTotAction);
         void decalage_arriere(long tempsTotAction);
 
