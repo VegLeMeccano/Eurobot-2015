@@ -296,39 +296,6 @@ MAE_COOP_R::AnyState * MAE_COOP_R::MAE_COOP_R_State::Jeu_State::bumper_en_bas_de
     return &stm._mae_coop_r_state._jeu_state;
 }
 
-MAE_COOP_R::MAE_COOP_R_State::Jeu_State::attente_evitement_State::~attente_evitement_State() {
-}
-
-// to manage the event time_out
-void MAE_COOP_R::MAE_COOP_R_State::Jeu_State::attente_evitement_State::time_out(MAE_COOP_R & stm) {
-    {
-      stm._set_currentState(stm._mae_coop_r_state._jeu_state._reprise_state);
-#ifdef VERBOSE_STATE_MACHINE
-      puts("DEBUG : current state is now .MAE_COOP_R.Jeu.reprise");
-#endif
-      stm._mae_coop_r_state._jeu_state._reprise_state.create(stm);
-    }
-}
-
-// to manage the event create
-void MAE_COOP_R::MAE_COOP_R_State::Jeu_State::attente_evitement_State::create(MAE_COOP_R & stm) {
-  	_doentry(stm);
-}
-
-// perform the 'entry behavior'
-void MAE_COOP_R::MAE_COOP_R_State::Jeu_State::attente_evitement_State::_doentry(MAE_COOP_R & stm) {
-#ifdef VERBOSE_STATE_MACHINE
-  	puts("DEBUG : execute entry behavior of .MAE_COOP_R.Jeu.attente evitement");
-#endif
-  master->set_time_out()
-  increment_cycle_attente()
-}
-
-// returns the state containing the current
-MAE_COOP_R::AnyState * MAE_COOP_R::MAE_COOP_R_State::Jeu_State::attente_evitement_State::_upper(MAE_COOP_R & stm) {
-    return &stm._mae_coop_r_state._jeu_state;
-}
-
 MAE_COOP_R::MAE_COOP_R_State::Jeu_State::Evitement_State::~Evitement_State() {
 }
 
