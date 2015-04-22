@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Debug" />
-	<File name="MAE_COOP_R.cpp" open="1" top="0" tabpos="5">
-		<Cursor position="19" topLine="0" />
+	<File name="MAE_COOP_R.cpp" open="1" top="0" tabpos="4">
+		<Cursor position="109" topLine="0" />
 	</File>
-	<File name="MAE_COOP_R.h" open="1" top="0" tabpos="6">
+	<File name="MAE_COOP_R.h" open="1" top="0" tabpos="5">
 		<Cursor position="205" topLine="0" />
 	</File>
-	<File name="Master.cpp" open="1" top="0" tabpos="4">
-		<Cursor position="0" topLine="0" />
+	<File name="Master.cpp" open="1" top="0" tabpos="3">
+		<Cursor position="2631" topLine="122" />
 	</File>
-	<File name="Master.h" open="1" top="0" tabpos="3">
-		<Cursor position="801" topLine="0" />
+	<File name="Master.h" open="1" top="0" tabpos="2">
+		<Cursor position="1170" topLine="22" />
 	</File>
-	<File name="Protocole_COM.cpp" open="0" top="0" tabpos="3">
-		<Cursor position="2143" topLine="98" />
+	<File name="Protocole_COM.cpp" open="1" top="1" tabpos="6">
+		<Cursor position="1947" topLine="174" />
 	</File>
-	<File name="Protocole_COM.h" open="1" top="0" tabpos="2">
-		<Cursor position="156" topLine="0" />
+	<File name="Protocole_COM.h" open="1" top="0" tabpos="7">
+		<Cursor position="181" topLine="5" />
 	</File>
-	<File name="main.cpp" open="1" top="1" tabpos="1">
-		<Cursor position="1662" topLine="66" />
+	<File name="main.cpp" open="1" top="0" tabpos="1">
+		<Cursor position="299" topLine="61" />
 	</File>
 	<File name="util.h" open="0" top="0" tabpos="0">
 		<Cursor position="177" topLine="0" />

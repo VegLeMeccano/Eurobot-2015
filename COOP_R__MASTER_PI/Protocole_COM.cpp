@@ -11,7 +11,7 @@ Protocole_COM::Protocole_COM(Master* master_ ):
 {
     treated = true;
     cout << "[COM] initialisation" << endl;
-    master->set_couleur(COULEUR_VERT);
+    //master->set_couleur(COULEUR_VERT);
 
 }
 
@@ -89,56 +89,111 @@ void Protocole_COM::executeinstr()
     std::string temp;
     stream>>temp;
     char ordre = temp[0];
+    cout<<"[arduino] "<<temp<<endl;
 
+    if(ordre == '#' || ordre == '*')
+    {
+        cout<<"appel arduino found : ";
+        if(ordre == '#')
+        {
+            cout<<"ordre asserv/action"<<endl;
+        }
+        if (ordre == '*')
+        {
+            cout<<"ordre strat"<<endl;
+        }
+    }
+    else
+    {
+        // on sort, et on affiche la ligne
+        return;
+    }
 
-    //Serial.print("ordre ind = ");
     cout << "[COM] ordre ind = " << endl;
-    int ind = ((int)temp[1]) - 48;
+    int ind = ((int)temp[1]) - 48;      // pour avoir le numero de l'ordre
     cout <<ordre<< "@" <<ind<< endl;
 
-    std::string temp2;
-    std::string cap;
-    std::string x;
-    std::string y;
-    std::string z;
-    std::string temps;
-
-    bool precis;
     switch (ordre)
     {
 
-
-    /** ordre d'asservissement
+    /** ordre de type adversaire et truc fini
     */
 	case '#' :
-        switch (ind)
-        {
-        case 0:
-            cout << "[COM] ASSFINI" << endl;
-            master->get_MAE_COOP_R()->ass_fini();
-            break;
 
-        case 1:
-             break;
-       }
+        // start mis
+        if(s.find("START IN") != string::npos)
+        {
+            cout<<"[Master] start mis"<<endl;
+        }
+
+        //start retiré
+        if(s.find("START OUT") != string::npos)
+        {
+            cout<<"[Master] start mis"<<endl;
+            master->get_MAE_COOP_R()->stratEnleve();
+        }
+
+        //fin des 90s
+        if(s.find("ENDDAME") != string::npos)
+        {
+            cout<<"[Master] end of game"<<endl;
+            //master->get_MAE_COOP_R()->stratEnleve();
+        }
+
+
+
+        // check si adversaire detecté
+        if(s.find("PAUSE") != string::npos)
+        {
+            cout<<"[Master] adversaire detectee, pause"<<endl;
+            master->get_MAE_COOP_R()->adversaire();
+        }
+
+        // check si l'asserv est fini
+        if(s.find("ASSFINI") != string::npos)
+        {
+            cout<<"[Master] assfini"<<endl;
+            master->get_MAE_COOP_R()->assFini();
+        }
+
+
+        // pour les tours de roues?
+        if(s.find("TOUR") != string::npos)
+        {
+            int tour = ((int)temp[8]) - 48;
+            cout<<"[Master] tour de roue laterale"<<endl;
+            master->tour_roue_set(tour);
+        }
+
+        // pour les pose de tapis?
+        if(s.find("TAPIS 1 POSE") != string::npos)
+        {
+            cout<<"[Master] tapis 1 posé"<<endl;
+            master->get_MAE_COOP_R()->ioFini();     // faire plus mieu, étayé
+        }
+
+
         break;
 
 
     /** ordre de strat
     */
 	case '*' :
-        switch (ind)
-        {
-        case COULEUR_JAUNE:
-            cout << "[COM] couleur jaune" << endl;
-            master->set_couleur(COULEUR_JAUNE);
-            break;
 
-        case COULEUR_VERT:
-            cout << "[COM] couleur vert" << endl;
+        // si jaune
+        if(s.find("COULEUR : 0") != string::npos)
+        {
+            cout<<"[Master] couleur 0"<<endl;
+            master->set_couleur(COULEUR_JAUNE);
+        }
+
+        //si vert
+        if(s.find("COULEUR : 1") != string::npos)
+        {
+            cout<<"[Master] couleur 1"<<endl;
             master->set_couleur(COULEUR_VERT);
-            break;
-       }
+        }
+
         break;
 
 

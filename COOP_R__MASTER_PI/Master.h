@@ -34,6 +34,7 @@ class Master
         int get_tour_roue();                // utilisé dans la MAE pour transisition à l'escalier
         void tour_roue_incremente();        // appel par la COM
         void tour_roue_reset();
+        void tour_roue_set(int tour);
 
         // pour l'attente dans l'evitement
         int get_cycle_attente();

@@ -143,3 +143,7 @@ void Master::tour_roue_reset()
 {
     tour_de_roue = 0;;
 }
+void Master::tour_roue_set(int tour)
+{
+    tour_de_roue = tour;
+}
