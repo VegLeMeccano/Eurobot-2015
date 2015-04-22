@@ -8,15 +8,6 @@ class AnyState
   else
     puts("DEBUG : transition stratEnleve not expected");
 #endif
-!!!138370.cpp!!!	evitement(inout stm : MAE_COOP_R) : void
-  AnyState * st = _upper(stm);
-
-  if (st != 0)
-    st->evitement(stm);
-#ifdef VERBOSE_STATE_MACHINE
-  else
-    puts("DEBUG : transition evitement not expected");
-#endif
 !!!150658.cpp!!!	time_out(inout stm : MAE_COOP_R) : void
   AnyState * st = _upper(stm);
 

@@ -13,14 +13,6 @@ return (_current_state != 0);
     _current_state->stratEnleve(*this);
   }
   return (_current_state != 0);
-!!!138242.cpp!!!	evitement() : bool
-  if (_current_state != 0) {
-#ifdef VERBOSE_STATE_MACHINE
-    puts("DEBUG : fire trigger evitement");
-#endif
-    _current_state->evitement(*this);
-  }
-  return (_current_state != 0);
 !!!143746.cpp!!!	doActivity() : void
   _current_state->_do(*this);
 !!!143874.cpp!!!	_set_currentState(inout st : MAE_COOP_R::AnyState) : void

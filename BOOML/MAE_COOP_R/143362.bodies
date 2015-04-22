@@ -14,7 +14,7 @@ class bumper_en_bas_des_marches_State
 	puts("DEBUG : execute entry behavior of .MAE_COOP_R.Jeu.bumper en bas des marches");
 #endif
 // on va bumper en bas des marches
-// on suppose que c'est pas possible qu'il y ait n con qui passe devant...
+// on suppose que c'est pas possible qu'il y ait n con qui passe devant... a verifier
 serialPrintf (portSerie, "A6 \n") ;
 !!!172162.cpp!!!	_upper(inout stm : MAE_COOP_R) : MAE_COOP_R::AnyState
   return &stm._mae_coop_r_state._jeu_state;

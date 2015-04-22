@@ -1,12 +1,4 @@
 class Jeu_State
-!!!138498.cpp!!!	evitement(inout stm : MAE_COOP_R) : void
-  {
-    stm._set_currentState(stm._mae_coop_r_state._evitement_state);
-#ifdef VERBOSE_STATE_MACHINE
-    puts("DEBUG : current state is now .MAE_COOP_R.Evitement");
-#endif
-    stm._mae_coop_r_state._evitement_state.create(stm);
-  }
 !!!138626.cpp!!!	create(inout stm : MAE_COOP_R) : void
   _doentry(stm);
   {
