@@ -1,7 +1,6 @@
 #include "Master.h"
 
 Master::Master():
-    est_jaune(true),
     periode_run(PERIODE_MASTER),
     time_out_on(false),
     t_over(0),
