@@ -132,14 +132,14 @@ void loop(){
    if (state == ALLUMAGE && bumper_start.is_on())
     {
         state = STARTMIS;
-        Serial.println("# STARTIN");
+        Serial.println("# START IN");
     }
 
     // debut de jeu quand le start est releve
     if (state == STARTMIS && bumper_start.is_off())
     {
         state = GAME ;
-        Serial.println("# START");
+        Serial.println("# START OUT");
         //slave->turn_on_evit();
         timer = millis();
         //Serial.println(timer);
@@ -150,7 +150,7 @@ void loop(){
     if ( (state == END) || (state == GAME && ((millis()-timer) > TEMPS_PARTIE ) ) )
     {
 
-        Serial.println("# ENDG");
+        Serial.println("# ENDGAME");
         state = END;
         //slave->stop();
         //io->stop();
