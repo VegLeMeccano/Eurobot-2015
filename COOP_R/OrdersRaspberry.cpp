@@ -274,8 +274,8 @@ void OrdersRaspberry::executeinstr()
             io->get_ChenilleSecondaire()->get_Centrale_Inertielle()->reset_angle();
             break;
         case 5:
-            Serial.print("Debug IMU, reset vitesse");
-            io->get_ChenilleSecondaire()->get_Centrale_Inertielle()->reset_vitesse();
+            Serial.print("Debug IMU, reset calibration");
+            io->get_ChenilleSecondaire()->get_Centrale_Inertielle()->recalibrage();
             break;
 
         case 6:

@@ -1542,6 +1542,7 @@ void DeposeurTapis::in_state_func()
          case ETAT_TAPIS_DFP_2  :
             pince_gauche.pince_OFF();
             Serial.println("ETAT_TAPIS_DFP_2 ");
+            Serial.println("# POSE TAPIS 1 POSEE");
             break;
 
         case ETAT_TAPIS_RF_1  :
@@ -1554,6 +1555,7 @@ void DeposeurTapis::in_state_func()
             //set_time_out(500);
             pince_gauche.pince_ON();
             Serial.println("ETAT_TAPIS_RF_2 ");
+            Serial.println("# POSE TAPIS 1 REMONTEE");
             break;
 
         case ETAT_TAPIS_DS_1  :
@@ -1587,6 +1589,7 @@ void DeposeurTapis::in_state_func()
         case ETAT_TAPIS_DSP_2   :
             pince_droite.pince_OFF();
             Serial.println("ETAT_TAPIS_DSP_2  ");
+            Serial.println("# POSE TAPIS 2 POSEE");
             break;
 
         case ETAT_TAPIS_RS_1   :
@@ -1608,6 +1611,7 @@ void DeposeurTapis::in_state_func()
             pince_gauche.haut();
             nozzle.middle();
             Serial.println("ETAT_TAPIS_RS_3  ");
+            Serial.println("# POSE TAPIS 2 REMONTEE");
             break;
     }
 }
