@@ -20,6 +20,8 @@
 
 using namespace std;
 
+Master * master;
+    Protocole_COM* protocole_com;
 
 
 /** EXECUTION DU PROGRAMME PRINCIPALE (IA)
@@ -30,8 +32,8 @@ int main()
 
     /** CONNEXION SERIAL ARDUINO
     */
-    extern int portSerie;
-    portSerie = serialOpen(SERIAL_DEV, SPEED) ;
+//extern int portSerie;
+    int portSerie = serialOpen(SERIAL_DEV, SPEED) ;
     if(portSerie >-1)
     {
         cout << "[SERIAL] Connection success -> "<<portSerie << endl;
@@ -79,7 +81,7 @@ int main()
     master = new Master();
 
     // initialisation du protocole de COM
-    Protocole_COM* protocole_com;
+
     protocole_com = new Protocole_COM(master);
 
     //master->set_couleur(COULEUR_JAUNE);

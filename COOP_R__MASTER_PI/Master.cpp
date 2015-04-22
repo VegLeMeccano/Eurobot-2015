@@ -25,13 +25,13 @@ int Master::get_Couleur()
 }
 
 // la strat est elle verte?
-bool Master::is_Vert()()
+bool Master::is_Vert()
 {
     return (couleur==COULEUR_VERT);
 }
 
 // jaune?
-bool Master::is_Jaune()()()
+bool Master::is_Jaune()
 {
     return (couleur==COULEUR_JAUNE);
 }

@@ -13,6 +13,18 @@
 
 class Master
 {
+    private:
+        //static Master masterInstance;
+        // attribut
+        long t_over;
+        bool time_out_on;
+        Period periode_run;
+        MAE_COOP_R mae_coop_r;
+        int couleur;
+        int tour_de_roue;       // pour le deplacement lateral du debut
+        int cycle_attente;
+
+
     public:
 
         // méthodes
@@ -42,20 +54,9 @@ class Master
         void cycle_attente_reset();
 
 
-    private:
-        //static Master masterInstance;
-        // attribut
-        long t_over;
-        bool time_out_on;
-        Period periode_run;
-        MAE_COOP_R mae_coop_r;
-        int couleur;
-        int tour_de_roue;       // pour le deplacement lateral du debut
-        int cycle_attente;
-
 
 };
 
-extern Master* master;
+extern Master * master;
 
 #endif // MASTER_H
