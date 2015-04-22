@@ -1,29 +1,14 @@
 window_sizes 1600 878 356 1238 600 82
 diagrams
   statediagram_ref 128130 // Principal
-    1238 692 100 0 0 0
+    986 577 100 0 0 0
   active  statediagram_ref 134658 // Jeu
-    1238 722 80 0 104 7
+    1238 722 100 0 216 476
 end
 show_stereotypes
-selected state_ref 128130 // MAE_COOP_R
+selected classview_ref 128130 // MAE_COOP_R
 open
-  state_ref 135042 // attente
-  state_ref 135170 // deplacement lateral
-  state_ref 135298 // attente recalibration
-  state_ref 135426 // ascension
-  state_ref 135554 // decalage gauche
-  state_ref 135682 // preparation pose premier tapis
-  state_ref 135810 // remonte
-  state_ref 135938 // decalage droite
-  state_ref 136066 // preparation pose second tapis
-  state_ref 136194 // remonte 2
-  state_ref 142850 // Evitement
-  state_ref 142978 // attente evitement
-  state_ref 143106 // bumper en bas des marches
-  state_ref 143234 // fin deplacement lateral
-  state_ref 143362 // reprise
-  state_ref 143490 // deployement
+  state_ref 128386 // Jeu
   deploymentview_ref 128130 // MaeMaster
 end
 end

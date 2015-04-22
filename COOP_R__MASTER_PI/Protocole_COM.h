@@ -16,7 +16,6 @@ class Protocole_COM
         Protocole_COM(Master* master_ );
         void run();
         void treatSerial();
-        void execute();
         void executeinstr();
 
     private:

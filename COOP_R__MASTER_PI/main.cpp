@@ -1,26 +1,24 @@
 #include <iostream>
-//wiring PI ???   -> pour la comm
+
 #include <wiringPi.h>
 #include <wiringSerial.h>
 
-
 #include <unistd.h>
 
-#include "extern_declaration.h"
 #include "Master.h"
 #include "Protocole_COM.h"
 
+// pour la com série
 #define SERIAL_DEV "/dev/ttyACM0"
 #define SPEED 9600
 
-//extern Master * master;
 
 #include "Period.h"
 #include "util.h"
 
+#define VERBOSE_STATE_MACHINE 1
+
 using namespace std;
-
-
 
 
 
@@ -46,13 +44,13 @@ int main()
 
 
     //cout << "portSerie -> "<<portSerie << endl;
-    cout << "carac dispo :"<<serialDataAvail(portSerie) << endl;
-    //serialPrintf (portSerie, "D0 ") ;
-    serialPutchar(portSerie,'t');
-
-    delay(1000);
     //cout << "carac dispo :"<<serialDataAvail(portSerie) << endl;
-    int cpt(0);
+    //serialPrintf (portSerie, "D0 ") ;
+    //serialPutchar(portSerie,'t');
+
+    //delay(1000);
+    //cout << "carac dispo :"<<serialDataAvail(portSerie) << endl;
+    //int cpt(0);
     /*
     while(serialDataAvail(portSerie)>0)
     {
@@ -68,7 +66,7 @@ int main()
 
     //master->set_couleur(1);
     //master->set_time_out(100);
-    char c;
+    //char c;
     //serialPutchar(portSerie,'t');
     //serialPutchar(portSerie,'t');
     // boucle de jeu
@@ -89,14 +87,15 @@ int main()
     while(1)
     {
         //serialPutchar(portSerie,'t');
-        //master->run();
-        //protocole_com->run();
-        delay(1);
+        master->run();
+        protocole_com->run();
+        //delay(1);
         //if(serialDataAvail(portSerie)>0)
         //{
-            cpt++;
+            //cpt++;
             //cout << "dispo  "<< serialDataAvail(portSerie)<< endl; // "  "<<serialGetchar(portSerie) << endl;
             //serialPutchar(portSerie,'t');
+        /**
         if(serialDataAvail(portSerie)>0)
         {
             c = serialGetchar(portSerie);
@@ -108,7 +107,7 @@ int main()
                 cout << ""<< c ;//<< endl;
             }
 
-        }
+        }*/
 
     }
 

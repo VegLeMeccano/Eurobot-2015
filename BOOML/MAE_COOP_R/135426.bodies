@@ -18,6 +18,7 @@ class attente_recalibration_State
 #endif
 master->set_time_out(4000);
 // ordre de recalibration de la centrale
+serialPrintf (portSerie, "D4 \n") ;
 !!!166530.cpp!!!	_doexit(inout stm : MAE_COOP_R) : void
 #ifdef VERBOSE_STATE_MACHINE
 	puts("DEBUG : execute exit behavior of .MAE_COOP_R.Jeu.attente recalibration");
