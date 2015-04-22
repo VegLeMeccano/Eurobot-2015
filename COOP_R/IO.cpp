@@ -67,6 +67,8 @@ void IR_compteur::reset_compteur()
 void IR_compteur::incremente_compteur()
 {
     compteur++;
+    Serial.print("# TOUR ");
+    Serial.println(compteur);
     Serial.print("compteur: ");
     Serial.println(compteur);
 }
