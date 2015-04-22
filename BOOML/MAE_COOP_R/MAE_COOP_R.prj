@@ -1,6 +1,6 @@
 format 76
 "MAE_COOP_R"
-  revision 21
+  revision 22
   modified_by 2 "Link"
   cpp_root_dir "D:/Club Robotique IRON MENAD 2/Eurobot 2015 Iron Menad/Eurobot-2015/COOP_R__MASTER_PI/"
 
@@ -139,6 +139,7 @@ serialPrintf (portSerie, \"A3 5\\n\") ;
 	state 135298 "attente recalibration"
 	    cpp_on_entry "master->set_time_out(4000);
 // ordre de recalibration de la centrale
+serialPrintf (portSerie, \"D4 \\n\") ;
 "
 	    cpp_on_exit "// ordre de reset angle"
 	  transition 162434 "<transition>"

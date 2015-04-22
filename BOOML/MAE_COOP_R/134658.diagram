@@ -17,7 +17,7 @@ statecanvas 131074 state_ref 135170 // deplacement lateral
 end
 statecanvas 131330 state_ref 135298 // attente recalibration
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 1155.4 383.2 2005 251 105
+  xyzwh 1155.4 383.2 2005 251 117
 end
 statecanvas 131586 state_ref 135426 // ascension
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
@@ -81,19 +81,19 @@ transitioncanvas 130946 transition_ref 147970 // <transition>
 end
 transitioncanvas 133506 transition_ref 154498 // <transition>
   
-  from ref 130818 z 2006 label "time_out" xyz 337 498.5 2006 to ref 131074
+  from ref 130818 z 2006 label "time_out" xyz 337 498 2006 to ref 131074
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 135042 transition_ref 161794 // <transition>
   decenter_begin 27
   decenter_end 472
   
-  from ref 134786 z 2006 label "adversaire" xyz 437.5 983.5 2006 to ref 133890
+  from ref 134786 z 2006 label "adversaire" xyz 437 983 2006 to ref 133890
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 135170 transition_ref 161922 // <transition>
   
-  from ref 134786 z 2011 label "assFini" xyz 707.5 832.5 2011 to ref 134402
+  from ref 134786 z 2011 label "assFini" xyz 707 832 2011 to ref 134402
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 135426 transition_ref 162178 // <transition>
@@ -103,33 +103,33 @@ transitioncanvas 135426 transition_ref 162178 // <transition>
 end
 transitioncanvas 135554 transition_ref 162306 // <transition>
   
-  from ref 134274 z 2006 label "assFini" xyz 1083.5 417 2006 to ref 131330
+  from ref 134274 z 2006 label "assFini" xyz 1083 420 2006 to ref 131330
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 135810 transition_ref 162434 // <transition>
   
-  from ref 131330 z 2006 label "time_out" xyz 1260 500 2006 to ref 135682
+  from ref 131330 z 2006 label "time_out" xyz 1260 506 2006 to ref 135682
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 135938 transition_ref 162562 // <transition>
   
-  from ref 135682 z 2006 label "time_out" xyz 1265.5 631.5 2006 to ref 131586
+  from ref 135682 z 2006 label "time_out" xyz 1265 631 2006 to ref 131586
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 136066 transition_ref 162690 // <transition>
   decenter_begin 56
   
-  from ref 131586 z 2006 label "assFini" xyz 1117 747.5 2006 to ref 131842
+  from ref 131586 z 2006 label "assFini" xyz 1117 747 2006 to ref 131842
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 136194 transition_ref 162818 // <transition>
   
-  from ref 131842 z 2006 label "assFini" xyz 1000.5 875 2006 to ref 131970
+  from ref 131842 z 2006 label "assFini" xyz 1000 875 2006 to ref 131970
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 136322 transition_ref 162946 // <transition>
   
-  from ref 131970 z 2006 label "ioFini" xyz 1046.5 1010 2006 to ref 132098
+  from ref 131970 z 2006 label "ioFini" xyz 1046 1010 2006 to ref 132098
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 136450 transition_ref 163074 // <transition>
@@ -149,12 +149,12 @@ transitioncanvas 136834 transition_ref 163458 // <transition>
 end
 transitioncanvas 136962 transition_ref 163586 // <transition>
   
-  from ref 132098 z 2006 label "ioFini" xyz 1231.5 944 2006 to ref 132226
+  from ref 132098 z 2006 label "ioFini" xyz 1231 944 2006 to ref 132226
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 137474 transition_ref 176642 // <transition>
   
-  from ref 131074 z 2006 label "adversaire" xyz 301.5 723.5 2006 to point 359 762
+  from ref 131074 z 2006 label "adversaire" xyz 301 723 2006 to point 359 762
   line 137730 z 2006 to ref 137346
   write_horizontally default show_definition default drawing_language default
 end
@@ -170,12 +170,12 @@ transitioncanvas 137858 transition_ref 176898 // <transition>
 end
 transitioncanvas 137986 transition_ref 183426 // <transition>
   
-  from ref 133890 z 2006 label "time_out" xyz 550 978.5 2006 to ref 134786
+  from ref 133890 z 2006 label "time_out" xyz 550 978 2006 to ref 134786
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 138114 transition_ref 183554 // <transition>
   
-  from ref 131074 z 2011 label "assFini" xyz 519.5 599 2011 to ref 134402
+  from ref 131074 z 2011 label "assFini" xyz 519 599 2011 to ref 134402
   write_horizontally default show_definition default drawing_language default
 end
 end
