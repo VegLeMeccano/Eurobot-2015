@@ -13,11 +13,7 @@ statecanvas 128258 state_ref 128258 // Attente
 end
 statecanvas 128386 state_ref 128386 // Jeu
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 181 337 2005 215 61
-end
-statecanvas 128514 state_ref 128514 // Evitement
-  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 516 338 2005 239 61
+  xyzwh 371 344 2005 215 61
 end
 transitioncanvas 128642 transition_ref 128130 // <transition>
   
@@ -26,20 +22,9 @@ transitioncanvas 128642 transition_ref 128130 // <transition>
 end
 transitioncanvas 128770 transition_ref 128258 // <transition>
   
-  from ref 128258 z 2006 label "stratEnleve" xyz 352 278 2006 to point 356 294
-  line 129922 z 2006 to point 343 302
+  from ref 128258 z 2006 label "stratEnleve" xyz 486 306 2006 to point 473 305
+  line 129922 z 2006 to point 473 316
   line 129794 z 2006 to ref 128386
-  write_horizontally default show_definition default drawing_language default
-end
-transitioncanvas 128898 transition_ref 128386 // <transition>
-  
-  from ref 128386 z 2006 label "evitement" xyz 419 402 2006 to point 489 422
-  line 129538 z 2006 to ref 128514
-  write_horizontally default show_definition default drawing_language default
-end
-transitioncanvas 129666 transition_ref 134914 // <transition>
-  
-  from ref 128514 z 2006 to ref 128386
   write_horizontally default show_definition default drawing_language default
 end
 end

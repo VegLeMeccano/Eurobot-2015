@@ -1,6 +1,6 @@
 format 76
 "MAE_COOP_R"
-  revision 19
+  revision 21
   modified_by 2 "Link"
   cpp_root_dir "D:/Club Robotique IRON MENAD 2/Eurobot 2015 Iron Menad/Eurobot-2015/COOP_R__MASTER_PI/"
 
@@ -83,14 +83,9 @@ format 76
 
       state 128386 "Jeu"
 	  cpp_on_entry "cout<<\"etat game\"<<endl;"
+	associated_diagram statediagram_ref 134658 // Jeu
 	comment "faire une mission par élément de jeu proche
 "
-	transition 128386 "<transition>"
-	  on state_ref 128514 // Evitement
-	    cpp_trigger "evitement"
-	  external 
-	end
-
 	statediagram 134658 "Jeu"
 	  package_name_in_tab yes show_context default auto_label_position yes write_trans_label_horizontally yes show_trans_definition yes draw_all_relations no shadow yes
 	  show_activities yes region_horizontally yes drawing_language c++ show_stereotype_properties yes
@@ -120,11 +115,11 @@ serialPrintf (portSerie, \"E1 \\n\") ;"
 	end
 
 	state 135170 "deplacement lateral"
-	    cpp_on_entry "if(master->est_Jaune()){
+	    cpp_on_entry "if(master->is_Jaune()){
 // on part sur la droite, pour 5 tour de roue
 serialPrintf (portSerie, \"A2 5\\n\") ;
 }
-if(master->est_Vert()){
+if(master->is_Vert()){
 // on part sur la gauche
 serialPrintf (portSerie, \"A3 5\\n\") ;
 }"
@@ -234,8 +229,8 @@ cout<<\"########  FIN DE JEU  ###########\"<<endl;"
 serialPrintf (portSerie, \"A \\n\") ;
 
 // mettre des etats de transistions...
-master->set_time_out(1000)
-increment_cycle_attente()
+master->set_time_out(1000);
+master->increment_cycle_attente();
 "
 	  transition 183426 "<transition>"
 	    on state_ref 143362 // reprise
@@ -256,7 +251,7 @@ increment_cycle_attente()"
 
 	state 143106 "bumper en bas des marches"
 	    cpp_on_entry "// on va bumper en bas des marches
-// on suppose que c'est pas possible qu'il y ait n con qui passe devant...
+// on suppose que c'est pas possible qu'il y ait n con qui passe devant... a verifier
 serialPrintf (portSerie, \"A6 \\n\") ;"
 	  transition 162306 "<transition>"
 	    on state_ref 135298 // attente recalibration
@@ -267,28 +262,26 @@ serialPrintf (portSerie, \"A6 \\n\") ;"
 
 	state 143234 "fin deplacement lateral"
 	    cpp_on_entry "// recalage des roues alignement
-
 // desactivation de l'evitement
-serialPrintf (portSerie, \"E0 \\n\") ;"
+serialPrintf (portSerie, \"E0 \\n\") ;
+master->set_time_out(2000);"
 	  transition 162178 "<transition>"
 	    on state_ref 143106 // bumper en bas des marches
-	      cpp_trigger "assFini"
+	      cpp_trigger "time_out"
 	    external 
 	  end
 	end
 
 	state 143362 "reprise"
-	    cpp_on_entry "if(compteur_cycle>5){
-// desactivation de l'evitement :: on pousse le mec
+	    cpp_on_entry "if(master->get_cycle_attente()>5){
+// desactivation de l'evitement :: on pousse le mec, rien a battre!
 serialPrintf (portSerie, \"E0 \\n\") ;
 }
 else
 {
 	// reprise asserv en cours
 	serialPrintf (portSerie, \"A5 \\n\") ;
-}
-
-"
+}"
 	  transition 161794 "<transition>"
 	    on state_ref 142850 // Evitement
 	      cpp_trigger "adversaire"
@@ -316,23 +309,15 @@ serialPrintf (portSerie, \"S5 \\n\") ;"
 	pseudostate 141186 choice 
 	  transition 176770 "<transition>"
 	    on state_ref 143234 // fin deplacement lateral
-	      cpp_guard "tour_roue>4"
+	      cpp_guard "master->get_tour_roue() >= 4"
 	    external 
 	  end
 
 	  transition 176898 "<transition>"
 	    on state_ref 142850 // Evitement
-	      cpp_guard "tour_roue<4"
+	      cpp_guard "master->get_tour_roue() <4"
 	    external 
 	  end
-	end
-      end
-
-      state 128514 "Evitement"
-	  cpp_on_entry "cout<<\"etat évitement\"<<endl;"
-	transition 134914 "<transition>"
-	  on state_ref 128386 // Jeu
-	  external 
 	end
       end
     end
@@ -540,7 +525,6 @@ ${inlines}
 	  key "STM generated" value ""
 	  comment " the current state doesn't manage the event ioFini, give it to the upper state"
 	end
-
       end
 
       class 134786 "MAE_COOP_R_State"
@@ -3611,7 +3595,8 @@ ${namespace_end}
       cpp_src "${comment}
 ${includes}
 #include \"Master.h\"
-#include <sirinSerial.h>
+#include <wiringPi.h>
+#include <wiringSerial.h>
 int portSerie;
 
 ${namespace_start}

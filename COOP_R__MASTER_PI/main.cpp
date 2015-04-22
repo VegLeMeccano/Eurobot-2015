@@ -1,26 +1,22 @@
 #include <iostream>
-//wiring PI ???   -> pour la comm
+
 #include <wiringPi.h>
 #include <wiringSerial.h>
 
-
 #include <unistd.h>
 
-#include "extern_declaration.h"
 #include "Master.h"
 #include "Protocole_COM.h"
 
+// pour la com série
 #define SERIAL_DEV "/dev/ttyACM0"
 #define SPEED 9600
 
-//extern Master * master;
 
 #include "Period.h"
 #include "util.h"
 
 using namespace std;
-
-
 
 
 

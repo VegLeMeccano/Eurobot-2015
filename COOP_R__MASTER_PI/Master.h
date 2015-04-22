@@ -18,16 +18,27 @@ class Master
         // méthodes
         Master();
         //static Master* getInstance{ return &masterInstance;}
+
+        // gestion du temps de la MAE
         void run();
         void set_time_out(int dt_);     // besoin d'avoir acces de l'exterieur, pour mettre les tempos
         void reset_time_out();
         bool is_time_out();
 
-        void set_couleur(int couleur_);
-        MAE_COOP_R* get_MAE_COOP_R();
-        int get_Couleur();
-        bool is_Vert();
-        bool is_Jaune();
+        void set_couleur(int couleur_);     // fixe la couleur, appel depuis la COM
+        MAE_COOP_R* get_MAE_COOP_R();       // retourne la MAE, util? je sais pas
+        int get_Couleur();                  // couleur pour la strat
+        bool is_Vert();                     // couleur pour la strat
+        bool is_Jaune();                    // couleur pour la strat
+
+        int get_tour_roue();                // utilisé dans la MAE pour transisition à l'escalier
+        void tour_roue_incremente();        // appel par la COM
+        void tour_roue_reset();
+
+        // pour l'attente dans l'evitement
+        int get_cycle_attente();
+        void cycle_attente_incremente();
+        void cycle_attente_reset();
 
 
     private:
@@ -37,9 +48,9 @@ class Master
         bool time_out_on;
         Period periode_run;
         MAE_COOP_R mae_coop_r;
-        bool est_jaune;         // couleur de jeu
         int couleur;
-        int strategie;
+        int tour_de_roue;       // pour le deplacement lateral du debut
+        int cycle_attente;
 
 
 };
