@@ -326,7 +326,7 @@ void MAE_COOP_R::MAE_COOP_R_State::Jeu_State::Evitement_State::_doentry(MAE_COOP
   
   // mettre des etats de transistions...
   master->set_time_out(1000);
-  master->increment_cycle_attente();
+  master->cycle_attente_incremente();
 }
 
 // returns the state containing the current
