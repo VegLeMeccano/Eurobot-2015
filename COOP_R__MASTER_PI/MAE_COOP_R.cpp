@@ -4,10 +4,6 @@
 #include <wiringSerial.h>
 int portSerie;
 
-#include "Master.h"
-#include <wiringPi.h>
-#include <wiringSerial.h>
-int portSerie;
 
 MAE_COOP_R::AnyState::~AnyState() {
 }
