@@ -166,13 +166,32 @@ void Protocole_COM::executeinstr()
         }
 
         // pour les pose de tapis?
-        if(s.find("TAPIS 1 POSE") != string::npos)
+        if(s.find("POSE TAPIS 1 POSEE") != string::npos)
         {
             cout<<"[Master] tapis 1 posé"<<endl;
             master->get_MAE_COOP_R()->ioFini();     // faire plus mieu, étayé
         }
 
+        // pour les pose de tapis?
+        if(s.find("POSE TAPIS 1 REMONTEE") != string::npos)
+        {
+            cout<<"[Master] tapis 1 remonté"<<endl;
+            master->get_MAE_COOP_R()->ioFini();     // faire plus mieu, étayé
+        }
 
+        // pour les pose de tapis?
+        if(s.find("POSE TAPIS 2 POSEE") != string::npos)
+        {
+            cout<<"[Master] tapis 2 posé"<<endl;
+            master->get_MAE_COOP_R()->ioFini();     // faire plus mieu, étayé
+        }
+
+        // pour les pose de tapis?
+        if(s.find("POSE TAPIS 2 REMONTEE") != string::npos)
+        {
+            cout<<"[Master] tapis 2 remonté"<<endl;
+            master->get_MAE_COOP_R()->ioFini();     // faire plus mieu, étayé
+        }
         break;
 
 
