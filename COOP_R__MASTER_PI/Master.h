@@ -23,15 +23,17 @@ class Master
         int couleur;
         int tour_de_roue;       // pour le deplacement lateral du debut
         int cycle_attente;
+        int portSerie;
 
 
     public:
 
         // méthodes
-        Master();
+        Master(int portSerie_);
         //static Master* getInstance{ return &masterInstance;}
 
         // gestion du temps de la MAE
+        int getPortSerie();
         void run();
         void set_time_out(int dt_);     // besoin d'avoir acces de l'exterieur, pour mettre les tempos
         void reset_time_out();

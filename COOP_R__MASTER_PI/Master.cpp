@@ -1,12 +1,13 @@
 #include "Master.h"
 
-Master::Master():
+Master::Master(int portSerie_):
     periode_run(PERIODE_MASTER),
     time_out_on(false),
     t_over(0),
     couleur(0),
     tour_de_roue(0),
-    cycle_attente(0)
+    cycle_attente(0),
+    portSerie(portSerie_)
 {
     //set_couleur(COULEUR_JAUNE);
     //ctor
@@ -16,6 +17,11 @@ Master::Master():
     //mae_coop_r.evitement();
     cout << "[MASTER_COOP'R] initialisation" << endl;
     //mae_coop_r.s
+}
+
+int Master::getPortSerie()
+{
+    return portSerie;
 }
 
 // retourne la couleur de la strat
