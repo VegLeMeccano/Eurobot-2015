@@ -112,11 +112,6 @@ MAE_COOP_R::AnyState * MAE_COOP_R::MAE_COOP_R_State::Attente_State::_upper(MAE_C
 MAE_COOP_R::MAE_COOP_R_State::Jeu_State::attente_State::~attente_State() {
 }
 
-// returns the state containing the current
-MAE_COOP_R::AnyState * MAE_COOP_R::MAE_COOP_R_State::Jeu_State::attente_State::_upper(MAE_COOP_R & stm) {
-    return &stm._mae_coop_r_state._jeu_state;
-}
-
 // to manage the event time_out
 void MAE_COOP_R::MAE_COOP_R_State::Jeu_State::attente_State::time_out(MAE_COOP_R & stm) {
     {
@@ -142,6 +137,11 @@ void MAE_COOP_R::MAE_COOP_R_State::Jeu_State::attente_State::_doentry(MAE_COOP_R
   master->set_time_out(3000);
   // activation de l'evitement
   serialPrintf (master->getPortSerie(), "E1 \n") ;
+}
+
+// returns the state containing the current
+MAE_COOP_R::AnyState * MAE_COOP_R::MAE_COOP_R_State::Jeu_State::attente_State::_upper(MAE_COOP_R & stm) {
+    return &stm._mae_coop_r_state._jeu_state;
 }
 
 MAE_COOP_R::MAE_COOP_R_State::Jeu_State::deployement_State::~deployement_State() {
@@ -233,6 +233,17 @@ MAE_COOP_R::AnyState * MAE_COOP_R::MAE_COOP_R_State::Jeu_State::reprise_State::_
 MAE_COOP_R::MAE_COOP_R_State::Jeu_State::fin_deplacement_lateral_State::~fin_deplacement_lateral_State() {
 }
 
+// to manage the event time_out
+void MAE_COOP_R::MAE_COOP_R_State::Jeu_State::fin_deplacement_lateral_State::time_out(MAE_COOP_R & stm) {
+    {
+      stm._set_currentState(stm._mae_coop_r_state._jeu_state._bumper_en_bas_des_marches_state);
+#ifdef VERBOSE_STATE_MACHINE
+      puts("DEBUG : current state is now .MAE_COOP_R.Jeu.bumper en bas des marches");
+#endif
+      stm._mae_coop_r_state._jeu_state._bumper_en_bas_des_marches_state.create(stm);
+    }
+}
+
 // to manage the event create
 void MAE_COOP_R::MAE_COOP_R_State::Jeu_State::fin_deplacement_lateral_State::create(MAE_COOP_R & stm) {
   	_doentry(stm);
@@ -253,17 +264,6 @@ void MAE_COOP_R::MAE_COOP_R_State::Jeu_State::fin_deplacement_lateral_State::_do
 // returns the state containing the current
 MAE_COOP_R::AnyState * MAE_COOP_R::MAE_COOP_R_State::Jeu_State::fin_deplacement_lateral_State::_upper(MAE_COOP_R & stm) {
     return &stm._mae_coop_r_state._jeu_state;
-}
-
-// to manage the event time_out
-void MAE_COOP_R::MAE_COOP_R_State::Jeu_State::fin_deplacement_lateral_State::time_out(MAE_COOP_R & stm) {
-    {
-      stm._set_currentState(stm._mae_coop_r_state._jeu_state._bumper_en_bas_des_marches_state);
-#ifdef VERBOSE_STATE_MACHINE
-      puts("DEBUG : current state is now .MAE_COOP_R.Jeu.bumper en bas des marches");
-#endif
-      stm._mae_coop_r_state._jeu_state._bumper_en_bas_des_marches_state.create(stm);
-    }
 }
 
 MAE_COOP_R::MAE_COOP_R_State::Jeu_State::bumper_en_bas_des_marches_State::~bumper_en_bas_des_marches_State() {
@@ -342,11 +342,6 @@ MAE_COOP_R::AnyState * MAE_COOP_R::MAE_COOP_R_State::Jeu_State::Evitement_State:
 MAE_COOP_R::MAE_COOP_R_State::Jeu_State::fin_de_jeu_State::~fin_de_jeu_State() {
 }
 
-// returns the state containing the current
-MAE_COOP_R::AnyState * MAE_COOP_R::MAE_COOP_R_State::Jeu_State::fin_de_jeu_State::_upper(MAE_COOP_R & stm) {
-    return &stm._mae_coop_r_state._jeu_state;
-}
-
 // to manage the event create
 void MAE_COOP_R::MAE_COOP_R_State::Jeu_State::fin_de_jeu_State::create(MAE_COOP_R & stm) {
   	_doentry(stm);
@@ -361,12 +356,12 @@ void MAE_COOP_R::MAE_COOP_R_State::Jeu_State::fin_de_jeu_State::_doentry(MAE_COO
   cout<<"########  FIN DE JEU  ###########"<<endl;
 }
 
-MAE_COOP_R::MAE_COOP_R_State::Jeu_State::remonte_2_State::~remonte_2_State() {
+// returns the state containing the current
+MAE_COOP_R::AnyState * MAE_COOP_R::MAE_COOP_R_State::Jeu_State::fin_de_jeu_State::_upper(MAE_COOP_R & stm) {
+    return &stm._mae_coop_r_state._jeu_state;
 }
 
-// returns the state containing the current
-MAE_COOP_R::AnyState * MAE_COOP_R::MAE_COOP_R_State::Jeu_State::remonte_2_State::_upper(MAE_COOP_R & stm) {
-    return &stm._mae_coop_r_state._jeu_state;
+MAE_COOP_R::MAE_COOP_R_State::Jeu_State::remonte_2_State::~remonte_2_State() {
 }
 
 // to manage the event ioFini
@@ -395,12 +390,12 @@ void MAE_COOP_R::MAE_COOP_R_State::Jeu_State::remonte_2_State::_doentry(MAE_COOP
   serialPrintf (master->getPortSerie(), "T3 \n"); 
 }
 
-MAE_COOP_R::MAE_COOP_R_State::Jeu_State::preparation_pose_second_tapis_State::~preparation_pose_second_tapis_State() {
+// returns the state containing the current
+MAE_COOP_R::AnyState * MAE_COOP_R::MAE_COOP_R_State::Jeu_State::remonte_2_State::_upper(MAE_COOP_R & stm) {
+    return &stm._mae_coop_r_state._jeu_state;
 }
 
-// returns the state containing the current
-MAE_COOP_R::AnyState * MAE_COOP_R::MAE_COOP_R_State::Jeu_State::preparation_pose_second_tapis_State::_upper(MAE_COOP_R & stm) {
-    return &stm._mae_coop_r_state._jeu_state;
+MAE_COOP_R::MAE_COOP_R_State::Jeu_State::preparation_pose_second_tapis_State::~preparation_pose_second_tapis_State() {
 }
 
 // to manage the event ioFini
@@ -429,12 +424,12 @@ void MAE_COOP_R::MAE_COOP_R_State::Jeu_State::preparation_pose_second_tapis_Stat
   serialPrintf (master->getPortSerie(), "T2 \n") ;
 }
 
-MAE_COOP_R::MAE_COOP_R_State::Jeu_State::decalage_droite_State::~decalage_droite_State() {
+// returns the state containing the current
+MAE_COOP_R::AnyState * MAE_COOP_R::MAE_COOP_R_State::Jeu_State::preparation_pose_second_tapis_State::_upper(MAE_COOP_R & stm) {
+    return &stm._mae_coop_r_state._jeu_state;
 }
 
-// returns the state containing the current
-MAE_COOP_R::AnyState * MAE_COOP_R::MAE_COOP_R_State::Jeu_State::decalage_droite_State::_upper(MAE_COOP_R & stm) {
-    return &stm._mae_coop_r_state._jeu_state;
+MAE_COOP_R::MAE_COOP_R_State::Jeu_State::decalage_droite_State::~decalage_droite_State() {
 }
 
 // to manage the event assFini
@@ -463,12 +458,12 @@ void MAE_COOP_R::MAE_COOP_R_State::Jeu_State::decalage_droite_State::_doentry(MA
   serialPrintf (master->getPortSerie(), "A8 \n") ;
 }
 
-MAE_COOP_R::MAE_COOP_R_State::Jeu_State::remonte_State::~remonte_State() {
+// returns the state containing the current
+MAE_COOP_R::AnyState * MAE_COOP_R::MAE_COOP_R_State::Jeu_State::decalage_droite_State::_upper(MAE_COOP_R & stm) {
+    return &stm._mae_coop_r_state._jeu_state;
 }
 
-// returns the state containing the current
-MAE_COOP_R::AnyState * MAE_COOP_R::MAE_COOP_R_State::Jeu_State::remonte_State::_upper(MAE_COOP_R & stm) {
-    return &stm._mae_coop_r_state._jeu_state;
+MAE_COOP_R::MAE_COOP_R_State::Jeu_State::remonte_State::~remonte_State() {
 }
 
 // to manage the event ioFini
@@ -497,12 +492,12 @@ void MAE_COOP_R::MAE_COOP_R_State::Jeu_State::remonte_State::_doentry(MAE_COOP_R
   serialPrintf (master->getPortSerie(), "T1 \n") ;
 }
 
-MAE_COOP_R::MAE_COOP_R_State::Jeu_State::preparation_pose_premier_tapis_State::~preparation_pose_premier_tapis_State() {
+// returns the state containing the current
+MAE_COOP_R::AnyState * MAE_COOP_R::MAE_COOP_R_State::Jeu_State::remonte_State::_upper(MAE_COOP_R & stm) {
+    return &stm._mae_coop_r_state._jeu_state;
 }
 
-// returns the state containing the current
-MAE_COOP_R::AnyState * MAE_COOP_R::MAE_COOP_R_State::Jeu_State::preparation_pose_premier_tapis_State::_upper(MAE_COOP_R & stm) {
-    return &stm._mae_coop_r_state._jeu_state;
+MAE_COOP_R::MAE_COOP_R_State::Jeu_State::preparation_pose_premier_tapis_State::~preparation_pose_premier_tapis_State() {
 }
 
 // to manage the event ioFini
@@ -531,12 +526,12 @@ void MAE_COOP_R::MAE_COOP_R_State::Jeu_State::preparation_pose_premier_tapis_Sta
   serialPrintf (master->getPortSerie(), "T0 \n") ;
 }
 
-MAE_COOP_R::MAE_COOP_R_State::Jeu_State::decalage_gauche_State::~decalage_gauche_State() {
+// returns the state containing the current
+MAE_COOP_R::AnyState * MAE_COOP_R::MAE_COOP_R_State::Jeu_State::preparation_pose_premier_tapis_State::_upper(MAE_COOP_R & stm) {
+    return &stm._mae_coop_r_state._jeu_state;
 }
 
-// returns the state containing the current
-MAE_COOP_R::AnyState * MAE_COOP_R::MAE_COOP_R_State::Jeu_State::decalage_gauche_State::_upper(MAE_COOP_R & stm) {
-    return &stm._mae_coop_r_state._jeu_state;
+MAE_COOP_R::MAE_COOP_R_State::Jeu_State::decalage_gauche_State::~decalage_gauche_State() {
 }
 
 // to manage the event assFini
@@ -565,12 +560,12 @@ void MAE_COOP_R::MAE_COOP_R_State::Jeu_State::decalage_gauche_State::_doentry(MA
   serialPrintf (master->getPortSerie(), "A7 \n") ;
 }
 
-MAE_COOP_R::MAE_COOP_R_State::Jeu_State::ascension_State::~ascension_State() {
+// returns the state containing the current
+MAE_COOP_R::AnyState * MAE_COOP_R::MAE_COOP_R_State::Jeu_State::decalage_gauche_State::_upper(MAE_COOP_R & stm) {
+    return &stm._mae_coop_r_state._jeu_state;
 }
 
-// returns the state containing the current
-MAE_COOP_R::AnyState * MAE_COOP_R::MAE_COOP_R_State::Jeu_State::ascension_State::_upper(MAE_COOP_R & stm) {
-    return &stm._mae_coop_r_state._jeu_state;
+MAE_COOP_R::MAE_COOP_R_State::Jeu_State::ascension_State::~ascension_State() {
 }
 
 // to manage the event assFini
@@ -596,15 +591,15 @@ void MAE_COOP_R::MAE_COOP_R_State::Jeu_State::ascension_State::_doentry(MAE_COOP
 #endif
   cout<<"[BOUML] etat ascension"<<endl;
   // grimpe
-  serialPrintf (master->getPortSerie(), "S6 \n") ;
-}
-
-MAE_COOP_R::MAE_COOP_R_State::Jeu_State::attente_recalibration_State::~attente_recalibration_State() {
+  serialPrintf (master->getPortSerie(), "S0 20000 \n") ;
 }
 
 // returns the state containing the current
-MAE_COOP_R::AnyState * MAE_COOP_R::MAE_COOP_R_State::Jeu_State::attente_recalibration_State::_upper(MAE_COOP_R & stm) {
+MAE_COOP_R::AnyState * MAE_COOP_R::MAE_COOP_R_State::Jeu_State::ascension_State::_upper(MAE_COOP_R & stm) {
     return &stm._mae_coop_r_state._jeu_state;
+}
+
+MAE_COOP_R::MAE_COOP_R_State::Jeu_State::attente_recalibration_State::~attente_recalibration_State() {
 }
 
 // to manage the event time_out
@@ -643,12 +638,12 @@ void MAE_COOP_R::MAE_COOP_R_State::Jeu_State::attente_recalibration_State::_doex
   // ordre de reset angle
 }
 
-MAE_COOP_R::MAE_COOP_R_State::Jeu_State::deplacement_lateral_State::~deplacement_lateral_State() {
+// returns the state containing the current
+MAE_COOP_R::AnyState * MAE_COOP_R::MAE_COOP_R_State::Jeu_State::attente_recalibration_State::_upper(MAE_COOP_R & stm) {
+    return &stm._mae_coop_r_state._jeu_state;
 }
 
-// returns the state containing the current
-MAE_COOP_R::AnyState * MAE_COOP_R::MAE_COOP_R_State::Jeu_State::deplacement_lateral_State::_upper(MAE_COOP_R & stm) {
-    return &stm._mae_coop_r_state._jeu_state;
+MAE_COOP_R::MAE_COOP_R_State::Jeu_State::deplacement_lateral_State::~deplacement_lateral_State() {
 }
 
 // to manage the event adversaire
@@ -705,6 +700,11 @@ void MAE_COOP_R::MAE_COOP_R_State::Jeu_State::deplacement_lateral_State::_doentr
   // on part sur la gauche
   serialPrintf (master->getPortSerie(), "A3 5\n") ;
   }
+}
+
+// returns the state containing the current
+MAE_COOP_R::AnyState * MAE_COOP_R::MAE_COOP_R_State::Jeu_State::deplacement_lateral_State::_upper(MAE_COOP_R & stm) {
+    return &stm._mae_coop_r_state._jeu_state;
 }
 
 MAE_COOP_R::MAE_COOP_R_State::Jeu_State::~Jeu_State() {
@@ -786,19 +786,6 @@ bool MAE_COOP_R::stratEnleve() {
     return (_current_state != 0);
 }
 
-// to execute the current state 'do activity'
-void MAE_COOP_R::doActivity() {
-    _current_state->_do(*this);
-}
-
-// execution done, internal
-void MAE_COOP_R::_final() {
-    _current_state = 0;
-#ifdef VERBOSE_STATE_MACHINE
-    puts("DEBUG : final state reached");
-#endif
-}
-
 // the operation you call to signal the event time_out
 bool MAE_COOP_R::time_out() {
     if (_current_state != 0) {
@@ -841,5 +828,18 @@ bool MAE_COOP_R::ioFini() {
       _current_state->ioFini(*this);
     }
     return (_current_state != 0);
+}
+
+// to execute the current state 'do activity'
+void MAE_COOP_R::doActivity() {
+    _current_state->_do(*this);
+}
+
+// execution done, internal
+void MAE_COOP_R::_final() {
+    _current_state = 0;
+#ifdef VERBOSE_STATE_MACHINE
+    puts("DEBUG : final state reached");
+#endif
 }
 
