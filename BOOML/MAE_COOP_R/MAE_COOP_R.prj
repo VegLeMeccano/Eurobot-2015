@@ -166,9 +166,9 @@ serialPrintf (master->getPortSerie(), \"S6 \\n\") ;"
 	end
 
 	state 135554 "decalage gauche"
-	    cpp_on_entry "cout<<\"[BOUML] etat decalage gauche\"<<endl;
+	    cpp_on_entry "cout<<\"[BOUML] etat recalage gauche\"<<endl;
 // decalage gauche
-serialPrintf (master->getPortSerie(), \"A3 \\n\") ;"
+serialPrintf (master->getPortSerie(), \"A7 \\n\") ;"
 	  transition 162818 "<transition>"
 	    on state_ref 135682 // preparation pose premier tapis
 	      cpp_trigger "assFini"
@@ -199,9 +199,9 @@ serialPrintf (master->getPortSerie(), \"T1 \\n\") ;"
 	end
 
 	state 135938 "decalage droite"
-	    cpp_on_entry "cout<<\"[BOUML] etat decalage droite\"<<endl;
+	    cpp_on_entry "cout<<\"[BOUML] etat recalage droite\"<<endl;
 // decalage gauche
-serialPrintf (master->getPortSerie(), \"A2 \\n\") ;"
+serialPrintf (master->getPortSerie(), \"A8 \\n\") ;"
 	  transition 163074 "<transition>"
 	    on state_ref 136066 // preparation pose second tapis
 	      cpp_trigger "assFini"

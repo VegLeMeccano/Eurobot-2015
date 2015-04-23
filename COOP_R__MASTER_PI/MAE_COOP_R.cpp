@@ -458,9 +458,9 @@ void MAE_COOP_R::MAE_COOP_R_State::Jeu_State::decalage_droite_State::_doentry(MA
 #ifdef VERBOSE_STATE_MACHINE
   	puts("DEBUG : execute entry behavior of .MAE_COOP_R.Jeu.decalage droite");
 #endif
-  cout<<"[BOUML] etat decalage droite"<<endl;
+  cout<<"[BOUML] etat recalage droite"<<endl;
   // decalage gauche
-  serialPrintf (master->getPortSerie(), "A2 \n") ;
+  serialPrintf (master->getPortSerie(), "A8 \n") ;
 }
 
 MAE_COOP_R::MAE_COOP_R_State::Jeu_State::remonte_State::~remonte_State() {
@@ -560,9 +560,9 @@ void MAE_COOP_R::MAE_COOP_R_State::Jeu_State::decalage_gauche_State::_doentry(MA
 #ifdef VERBOSE_STATE_MACHINE
   	puts("DEBUG : execute entry behavior of .MAE_COOP_R.Jeu.decalage gauche");
 #endif
-  cout<<"[BOUML] etat decalage gauche"<<endl;
+  cout<<"[BOUML] etat recalage gauche"<<endl;
   // decalage gauche
-  serialPrintf (master->getPortSerie(), "A3 \n") ;
+  serialPrintf (master->getPortSerie(), "A7 \n") ;
 }
 
 MAE_COOP_R::MAE_COOP_R_State::Jeu_State::ascension_State::~ascension_State() {
