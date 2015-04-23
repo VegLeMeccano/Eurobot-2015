@@ -24,9 +24,6 @@ class MAE_COOP_R {
         // the current state doesn't manage the event stratEnleve, give it to the upper state
         virtual void stratEnleve(MAE_COOP_R & stm);
 
-        // the current state doesn't manage the event evitement, give it to the upper state
-        virtual void evitement(MAE_COOP_R & stm);
-
         // the current state doesn't manage the event time_out, give it to the upper state
         virtual void time_out(MAE_COOP_R & stm);
 
@@ -51,24 +48,6 @@ class MAE_COOP_R {
 
             // to manage the event stratEnleve
             virtual void stratEnleve(MAE_COOP_R & stm);
-
-            // to manage the event create
-            virtual void create(MAE_COOP_R & stm);
-
-            // perform the 'entry behavior'
-            void _doentry(MAE_COOP_R & stm);
-
-            // returns the state containing the current
-            virtual AnyState * _upper(MAE_COOP_R & stm);
-
-        };
-        
-        // implement the state Evitement
-        class Evitement_State : public AnyState {
-          public:
-            virtual ~Evitement_State();
-
-            virtual bool _completion(MAE_COOP_R & stm);
 
             // to manage the event create
             virtual void create(MAE_COOP_R & stm);
@@ -149,9 +128,6 @@ class MAE_COOP_R {
               public:
                 virtual ~fin_deplacement_lateral_State();
 
-                // to manage the event assFini
-                virtual void assFini(MAE_COOP_R & stm);
-
                 // to manage the event create
                 virtual void create(MAE_COOP_R & stm);
 
@@ -160,6 +136,9 @@ class MAE_COOP_R {
 
                 // returns the state containing the current
                 virtual AnyState * _upper(MAE_COOP_R & stm);
+
+                // to manage the event time_out
+                virtual void time_out(MAE_COOP_R & stm);
 
             };
             
@@ -170,25 +149,6 @@ class MAE_COOP_R {
 
                 // to manage the event assFini
                 virtual void assFini(MAE_COOP_R & stm);
-
-                // to manage the event create
-                virtual void create(MAE_COOP_R & stm);
-
-                // perform the 'entry behavior'
-                void _doentry(MAE_COOP_R & stm);
-
-                // returns the state containing the current
-                virtual AnyState * _upper(MAE_COOP_R & stm);
-
-            };
-            
-            // implement the state attente evitement
-            class attente_evitement_State : public AnyState {
-              public:
-                virtual ~attente_evitement_State();
-
-                // to manage the event time_out
-                virtual void time_out(MAE_COOP_R & stm);
 
                 // to manage the event create
                 virtual void create(MAE_COOP_R & stm);
@@ -448,9 +408,6 @@ class MAE_COOP_R {
             // memorize the instance of the state fin de jeu, internal
             fin_de_jeu_State _fin_de_jeu_state;
 
-            // to manage the event evitement
-            virtual void evitement(MAE_COOP_R & stm);
-
             // to manage the event create
             virtual void create(MAE_COOP_R & stm);
 
@@ -464,9 +421,6 @@ class MAE_COOP_R {
 
             // memorize the instance of the state Evitement, internal
             Evitement_State _evitement_state;
-
-            // memorize the instance of the state attente evitement, internal
-            attente_evitement_State _attente_evitement_state;
 
             // memorize the instance of the state bumper en bas des marches, internal
             bumper_en_bas_des_marches_State _bumper_en_bas_des_marches_state;
@@ -489,9 +443,6 @@ class MAE_COOP_R {
 
         // memorize the instance of the state Jeu, internal
         Jeu_State _jeu_state;
-
-        // memorize the instance of the state Evitement, internal
-        Evitement_State _evitement_state;
 
         // to manage the event create
         virtual void create(MAE_COOP_R & stm);
@@ -517,9 +468,6 @@ class MAE_COOP_R {
     bool stratEnleve();
 
   friend class MAE_COOP_R_State::Attente_State;
-    // the operation you call to signal the event evitement
-    bool evitement();
-
   friend class MAE_COOP_R_State::Jeu_State::attente_State;
   friend class MAE_COOP_R_State::Jeu_State::deplacement_lateral_State;
   friend class MAE_COOP_R_State::Jeu_State::attente_recalibration_State;
@@ -532,7 +480,6 @@ class MAE_COOP_R {
   friend class MAE_COOP_R_State::Jeu_State::remonte_2_State;
   friend class MAE_COOP_R_State::Jeu_State::fin_de_jeu_State;
   friend class MAE_COOP_R_State::Jeu_State;
-  friend class MAE_COOP_R_State::Evitement_State;
   friend class MAE_COOP_R_State;
     // to execute the current state 'do activity'
     void doActivity();
@@ -563,7 +510,6 @@ class MAE_COOP_R {
     bool ioFini();
 
   friend class MAE_COOP_R_State::Jeu_State::Evitement_State;
-  friend class MAE_COOP_R_State::Jeu_State::attente_evitement_State;
   friend class MAE_COOP_R_State::Jeu_State::bumper_en_bas_des_marches_State;
   friend class MAE_COOP_R_State::Jeu_State::fin_deplacement_lateral_State;
   friend class MAE_COOP_R_State::Jeu_State::reprise_State;
