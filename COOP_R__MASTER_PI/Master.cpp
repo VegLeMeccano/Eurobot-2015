@@ -9,14 +9,8 @@ Master::Master(int portSerie_):
     cycle_attente(0),
     portSerie(portSerie_)
 {
-    //set_couleur(COULEUR_JAUNE);
-    //ctor
     mae_coop_r.create();
-    //mae_coop_r.doActivity();
-    //mae_coop_r.stratEnleve();
-    //mae_coop_r.evitement();
     cout << "[MASTER_COOP'R] initialisation" << endl;
-    //mae_coop_r.s
 }
 
 int Master::getPortSerie()
