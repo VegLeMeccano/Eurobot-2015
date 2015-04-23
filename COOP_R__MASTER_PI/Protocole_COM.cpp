@@ -160,8 +160,9 @@ void Protocole_COM::executeinstr()
         // pour les tours de roues?
         if(s.find("TOUR") != string::npos)
         {
-            int tour = ((int)temp[7]) - 48;
+            int tour = ((int)s[7]) - 48;
             cout<<"[Master] tour de roue laterale"<<endl;
+            cout<<"tour de roue casted : "<<tour<<endl;
             master->tour_roue_set(tour);
             cout<<"tour de roue master : "<<master->get_tour_roue()<<endl;
         }

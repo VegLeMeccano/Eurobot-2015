@@ -2,7 +2,7 @@
 #define PERIOD_H
 
 #include <ctime>
-
+#include <wiringPi.h>
 
 class Period
 {
@@ -14,6 +14,7 @@ class Period
     private:
         long period;
         long time_last_reset;
+        long t;
 
 };
 

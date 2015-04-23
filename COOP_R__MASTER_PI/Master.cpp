@@ -90,9 +90,11 @@ void Master::run()
 // tempo
 void Master::set_time_out(int dt_)
 {
-    t_over = clock() + dt_;
+    t_over = millis() + dt_;
     time_out_on = true;
     cout<<"time_out set "<< dt_<<endl;
+    cout<<"time in "<< millis()<<endl;
+    cout<<"time out "<< t_over<<endl;
 }
 
 // reset time out
@@ -104,9 +106,10 @@ void Master::reset_time_out()
 // es ce que c'est fini
 bool Master::is_time_out()
 {
-   if (time_out_on && t_over < clock())
+   if (time_out_on && t_over < millis())
    {
      time_out_on = false;
+     cout<<"time in "<< millis()<<endl;
      return true;
    }
    return false;

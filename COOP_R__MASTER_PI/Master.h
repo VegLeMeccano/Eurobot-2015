@@ -2,6 +2,7 @@
 #define MASTER_H
 #include "Period.h"
 #include "MAE_COOP_R.h"
+#include <wiringPi.h>
 
 #define PERIODE_MASTER 50
 

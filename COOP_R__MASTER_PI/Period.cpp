@@ -8,13 +8,13 @@ Period::Period(int period_):period(period_)
 
 void Period::reset()
 {
-    time_last_reset = clock();
+    time_last_reset = millis();
 }
 
 
 
 bool Period::is_over(){
-    long t = clock();
+    t = millis();
     if (t - time_last_reset > period){
     return true;
     }
