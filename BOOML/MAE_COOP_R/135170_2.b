@@ -16,7 +16,7 @@ class attente_State
 	puts("DEBUG : execute entry behavior of .MAE_COOP_R.Jeu.attente");
 #endif
 cout<<"[BOUML] etat attente initial"<<endl;
-master->set_time_out(100);
+master->set_time_out(3000);
 // activation de l'evitement
 serialPrintf (master->getPortSerie(), "E1 \n") ;
 !!!151554.cpp!!!	_doentry(inout stm : MAE_COOP_R) : void

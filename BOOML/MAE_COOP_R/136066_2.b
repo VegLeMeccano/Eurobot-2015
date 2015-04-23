@@ -22,6 +22,6 @@ serialPrintf (master->getPortSerie(), "A2 \n") ;
 #ifdef VERBOSE_STATE_MACHINE
 	puts("DEBUG : execute entry behavior of .MAE_COOP_R.Jeu.decalage droite");
 #endif
-cout<<"[BOUML] etat decalage droite"<<endl;
+cout<<"[BOUML] etat recalage droite"<<endl;
 // decalage gauche
-serialPrintf (master->getPortSerie(), "A2 \n") ;
+serialPrintf (master->getPortSerie(), "A8 \n") ;
