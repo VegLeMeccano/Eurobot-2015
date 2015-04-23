@@ -101,6 +101,7 @@ void MAE_COOP_R::MAE_COOP_R_State::Attente_State::_doentry(MAE_COOP_R & stm) {
   	puts("DEBUG : execute entry behavior of .MAE_COOP_R.Attente");
 #endif
   cout<<"etat attente"<<endl;
+  cout<<"portSerie : "<<portSerie<<endl
 }
 
 // returns the state containing the current
