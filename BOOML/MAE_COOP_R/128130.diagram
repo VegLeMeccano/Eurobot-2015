@@ -9,7 +9,7 @@ pseudostatecanvas 128130 pseudostate_ref 128130 // initial
 end
 statecanvas 128258 state_ref 128258 // Attente
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 362 214 2005 319 75
+  xyzwh 362 214 2005 323 75
 end
 statecanvas 128386 state_ref 128386 // Jeu
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
@@ -22,7 +22,7 @@ transitioncanvas 128642 transition_ref 128130 // <transition>
 end
 transitioncanvas 128770 transition_ref 128258 // <transition>
   
-  from ref 128258 z 2006 label "stratEnleve" xyz 494 313 2006 to point 473 305
+  from ref 128258 z 2006 label "stratEnleve" xyz 494.5 313 2006 to point 473 305
   line 129922 z 2006 to point 473 316
   line 129794 z 2006 to ref 128386
   write_horizontally default show_definition default drawing_language default

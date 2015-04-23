@@ -1,6 +1,6 @@
 format 76
 "MAE_COOP_R"
-  revision 24
+  revision 25
   modified_by 2 "Link"
   cpp_root_dir "D:/Club Robotique IRON MENAD 2/Eurobot 2015 Iron Menad/Eurobot-2015/COOP_R__MASTER_PI/"
 
@@ -74,7 +74,7 @@ format 76
 
       state 128258 "Attente"
 	  cpp_on_entry "cout<<\"[BOUML] etat attente\"<<endl;
-cout<<\"portSerie : \"<<master->getPortSerie()<<endl"
+cout<<\"portSerie : \"<<master->getPortSerie()<<endl;"
 	transition 128258 "<transition>"
 	  on state_ref 128386 // Jeu
 	    cpp_trigger "stratEnleve"

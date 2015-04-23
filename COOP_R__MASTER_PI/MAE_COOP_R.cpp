@@ -19,7 +19,7 @@ void MAE_COOP_R::AnyState::create(MAE_COOP_R &) {
 // the current state doesn't manage the event stratEnleve, give it to the upper state
 void MAE_COOP_R::AnyState::stratEnleve(MAE_COOP_R & stm) {
     AnyState * st = _upper(stm);
-
+  
     if (st != 0)
       st->stratEnleve(stm);
 #ifdef VERBOSE_STATE_MACHINE
@@ -31,7 +31,7 @@ void MAE_COOP_R::AnyState::stratEnleve(MAE_COOP_R & stm) {
 // the current state doesn't manage the event time_out, give it to the upper state
 void MAE_COOP_R::AnyState::time_out(MAE_COOP_R & stm) {
     AnyState * st = _upper(stm);
-
+  
     if (st != 0)
       st->time_out(stm);
 #ifdef VERBOSE_STATE_MACHINE
@@ -43,7 +43,7 @@ void MAE_COOP_R::AnyState::time_out(MAE_COOP_R & stm) {
 // the current state doesn't manage the event adversaire, give it to the upper state
 void MAE_COOP_R::AnyState::adversaire(MAE_COOP_R & stm) {
     AnyState * st = _upper(stm);
-
+  
     if (st != 0)
       st->adversaire(stm);
 #ifdef VERBOSE_STATE_MACHINE
@@ -55,7 +55,7 @@ void MAE_COOP_R::AnyState::adversaire(MAE_COOP_R & stm) {
 // the current state doesn't manage the event assFini, give it to the upper state
 void MAE_COOP_R::AnyState::assFini(MAE_COOP_R & stm) {
     AnyState * st = _upper(stm);
-
+  
     if (st != 0)
       st->assFini(stm);
 #ifdef VERBOSE_STATE_MACHINE
@@ -67,7 +67,7 @@ void MAE_COOP_R::AnyState::assFini(MAE_COOP_R & stm) {
 // the current state doesn't manage the event ioFini, give it to the upper state
 void MAE_COOP_R::AnyState::ioFini(MAE_COOP_R & stm) {
     AnyState * st = _upper(stm);
-
+  
     if (st != 0)
       st->ioFini(stm);
 #ifdef VERBOSE_STATE_MACHINE
@@ -100,8 +100,8 @@ void MAE_COOP_R::MAE_COOP_R_State::Attente_State::_doentry(MAE_COOP_R & stm) {
 #ifdef VERBOSE_STATE_MACHINE
   	puts("DEBUG : execute entry behavior of .MAE_COOP_R.Attente");
 #endif
-  cout<<"etat attente"<<endl;
-  cout<<"portSerie : "<<portSerie<<endl
+  cout<<"[BOUML] etat attente"<<endl;
+  cout<<"portSerie : "<<master->getPortSerie()<<endl;
 }
 
 // returns the state containing the current
@@ -138,9 +138,10 @@ void MAE_COOP_R::MAE_COOP_R_State::Jeu_State::attente_State::_doentry(MAE_COOP_R
 #ifdef VERBOSE_STATE_MACHINE
   	puts("DEBUG : execute entry behavior of .MAE_COOP_R.Jeu.attente");
 #endif
+  cout<<"[BOUML] etat attente initial"<<endl;
   master->set_time_out(100);
   // activation de l'evitement
-  serialPrintf (portSerie, "E1 \n") ;
+  serialPrintf (master->getPortSerie(), "E1 \n") ;
 }
 
 MAE_COOP_R::MAE_COOP_R_State::Jeu_State::deployement_State::~deployement_State() {
@@ -167,9 +168,10 @@ void MAE_COOP_R::MAE_COOP_R_State::Jeu_State::deployement_State::_doentry(MAE_CO
 #ifdef VERBOSE_STATE_MACHINE
   	puts("DEBUG : execute entry behavior of .MAE_COOP_R.Jeu.deployement");
 #endif
+  cout<<"[BOUML] etat deployement"<<endl;
   master->set_time_out(2000);
   // deployement des chaines secondaires
-  serialPrintf (portSerie, "S5 \n") ;
+  serialPrintf (master->getPortSerie(), "S5 \n") ;
 }
 
 // returns the state containing the current
@@ -214,12 +216,12 @@ void MAE_COOP_R::MAE_COOP_R_State::Jeu_State::reprise_State::_doentry(MAE_COOP_R
 #endif
   if(master->get_cycle_attente()>5){
   // desactivation de l'evitement :: on pousse le mec, rien a battre!
-  serialPrintf (portSerie, "E0 \n") ;
+  serialPrintf (master->getPortSerie(), "E0 \n") ;
   }
   else
   {
   	// reprise asserv en cours
-  	serialPrintf (portSerie, "A5 \n") ;
+  	serialPrintf (master->getPortSerie(), "A5 \n") ;
   }
 }
 
@@ -241,9 +243,10 @@ void MAE_COOP_R::MAE_COOP_R_State::Jeu_State::fin_deplacement_lateral_State::_do
 #ifdef VERBOSE_STATE_MACHINE
   	puts("DEBUG : execute entry behavior of .MAE_COOP_R.Jeu.fin deplacement lateral");
 #endif
+  cout<<"[BOUML] etat fin de deplacement lateral"<<endl;
   // recalage des roues alignement
   // desactivation de l'evitement
-  serialPrintf (portSerie, "E0 \n") ;
+  serialPrintf (master->getPortSerie(), "E0 \n") ;
   master->set_time_out(2000);
 }
 
@@ -287,9 +290,10 @@ void MAE_COOP_R::MAE_COOP_R_State::Jeu_State::bumper_en_bas_des_marches_State::_
 #ifdef VERBOSE_STATE_MACHINE
   	puts("DEBUG : execute entry behavior of .MAE_COOP_R.Jeu.bumper en bas des marches");
 #endif
+  cout<<"[BOUML] etat bumper bas des marches"<<endl;
   // on va bumper en bas des marches
   // on suppose que c'est pas possible qu'il y ait n con qui passe devant... a verifier
-  serialPrintf (portSerie, "A6 \n") ;
+  serialPrintf (master->getPortSerie(), "A6 \n") ;
 }
 
 // returns the state containing the current
@@ -323,8 +327,8 @@ void MAE_COOP_R::MAE_COOP_R_State::Jeu_State::Evitement_State::_doentry(MAE_COOP
 #endif
   // si on a atteint au moins 4 tours de roues, on stoppe l'asserv
   // on raligne les roues (finir, ou attente d'asserv toujours sur un tour de roue fix)
-  serialPrintf (portSerie, "A \n") ;
-
+  serialPrintf (master->getPortSerie(), "A \n") ;
+  
   // mettre des etats de transistions...
   master->set_time_out(1000);
   master->cycle_attente_incremente();
@@ -386,8 +390,9 @@ void MAE_COOP_R::MAE_COOP_R_State::Jeu_State::remonte_2_State::_doentry(MAE_COOP
 #ifdef VERBOSE_STATE_MACHINE
   	puts("DEBUG : execute entry behavior of .MAE_COOP_R.Jeu.remonte 2");
 #endif
+  cout<<"[BOUML] etat remonte tapis 2"<<endl;
   // replis du premier tapis
-  serialPrintf (portSerie, "T3 \n") ;
+  serialPrintf (master->getPortSerie(), "T3 \n"); 
 }
 
 MAE_COOP_R::MAE_COOP_R_State::Jeu_State::preparation_pose_second_tapis_State::~preparation_pose_second_tapis_State() {
@@ -419,8 +424,9 @@ void MAE_COOP_R::MAE_COOP_R_State::Jeu_State::preparation_pose_second_tapis_Stat
 #ifdef VERBOSE_STATE_MACHINE
   	puts("DEBUG : execute entry behavior of .MAE_COOP_R.Jeu.preparation pose second tapis");
 #endif
+  cout<<"[BOUML] etat preparation pose tapis 2"<<endl;
   // deployement du second tapis
-  serialPrintf (portSerie, "T2 \n") ;
+  serialPrintf (master->getPortSerie(), "T2 \n") ;
 }
 
 MAE_COOP_R::MAE_COOP_R_State::Jeu_State::decalage_droite_State::~decalage_droite_State() {
@@ -452,8 +458,9 @@ void MAE_COOP_R::MAE_COOP_R_State::Jeu_State::decalage_droite_State::_doentry(MA
 #ifdef VERBOSE_STATE_MACHINE
   	puts("DEBUG : execute entry behavior of .MAE_COOP_R.Jeu.decalage droite");
 #endif
+  cout<<"[BOUML] etat decalage droite"<<endl;
   // decalage gauche
-  serialPrintf (portSerie, "A2 \n") ;
+  serialPrintf (master->getPortSerie(), "A2 \n") ;
 }
 
 MAE_COOP_R::MAE_COOP_R_State::Jeu_State::remonte_State::~remonte_State() {
@@ -485,8 +492,9 @@ void MAE_COOP_R::MAE_COOP_R_State::Jeu_State::remonte_State::_doentry(MAE_COOP_R
 #ifdef VERBOSE_STATE_MACHINE
   	puts("DEBUG : execute entry behavior of .MAE_COOP_R.Jeu.remonte");
 #endif
+  cout<<"[BOUML] etat remonte tapis 1"<<endl;
   // replis du premier tapis
-  serialPrintf (portSerie, "T1 \n") ;
+  serialPrintf (master->getPortSerie(), "T1 \n") ;
 }
 
 MAE_COOP_R::MAE_COOP_R_State::Jeu_State::preparation_pose_premier_tapis_State::~preparation_pose_premier_tapis_State() {
@@ -518,8 +526,9 @@ void MAE_COOP_R::MAE_COOP_R_State::Jeu_State::preparation_pose_premier_tapis_Sta
 #ifdef VERBOSE_STATE_MACHINE
   	puts("DEBUG : execute entry behavior of .MAE_COOP_R.Jeu.preparation pose premier tapis");
 #endif
+  cout<<"[BOUML] etat preparation pose tapis 1"<<endl;
   // deployement du premier tapis
-  serialPrintf (portSerie, "T0 \n") ;
+  serialPrintf (master->getPortSerie(), "T0 \n") ;
 }
 
 MAE_COOP_R::MAE_COOP_R_State::Jeu_State::decalage_gauche_State::~decalage_gauche_State() {
@@ -551,8 +560,9 @@ void MAE_COOP_R::MAE_COOP_R_State::Jeu_State::decalage_gauche_State::_doentry(MA
 #ifdef VERBOSE_STATE_MACHINE
   	puts("DEBUG : execute entry behavior of .MAE_COOP_R.Jeu.decalage gauche");
 #endif
+  cout<<"[BOUML] etat decalage gauche"<<endl;
   // decalage gauche
-  serialPrintf (portSerie, "A3 \n") ;
+  serialPrintf (master->getPortSerie(), "A3 \n") ;
 }
 
 MAE_COOP_R::MAE_COOP_R_State::Jeu_State::ascension_State::~ascension_State() {
@@ -584,8 +594,9 @@ void MAE_COOP_R::MAE_COOP_R_State::Jeu_State::ascension_State::_doentry(MAE_COOP
 #ifdef VERBOSE_STATE_MACHINE
   	puts("DEBUG : execute entry behavior of .MAE_COOP_R.Jeu.ascension");
 #endif
+  cout<<"[BOUML] etat ascension"<<endl;
   // grimpe
-  serialPrintf (portSerie, "S6 \n") ;
+  serialPrintf (master->getPortSerie(), "S6 \n") ;
 }
 
 MAE_COOP_R::MAE_COOP_R_State::Jeu_State::attente_recalibration_State::~attente_recalibration_State() {
@@ -618,9 +629,10 @@ void MAE_COOP_R::MAE_COOP_R_State::Jeu_State::attente_recalibration_State::_doen
 #ifdef VERBOSE_STATE_MACHINE
   	puts("DEBUG : execute entry behavior of .MAE_COOP_R.Jeu.attente recalibration");
 #endif
+  cout<<"[BOUML] etat attente recalibration"<<endl;
   master->set_time_out(4000);
   // ordre de recalibration de la centrale
-  serialPrintf (portSerie, "D4 \n") ;
+  serialPrintf (master->getPortSerie(), "D4 \n") ;
 }
 
 // perform the 'exit behavior'
@@ -684,13 +696,14 @@ void MAE_COOP_R::MAE_COOP_R_State::Jeu_State::deplacement_lateral_State::_doentr
 #ifdef VERBOSE_STATE_MACHINE
   	puts("DEBUG : execute entry behavior of .MAE_COOP_R.Jeu.deplacement lateral");
 #endif
+  cout<<"[BOUML] etat deplacement lateral"<<endl;
   if(master->is_Jaune()){
   // on part sur la droite, pour 5 tour de roue
-  serialPrintf (portSerie, "A2 5\n") ;
+  serialPrintf(master->getPortSerie(), "A2 5\n") ;
   }
   if(master->is_Vert()){
   // on part sur la gauche
-  serialPrintf (portSerie, "A3 5\n") ;
+  serialPrintf (master->getPortSerie(), "A3 5\n") ;
   }
 }
 
@@ -720,7 +733,7 @@ void MAE_COOP_R::MAE_COOP_R_State::Jeu_State::_doentry(MAE_COOP_R & stm) {
 #ifdef VERBOSE_STATE_MACHINE
   	puts("DEBUG : execute entry behavior of .MAE_COOP_R.Jeu");
 #endif
-  cout<<"etat game"<<endl;
+  cout<<"[BOUML] etat Jeu"<<endl;
 }
 
 // returns the state containing the current
