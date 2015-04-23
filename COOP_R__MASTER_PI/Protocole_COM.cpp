@@ -49,7 +49,7 @@ void Protocole_COM::treatSerial()
     char serial_char;
 
     // Ici on traite les différents messages reçus.
-    while(serialDataAvail(master->getPortSerie())>0 && serial_count < 28)
+    while(serialDataAvail(master->getPortSerie())>0 && serial_count < 228)
     {
         serial_char= serialGetchar(master->getPortSerie());
 
