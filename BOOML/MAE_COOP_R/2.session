@@ -3,12 +3,12 @@ diagrams
   statediagram_ref 128130 // Principal
     986 577 100 0 0 0
   active  statediagram_ref 134658 // Jeu
-    1238 722 100 0 712 510
+    1238 722 100 0 280 0
 end
 show_stereotypes
-selected state_ref 128386 // Jeu
+selected state_ref 128130 // MAE_COOP_R
 open
-  state_ref 128386 // Jeu
+  state_ref 128130 // MAE_COOP_R
   deploymentview_ref 128130 // MaeMaster
 end
 end

@@ -9,11 +9,11 @@ pseudostatecanvas 128130 pseudostate_ref 128130 // initial
 end
 statecanvas 128258 state_ref 128258 // Attente
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 362 214 2005 323 75
+  xyzwh 362 214 2005 329 75
 end
 statecanvas 128386 state_ref 128386 // Jeu
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 371 343 2005 253 61
+  xyzwh 371 343 2005 323 75
 end
 transitioncanvas 128642 transition_ref 128130 // <transition>
   

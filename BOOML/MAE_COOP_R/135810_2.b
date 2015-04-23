@@ -15,8 +15,9 @@ class preparation_pose_premier_tapis_State
 #ifdef VERBOSE_STATE_MACHINE
 	puts("DEBUG : execute entry behavior of .MAE_COOP_R.Jeu.preparation pose premier tapis");
 #endif
+cout<<"[BOUML] etat preparation pose tapis 1"<<endl;
 // deployement du premier tapis
-serialPrintf (portSerie, "T0 \n") ;
+serialPrintf (master->getPortSerie(), "T0 \n") ;
 !!!167938.cpp!!!	_doentry(inout stm : MAE_COOP_R) : void
 #ifdef VERBOSE_STATE_MACHINE
 	puts("DEBUG : execute entry behavior of .MAE_COOP_R.Jeu.preparation pose premier tapis");

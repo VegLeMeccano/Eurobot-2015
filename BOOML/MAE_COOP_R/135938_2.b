@@ -15,8 +15,9 @@ class remonte_State
 #ifdef VERBOSE_STATE_MACHINE
 	puts("DEBUG : execute entry behavior of .MAE_COOP_R.Jeu.remonte");
 #endif
+cout<<"[BOUML] etat remonte tapis 1"<<endl;
 // replis du premier tapis
-serialPrintf (portSerie, "T1 \n") ;
+serialPrintf (master->getPortSerie(), "T1 \n") ;
 !!!168322.cpp!!!	_doentry(inout stm : MAE_COOP_R) : void
 #ifdef VERBOSE_STATE_MACHINE
 	puts("DEBUG : execute entry behavior of .MAE_COOP_R.Jeu.remonte");

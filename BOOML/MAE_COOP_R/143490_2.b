@@ -5,9 +5,10 @@ class fin_deplacement_lateral_State
 #ifdef VERBOSE_STATE_MACHINE
 	puts("DEBUG : execute entry behavior of .MAE_COOP_R.Jeu.fin deplacement lateral");
 #endif
+cout<<"[BOUML] etat fin de deplacement lateral"<<endl;
 // recalage des roues alignement
 // desactivation de l'evitement
-serialPrintf (portSerie, "E0 \n") ;
+serialPrintf (master->getPortSerie(), "E0 \n") ;
 master->set_time_out(2000);
 !!!172674.cpp!!!	_upper(inout stm : MAE_COOP_R) : MAE_COOP_R::AnyState
   return &stm._mae_coop_r_state._jeu_state;
