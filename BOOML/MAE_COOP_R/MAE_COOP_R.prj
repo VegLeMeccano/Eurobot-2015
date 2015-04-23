@@ -1,6 +1,6 @@
 format 76
 "MAE_COOP_R"
-  revision 26
+  revision 27
   modified_by 2 "Link"
   cpp_root_dir "D:/Club Robotique IRON MENAD 2/Eurobot 2015 Iron Menad/Eurobot-2015/COOP_R__MASTER_PI/"
 
@@ -107,7 +107,7 @@ cout<<\"portSerie : \"<<master->getPortSerie()<<endl;"
 
 	state 135042 "attente"
 	    cpp_on_entry "cout<<\"[BOUML] etat attente initial\"<<endl;
-master->set_time_out(100);
+master->set_time_out(3000);
 // activation de l'evitement
 serialPrintf (master->getPortSerie(), \"E1 \\n\") ;"
 	  transition 154498 "<transition>"

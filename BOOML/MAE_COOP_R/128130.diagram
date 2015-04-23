@@ -22,7 +22,7 @@ transitioncanvas 128642 transition_ref 128130 // <transition>
 end
 transitioncanvas 128770 transition_ref 128258 // <transition>
   
-  from ref 128258 z 2006 label "stratEnleve" xyz 494.5 313 2006 to point 473 305
+  from ref 128258 z 2006 label "stratEnleve" xyz 494 313 2006 to point 473 305
   line 129922 z 2006 to point 473 316
   line 129794 z 2006 to ref 128386
   write_horizontally default show_definition default drawing_language default

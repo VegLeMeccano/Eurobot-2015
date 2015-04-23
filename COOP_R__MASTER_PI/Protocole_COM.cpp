@@ -163,6 +163,7 @@ void Protocole_COM::executeinstr()
             int tour = ((int)temp[7]) - 48;
             cout<<"[Master] tour de roue laterale"<<endl;
             master->tour_roue_set(tour);
+            cout<<"tour de roue master : "<<master->get_tour_roue()<<endl;
         }
 
         // pour les pose de tapis?

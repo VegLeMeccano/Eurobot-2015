@@ -134,17 +134,17 @@ transitioncanvas 136322 transition_ref 162946 // <transition>
 end
 transitioncanvas 136450 transition_ref 163074 // <transition>
   
-  from ref 132226 z 2006 label "assFini" xyz 1493.5 890 2006 to ref 132354
+  from ref 132226 z 2006 label "assFini" xyz 1493 890 2006 to ref 132354
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 136578 transition_ref 163202 // <transition>
   
-  from ref 132354 z 2006 label "ioFini" xyz 1501.5 1022 2006 to ref 132482
+  from ref 132354 z 2006 label "ioFini" xyz 1501 1022 2006 to ref 132482
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 136834 transition_ref 163458 // <transition>
   
-  from ref 132482 z 2006 label "ioFini" xyz 1350.5 1136 2006 to ref 133378
+  from ref 132482 z 2006 label "ioFini" xyz 1350 1136 2006 to ref 133378
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 136962 transition_ref 163586 // <transition>
