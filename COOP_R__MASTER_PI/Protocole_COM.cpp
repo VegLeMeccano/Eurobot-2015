@@ -88,7 +88,7 @@ void Protocole_COM::executeinstr()
     stream.str(s);
     std::string temp;
     stream>>temp;
-    char ordre = temp[0];
+    char ordre = s[0];
     cout<<"[arduino] "<<s<<endl;
 
     if(ordre == '#' || ordre == '*')
