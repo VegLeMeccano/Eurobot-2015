@@ -26,7 +26,7 @@ void OrdersRaspberry::run()
 
         if ( !treated)
         {
-            Serial.println("message traite");
+            //Serial.println("message traite");
             executeinstr();
             treated = true;
             stream.str("");
@@ -53,7 +53,7 @@ void OrdersRaspberry::treatSerial()
 
         if (serial_char =='\n')
         {
-            Serial.println("Fin de ligne");
+            //Serial.println("Fin de ligne");
             //on ne traite que les instructions de minimum 2 char
             if (serial_count<1)
             {
@@ -63,10 +63,10 @@ void OrdersRaspberry::treatSerial()
             {
                 treated = false;
             }
-            Serial.print("Enregistre : ");
-            Serial.print(s.c_str());
-            Serial.print("  serial_count  ");
-            Serial.println(serial_count);
+            //Serial.print("Enregistre : ");
+            //Serial.print(s.c_str());
+            //Serial.print("  serial_count  ");
+            //Serial.println(serial_count);
             return;
         }
         //Serial.println(serial_count);

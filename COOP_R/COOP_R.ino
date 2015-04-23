@@ -55,7 +55,7 @@ SwitchAnalog bumper_strategie(PIN_BUMPER_STRAT_STRAT,SEUIL_BUMPER);
 int state;
 int led_on;
 long timer;
-long TEMPS_PARTIE = 10000; //en ms mettre 90
+long TEMPS_PARTIE = 90000; //en ms mettre 90
 
 
 
@@ -127,7 +127,7 @@ BOUCLE DE CONTROL
 */
 void loop(){
 
-/******** BOUCLE de jeux
+/** BOUCLE de jeux */
     // enclenchement du start
    if (state == ALLUMAGE && bumper_start.is_on())
     {
@@ -140,10 +140,7 @@ void loop(){
     {
         state = GAME ;
         Serial.println("# START OUT");
-        //slave->turn_on_evit();
         timer = millis();
-        //Serial.println(timer);
-
     }
 
     // fin de partie si t>90s
@@ -152,74 +149,23 @@ void loop(){
 
         Serial.println("# ENDGAME");
         state = END;
-        //slave->stop();
-        //io->stop();
+        io->stop();
 
         }
     else
         {
-        //Serial.println(millis()-timer);
         com->run();
-        //slave->run();
         io->run();
         }
 
 
 
    delay(1);
-*/
-
-/**
-    // telemesure gyrometre/accelero
-    // read raw accel/gyro measurements from device
-    //accelgyro.getMotion6(&ax, &ay, &az, &gx, &gy, &gz);
-    accelgyro.getRotation(&Rx, &Ry, &Rz);
-    // display tab-separated accel/gyro x/y/z values
-        Serial.print("g:\t");
-        //Serial.print(ax); Serial.print("\t");
-        //Serial.print(ay); Serial.print("\t");
-        //Serial.print(az); Serial.print("\t");
-        Serial.print(Rx); Serial.print("\t");
-        Serial.print(Ry); Serial.print("\t");
-        Serial.println(Rz);
-        delay(50);
-*/
-
-/**
-    //test des bumpers
-        // test US
-    Serial.print("IR BAS : ");
-    Serial.println(analogRead(PIN_IR_BAS));
-
-    Serial.print("IR HAUT : ");
-    Serial.println(analogRead(PIN_IR_HAUT));
-
-   // test des IR des ASCENSEUR
-    Serial.print("BUMPER AVANT GAUCHE : ");
-    Serial.println(analogRead(PIN_BUMPER_RECALAGE_AV_G));
-
-    Serial.print("BUMPER AVANT DROIT : ");
-    Serial.println(analogRead(PIN_BUMPER_RECALAGE_AV_D));
-
-    Serial.print("BUMPER RAMPE GAUCHE AR: ");
-    Serial.println(analogRead(PIN_BUMPER_RECALAGE_G_AR));
-
-    Serial.print("BUMPER RAMPE GAUCHE AV : ");
-    Serial.println(analogRead(PIN_BUMPER_RECALAGE_G_AV));
-
-    Serial.print("BUMPER RAMPE DROITE AR : ");
-    Serial.println(analogRead(PIN_BUMPER_RECALAGE_D_AR));
-
-    Serial.print("BUMPER RAMPE DROITE AV : ");
-    Serial.println(analogRead(PIN_BUMPER_RECALAGE_D_AV));
-
-    Serial.println();
-
-    delay(500);
-*/
-
+//*/
+/*
     com->run();
     io->run();
     delay(1);
+*/
 }
 

@@ -404,6 +404,11 @@ ChenillePrincipale::ChenillePrincipale():
     Serial.println("[INIT] CHENILLE PRINCIPAL");
 }
 
+void ChenillePrincipale::stop()
+{
+    arret();
+}
+
 Sonar* ChenillePrincipale::get_Sonar()
 {
     return &sonar;
@@ -1970,6 +1975,12 @@ IO::IO():
 
 }
 
+void IO::stop()
+{
+    //deposeurTapis.stop();
+    chenillePrincipale.stop();
+    //chenilleSecondaire.stop();
+}
 
 void IO::run()
 {

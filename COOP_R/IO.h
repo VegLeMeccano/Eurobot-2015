@@ -265,6 +265,8 @@ class ChenillePrincipale
     public:
         ChenillePrincipale();
 
+        void stop();
+
         void alignementLaterale();
 
         // activation ou pas de l'evitement, intervient dans le run
@@ -451,6 +453,7 @@ class IO
     public:
         IO();
         void run();
+        void stop();
         DeposeurTapis* get_DeposeurTapis();
         ChenilleSecondaire* get_ChenilleSecondaire();
         ChenillePrincipale* get_ChenillePrincipale();
