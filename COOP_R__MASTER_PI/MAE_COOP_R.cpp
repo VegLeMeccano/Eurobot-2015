@@ -1,10 +1,11 @@
 
 #include "MAE_COOP_R.h"
 
-#include "Master.h"
+#include "./Master.h"
+//extern Master* master;
 #include <wiringPi.h>
 #include <wiringSerial.h>
-int portSerie;
+//int portSerie;
 
 MAE_COOP_R::AnyState::~AnyState() {
 }
@@ -19,7 +20,7 @@ void MAE_COOP_R::AnyState::create(MAE_COOP_R &) {
 // the current state doesn't manage the event stratEnleve, give it to the upper state
 void MAE_COOP_R::AnyState::stratEnleve(MAE_COOP_R & stm) {
     AnyState * st = _upper(stm);
-  
+
     if (st != 0)
       st->stratEnleve(stm);
 #ifdef VERBOSE_STATE_MACHINE
@@ -31,7 +32,7 @@ void MAE_COOP_R::AnyState::stratEnleve(MAE_COOP_R & stm) {
 // the current state doesn't manage the event time_out, give it to the upper state
 void MAE_COOP_R::AnyState::time_out(MAE_COOP_R & stm) {
     AnyState * st = _upper(stm);
-  
+
     if (st != 0)
       st->time_out(stm);
 #ifdef VERBOSE_STATE_MACHINE
@@ -43,7 +44,7 @@ void MAE_COOP_R::AnyState::time_out(MAE_COOP_R & stm) {
 // the current state doesn't manage the event adversaire, give it to the upper state
 void MAE_COOP_R::AnyState::adversaire(MAE_COOP_R & stm) {
     AnyState * st = _upper(stm);
-  
+
     if (st != 0)
       st->adversaire(stm);
 #ifdef VERBOSE_STATE_MACHINE
@@ -55,7 +56,7 @@ void MAE_COOP_R::AnyState::adversaire(MAE_COOP_R & stm) {
 // the current state doesn't manage the event assFini, give it to the upper state
 void MAE_COOP_R::AnyState::assFini(MAE_COOP_R & stm) {
     AnyState * st = _upper(stm);
-  
+
     if (st != 0)
       st->assFini(stm);
 #ifdef VERBOSE_STATE_MACHINE
@@ -67,7 +68,7 @@ void MAE_COOP_R::AnyState::assFini(MAE_COOP_R & stm) {
 // the current state doesn't manage the event ioFini, give it to the upper state
 void MAE_COOP_R::AnyState::ioFini(MAE_COOP_R & stm) {
     AnyState * st = _upper(stm);
-  
+
     if (st != 0)
       st->ioFini(stm);
 #ifdef VERBOSE_STATE_MACHINE
@@ -101,7 +102,7 @@ void MAE_COOP_R::MAE_COOP_R_State::Attente_State::_doentry(MAE_COOP_R & stm) {
   	puts("DEBUG : execute entry behavior of .MAE_COOP_R.Attente");
 #endif
   cout<<"[BOUML] etat attente"<<endl;
-  cout<<"portSerie : "<<master->getPortSerie()<<endl;
+  //cout<<"portSerie : "<<master->getPortSerie()<<endl;
 }
 
 // returns the state containing the current
@@ -328,7 +329,7 @@ void MAE_COOP_R::MAE_COOP_R_State::Jeu_State::Evitement_State::_doentry(MAE_COOP
   // si on a atteint au moins 4 tours de roues, on stoppe l'asserv
   // on raligne les roues (finir, ou attente d'asserv toujours sur un tour de roue fix)
   serialPrintf (master->getPortSerie(), "A \n") ;
-  
+
   // mettre des etats de transistions...
   master->set_time_out(1000);
   master->cycle_attente_incremente();
@@ -392,7 +393,7 @@ void MAE_COOP_R::MAE_COOP_R_State::Jeu_State::remonte_2_State::_doentry(MAE_COOP
 #endif
   cout<<"[BOUML] etat remonte tapis 2"<<endl;
   // replis du premier tapis
-  serialPrintf (master->getPortSerie(), "T3 \n"); 
+  serialPrintf (master->getPortSerie(), "T3 \n");
 }
 
 MAE_COOP_R::MAE_COOP_R_State::Jeu_State::preparation_pose_second_tapis_State::~preparation_pose_second_tapis_State() {
