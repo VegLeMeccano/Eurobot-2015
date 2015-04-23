@@ -15,8 +15,9 @@ class ascension_State
 #ifdef VERBOSE_STATE_MACHINE
 	puts("DEBUG : execute entry behavior of .MAE_COOP_R.Jeu.ascension");
 #endif
+cout<<"[BOUML] etat ascension"<<endl;
 // grimpe
-serialPrintf (portSerie, "S6 \n") ;
+serialPrintf (master->getPortSerie(), "S6 \n") ;
 !!!166914.cpp!!!	_doentry(inout stm : MAE_COOP_R) : void
 #ifdef VERBOSE_STATE_MACHINE
 	puts("DEBUG : execute entry behavior of .MAE_COOP_R.Jeu.ascension");

@@ -15,8 +15,9 @@ class preparation_pose_second_tapis_State
 #ifdef VERBOSE_STATE_MACHINE
 	puts("DEBUG : execute entry behavior of .MAE_COOP_R.Jeu.preparation pose second tapis");
 #endif
+cout<<"[BOUML] etat preparation pose tapis 2"<<endl;
 // deployement du second tapis
-serialPrintf (portSerie, "T2 \n") ;
+serialPrintf (master->getPortSerie(), "T2 \n") ;
 !!!169090.cpp!!!	_doentry(inout stm : MAE_COOP_R) : void
 #ifdef VERBOSE_STATE_MACHINE
 	puts("DEBUG : execute entry behavior of .MAE_COOP_R.Jeu.preparation pose second tapis");

@@ -36,11 +36,12 @@ class deplacement_lateral_State
 #ifdef VERBOSE_STATE_MACHINE
 	puts("DEBUG : execute entry behavior of .MAE_COOP_R.Jeu.deplacement lateral");
 #endif
+cout<<"[BOUML] etat deplacement lateral"<<endl;
 if(master->is_Jaune()){
 // on part sur la droite, pour 5 tour de roue
-serialPrintf (portSerie, "A2 5\n") ;
+serialPrintf(master->getPortSerie(), "A2 5\n") ;
 }
 if(master->is_Vert()){
 // on part sur la gauche
-serialPrintf (portSerie, "A3 5\n") ;
+serialPrintf (master->getPortSerie(), "A3 5\n") ;
 }

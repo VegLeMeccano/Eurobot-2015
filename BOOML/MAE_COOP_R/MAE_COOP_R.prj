@@ -74,7 +74,7 @@ format 76
 
       state 128258 "Attente"
 	  cpp_on_entry "cout<<\"[BOUML] etat attente\"<<endl;
-cout<<\"portSerie : \"<<master->getPortSerie()<<endl;"
+//cout<<\"portSerie : \"<<master->getPortSerie()<<endl;"
 	transition 128258 "<transition>"
 	  on state_ref 128386 // Jeu
 	    cpp_trigger "stratEnleve"
@@ -83,7 +83,8 @@ cout<<\"portSerie : \"<<master->getPortSerie()<<endl;"
       end
 
       state 128386 "Jeu"
-	  cpp_on_entry "cout<<\"[BOUML] etat Jeu\"<<endl;"
+	  cpp_on_entry "cout<<\"[BOUML] etat Jeu\"<<endl;
+cout<<\"portSerie : \"<<master->getPortSerie()<<endl;"
 	associated_diagram statediagram_ref 134658 // Jeu
 	comment "faire une mission par élément de jeu proche
 "

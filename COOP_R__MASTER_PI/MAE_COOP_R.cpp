@@ -735,6 +735,7 @@ void MAE_COOP_R::MAE_COOP_R_State::Jeu_State::_doentry(MAE_COOP_R & stm) {
   	puts("DEBUG : execute entry behavior of .MAE_COOP_R.Jeu");
 #endif
   cout<<"[BOUML] etat Jeu"<<endl;
+  cout<<"portSerie : "<<master->getPortSerie()<<endl;
 }
 
 // returns the state containing the current

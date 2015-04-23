@@ -16,22 +16,15 @@ class attente_recalibration_State
 #ifdef VERBOSE_STATE_MACHINE
 	puts("DEBUG : execute entry behavior of .MAE_COOP_R.Jeu.attente recalibration");
 #endif
+cout<<"[BOUML] etat attente recalibration"<<endl;
 master->set_time_out(4000);
 // ordre de recalibration de la centrale
-serialPrintf (portSerie, "D4 \n") ;
+serialPrintf (master->getPortSerie(), "D4 \n") ;
 !!!166530.cpp!!!	_doexit(inout stm : MAE_COOP_R) : void
 #ifdef VERBOSE_STATE_MACHINE
 	puts("DEBUG : execute exit behavior of .MAE_COOP_R.Jeu.attente recalibration");
 #endif
 // ordre de reset angle
-!!!166402.cpp!!!	_doentry(inout stm : MAE_COOP_R) : void
-#ifdef VERBOSE_STATE_MACHINE
-	puts("DEBUG : execute entry behavior of .MAE_COOP_R.Jeu.attente recalibration");
-#endif
-cout<<"[BOUML] etat attente recalibration"<<endl;
-master->set_time_out(4000);
-// ordre de recalibration de la centrale
-serialPrintf (master->getPortSerie(), "D4 \n") ;
 !!!166530.cpp!!!	_doexit(inout stm : MAE_COOP_R) : void
 #ifdef VERBOSE_STATE_MACHINE
 	puts("DEBUG : execute exit behavior of .MAE_COOP_R.Jeu.attente recalibration");

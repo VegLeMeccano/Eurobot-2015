@@ -13,9 +13,10 @@ class deployement_State
 #ifdef VERBOSE_STATE_MACHINE
 	puts("DEBUG : execute entry behavior of .MAE_COOP_R.Jeu.deployement");
 #endif
+cout<<"[BOUML] etat deployement"<<endl;
 master->set_time_out(2000);
 // deployement des chaines secondaires
-serialPrintf (portSerie, "S5 \n") ;
+serialPrintf (master->getPortSerie(), "S5 \n") ;
 !!!173826.cpp!!!	_upper(inout stm : MAE_COOP_R) : MAE_COOP_R::AnyState
   return &stm._mae_coop_r_state._jeu_state;
 !!!173698.cpp!!!	_doentry(inout stm : MAE_COOP_R) : void

@@ -15,8 +15,9 @@ class decalage_droite_State
 #ifdef VERBOSE_STATE_MACHINE
 	puts("DEBUG : execute entry behavior of .MAE_COOP_R.Jeu.decalage droite");
 #endif
+cout<<"[BOUML] etat decalage droite"<<endl;
 // decalage gauche
-serialPrintf (portSerie, "A2 \n") ;
+serialPrintf (master->getPortSerie(), "A2 \n") ;
 !!!168706.cpp!!!	_doentry(inout stm : MAE_COOP_R) : void
 #ifdef VERBOSE_STATE_MACHINE
 	puts("DEBUG : execute entry behavior of .MAE_COOP_R.Jeu.decalage droite");

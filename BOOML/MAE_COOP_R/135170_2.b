@@ -15,9 +15,10 @@ class attente_State
 #ifdef VERBOSE_STATE_MACHINE
 	puts("DEBUG : execute entry behavior of .MAE_COOP_R.Jeu.attente");
 #endif
+cout<<"[BOUML] etat attente initial"<<endl;
 master->set_time_out(100);
 // activation de l'evitement
-serialPrintf (portSerie, "E1 \n") ;
+serialPrintf (master->getPortSerie(), "E1 \n") ;
 !!!151554.cpp!!!	_doentry(inout stm : MAE_COOP_R) : void
 #ifdef VERBOSE_STATE_MACHINE
 	puts("DEBUG : execute entry behavior of .MAE_COOP_R.Jeu.attente");

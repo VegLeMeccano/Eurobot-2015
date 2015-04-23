@@ -23,12 +23,12 @@ class reprise_State
 #endif
 if(master->get_cycle_attente()>5){
 // desactivation de l'evitement :: on pousse le mec, rien a battre!
-serialPrintf (portSerie, "E0 \n") ;
+serialPrintf (master->getPortSerie(), "E0 \n") ;
 }
 else
 {
 	// reprise asserv en cours
-	serialPrintf (portSerie, "A5 \n") ;
+	serialPrintf (master->getPortSerie(), "A5 \n") ;
 }
 !!!173314.cpp!!!	_upper(inout stm : MAE_COOP_R) : MAE_COOP_R::AnyState
   return &stm._mae_coop_r_state._jeu_state;

@@ -15,7 +15,7 @@ class Evitement_State
 #endif
 // si on a atteint au moins 4 tours de roues, on stoppe l'asserv
 // on raligne les roues (finir, ou attente d'asserv toujours sur un tour de roue fix)
-serialPrintf (portSerie, "A \n") ;
+serialPrintf (master->getPortSerie(), "A \n") ;
 
 // mettre des etats de transistions...
 master->set_time_out(1000);
