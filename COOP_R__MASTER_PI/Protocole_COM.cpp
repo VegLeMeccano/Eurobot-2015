@@ -1,6 +1,6 @@
 #include "Protocole_COM.h"
 
-int portSerie;
+//int portSerie;
 
 /** Constructeur COM
 */
@@ -29,7 +29,7 @@ void Protocole_COM::run()
         if ( !treated)
         {
             //Serial.println("message traite");
-            cout << "[COM] message traitée" << endl;
+            //cout << "[COM] message traitée" << endl;
             executeinstr();
             treated = true;
             stream.str("");
@@ -49,13 +49,13 @@ void Protocole_COM::treatSerial()
     char serial_char;
 
     // Ici on traite les différents messages reçus.
-    while(serialDataAvail(portSerie)>0 && serial_count < 28)
+    while(serialDataAvail(master->getPortSerie())>0 && serial_count < 28)
     {
-        serial_char= serialGetchar(portSerie);
+        serial_char= serialGetchar(master->getPortSerie());
 
         if (serial_char =='\n')
         {
-            cout<<"Fin de ligne"<<endl;
+            //cout<<"Fin de ligne"<<endl;
             //on ne traite que les instructions de minimum 2 char
             if (serial_count<1)
             {
@@ -65,8 +65,8 @@ void Protocole_COM::treatSerial()
             {
                 treated = false;
             }
-             cout<<"Enregistre : "<<s.c_str()<<endl;
-             cout<<"serial_count :"<<serial_count<<endl;
+             //cout<<"Enregistre : "<<s.c_str()<<endl;
+             //cout<<"serial_count :"<<serial_count<<endl;
             return;
         }
         //Serial.println(serial_count);
@@ -89,7 +89,7 @@ void Protocole_COM::executeinstr()
     std::string temp;
     stream>>temp;
     char ordre = temp[0];
-    cout<<"[arduino] "<<temp<<endl;
+    cout<<"[arduino] "<<s<<endl;
 
     if(ordre == '#' || ordre == '*')
     {
@@ -109,9 +109,9 @@ void Protocole_COM::executeinstr()
         return;
     }
 
-    cout << "[COM] ordre ind = " << endl;
-    int ind = ((int)temp[1]) - 48;      // pour avoir le numero de l'ordre
-    cout <<ordre<< "@" <<ind<< endl;
+    //cout << "[COM] ordre ind = " << endl;
+    //int ind = ((int)temp[1]) - 48;      // pour avoir le numero de l'ordre
+    //cout <<ordre<< "@" <<ind<< endl;
 
     switch (ordre)
     {
@@ -129,7 +129,7 @@ void Protocole_COM::executeinstr()
         //start retiré
         if(s.find("START OUT") != string::npos)
         {
-            cout<<"[Master] start mis"<<endl;
+            cout<<"[Master] start enleve"<<endl;
             master->get_MAE_COOP_R()->stratEnleve();
         }
 
