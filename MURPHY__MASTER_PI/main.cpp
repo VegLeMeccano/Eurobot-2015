@@ -1,4 +1,4 @@
-/** PROGRAMME PI COOP R
+/** PROGRAMME PI MUPHY
 mise a jour du dossier git
 ~/.git/Eurobot_2015/
 git pull
@@ -39,7 +39,7 @@ Protocole_COM* protocole_com;
 */
 int main()
 {
-    cout << "[MASTER_COOP'R] lancement du programme" << endl;
+    cout << "[MASTER_MURPHY] lancement du programme" << endl;
 
     /** CONNEXION SERIAL ARDUINO
     */
@@ -54,21 +54,21 @@ int main()
     }
 
     // boucle de jeu
-    cout << "[MASTER_COOP'R] boucle de jeu" << endl;
+    cout << "[MASTER_MURPHY] boucle de jeu" << endl;
 
     // initialisation du Master
-    cout << "[MASTER_COOP'R] INITIALISATION DU MASTER" << endl;
+    cout << "[MASTER_MURPHY] INITIALISATION DU MASTER" << endl;
     //Master* master;
     master = new Master(portSerie);
 
     // initialisation du protocole de COM
-    cout << "[MASTER_COOP'R] INITIALISATION DU MASTER" << endl;
+    cout << "[MASTER_MURPHY] INITIALISATION DU MASTER" << endl;
     protocole_com = new Protocole_COM(master);
 
 
 
     cout<<"________________________________________"<<endl;
-    cout << "[MASTER_COOP'R] boucle de jeu" << endl;
+    cout << "[MASTER_MURPHY] boucle de jeu" << endl;
     cout<<"________________________________________"<<endl;
 
     while(1)

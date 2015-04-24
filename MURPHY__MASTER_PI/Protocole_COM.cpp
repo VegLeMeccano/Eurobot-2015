@@ -142,57 +142,43 @@ void Protocole_COM::executeinstr()
 
 
 
-        // check si adversaire detecté
-        if(s.find("PAUSE") != string::npos)
+
+
+        /************************************************
+                CHECK FIN ASSERV
+        *************************************************/
+        if(s.find("NEAR") != string::npos)
         {
-            cout<<"[Master] adversaire detectee, pause"<<endl;
-            master->get_MAE_COOP_R()->adversaire();
+            cout<<"[Master] etat asserv, proche"<<endl;
+            //master->get_MAE_COOP_R()->adversaire();
         }
 
         // check si l'asserv est fini
-        if(s.find("ASSFINI") != string::npos)
+        if(s.find("AFINI") != string::npos)
         {
-            cout<<"[Master] assfini"<<endl;
-            master->get_MAE_COOP_R()->assFini();
+            cout<<"[Master] etat asserv, fini"<<endl;
+            //master->get_MAE_COOP_R()->assFini();
         }
 
-
-        // pour les tours de roues?
-        if(s.find("TOUR") != string::npos)
+        // check si l'asserv est fini
+        if(s.find("BLOC") != string::npos)
         {
-            int tour = ((int)s[7]) - 48;
-            cout<<"[Master] tour de roue laterale"<<endl;
-            cout<<"tour de roue casted : "<<tour<<endl;
-            master->tour_roue_set(tour);
-            cout<<"tour de roue master : "<<master->get_tour_roue()<<endl;
+            cout<<"[Master] etat asserv, blocage"<<endl;
+            //master->get_MAE_COOP_R()->assFini();
         }
 
-        // pour les pose de tapis?
-        if(s.find("POSE TAPIS 1 POSEE") != string::npos)
+        // check si l'asserv est fini
+        if(s.find("ENNEMI_GAUCHE") != string::npos)
         {
-            cout<<"[Master] tapis 1 posé"<<endl;
-            master->get_MAE_COOP_R()->ioFini();     // faire plus mieu, étayé
+            cout<<"[Master] etat asserv, ennemi gauche"<<endl;
+            //master->get_MAE_COOP_R()->assFini();
         }
 
-        // pour les pose de tapis?
-        if(s.find("POSE TAPIS 1 REMONTEE") != string::npos)
+        // check si l'asserv est fini
+        if(s.find("ENNEMI_DROITE") != string::npos)
         {
-            cout<<"[Master] tapis 1 remonté"<<endl;
-            master->get_MAE_COOP_R()->ioFini();     // faire plus mieu, étayé
-        }
-
-        // pour les pose de tapis?
-        if(s.find("POSE TAPIS 2 POSEE") != string::npos)
-        {
-            cout<<"[Master] tapis 2 posé"<<endl;
-            master->get_MAE_COOP_R()->ioFini();     // faire plus mieu, étayé
-        }
-
-        // pour les pose de tapis?
-        if(s.find("POSE TAPIS 2 REMONTEE") != string::npos)
-        {
-            cout<<"[Master] tapis 2 remonté"<<endl;
-            master->get_MAE_COOP_R()->ioFini();     // faire plus mieu, étayé
+            cout<<"[Master] etat asserv, ennemi droite"<<endl;
+            //master->get_MAE_COOP_R()->assFini();
         }
         break;
 
@@ -204,16 +190,27 @@ void Protocole_COM::executeinstr()
         // si jaune
         if(s.find("COULEUR : 0") != string::npos)
         {
-            cout<<"[Master] couleur 0"<<endl;
+            cout<<"[Master] couleur 0 (JAUNE)"<<endl;
             master->set_couleur(COULEUR_JAUNE);
         }
 
         //si vert
         if(s.find("COULEUR : 1") != string::npos)
         {
-            cout<<"[Master] couleur 1"<<endl;
+            cout<<"[Master] couleur 1 (VERT)"<<endl;
             master->set_couleur(COULEUR_VERT);
         }
+
+         //si reception de coordonnées
+        if(s.find("COORD") != string::npos)
+        {
+            // aller chercher les coordonnées dans la chaine
+            // to do
+            // et les mettre dans le master pour decision sur mission a venir
+            cout<<"[Master] REAL COORD : "<<endl;
+            //master->set_couleur(COULEUR_VERT);
+        }
+
 
         break;
 

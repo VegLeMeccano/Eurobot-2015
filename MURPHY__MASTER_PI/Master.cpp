@@ -1,4 +1,11 @@
 #include "Master.h"
+Gestionnaire_Mission::Gestionnaire_Mission()
+{
+
+}
+
+
+
 
 Master::Master(int portSerie_):
     periode_run(PERIODE_MASTER),
@@ -9,8 +16,8 @@ Master::Master(int portSerie_):
     cycle_attente(0),
     portSerie(portSerie_)
 {
-    mae_coop_r.create();
-    cout << "[MASTER_COOP'R] initialisation" << endl;
+    mae_murphy.create();
+    cout << "[MASTER_MURPHY] initialisation" << endl;
 }
 
 int Master::getPortSerie()
@@ -37,9 +44,9 @@ bool Master::is_Jaune()
 }
 
 // retourne la MAE
-MAE_COOP_R* Master::get_MAE_COOP_R()
+MAE_MURPHY* Master::get_MAE_MURPHY()()
 {
-    return &mae_coop_r;
+    return &mae_murphy;
 }
 
 
@@ -131,21 +138,3 @@ void Master::cycle_attente_reset()
 }
 
 
-/** gere les tour de roue
-*/
-int Master::get_tour_roue()
-{
-    return tour_de_roue;
-}
-void Master::tour_roue_incremente()
-{
-    tour_de_roue++;
-}
-void Master::tour_roue_reset()
-{
-    tour_de_roue = 0;;
-}
-void Master::tour_roue_set(int tour)
-{
-    tour_de_roue = tour;
-}

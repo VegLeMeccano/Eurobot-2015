@@ -1,7 +1,7 @@
 #ifndef MASTER_H
 #define MASTER_H
 #include "Period.h"
-#include "MAE_COOP_R.h"
+#include "MAE_MURPHY.h"
 #include <wiringPi.h>
 
 #define PERIODE_MASTER 50
@@ -12,6 +12,16 @@
 #define COULEUR_JAUNE 0
 #define COULEUR_VERT 1
 
+class Gestionnaire_Mission
+{
+    private:
+
+    public:
+        Gestionnaire_Mission();
+
+};
+
+
 class Master
 {
     private:
@@ -20,7 +30,8 @@ class Master
         long t_over;
         bool time_out_on;
         Period periode_run;
-        MAE_COOP_R mae_coop_r;
+
+        MAE_MURPHY mae_murphy;
         int couleur;
         int tour_de_roue;       // pour le deplacement lateral du debut
         int cycle_attente;
@@ -40,16 +51,14 @@ class Master
         void reset_time_out();
         bool is_time_out();
 
+
         void set_couleur(int couleur_);     // fixe la couleur, appel depuis la COM
-        MAE_COOP_R* get_MAE_COOP_R();       // retourne la MAE, util? je sais pas
+        MAE_MURPHY* get_MAE_MURPHY();       // retourne la MAE, util? je sais pas
         int get_Couleur();                  // couleur pour la strat
         bool is_Vert();                     // couleur pour la strat
         bool is_Jaune();                    // couleur pour la strat
 
-        int get_tour_roue();                // utilisé dans la MAE pour transisition à l'escalier
-        void tour_roue_incremente();        // appel par la COM
-        void tour_roue_reset();
-        void tour_roue_set(int tour);
+
 
         // pour l'attente dans l'evitement
         int get_cycle_attente();
