@@ -1,6 +1,6 @@
 format 76
 "MAE_COOP_R"
-  revision 26
+  revision 32
   modified_by 2 "Link"
   cpp_root_dir "D:/Club Robotique IRON MENAD 2/Eurobot 2015 Iron Menad/Eurobot-2015/COOP_R__MASTER_PI/"
 
@@ -107,7 +107,7 @@ cout<<\"portSerie : \"<<master->getPortSerie()<<endl;"
 
 	state 135042 "attente"
 	    cpp_on_entry "cout<<\"[BOUML] etat attente initial\"<<endl;
-master->set_time_out(100);
+master->set_time_out(3000);
 // activation de l'evitement
 serialPrintf (master->getPortSerie(), \"E1 \\n\") ;"
 	  transition 154498 "<transition>"
@@ -157,7 +157,7 @@ serialPrintf (master->getPortSerie(), \"D4 \\n\") ;
 	state 135426 "ascension"
 	    cpp_on_entry "cout<<\"[BOUML] etat ascension\"<<endl;
 // grimpe
-serialPrintf (master->getPortSerie(), \"S6 \\n\") ;"
+serialPrintf (master->getPortSerie(), \"S0 20000 \\n\") ;"
 	  transition 162690 "<transition>"
 	    on state_ref 135554 // decalage gauche
 	      cpp_trigger "assFini"
@@ -166,9 +166,9 @@ serialPrintf (master->getPortSerie(), \"S6 \\n\") ;"
 	end
 
 	state 135554 "decalage gauche"
-	    cpp_on_entry "cout<<\"[BOUML] etat decalage gauche\"<<endl;
+	    cpp_on_entry "cout<<\"[BOUML] etat recalage gauche\"<<endl;
 // decalage gauche
-serialPrintf (master->getPortSerie(), \"A3 \\n\") ;"
+serialPrintf (master->getPortSerie(), \"A7 \\n\") ;"
 	  transition 162818 "<transition>"
 	    on state_ref 135682 // preparation pose premier tapis
 	      cpp_trigger "assFini"
@@ -199,9 +199,9 @@ serialPrintf (master->getPortSerie(), \"T1 \\n\") ;"
 	end
 
 	state 135938 "decalage droite"
-	    cpp_on_entry "cout<<\"[BOUML] etat decalage droite\"<<endl;
+	    cpp_on_entry "cout<<\"[BOUML] etat recalage droite\"<<endl;
 // decalage gauche
-serialPrintf (master->getPortSerie(), \"A2 \\n\") ;"
+serialPrintf (master->getPortSerie(), \"A8 \\n\") ;"
 	  transition 163074 "<transition>"
 	    on state_ref 136066 // preparation pose second tapis
 	      cpp_trigger "assFini"
@@ -407,7 +407,7 @@ ${inlines}
 	  comment " perform the 'do activity'"
 	end
 
-	operation 137218 "create"
+	operation 137730 "create"
 	  force_body_gen cpp_virtual public explicit_return_type "void"
 	  nparams 1
 	    param inout name "stm" type class_ref 134530 // MAE_COOP_R
@@ -424,7 +424,7 @@ ${inlines}
 	  key "STM generated" value ""
 	end
 
-	operation 137602 "stratEnleve"
+	operation 138114 "stratEnleve"
 	  force_body_gen cpp_virtual public explicit_return_type "void"
 	  nparams 1
 	    param inout name "stm" type class_ref 134530 // MAE_COOP_R
@@ -442,7 +442,7 @@ ${inlines}
 	  comment " the current state doesn't manage the event stratEnleve, give it to the upper state"
 	end
 
-	operation 150658 "time_out"
+	operation 139138 "time_out"
 	  force_body_gen cpp_virtual public explicit_return_type "void"
 	  nparams 1
 	    param inout name "stm" type class_ref 134530 // MAE_COOP_R
@@ -460,7 +460,7 @@ ${inlines}
 	  comment " the current state doesn't manage the event time_out, give it to the upper state"
 	end
 
-	operation 158978 "adversaire"
+	operation 139906 "adversaire"
 	  force_body_gen cpp_virtual public explicit_return_type "void"
 	  nparams 1
 	    param inout name "stm" type class_ref 134530 // MAE_COOP_R
@@ -478,7 +478,7 @@ ${inlines}
 	  comment " the current state doesn't manage the event adversaire, give it to the upper state"
 	end
 
-	operation 159362 "assFini"
+	operation 140290 "assFini"
 	  force_body_gen cpp_virtual public explicit_return_type "void"
 	  nparams 1
 	    param inout name "stm" type class_ref 134530 // MAE_COOP_R
@@ -496,7 +496,7 @@ ${inlines}
 	  comment " the current state doesn't manage the event assFini, give it to the upper state"
 	end
 
-	operation 167554 "ioFini"
+	operation 142722 "ioFini"
 	  force_body_gen cpp_virtual public explicit_return_type "void"
 	  nparams 1
 	    param inout name "stm" type class_ref 134530 // MAE_COOP_R
@@ -569,7 +569,7 @@ ${inlines}
 	      b parent class_ref 134658 // AnyState
 	  end
 
-	  operation 137730 "stratEnleve"
+	  operation 138242 "stratEnleve"
 	    force_body_gen cpp_virtual public explicit_return_type "void"
 	    nparams 1
 	      param inout name "stm" type class_ref 134530 // MAE_COOP_R
@@ -587,7 +587,7 @@ ${inlines}
 	    comment " to manage the event stratEnleve"
 	  end
 
-	  operation 137858 "create"
+	  operation 138370 "create"
 	    force_body_gen cpp_virtual public explicit_return_type "void"
 	    nparams 1
 	      param inout name "stm" type class_ref 134530 // MAE_COOP_R
@@ -605,7 +605,7 @@ ${inlines}
 	    comment " to manage the event create"
 	  end
 
-	  operation 137986 "_doentry"
+	  operation 138498 "_doentry"
 	    force_body_gen public explicit_return_type "void"
 	    nparams 1
 	      param inout name "stm" type class_ref 134530 // MAE_COOP_R
@@ -623,7 +623,7 @@ ${inlines}
 	    comment " perform the 'entry behavior'"
 	  end
 
-	  operation 138114 "_upper"
+	  operation 138626 "_upper"
 	    force_body_gen cpp_virtual public return_type class_ref 134658 // AnyState
 	    nparams 1
 	      param inout name "stm" type class_ref 134530 // MAE_COOP_R
@@ -696,25 +696,7 @@ ${inlines}
 		b parent class_ref 134658 // AnyState
 	    end
 
-	    operation 139266 "_upper"
-	      force_body_gen cpp_virtual public return_type class_ref 134658 // AnyState
-	      nparams 1
-	        param inout name "stm" type class_ref 134530 // MAE_COOP_R
-	      cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} * ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
-"
-	      cpp_def "${comment}${inline}${type} * ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
-  ${body}}
-"
-	      
-	      
-	      
-	      
-	      ncouples 1
-	      key "STM generated" value ""
-	      comment " returns the state containing the current"
-	    end
-
-	    operation 150786 "time_out"
+	    operation 139266 "time_out"
 	      force_body_gen cpp_virtual public explicit_return_type "void"
 	      nparams 1
 	        param inout name "stm" type class_ref 134530 // MAE_COOP_R
@@ -732,7 +714,7 @@ ${inlines}
 	      comment " to manage the event time_out"
 	    end
 
-	    operation 151426 "create"
+	    operation 139394 "create"
 	      force_body_gen cpp_virtual public explicit_return_type "void"
 	      nparams 1
 	        param inout name "stm" type class_ref 134530 // MAE_COOP_R
@@ -750,7 +732,7 @@ ${inlines}
 	      comment " to manage the event create"
 	    end
 
-	    operation 151554 "_doentry"
+	    operation 139522 "_doentry"
 	      force_body_gen public explicit_return_type "void"
 	      nparams 1
 	        param inout name "stm" type class_ref 134530 // MAE_COOP_R
@@ -767,9 +749,27 @@ ${inlines}
 	      key "STM generated" value ""
 	      comment " perform the 'entry behavior'"
 	    end
+
+	    operation 139650 "_upper"
+	      force_body_gen cpp_virtual public return_type class_ref 134658 // AnyState
+	      nparams 1
+	        param inout name "stm" type class_ref 134530 // MAE_COOP_R
+	      cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} * ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+	      cpp_def "${comment}${inline}${type} * ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+	      
+	      
+	      
+	      
+	      ncouples 1
+	      key "STM generated" value ""
+	      comment " returns the state containing the current"
+	    end
 	  end
 
-	  class 143746 "deployement_State"
+	  class 137090 "deployement_State"
 	    visibility public 
 	    cpp_decl "${comment}${template}class ${name}${inherit} {
 ${members}};
@@ -784,7 +784,7 @@ ${inlines}
 	    ncouples 1
 	    key "STM generated" value ""
 	    comment " implement the state deployement"
-	    operation 158722 "~deployement_State"
+	    operation 137218 "~deployement_State"
 	      force_body_gen cpp_virtual public explicit_return_type ""
 	      nparams 0
 	      cpp_decl "    ${comment}${inline}${virtual}${name}${(}${)}${volatile}${throw};
@@ -800,15 +800,15 @@ ${inlines}
 	      key "STM generated" value ""
 	    end
 
-	    classrelation 146178 // <generalisation>
-	      relation 146178 ---|>
+	    classrelation 138882 // <generalisation>
+	      relation 138882 ---|>
 		a public
 		  cpp default "${type}"
-		  classrelation_ref 146178 // <generalisation>
+		  classrelation_ref 138882 // <generalisation>
 		b parent class_ref 134658 // AnyState
 	    end
 
-	    operation 173442 "time_out"
+	    operation 147970 "time_out"
 	      force_body_gen cpp_virtual public explicit_return_type "void"
 	      nparams 1
 	        param inout name "stm" type class_ref 134530 // MAE_COOP_R
@@ -826,7 +826,7 @@ ${inlines}
 	      comment " to manage the event time_out"
 	    end
 
-	    operation 173570 "create"
+	    operation 148098 "create"
 	      force_body_gen cpp_virtual public explicit_return_type "void"
 	      nparams 1
 	        param inout name "stm" type class_ref 134530 // MAE_COOP_R
@@ -844,7 +844,7 @@ ${inlines}
 	      comment " to manage the event create"
 	    end
 
-	    operation 173698 "_doentry"
+	    operation 148226 "_doentry"
 	      force_body_gen public explicit_return_type "void"
 	      nparams 1
 	        param inout name "stm" type class_ref 134530 // MAE_COOP_R
@@ -862,7 +862,7 @@ ${inlines}
 	      comment " perform the 'entry behavior'"
 	    end
 
-	    operation 173826 "_upper"
+	    operation 148354 "_upper"
 	      force_body_gen cpp_virtual public return_type class_ref 134658 // AnyState
 	      nparams 1
 	        param inout name "stm" type class_ref 134530 // MAE_COOP_R
@@ -881,7 +881,7 @@ ${inlines}
 	    end
 	  end
 
-	  class 143618 "reprise_State"
+	  class 136962 "reprise_State"
 	    visibility public 
 	    cpp_decl "${comment}${template}class ${name}${inherit} {
 ${members}};
@@ -896,7 +896,7 @@ ${inlines}
 	    ncouples 1
 	    key "STM generated" value ""
 	    comment " implement the state reprise"
-	    operation 158594 "~reprise_State"
+	    operation 137090 "~reprise_State"
 	      force_body_gen cpp_virtual public explicit_return_type ""
 	      nparams 0
 	      cpp_decl "    ${comment}${inline}${virtual}${name}${(}${)}${volatile}${throw};
@@ -912,15 +912,15 @@ ${inlines}
 	      key "STM generated" value ""
 	    end
 
-	    classrelation 145922 // <generalisation>
-	      relation 145922 ---|>
+	    classrelation 138626 // <generalisation>
+	      relation 138626 ---|>
 		a public
 		  cpp default "${type}"
-		  classrelation_ref 145922 // <generalisation>
+		  classrelation_ref 138626 // <generalisation>
 		b parent class_ref 134658 // AnyState
 	    end
 
-	    operation 172802 "adversaire"
+	    operation 147330 "adversaire"
 	      force_body_gen cpp_virtual public explicit_return_type "void"
 	      nparams 1
 	        param inout name "stm" type class_ref 134530 // MAE_COOP_R
@@ -938,7 +938,7 @@ ${inlines}
 	      comment " to manage the event adversaire"
 	    end
 
-	    operation 172930 "assFini"
+	    operation 147458 "assFini"
 	      force_body_gen cpp_virtual public explicit_return_type "void"
 	      nparams 1
 	        param inout name "stm" type class_ref 134530 // MAE_COOP_R
@@ -956,7 +956,7 @@ ${inlines}
 	      comment " to manage the event assFini"
 	    end
 
-	    operation 173058 "create"
+	    operation 147586 "create"
 	      force_body_gen cpp_virtual public explicit_return_type "void"
 	      nparams 1
 	        param inout name "stm" type class_ref 134530 // MAE_COOP_R
@@ -974,7 +974,7 @@ ${inlines}
 	      comment " to manage the event create"
 	    end
 
-	    operation 173186 "_doentry"
+	    operation 147714 "_doentry"
 	      force_body_gen public explicit_return_type "void"
 	      nparams 1
 	        param inout name "stm" type class_ref 134530 // MAE_COOP_R
@@ -992,7 +992,7 @@ ${inlines}
 	      comment " perform the 'entry behavior'"
 	    end
 
-	    operation 173314 "_upper"
+	    operation 147842 "_upper"
 	      force_body_gen cpp_virtual public return_type class_ref 134658 // AnyState
 	      nparams 1
 	        param inout name "stm" type class_ref 134530 // MAE_COOP_R
@@ -1011,7 +1011,7 @@ ${inlines}
 	    end
 	  end
 
-	  class 143490 "fin_deplacement_lateral_State"
+	  class 136834 "fin_deplacement_lateral_State"
 	    visibility public 
 	    cpp_decl "${comment}${template}class ${name}${inherit} {
 ${members}};
@@ -1026,7 +1026,7 @@ ${inlines}
 	    ncouples 1
 	    key "STM generated" value ""
 	    comment " implement the state fin deplacement lateral"
-	    operation 158466 "~fin_deplacement_lateral_State"
+	    operation 136962 "~fin_deplacement_lateral_State"
 	      force_body_gen cpp_virtual public explicit_return_type ""
 	      nparams 0
 	      cpp_decl "    ${comment}${inline}${virtual}${name}${(}${)}${volatile}${throw};
@@ -1042,15 +1042,33 @@ ${inlines}
 	      key "STM generated" value ""
 	    end
 
-	    classrelation 145666 // <generalisation>
-	      relation 145666 ---|>
+	    classrelation 138370 // <generalisation>
+	      relation 138370 ---|>
 		a public
 		  cpp default "${type}"
-		  classrelation_ref 145666 // <generalisation>
+		  classrelation_ref 138370 // <generalisation>
 		b parent class_ref 134658 // AnyState
 	    end
 
-	    operation 172418 "create"
+	    operation 146818 "time_out"
+	      force_body_gen cpp_virtual public explicit_return_type "void"
+	      nparams 1
+	        param inout name "stm" type class_ref 134530 // MAE_COOP_R
+	      cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+	      cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+	      
+	      
+	      
+	      
+	      ncouples 1
+	      key "STM generated" value ""
+	      comment " to manage the event time_out"
+	    end
+
+	    operation 146946 "create"
 	      force_body_gen cpp_virtual public explicit_return_type "void"
 	      nparams 1
 	        param inout name "stm" type class_ref 134530 // MAE_COOP_R
@@ -1068,7 +1086,7 @@ ${inlines}
 	      comment " to manage the event create"
 	    end
 
-	    operation 172546 "_doentry"
+	    operation 147074 "_doentry"
 	      force_body_gen public explicit_return_type "void"
 	      nparams 1
 	        param inout name "stm" type class_ref 134530 // MAE_COOP_R
@@ -1086,7 +1104,7 @@ ${inlines}
 	      comment " perform the 'entry behavior'"
 	    end
 
-	    operation 172674 "_upper"
+	    operation 147202 "_upper"
 	      force_body_gen cpp_virtual public return_type class_ref 134658 // AnyState
 	      nparams 1
 	        param inout name "stm" type class_ref 134530 // MAE_COOP_R
@@ -1103,27 +1121,9 @@ ${inlines}
 	      key "STM generated" value ""
 	      comment " returns the state containing the current"
 	    end
-
-	    operation 180354 "time_out"
-	      force_body_gen cpp_virtual public explicit_return_type "void"
-	      nparams 1
-	        param inout name "stm" type class_ref 134530 // MAE_COOP_R
-	      cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
-"
-	      cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
-  ${body}}
-"
-	      
-	      
-	      
-	      
-	      ncouples 1
-	      key "STM generated" value ""
-	      comment " to manage the event time_out"
-	    end
 	  end
 
-	  class 143362 "bumper_en_bas_des_marches_State"
+	  class 136706 "bumper_en_bas_des_marches_State"
 	    visibility public 
 	    cpp_decl "${comment}${template}class ${name}${inherit} {
 ${members}};
@@ -1138,7 +1138,7 @@ ${inlines}
 	    ncouples 1
 	    key "STM generated" value ""
 	    comment " implement the state bumper en bas des marches"
-	    operation 158338 "~bumper_en_bas_des_marches_State"
+	    operation 136834 "~bumper_en_bas_des_marches_State"
 	      force_body_gen cpp_virtual public explicit_return_type ""
 	      nparams 0
 	      cpp_decl "    ${comment}${inline}${virtual}${name}${(}${)}${volatile}${throw};
@@ -1154,15 +1154,15 @@ ${inlines}
 	      key "STM generated" value ""
 	    end
 
-	    classrelation 145410 // <generalisation>
-	      relation 145410 ---|>
+	    classrelation 138114 // <generalisation>
+	      relation 138114 ---|>
 		a public
 		  cpp default "${type}"
-		  classrelation_ref 145410 // <generalisation>
+		  classrelation_ref 138114 // <generalisation>
 		b parent class_ref 134658 // AnyState
 	    end
 
-	    operation 171778 "assFini"
+	    operation 146306 "assFini"
 	      force_body_gen cpp_virtual public explicit_return_type "void"
 	      nparams 1
 	        param inout name "stm" type class_ref 134530 // MAE_COOP_R
@@ -1180,7 +1180,7 @@ ${inlines}
 	      comment " to manage the event assFini"
 	    end
 
-	    operation 171906 "create"
+	    operation 146434 "create"
 	      force_body_gen cpp_virtual public explicit_return_type "void"
 	      nparams 1
 	        param inout name "stm" type class_ref 134530 // MAE_COOP_R
@@ -1198,7 +1198,7 @@ ${inlines}
 	      comment " to manage the event create"
 	    end
 
-	    operation 172034 "_doentry"
+	    operation 146562 "_doentry"
 	      force_body_gen public explicit_return_type "void"
 	      nparams 1
 	        param inout name "stm" type class_ref 134530 // MAE_COOP_R
@@ -1216,7 +1216,7 @@ ${inlines}
 	      comment " perform the 'entry behavior'"
 	    end
 
-	    operation 172162 "_upper"
+	    operation 146690 "_upper"
 	      force_body_gen cpp_virtual public return_type class_ref 134658 // AnyState
 	      nparams 1
 	        param inout name "stm" type class_ref 134530 // MAE_COOP_R
@@ -1235,7 +1235,7 @@ ${inlines}
 	    end
 	  end
 
-	  class 143106 "Evitement_State"
+	  class 136578 "Evitement_State"
 	    visibility public 
 	    cpp_decl "${comment}${template}class ${name}${inherit} {
 ${members}};
@@ -1250,7 +1250,7 @@ ${inlines}
 	    ncouples 1
 	    key "STM generated" value ""
 	    comment " implement the state Evitement"
-	    operation 158082 "~Evitement_State"
+	    operation 136706 "~Evitement_State"
 	      force_body_gen cpp_virtual public explicit_return_type ""
 	      nparams 0
 	      cpp_decl "    ${comment}${inline}${virtual}${name}${(}${)}${volatile}${throw};
@@ -1266,15 +1266,15 @@ ${inlines}
 	      key "STM generated" value ""
 	    end
 
-	    classrelation 144898 // <generalisation>
-	      relation 144898 ---|>
+	    classrelation 137858 // <generalisation>
+	      relation 137858 ---|>
 		a public
 		  cpp default "${type}"
-		  classrelation_ref 144898 // <generalisation>
+		  classrelation_ref 137858 // <generalisation>
 		b parent class_ref 134658 // AnyState
 	    end
 
-	    operation 170754 "time_out"
+	    operation 145794 "time_out"
 	      force_body_gen cpp_virtual public explicit_return_type "void"
 	      nparams 1
 	        param inout name "stm" type class_ref 134530 // MAE_COOP_R
@@ -1292,7 +1292,7 @@ ${inlines}
 	      comment " to manage the event time_out"
 	    end
 
-	    operation 170882 "create"
+	    operation 145922 "create"
 	      force_body_gen cpp_virtual public explicit_return_type "void"
 	      nparams 1
 	        param inout name "stm" type class_ref 134530 // MAE_COOP_R
@@ -1310,7 +1310,7 @@ ${inlines}
 	      comment " to manage the event create"
 	    end
 
-	    operation 171010 "_doentry"
+	    operation 146050 "_doentry"
 	      force_body_gen public explicit_return_type "void"
 	      nparams 1
 	        param inout name "stm" type class_ref 134530 // MAE_COOP_R
@@ -1328,7 +1328,7 @@ ${inlines}
 	      comment " perform the 'entry behavior'"
 	    end
 
-	    operation 171138 "_upper"
+	    operation 146178 "_upper"
 	      force_body_gen cpp_virtual public return_type class_ref 134658 // AnyState
 	      nparams 1
 	        param inout name "stm" type class_ref 134530 // MAE_COOP_R
@@ -1386,25 +1386,7 @@ ${inlines}
 		b parent class_ref 134658 // AnyState
 	    end
 
-	    operation 142722 "_upper"
-	      force_body_gen cpp_virtual public return_type class_ref 134658 // AnyState
-	      nparams 1
-	        param inout name "stm" type class_ref 134530 // MAE_COOP_R
-	      cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} * ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
-"
-	      cpp_def "${comment}${inline}${type} * ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
-  ${body}}
-"
-	      
-	      
-	      
-	      
-	      ncouples 1
-	      key "STM generated" value ""
-	      comment " returns the state containing the current"
-	    end
-
-	    operation 169730 "create"
+	    operation 145410 "create"
 	      force_body_gen cpp_virtual public explicit_return_type "void"
 	      nparams 1
 	        param inout name "stm" type class_ref 134530 // MAE_COOP_R
@@ -1422,7 +1404,7 @@ ${inlines}
 	      comment " to manage the event create"
 	    end
 
-	    operation 169858 "_doentry"
+	    operation 145538 "_doentry"
 	      force_body_gen public explicit_return_type "void"
 	      nparams 1
 	        param inout name "stm" type class_ref 134530 // MAE_COOP_R
@@ -1438,6 +1420,24 @@ ${inlines}
 	      ncouples 1
 	      key "STM generated" value ""
 	      comment " perform the 'entry behavior'"
+	    end
+
+	    operation 145666 "_upper"
+	      force_body_gen cpp_virtual public return_type class_ref 134658 // AnyState
+	      nparams 1
+	        param inout name "stm" type class_ref 134530 // MAE_COOP_R
+	      cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} * ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+	      cpp_def "${comment}${inline}${type} * ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+	      
+	      
+	      
+	      
+	      ncouples 1
+	      key "STM generated" value ""
+	      comment " returns the state containing the current"
 	    end
 	  end
 
@@ -1480,25 +1480,7 @@ ${inlines}
 		b parent class_ref 134658 // AnyState
 	    end
 
-	    operation 142594 "_upper"
-	      force_body_gen cpp_virtual public return_type class_ref 134658 // AnyState
-	      nparams 1
-	        param inout name "stm" type class_ref 134530 // MAE_COOP_R
-	      cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} * ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
-"
-	      cpp_def "${comment}${inline}${type} * ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
-  ${body}}
-"
-	      
-	      
-	      
-	      
-	      ncouples 1
-	      key "STM generated" value ""
-	      comment " returns the state containing the current"
-	    end
-
-	    operation 169346 "ioFini"
+	    operation 144898 "ioFini"
 	      force_body_gen cpp_virtual public explicit_return_type "void"
 	      nparams 1
 	        param inout name "stm" type class_ref 134530 // MAE_COOP_R
@@ -1516,7 +1498,7 @@ ${inlines}
 	      comment " to manage the event ioFini"
 	    end
 
-	    operation 169474 "create"
+	    operation 145026 "create"
 	      force_body_gen cpp_virtual public explicit_return_type "void"
 	      nparams 1
 	        param inout name "stm" type class_ref 134530 // MAE_COOP_R
@@ -1534,7 +1516,7 @@ ${inlines}
 	      comment " to manage the event create"
 	    end
 
-	    operation 169602 "_doentry"
+	    operation 145154 "_doentry"
 	      force_body_gen public explicit_return_type "void"
 	      nparams 1
 	        param inout name "stm" type class_ref 134530 // MAE_COOP_R
@@ -1550,6 +1532,24 @@ ${inlines}
 	      ncouples 1
 	      key "STM generated" value ""
 	      comment " perform the 'entry behavior'"
+	    end
+
+	    operation 145282 "_upper"
+	      force_body_gen cpp_virtual public return_type class_ref 134658 // AnyState
+	      nparams 1
+	        param inout name "stm" type class_ref 134530 // MAE_COOP_R
+	      cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} * ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+	      cpp_def "${comment}${inline}${type} * ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+	      
+	      
+	      
+	      
+	      ncouples 1
+	      key "STM generated" value ""
+	      comment " returns the state containing the current"
 	    end
 	  end
 
@@ -1592,25 +1592,7 @@ ${inlines}
 		b parent class_ref 134658 // AnyState
 	    end
 
-	    operation 142338 "_upper"
-	      force_body_gen cpp_virtual public return_type class_ref 134658 // AnyState
-	      nparams 1
-	        param inout name "stm" type class_ref 134530 // MAE_COOP_R
-	      cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} * ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
-"
-	      cpp_def "${comment}${inline}${type} * ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
-  ${body}}
-"
-	      
-	      
-	      
-	      
-	      ncouples 1
-	      key "STM generated" value ""
-	      comment " returns the state containing the current"
-	    end
-
-	    operation 168834 "ioFini"
+	    operation 144386 "ioFini"
 	      force_body_gen cpp_virtual public explicit_return_type "void"
 	      nparams 1
 	        param inout name "stm" type class_ref 134530 // MAE_COOP_R
@@ -1628,7 +1610,7 @@ ${inlines}
 	      comment " to manage the event ioFini"
 	    end
 
-	    operation 168962 "create"
+	    operation 144514 "create"
 	      force_body_gen cpp_virtual public explicit_return_type "void"
 	      nparams 1
 	        param inout name "stm" type class_ref 134530 // MAE_COOP_R
@@ -1646,7 +1628,7 @@ ${inlines}
 	      comment " to manage the event create"
 	    end
 
-	    operation 169090 "_doentry"
+	    operation 144642 "_doentry"
 	      force_body_gen public explicit_return_type "void"
 	      nparams 1
 	        param inout name "stm" type class_ref 134530 // MAE_COOP_R
@@ -1662,6 +1644,24 @@ ${inlines}
 	      ncouples 1
 	      key "STM generated" value ""
 	      comment " perform the 'entry behavior'"
+	    end
+
+	    operation 144770 "_upper"
+	      force_body_gen cpp_virtual public return_type class_ref 134658 // AnyState
+	      nparams 1
+	        param inout name "stm" type class_ref 134530 // MAE_COOP_R
+	      cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} * ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+	      cpp_def "${comment}${inline}${type} * ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+	      
+	      
+	      
+	      
+	      ncouples 1
+	      key "STM generated" value ""
+	      comment " returns the state containing the current"
 	    end
 	  end
 
@@ -1704,25 +1704,7 @@ ${inlines}
 		b parent class_ref 134658 // AnyState
 	    end
 
-	    operation 142082 "_upper"
-	      force_body_gen cpp_virtual public return_type class_ref 134658 // AnyState
-	      nparams 1
-	        param inout name "stm" type class_ref 134530 // MAE_COOP_R
-	      cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} * ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
-"
-	      cpp_def "${comment}${inline}${type} * ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
-  ${body}}
-"
-	      
-	      
-	      
-	      
-	      ncouples 1
-	      key "STM generated" value ""
-	      comment " returns the state containing the current"
-	    end
-
-	    operation 168450 "assFini"
+	    operation 143874 "assFini"
 	      force_body_gen cpp_virtual public explicit_return_type "void"
 	      nparams 1
 	        param inout name "stm" type class_ref 134530 // MAE_COOP_R
@@ -1740,7 +1722,7 @@ ${inlines}
 	      comment " to manage the event assFini"
 	    end
 
-	    operation 168578 "create"
+	    operation 144002 "create"
 	      force_body_gen cpp_virtual public explicit_return_type "void"
 	      nparams 1
 	        param inout name "stm" type class_ref 134530 // MAE_COOP_R
@@ -1758,7 +1740,7 @@ ${inlines}
 	      comment " to manage the event create"
 	    end
 
-	    operation 168706 "_doentry"
+	    operation 144130 "_doentry"
 	      force_body_gen public explicit_return_type "void"
 	      nparams 1
 	        param inout name "stm" type class_ref 134530 // MAE_COOP_R
@@ -1774,6 +1756,24 @@ ${inlines}
 	      ncouples 1
 	      key "STM generated" value ""
 	      comment " perform the 'entry behavior'"
+	    end
+
+	    operation 144258 "_upper"
+	      force_body_gen cpp_virtual public return_type class_ref 134658 // AnyState
+	      nparams 1
+	        param inout name "stm" type class_ref 134530 // MAE_COOP_R
+	      cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} * ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+	      cpp_def "${comment}${inline}${type} * ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+	      
+	      
+	      
+	      
+	      ncouples 1
+	      key "STM generated" value ""
+	      comment " returns the state containing the current"
 	    end
 	  end
 
@@ -1816,25 +1816,7 @@ ${inlines}
 		b parent class_ref 134658 // AnyState
 	    end
 
-	    operation 141826 "_upper"
-	      force_body_gen cpp_virtual public return_type class_ref 134658 // AnyState
-	      nparams 1
-	        param inout name "stm" type class_ref 134530 // MAE_COOP_R
-	      cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} * ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
-"
-	      cpp_def "${comment}${inline}${type} * ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
-  ${body}}
-"
-	      
-	      
-	      
-	      
-	      ncouples 1
-	      key "STM generated" value ""
-	      comment " returns the state containing the current"
-	    end
-
-	    operation 168066 "ioFini"
+	    operation 143362 "ioFini"
 	      force_body_gen cpp_virtual public explicit_return_type "void"
 	      nparams 1
 	        param inout name "stm" type class_ref 134530 // MAE_COOP_R
@@ -1852,7 +1834,7 @@ ${inlines}
 	      comment " to manage the event ioFini"
 	    end
 
-	    operation 168194 "create"
+	    operation 143490 "create"
 	      force_body_gen cpp_virtual public explicit_return_type "void"
 	      nparams 1
 	        param inout name "stm" type class_ref 134530 // MAE_COOP_R
@@ -1870,7 +1852,7 @@ ${inlines}
 	      comment " to manage the event create"
 	    end
 
-	    operation 168322 "_doentry"
+	    operation 143618 "_doentry"
 	      force_body_gen public explicit_return_type "void"
 	      nparams 1
 	        param inout name "stm" type class_ref 134530 // MAE_COOP_R
@@ -1886,6 +1868,24 @@ ${inlines}
 	      ncouples 1
 	      key "STM generated" value ""
 	      comment " perform the 'entry behavior'"
+	    end
+
+	    operation 143746 "_upper"
+	      force_body_gen cpp_virtual public return_type class_ref 134658 // AnyState
+	      nparams 1
+	        param inout name "stm" type class_ref 134530 // MAE_COOP_R
+	      cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} * ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+	      cpp_def "${comment}${inline}${type} * ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+	      
+	      
+	      
+	      
+	      ncouples 1
+	      key "STM generated" value ""
+	      comment " returns the state containing the current"
 	    end
 	  end
 
@@ -1928,25 +1928,7 @@ ${inlines}
 		b parent class_ref 134658 // AnyState
 	    end
 
-	    operation 141314 "_upper"
-	      force_body_gen cpp_virtual public return_type class_ref 134658 // AnyState
-	      nparams 1
-	        param inout name "stm" type class_ref 134530 // MAE_COOP_R
-	      cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} * ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
-"
-	      cpp_def "${comment}${inline}${type} * ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
-  ${body}}
-"
-	      
-	      
-	      
-	      
-	      ncouples 1
-	      key "STM generated" value ""
-	      comment " returns the state containing the current"
-	    end
-
-	    operation 167682 "ioFini"
+	    operation 142850 "ioFini"
 	      force_body_gen cpp_virtual public explicit_return_type "void"
 	      nparams 1
 	        param inout name "stm" type class_ref 134530 // MAE_COOP_R
@@ -1964,7 +1946,7 @@ ${inlines}
 	      comment " to manage the event ioFini"
 	    end
 
-	    operation 167810 "create"
+	    operation 142978 "create"
 	      force_body_gen cpp_virtual public explicit_return_type "void"
 	      nparams 1
 	        param inout name "stm" type class_ref 134530 // MAE_COOP_R
@@ -1982,7 +1964,7 @@ ${inlines}
 	      comment " to manage the event create"
 	    end
 
-	    operation 167938 "_doentry"
+	    operation 143106 "_doentry"
 	      force_body_gen public explicit_return_type "void"
 	      nparams 1
 	        param inout name "stm" type class_ref 134530 // MAE_COOP_R
@@ -1998,6 +1980,24 @@ ${inlines}
 	      ncouples 1
 	      key "STM generated" value ""
 	      comment " perform the 'entry behavior'"
+	    end
+
+	    operation 143234 "_upper"
+	      force_body_gen cpp_virtual public return_type class_ref 134658 // AnyState
+	      nparams 1
+	        param inout name "stm" type class_ref 134530 // MAE_COOP_R
+	      cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} * ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+	      cpp_def "${comment}${inline}${type} * ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+	      
+	      
+	      
+	      
+	      ncouples 1
+	      key "STM generated" value ""
+	      comment " returns the state containing the current"
 	    end
 	  end
 
@@ -2040,25 +2040,7 @@ ${inlines}
 		b parent class_ref 134658 // AnyState
 	    end
 
-	    operation 140802 "_upper"
-	      force_body_gen cpp_virtual public return_type class_ref 134658 // AnyState
-	      nparams 1
-	        param inout name "stm" type class_ref 134530 // MAE_COOP_R
-	      cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} * ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
-"
-	      cpp_def "${comment}${inline}${type} * ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
-  ${body}}
-"
-	      
-	      
-	      
-	      
-	      ncouples 1
-	      key "STM generated" value ""
-	      comment " returns the state containing the current"
-	    end
-
-	    operation 167042 "assFini"
+	    operation 142082 "assFini"
 	      force_body_gen cpp_virtual public explicit_return_type "void"
 	      nparams 1
 	        param inout name "stm" type class_ref 134530 // MAE_COOP_R
@@ -2076,7 +2058,7 @@ ${inlines}
 	      comment " to manage the event assFini"
 	    end
 
-	    operation 167170 "create"
+	    operation 142210 "create"
 	      force_body_gen cpp_virtual public explicit_return_type "void"
 	      nparams 1
 	        param inout name "stm" type class_ref 134530 // MAE_COOP_R
@@ -2094,7 +2076,7 @@ ${inlines}
 	      comment " to manage the event create"
 	    end
 
-	    operation 167298 "_doentry"
+	    operation 142338 "_doentry"
 	      force_body_gen public explicit_return_type "void"
 	      nparams 1
 	        param inout name "stm" type class_ref 134530 // MAE_COOP_R
@@ -2110,6 +2092,24 @@ ${inlines}
 	      ncouples 1
 	      key "STM generated" value ""
 	      comment " perform the 'entry behavior'"
+	    end
+
+	    operation 142466 "_upper"
+	      force_body_gen cpp_virtual public return_type class_ref 134658 // AnyState
+	      nparams 1
+	        param inout name "stm" type class_ref 134530 // MAE_COOP_R
+	      cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} * ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+	      cpp_def "${comment}${inline}${type} * ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+	      
+	      
+	      
+	      
+	      ncouples 1
+	      key "STM generated" value ""
+	      comment " returns the state containing the current"
 	    end
 	  end
 
@@ -2152,25 +2152,7 @@ ${inlines}
 		b parent class_ref 134658 // AnyState
 	    end
 
-	    operation 140290 "_upper"
-	      force_body_gen cpp_virtual public return_type class_ref 134658 // AnyState
-	      nparams 1
-	        param inout name "stm" type class_ref 134530 // MAE_COOP_R
-	      cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} * ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
-"
-	      cpp_def "${comment}${inline}${type} * ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
-  ${body}}
-"
-	      
-	      
-	      
-	      
-	      ncouples 1
-	      key "STM generated" value ""
-	      comment " returns the state containing the current"
-	    end
-
-	    operation 166658 "assFini"
+	    operation 141570 "assFini"
 	      force_body_gen cpp_virtual public explicit_return_type "void"
 	      nparams 1
 	        param inout name "stm" type class_ref 134530 // MAE_COOP_R
@@ -2188,7 +2170,7 @@ ${inlines}
 	      comment " to manage the event assFini"
 	    end
 
-	    operation 166786 "create"
+	    operation 141698 "create"
 	      force_body_gen cpp_virtual public explicit_return_type "void"
 	      nparams 1
 	        param inout name "stm" type class_ref 134530 // MAE_COOP_R
@@ -2206,7 +2188,7 @@ ${inlines}
 	      comment " to manage the event create"
 	    end
 
-	    operation 166914 "_doentry"
+	    operation 141826 "_doentry"
 	      force_body_gen public explicit_return_type "void"
 	      nparams 1
 	        param inout name "stm" type class_ref 134530 // MAE_COOP_R
@@ -2222,6 +2204,24 @@ ${inlines}
 	      ncouples 1
 	      key "STM generated" value ""
 	      comment " perform the 'entry behavior'"
+	    end
+
+	    operation 141954 "_upper"
+	      force_body_gen cpp_virtual public return_type class_ref 134658 // AnyState
+	      nparams 1
+	        param inout name "stm" type class_ref 134530 // MAE_COOP_R
+	      cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} * ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+	      cpp_def "${comment}${inline}${type} * ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+	      
+	      
+	      
+	      
+	      ncouples 1
+	      key "STM generated" value ""
+	      comment " returns the state containing the current"
 	    end
 	  end
 
@@ -2264,25 +2264,7 @@ ${inlines}
 		b parent class_ref 134658 // AnyState
 	    end
 
-	    operation 140034 "_upper"
-	      force_body_gen cpp_virtual public return_type class_ref 134658 // AnyState
-	      nparams 1
-	        param inout name "stm" type class_ref 134530 // MAE_COOP_R
-	      cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} * ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
-"
-	      cpp_def "${comment}${inline}${type} * ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
-  ${body}}
-"
-	      
-	      
-	      
-	      
-	      ncouples 1
-	      key "STM generated" value ""
-	      comment " returns the state containing the current"
-	    end
-
-	    operation 151298 "time_out"
+	    operation 140930 "time_out"
 	      force_body_gen cpp_virtual public explicit_return_type "void"
 	      nparams 1
 	        param inout name "stm" type class_ref 134530 // MAE_COOP_R
@@ -2300,7 +2282,7 @@ ${inlines}
 	      comment " to manage the event time_out"
 	    end
 
-	    operation 166274 "create"
+	    operation 141058 "create"
 	      force_body_gen cpp_virtual public explicit_return_type "void"
 	      nparams 1
 	        param inout name "stm" type class_ref 134530 // MAE_COOP_R
@@ -2318,7 +2300,7 @@ ${inlines}
 	      comment " to manage the event create"
 	    end
 
-	    operation 166402 "_doentry"
+	    operation 141186 "_doentry"
 	      force_body_gen public explicit_return_type "void"
 	      nparams 1
 	        param inout name "stm" type class_ref 134530 // MAE_COOP_R
@@ -2336,7 +2318,7 @@ ${inlines}
 	      comment " perform the 'entry behavior'"
 	    end
 
-	    operation 166530 "_doexit"
+	    operation 141314 "_doexit"
 	      force_body_gen public explicit_return_type "void"
 	      nparams 1
 	        param inout name "stm" type class_ref 134530 // MAE_COOP_R
@@ -2352,6 +2334,24 @@ ${inlines}
 	      ncouples 1
 	      key "STM generated" value ""
 	      comment " perform the 'exit behavior'"
+	    end
+
+	    operation 141442 "_upper"
+	      force_body_gen cpp_virtual public return_type class_ref 134658 // AnyState
+	      nparams 1
+	        param inout name "stm" type class_ref 134530 // MAE_COOP_R
+	      cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} * ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+	      cpp_def "${comment}${inline}${type} * ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+	      
+	      
+	      
+	      
+	      ncouples 1
+	      key "STM generated" value ""
+	      comment " returns the state containing the current"
 	    end
 	  end
 
@@ -2394,25 +2394,7 @@ ${inlines}
 		b parent class_ref 134658 // AnyState
 	    end
 
-	    operation 139778 "_upper"
-	      force_body_gen cpp_virtual public return_type class_ref 134658 // AnyState
-	      nparams 1
-	        param inout name "stm" type class_ref 134530 // MAE_COOP_R
-	      cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} * ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
-"
-	      cpp_def "${comment}${inline}${type} * ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
-  ${body}}
-"
-	      
-	      
-	      
-	      
-	      ncouples 1
-	      key "STM generated" value ""
-	      comment " returns the state containing the current"
-	    end
-
-	    operation 159106 "adversaire"
+	    operation 140034 "adversaire"
 	      force_body_gen cpp_virtual public explicit_return_type "void"
 	      nparams 1
 	        param inout name "stm" type class_ref 134530 // MAE_COOP_R
@@ -2430,7 +2412,7 @@ ${inlines}
 	      comment " to manage the event adversaire"
 	    end
 
-	    operation 159490 "assFini"
+	    operation 140418 "assFini"
 	      force_body_gen cpp_virtual public explicit_return_type "void"
 	      nparams 1
 	        param inout name "stm" type class_ref 134530 // MAE_COOP_R
@@ -2448,7 +2430,7 @@ ${inlines}
 	      comment " to manage the event assFini"
 	    end
 
-	    operation 159618 "create"
+	    operation 140546 "create"
 	      force_body_gen cpp_virtual public explicit_return_type "void"
 	      nparams 1
 	        param inout name "stm" type class_ref 134530 // MAE_COOP_R
@@ -2466,7 +2448,7 @@ ${inlines}
 	      comment " to manage the event create"
 	    end
 
-	    operation 159746 "_doentry"
+	    operation 140674 "_doentry"
 	      force_body_gen public explicit_return_type "void"
 	      nparams 1
 	        param inout name "stm" type class_ref 134530 // MAE_COOP_R
@@ -2482,6 +2464,24 @@ ${inlines}
 	      ncouples 1
 	      key "STM generated" value ""
 	      comment " perform the 'entry behavior'"
+	    end
+
+	    operation 140802 "_upper"
+	      force_body_gen cpp_virtual public return_type class_ref 134658 // AnyState
+	      nparams 1
+	        param inout name "stm" type class_ref 134530 // MAE_COOP_R
+	      cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} * ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+	      cpp_def "${comment}${inline}${type} * ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+	      
+	      
+	      
+	      
+	      ncouples 1
+	      key "STM generated" value ""
+	      comment " returns the state containing the current"
 	    end
 	  end
 
@@ -2644,6 +2644,71 @@ ${inlines}
 	    comment " memorize the instance of the state fin de jeu, internal"
 	  end
 
+	  attribute 136322 "_evitement_state"
+	    public type class_ref 136578 // Evitement_State
+	    cpp_decl "    ${comment}${static}${mutable}${volatile}${const}${type} ${name}${value};
+"
+	    java_decl ""
+	    php_decl ""
+	    python_decl ""
+	    idl_decl ""
+	    ncouples 1
+	    key "STM generated" value ""
+	    comment " memorize the instance of the state Evitement, internal"
+	  end
+
+	  attribute 136450 "_bumper_en_bas_des_marches_state"
+	    public type class_ref 136706 // bumper_en_bas_des_marches_State
+	    cpp_decl "    ${comment}${static}${mutable}${volatile}${const}${type} ${name}${value};
+"
+	    java_decl ""
+	    php_decl ""
+	    python_decl ""
+	    idl_decl ""
+	    ncouples 1
+	    key "STM generated" value ""
+	    comment " memorize the instance of the state bumper en bas des marches, internal"
+	  end
+
+	  attribute 136578 "_fin_deplacement_lateral_state"
+	    public type class_ref 136834 // fin_deplacement_lateral_State
+	    cpp_decl "    ${comment}${static}${mutable}${volatile}${const}${type} ${name}${value};
+"
+	    java_decl ""
+	    php_decl ""
+	    python_decl ""
+	    idl_decl ""
+	    ncouples 1
+	    key "STM generated" value ""
+	    comment " memorize the instance of the state fin deplacement lateral, internal"
+	  end
+
+	  attribute 136706 "_reprise_state"
+	    public type class_ref 136962 // reprise_State
+	    cpp_decl "    ${comment}${static}${mutable}${volatile}${const}${type} ${name}${value};
+"
+	    java_decl ""
+	    php_decl ""
+	    python_decl ""
+	    idl_decl ""
+	    ncouples 1
+	    key "STM generated" value ""
+	    comment " memorize the instance of the state reprise, internal"
+	  end
+
+	  attribute 136834 "_deployement_state"
+	    public type class_ref 137090 // deployement_State
+	    cpp_decl "    ${comment}${static}${mutable}${volatile}${const}${type} ${name}${value};
+"
+	    java_decl ""
+	    php_decl ""
+	    python_decl ""
+	    idl_decl ""
+	    ncouples 1
+	    key "STM generated" value ""
+	    comment " memorize the instance of the state deployement, internal"
+	  end
+
 	  classrelation 134914 // <generalisation>
 	    relation 134914 ---|>
 	      a public
@@ -2652,7 +2717,7 @@ ${inlines}
 	      b parent class_ref 134658 // AnyState
 	  end
 
-	  operation 138626 "create"
+	  operation 138754 "create"
 	    force_body_gen cpp_virtual public explicit_return_type "void"
 	    nparams 1
 	      param inout name "stm" type class_ref 134530 // MAE_COOP_R
@@ -2670,7 +2735,7 @@ ${inlines}
 	    comment " to manage the event create"
 	  end
 
-	  operation 138754 "_completion"
+	  operation 138882 "_completion"
 	    force_body_gen cpp_virtual public explicit_return_type "bool"
 	    nparams 1
 	      param inout name "stm" type class_ref 134530 // MAE_COOP_R
@@ -2687,7 +2752,7 @@ ${inlines}
 	    key "STM generated" value ""
 	  end
 
-	  operation 142850 "_doentry"
+	  operation 148482 "_doentry"
 	    force_body_gen public explicit_return_type "void"
 	    nparams 1
 	      param inout name "stm" type class_ref 134530 // MAE_COOP_R
@@ -2705,7 +2770,7 @@ ${inlines}
 	    comment " perform the 'entry behavior'"
 	  end
 
-	  operation 142978 "_upper"
+	  operation 148610 "_upper"
 	    force_body_gen cpp_virtual public return_type class_ref 134658 // AnyState
 	    nparams 1
 	      param inout name "stm" type class_ref 134530 // MAE_COOP_R
@@ -2721,71 +2786,6 @@ ${inlines}
 	    ncouples 1
 	    key "STM generated" value ""
 	    comment " returns the state containing the current"
-	  end
-
-	  attribute 142850 "_evitement_state"
-	    public type class_ref 143106 // Evitement_State
-	    cpp_decl "    ${comment}${static}${mutable}${volatile}${const}${type} ${name}${value};
-"
-	    java_decl ""
-	    php_decl ""
-	    python_decl ""
-	    idl_decl ""
-	    ncouples 1
-	    key "STM generated" value ""
-	    comment " memorize the instance of the state Evitement, internal"
-	  end
-
-	  attribute 143106 "_bumper_en_bas_des_marches_state"
-	    public type class_ref 143362 // bumper_en_bas_des_marches_State
-	    cpp_decl "    ${comment}${static}${mutable}${volatile}${const}${type} ${name}${value};
-"
-	    java_decl ""
-	    php_decl ""
-	    python_decl ""
-	    idl_decl ""
-	    ncouples 1
-	    key "STM generated" value ""
-	    comment " memorize the instance of the state bumper en bas des marches, internal"
-	  end
-
-	  attribute 143234 "_fin_deplacement_lateral_state"
-	    public type class_ref 143490 // fin_deplacement_lateral_State
-	    cpp_decl "    ${comment}${static}${mutable}${volatile}${const}${type} ${name}${value};
-"
-	    java_decl ""
-	    php_decl ""
-	    python_decl ""
-	    idl_decl ""
-	    ncouples 1
-	    key "STM generated" value ""
-	    comment " memorize the instance of the state fin deplacement lateral, internal"
-	  end
-
-	  attribute 143362 "_reprise_state"
-	    public type class_ref 143618 // reprise_State
-	    cpp_decl "    ${comment}${static}${mutable}${volatile}${const}${type} ${name}${value};
-"
-	    java_decl ""
-	    php_decl ""
-	    python_decl ""
-	    idl_decl ""
-	    ncouples 1
-	    key "STM generated" value ""
-	    comment " memorize the instance of the state reprise, internal"
-	  end
-
-	  attribute 143490 "_deployement_state"
-	    public type class_ref 143746 // deployement_State
-	    cpp_decl "    ${comment}${static}${mutable}${volatile}${const}${type} ${name}${value};
-"
-	    java_decl ""
-	    php_decl ""
-	    python_decl ""
-	    idl_decl ""
-	    ncouples 1
-	    key "STM generated" value ""
-	    comment " memorize the instance of the state deployement, internal"
 	  end
 	end
 
@@ -2839,7 +2839,7 @@ ${inlines}
 	    b parent class_ref 134658 // AnyState
 	end
 
-	operation 137346 "create"
+	operation 137858 "create"
 	  force_body_gen cpp_virtual public explicit_return_type "void"
 	  nparams 1
 	    param inout name "stm" type class_ref 134530 // MAE_COOP_R
@@ -2857,7 +2857,7 @@ ${inlines}
 	  comment " to manage the event create"
 	end
 
-	operation 143618 "_upper"
+	operation 148738 "_upper"
 	  force_body_gen cpp_virtual public return_type class_ref 134658 // AnyState
 	  nparams 1
 	    param inout name "stm" type class_ref 134530 // MAE_COOP_R
@@ -2889,7 +2889,7 @@ ${inlines}
 	comment " memorize the instance of the state MAE_COOP_R, internal"
       end
 
-      operation 136834 "MAE_COOP_R"
+      operation 137346 "MAE_COOP_R"
 	force_body_gen public explicit_return_type ""
 	nparams 0
 	cpp_decl "    ${comment}${inline}${name}${(}${)}${volatile}${throw};
@@ -2905,7 +2905,7 @@ ${inlines}
 	key "STM generated" value ""
       end
 
-      operation 136962 "~MAE_COOP_R"
+      operation 137474 "~MAE_COOP_R"
 	force_body_gen cpp_virtual public explicit_return_type ""
 	nparams 0
 	cpp_decl "    ${comment}${inline}${virtual}${name}${(}${)}${volatile}${throw};
@@ -2921,7 +2921,7 @@ ${inlines}
 	key "STM generated" value ""
       end
 
-      operation 137090 "create"
+      operation 137602 "create"
 	force_body_gen public explicit_return_type "bool"
 	nparams 0
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
@@ -2938,7 +2938,7 @@ ${inlines}
 	comment " the operation you call to signal the event create"
       end
 
-      operation 137474 "stratEnleve"
+      operation 137986 "stratEnleve"
 	force_body_gen public explicit_return_type "bool"
 	nparams 0
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
@@ -2964,6 +2964,23 @@ ${inlines}
 	  b parent class_ref 134914 // Attente_State
       end
 
+      operation 139010 "time_out"
+	force_body_gen public explicit_return_type "bool"
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "${comment}${inline}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	
+	ncouples 1
+	key "STM generated" value ""
+	comment " the operation you call to signal the event time_out"
+      end
+
       classrelation 135170 // <dependency>
 	relation 135170 -_->
 	  stereotype "friend"
@@ -2971,6 +2988,40 @@ ${inlines}
 	    cpp default "${type}"
 	    classrelation_ref 135170 // <dependency>
 	  b parent class_ref 135170 // attente_State
+      end
+
+      operation 139778 "adversaire"
+	force_body_gen public explicit_return_type "bool"
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "${comment}${inline}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	
+	ncouples 1
+	key "STM generated" value ""
+	comment " the operation you call to signal the event adversaire"
+      end
+
+      operation 140162 "assFini"
+	force_body_gen public explicit_return_type "bool"
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "${comment}${inline}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	
+	ncouples 1
+	key "STM generated" value ""
+	comment " the operation you call to signal the event assFini"
       end
 
       classrelation 135426 // <dependency>
@@ -3007,6 +3058,23 @@ ${inlines}
 	    cpp default "${type}"
 	    classrelation_ref 136194 // <dependency>
 	  b parent class_ref 135682 // decalage_gauche_State
+      end
+
+      operation 142594 "ioFini"
+	force_body_gen public explicit_return_type "bool"
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "${comment}${inline}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	
+	ncouples 1
+	key "STM generated" value ""
+	comment " the operation you call to signal the event ioFini"
       end
 
       classrelation 136450 // <dependency>
@@ -3063,13 +3131,13 @@ ${inlines}
 	  b parent class_ref 136450 // fin_de_jeu_State
       end
 
-      classrelation 137858 // <dependency>
-	relation 137858 -_->
+      classrelation 137986 // <dependency>
+	relation 137986 -_->
 	  stereotype "friend"
 	  a default
 	    cpp default "${type}"
-	    classrelation_ref 137858 // <dependency>
-	  b parent class_ref 135042 // Jeu_State
+	    classrelation_ref 137986 // <dependency>
+	  b parent class_ref 136578 // Evitement_State
       end
 
       classrelation 138242 // <dependency>
@@ -3078,10 +3146,55 @@ ${inlines}
 	  a default
 	    cpp default "${type}"
 	    classrelation_ref 138242 // <dependency>
+	  b parent class_ref 136706 // bumper_en_bas_des_marches_State
+      end
+
+      classrelation 138498 // <dependency>
+	relation 138498 -_->
+	  stereotype "friend"
+	  a default
+	    cpp default "${type}"
+	    classrelation_ref 138498 // <dependency>
+	  b parent class_ref 136834 // fin_deplacement_lateral_State
+      end
+
+      classrelation 138754 // <dependency>
+	relation 138754 -_->
+	  stereotype "friend"
+	  a default
+	    cpp default "${type}"
+	    classrelation_ref 138754 // <dependency>
+	  b parent class_ref 136962 // reprise_State
+      end
+
+      classrelation 139010 // <dependency>
+	relation 139010 -_->
+	  stereotype "friend"
+	  a default
+	    cpp default "${type}"
+	    classrelation_ref 139010 // <dependency>
+	  b parent class_ref 137090 // deployement_State
+      end
+
+      classrelation 139138 // <dependency>
+	relation 139138 -_->
+	  stereotype "friend"
+	  a default
+	    cpp default "${type}"
+	    classrelation_ref 139138 // <dependency>
+	  b parent class_ref 135042 // Jeu_State
+      end
+
+      classrelation 139266 // <dependency>
+	relation 139266 -_->
+	  stereotype "friend"
+	  a default
+	    cpp default "${type}"
+	    classrelation_ref 139266 // <dependency>
 	  b parent class_ref 134786 // MAE_COOP_R_State
       end
 
-      operation 143746 "doActivity"
+      operation 148866 "doActivity"
 	force_body_gen public explicit_return_type "void"
 	nparams 0
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
@@ -3098,7 +3211,7 @@ ${inlines}
 	comment " to execute the current state 'do activity'"
       end
 
-      operation 143874 "_set_currentState"
+      operation 148994 "_set_currentState"
 	force_body_gen cpp_inline protected explicit_return_type "void"
 	nparams 1
 	  param inout name "st" type class_ref 134658 // AnyState
@@ -3116,7 +3229,7 @@ ${inlines}
 	comment " change the current state, internal"
       end
 
-      operation 144002 "_final"
+      operation 149122 "_final"
 	force_body_gen protected explicit_return_type "void"
 	nparams 0
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
@@ -3133,127 +3246,14 @@ ${inlines}
 	comment " execution done, internal"
       end
 
-      classrelation 138370 // _current_state (<directional aggregation>)
-	relation 138370 o-->
+      classrelation 139394 // _current_state (<directional aggregation>)
+	relation 139394 o-->
 	  a role_name "_current_state" protected
 	    comment " contains the current state, internal"
 	    cpp default "    ${comment}${static}${mutable}${volatile}${const}${type} * ${name}${value};
 "
-	    classrelation_ref 138370 // _current_state (<directional aggregation>)
+	    classrelation_ref 139394 // _current_state (<directional aggregation>)
 	  b parent class_ref 134658 // AnyState
-      end
-
-      operation 150530 "time_out"
-	force_body_gen public explicit_return_type "bool"
-	nparams 0
-	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
-"
-	cpp_def "${comment}${inline}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
-  ${body}}
-"
-	
-	
-	
-	
-	ncouples 1
-	key "STM generated" value ""
-	comment " the operation you call to signal the event time_out"
-      end
-
-      operation 158850 "adversaire"
-	force_body_gen public explicit_return_type "bool"
-	nparams 0
-	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
-"
-	cpp_def "${comment}${inline}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
-  ${body}}
-"
-	
-	
-	
-	
-	ncouples 1
-	key "STM generated" value ""
-	comment " the operation you call to signal the event adversaire"
-      end
-
-      operation 159234 "assFini"
-	force_body_gen public explicit_return_type "bool"
-	nparams 0
-	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
-"
-	cpp_def "${comment}${inline}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
-  ${body}}
-"
-	
-	
-	
-	
-	ncouples 1
-	key "STM generated" value ""
-	comment " the operation you call to signal the event assFini"
-      end
-
-      operation 167426 "ioFini"
-	force_body_gen public explicit_return_type "bool"
-	nparams 0
-	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
-"
-	cpp_def "${comment}${inline}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
-  ${body}}
-"
-	
-	
-	
-	
-	ncouples 1
-	key "STM generated" value ""
-	comment " the operation you call to signal the event ioFini"
-      end
-
-      classrelation 145026 // <dependency>
-	relation 145026 -_->
-	  stereotype "friend"
-	  a default
-	    cpp default "${type}"
-	    classrelation_ref 145026 // <dependency>
-	  b parent class_ref 143106 // Evitement_State
-      end
-
-      classrelation 145538 // <dependency>
-	relation 145538 -_->
-	  stereotype "friend"
-	  a default
-	    cpp default "${type}"
-	    classrelation_ref 145538 // <dependency>
-	  b parent class_ref 143362 // bumper_en_bas_des_marches_State
-      end
-
-      classrelation 145794 // <dependency>
-	relation 145794 -_->
-	  stereotype "friend"
-	  a default
-	    cpp default "${type}"
-	    classrelation_ref 145794 // <dependency>
-	  b parent class_ref 143490 // fin_deplacement_lateral_State
-      end
-
-      classrelation 146050 // <dependency>
-	relation 146050 -_->
-	  stereotype "friend"
-	  a default
-	    cpp default "${type}"
-	    classrelation_ref 146050 // <dependency>
-	  b parent class_ref 143618 // reprise_State
-      end
-
-      classrelation 146306 // <dependency>
-	relation 146306 -_->
-	  stereotype "friend"
-	  a default
-	    cpp default "${type}"
-	    classrelation_ref 146306 // <dependency>
-	  b parent class_ref 143746 // deployement_State
       end
     end
   end

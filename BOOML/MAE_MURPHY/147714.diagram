@@ -1,0 +1,43 @@
+format 76
+
+statecanvas 128002 state_ref 142850 // mission pillage distrib
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  xyzwh 63 20 2000 971 585
+end
+pseudostatecanvas 128130 pseudostate_ref 147970 // initial
+   xyz 244 143 2005
+end
+statecanvas 128258 state_ref 150018 // sortie de la zone de depart
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  xyzwh 107 198 2005 293 89
+end
+statecanvas 128514 state_ref 150146 // capture de gobelet escalier
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  xyzwh 122 342 2005 265 77
+end
+pseudostatecanvas 128770 pseudostate_ref 148226 // exit_point
+   xyz 347 405 3005 label_xy 304 424
+end
+statecanvas 128898 state_ref 150658 // capture stands cote escalier
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  xyzwh 328 478 2005 237 71
+end
+statecanvas 129026 state_ref 150786 // capture stand bordure
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  xyzwh 635 361 2005 207 85
+end
+statecanvas 129154 state_ref 150914 // vidage distributeur
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  xyzwh 594 127 2005 193 83
+end
+transitioncanvas 128386 transition_ref 157314 // <transition>
+  
+  from ref 128130 z 2006 to ref 128258
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 128642 transition_ref 157442 // <transition>
+  
+  from ref 128258 z 2006 label "assFini" xyz 235 306 2006 to ref 128514
+  write_horizontally default show_definition default drawing_language default
+end
+end

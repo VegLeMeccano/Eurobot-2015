@@ -1,3 +1,14 @@
+/** PROGRAMME PI COOP R
+mise a jour du dossier git
+~/.git/Eurobot_2015/
+git pull
+git commit -a si changement local
+git push
+execution du script
+~/.git/Eurobot_2015/COOP_R__MASTER_PI/bin/Debug/COOP_R__MASTER_PI
+
+*/
+
 #include <iostream>
 
 #include <wiringPi.h>
@@ -62,7 +73,7 @@ int main()
 
     while(1)
     {
-        master->run();
+         master->run();
         protocole_com->run();
         delay(1);
     }

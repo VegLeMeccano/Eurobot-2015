@@ -1,13 +1,10 @@
-window_sizes 1600 878 356 1238 722 82
+window_sizes 1600 848 232 1362 722 82
 diagrams
-  statediagram_ref 128130 // Principal
-    986 577 100 0 0 0
   active  statediagram_ref 134658 // Jeu
-    1238 722 100 0 280 0
+    1362 722 100 0 294 112
 end
 show_stereotypes
-selected 
-  package_ref 129 // MAE_COOP_R
+selected state_ref 128130 // MAE_COOP_R
 open
   state_ref 128130 // MAE_COOP_R
   deploymentview_ref 128130 // MaeMaster

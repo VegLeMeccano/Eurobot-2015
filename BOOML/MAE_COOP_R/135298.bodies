@@ -1,7 +1,5 @@
 class deplacement_lateral_State
-!!!139778.cpp!!!	_upper(inout stm : MAE_COOP_R) : MAE_COOP_R::AnyState
-  return &stm._mae_coop_r_state._jeu_state;
-!!!159106.cpp!!!	adversaire(inout stm : MAE_COOP_R) : void
+!!!140034.cpp!!!	adversaire(inout stm : MAE_COOP_R) : void
   {
     stm._set_currentState(stm._mae_coop_r_state._jeu_state);
 #ifdef VERBOSE_STATE_MACHINE
@@ -22,7 +20,7 @@ class deplacement_lateral_State
       stm._mae_coop_r_state._jeu_state._evitement_state.create(stm);
     }
   }
-!!!159490.cpp!!!	assFini(inout stm : MAE_COOP_R) : void
+!!!140418.cpp!!!	assFini(inout stm : MAE_COOP_R) : void
   {
     stm._set_currentState(stm._mae_coop_r_state._jeu_state._fin_deplacement_lateral_state);
 #ifdef VERBOSE_STATE_MACHINE
@@ -30,9 +28,9 @@ class deplacement_lateral_State
 #endif
     stm._mae_coop_r_state._jeu_state._fin_deplacement_lateral_state.create(stm);
   }
-!!!159618.cpp!!!	create(inout stm : MAE_COOP_R) : void
+!!!140546.cpp!!!	create(inout stm : MAE_COOP_R) : void
 	_doentry(stm);
-!!!159746.cpp!!!	_doentry(inout stm : MAE_COOP_R) : void
+!!!140674.cpp!!!	_doentry(inout stm : MAE_COOP_R) : void
 #ifdef VERBOSE_STATE_MACHINE
 	puts("DEBUG : execute entry behavior of .MAE_COOP_R.Jeu.deplacement lateral");
 #endif
@@ -45,3 +43,5 @@ if(master->is_Vert()){
 // on part sur la gauche
 serialPrintf (master->getPortSerie(), "A3 5\n") ;
 }
+!!!140802.cpp!!!	_upper(inout stm : MAE_COOP_R) : MAE_COOP_R::AnyState
+  return &stm._mae_coop_r_state._jeu_state;
