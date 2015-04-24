@@ -116,7 +116,7 @@ void setup()
 
     // initialisation du timer et de l'etat de depart
     state = ALLUMAGE;
-    state = GAME;
+    //state = GAME;
     timer = 0;
     Serial.println("etat init");
 
@@ -138,6 +138,8 @@ void setup()
     //testMoteurD.writeMicroseconds(1700);
     //gauche AV -> up 1500
     // idem pour droite
+
+    slave->turn_off_evit();
 }
 
 

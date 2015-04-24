@@ -21,15 +21,15 @@
 #define FAST 2
 
 // gain PID deplacement
-#define GAIN_KP_DEP 3
+#define GAIN_KP_DEP 1.5
 #define GAIN_KI_DEP 0.00
 #define GAIN_KD_DEP 0.00
 // norme sur les etats de transistion proche  et fini
-#define NEAR_ERROR_DEP 70.0
-#define DONE_ERROR_DEP  20.0
+#define NEAR_ERROR_DEP 80.0
+#define DONE_ERROR_DEP  30.0
 
 // gain PID cap (rotation)
-#define GAIN_KP_CAP 160  //Ku = 260
+#define GAIN_KP_CAP 200  //Ku = 260
 #define GAIN_KI_CAP 0 //52.0 //70.0
 #define GAIN_KD_CAP 0 //18.0 //40.0
 

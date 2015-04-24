@@ -94,7 +94,7 @@ void ControlLoop::set_BF(int bf_type_, Coord target_position_){
     count_not_moving = 0;       // compteur de blocage a zero
     bf_type = bf_type_;         // la BF a faire
     asserv_state = FAR;         // on commence loin de l'objectif
-    pidcap.reinit();            // PID cap
+    pidcap.reinit();            // PID cap, met les I_sum a zero
     piddep.reinit();            // PID deplacement
     float d;                    // d?? distance a parcourir ?
 
@@ -208,18 +208,25 @@ void ControlLoop::compute_pids(){
             // the error is a scalar product >> UN PEU MOISI, c'est juste pour la partie angulaire
             // vaudrait mieux la norme du vecteur distance entre les deux nan?
 
+
             /** si on est loin de la cible, on asservi le cap sur le vecteur directeur
              modification de la consigne de cap en temps reel */
+
             if (asserv_state != NEAR)
             {
+
                 // si on recule, evite de faire demi tour....
+
                 if (abs(diff_cap(to_target.get_angle(), target_position.get_cap())) > PI / 2)
                 {
+
                     // le cap est celui vers la cible (en marche arriere), normal :)
                     pidcap.setTarget(to_target.get_angle() + PI);
 
                     // commande de PID sur la rotation
-                    cmd_cap = pidcap.compute(real_coord.get_cap());
+                    //  cmd_cap = pidcap.compute(real_coord.get_cap());
+                    // double factor_NEAR(0.5);
+                    // cmd_cap = factor_NEAR*pidcap.compute(real_coord.get_cap());
                 }
 
                 // si on avance
@@ -230,18 +237,22 @@ void ControlLoop::compute_pids(){
 
                     // commande de PID sur la rotation
                     cmd_cap = pidcap.compute(real_coord.get_cap());
+                    //double factor_NEAR(0.5);
+                    //cmd_cap = factor_NEAR*pidcap.compute(real_coord.get_cap());
                 }
             }
 
             /** si on est proche, on s'asservi sur la posistion finale
             */
+
             else
             {
                 pidcap.setTarget(target_position.get_cap());
                 // il faut faire une modif ici, les gains sont trop fort une fois arrive en NEAR
                 // commande de PID sur la rotation
-                double factor_NEAR(0.5);
+                float factor_NEAR(1);
                 cmd_cap = factor_NEAR*pidcap.compute(real_coord.get_cap());
+
             }
 
 
@@ -290,19 +301,40 @@ void ControlLoop::compute_pids(){
 
 
             /**  secondly, on s'occupe de la rotation */
-            double alpha;       // difference angulaire entre (le cap du point objectif) et (le cap de la droite reliant le robot au point objectif)
-            double beta;        // difference angulaire entre (le cap du robot) et (le cap du point objectif)
-            double A(1.0);      // poids angle alpha
-            double B(2.0);      // poids angle beta
-            double erreur_cap;
+            float alpha;       // difference angulaire entre (le cap du point objectif) et (le cap de la droite reliant le robot au point objectif)
+            float beta;        // difference angulaire entre (le cap du robot) et (le cap du point objectif)
+            float A(1.0);      // poids angle alpha
+            float B(2.0);      // poids angle beta
+            float erreur_cap;
 
-            alpha = diff_cap( target_position.get_cap() ,  real_coord.get_cap() );
-            beta =  diff_cap( to_target.get_angle()     ,  real_coord.get_cap() );
+
+            if (asserv_state == NEAR)
+            {
+                A = 1.0;
+                B = 0;
+                alpha = -diff_cap( target_position.get_cap() ,  real_coord.get_cap() );
+                beta = 0;//  -diff_cap( target_position.get_cap()     ,  real_coord.get_cap() );
+                erreur_cap = diff_cap(A*alpha + B*beta,0);
+                cmd_cap = pidcap.compute(erreur_cap + pidcap.get_target());  // car la formule du pidcap : target - input
+
+            }
+            else
+            {
+                A = 0.5;
+                B = 1.0;
+                alpha = -diff_cap( target_position.get_cap() ,  real_coord.get_cap() );
+                beta =  -diff_cap( to_target.get_angle()     ,  real_coord.get_cap() );
+                erreur_cap = diff_cap(A*alpha + B*beta,0);
+                cmd_cap = pidcap.compute(erreur_cap + pidcap.get_target());  // car la formule du pidcap : target - input
+
+            }
+
+
 
             // affichage pour verification
 
-            erreur_cap = A*alpha + B*beta;
-            cmd_cap = pidcap.compute(erreur_cap - pidcap.get_target());  // car la formule du pidcap : target - input
+            //erreur_cap =  diff_cap(B*beta,0);
+
 
 
             /** Check si on fini */
