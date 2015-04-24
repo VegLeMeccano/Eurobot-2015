@@ -78,10 +78,11 @@ void setup()
 
     // initialisation du port serie
     Serial.begin(9600) ;
-    Serial.println("#SERIAL READY");
-    Serial.println("#BAS NIVEAU COOP'R");
+    Serial.println("SERIAL READY");
+    Serial.println("BAS NIVEAU COOP'R");
 
 
+    delay(2000);
 
     state = ALLUMAGE;
     //state = GAME;

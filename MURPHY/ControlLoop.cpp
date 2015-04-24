@@ -243,7 +243,7 @@ void ControlLoop::compute_pids(){
 
 
 
-/******************************************* MODIF A FAIRE....
+/******************************************* MODIF A FAIRE....NORMALEMENT CA MARCHE
         //** BF CAP **/
         case BFCAP:
             //Serial.println("coucou BFCAP");
@@ -275,6 +275,10 @@ void ControlLoop::compute_pids(){
             {
                 B = 0.;
             }
+
+
+            // PID de distance restante...
+            // PID de rotation plus space
 
 
             /*if (asserv_state == NEAR)

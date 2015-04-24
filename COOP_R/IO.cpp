@@ -698,9 +698,9 @@ void ChenillePrincipale::alignementLaterale()
         {
             lateral_gauche();
         }
-        delay(30);
+        delay(100);
 
-        if(cpt>100)
+        if(cpt>20)
         {
             Serial.println("\n[ALIGNEMENT] ECHEC");
             lateral_stop();
@@ -1169,7 +1169,7 @@ void Turbine::OFF(){
 }
 
 void Turbine::ON(){
-    turbine.writeMicroseconds(TURBINE_ON);
+    turbine.writeMicroseconds(1200);
 }
 
 
@@ -1747,7 +1747,7 @@ Centrale_Inertielle::Centrale_Inertielle():
     accelgyro.initialize();
     // verify connection
     Serial.println("Testing connection gyro...");
-    Serial.println(accelgyro.testConnection() ? "MPU6050 connection successful" : "MPU6050 connection failed");
+    //Serial.println(accelgyro.testConnection() ? "MPU6050 connection successful" : "MPU6050 connection failed");
 
     delay(100);
 
