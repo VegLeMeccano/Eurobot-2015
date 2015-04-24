@@ -110,6 +110,8 @@ void ControlLoop::set_BF(int bf_type_, Coord target_position_){
         case BFFW:
             //target_position = real_coord;
             target_position.forward_translation(target_position_.get_x());
+            Serial.print("BF avance, point a rejoindre : ");
+            target_position.write_serial();
             dir = Vector(real_coord, target_position);
             if (target_position_.get_x() < 0){
                 dir.neg();
@@ -132,8 +134,10 @@ void ControlLoop::set_BF(int bf_type_, Coord target_position_){
         /** BF droite **/
         case BFXYCAP:
             target_position = target_position_;
-            piddep.setTarget(0.0);
-            pidcap.setTarget(target_position.get_cap());
+            Serial.print("BF droite, point a rejoindre : ");
+            target_position.write_serial();
+            piddep.setTarget(0.0);                          // l'ecart a minimiser
+            pidcap.setTarget(target_position.get_cap());    // cap a rejoindre
             break;
     }
 
@@ -182,7 +186,7 @@ void ControlLoop::compute_pids(){
 
 
 
-        /** BF AVANCE **/
+        /** BF AVANCE ***********************************************************************/
         case BFFW:
             //Serial.println("coucou BFFW");
             //cmd_cap = 0;
@@ -199,39 +203,46 @@ void ControlLoop::compute_pids(){
             // commande de PID sur le deplacement
             //cmd_dep = piddep.compute(erreur_deplacement);
 
-
             // truc a jambou, j'ai pas confiance...
             cmd_dep = piddep.compute( to_target.scalar(Vector(real_coord)));
             // the error is a scalar product >> UN PEU MOISI, c'est juste pour la partie angulaire
             // vaudrait mieux la norme du vecteur distance entre les deux nan?
 
-            // si on est loin de la cible, on asservi le cap sur le vecteur directeur
-            // modification de la consigne de cap en temps reel
+            /** si on est loin de la cible, on asservi le cap sur le vecteur directeur
+             modification de la consigne de cap en temps reel */
             if (asserv_state != NEAR)
             {
                 // si on recule, evite de faire demi tour....
                 if (abs(diff_cap(to_target.get_angle(), target_position.get_cap())) > PI / 2)
                 {
+                    // le cap est celui vers la cible (en marche arriere), normal :)
                     pidcap.setTarget(to_target.get_angle() + PI);
+
+                    // commande de PID sur la rotation
+                    cmd_cap = pidcap.compute(real_coord.get_cap());
                 }
 
                 // si on avance
                 else
                 {
+                    // le cap est celui vers la cible (en marche avant), normal
                     pidcap.setTarget(to_target.get_angle());
+
+                    // commande de PID sur la rotation
+                    cmd_cap = pidcap.compute(real_coord.get_cap());
                 }
-                //pidcap.setTarget(to_target.get_angle());
             }
 
-            // si on est proche, on s'asservi sur la posistion finale
+            /** si on est proche, on s'asservi sur la posistion finale
+            */
             else
             {
                 pidcap.setTarget(target_position.get_cap());
+                // il faut faire une modif ici, les gains sont trop fort une fois arrive en NEAR
+                // commande de PID sur la rotation
+                double factor_NEAR(0.5);
+                cmd_cap = factor_NEAR*pidcap.compute(real_coord.get_cap());
             }
-
-
-            // commande de PID sur la rotation
-            cmd_cap = pidcap.compute(real_coord.get_cap());
 
 
             // check si on a fini l'asserv
@@ -243,8 +254,8 @@ void ControlLoop::compute_pids(){
 
 
 
-/******************************************* MODIF A FAIRE....NORMALEMENT CA MARCHE
-        //** BF CAP **/
+//******************************************* MODIF A FAIRE....NORMALEMENT CA MARCHE
+        /** BF CAP ******************************************************************/
         case BFCAP:
             //Serial.println("coucou BFCAP");
             //cmd_dep = 0;
@@ -252,8 +263,8 @@ void ControlLoop::compute_pids(){
             //Serial.print ("  CAP  ");
 
             // commande de PID sur la rotation
-            cmd_cap = pidcap.compute(real_coord.get_cap());
-            cmd_dep = 0;                // on reste sur place
+            cmd_cap = pidcap.compute(real_coord.get_cap());     // on s'oriente vers le cap cible
+            cmd_dep = 0;                                        // on reste sur place, logique, on veut tourner en rond
 
             // check si on a fini l'asserv
             if (pidcap.check_if_over(asserv_state))
@@ -268,46 +279,39 @@ void ControlLoop::compute_pids(){
 /******************************************* MODIF A FAIRE....
         /** BF droite **/
         case BFXYCAP:
-            /* later ! */
-            float B; // see supaero report 2012
-            B = max(min(2.0, abs(to_target.norm()) / 50.0), 0.1);
-            if (count_not_moving > 4)
-            {
-                B = 0.;
-            }
+            /* later !, no, now or never :) */
+            // see supaero report 2012
+
+            /** first, on s'occupe de la translation */
+            // on reprend la meme formule que la BF avance,
+            // ici le vecteur n'est pas normaliser du coup on a bien le produit scalaire (cap reel et (reel>>cible)
+            // en gros si on est aligne, pleine balle, si perpendiculaire on stope pour laisser faire le cap
+            cmd_dep = piddep.compute( to_target.scalar(Vector(real_coord)));
 
 
-            // PID de distance restante...
-            // PID de rotation plus space
+            /**  secondly, on s'occupe de la rotation */
+            double alpha;       // difference angulaire entre (le cap du point objectif) et (le cap de la droite reliant le robot au point objectif)
+            double beta;        // difference angulaire entre (le cap du robot) et (le cap du point objectif)
+            double A(1.0);      // poids angle alpha
+            double B(2.0);      // poids angle beta
+            double erreur_cap;
+
+            alpha = diff_cap( target_position.get_cap() ,  real_coord.get_cap() );
+            beta =  diff_cap( to_target.get_angle()     ,  real_coord.get_cap() );
+
+            // affichage pour verification
+
+            erreur_cap = A*alpha + B*beta;
+            cmd_cap = pidcap.compute(erreur_cap - pidcap.get_target());  // car la formule du pidcap : target - input
 
 
-            /*if (asserv_state == NEAR)
-            {
-                B = 3.0;
-            }
-            else
-            {
-                B = 1.0;
-            }*/
-
-      //      float input;
-            cmd_cap = pidcap.compute(real_coord.get_cap() - B * (diff_cap(to_target.get_angle(), target_position.get_cap())));
-        /*    if (to_target.scalar(Vector(real_coord)) > 0)
-            {
-               input = to_target.norm();
-            }
-            else
-            {
-                input = -to_target.norm();
-            }*/
-            cmd_dep = piddep.compute(to_target.scalar(Vector(real_coord))); // the error is a scalar product
+            /** Check si on fini */
             if (piddep.check_if_over(asserv_state)  && pidcap.check_if_over(asserv_state))
             {
                next_asserv_state();
             }
             break;
     }
-    //Serial.println("");
 }
 
 
