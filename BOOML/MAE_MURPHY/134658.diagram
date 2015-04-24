@@ -2,63 +2,59 @@ format 76
 
 statecanvas 128002 state_ref 128386 // Jeu
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 394.6 156 2000 1493 1029
+  xyzwh 395.6 156 2000 1493 1029
 end
 statecanvas 128130 state_ref 142850 // mission pillage distrib
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 425 623.4 2005 279 124
+  xyzwh 426 623.4 2005 359 124
 end
 statecanvas 128258 state_ref 142978 // mission attrap balle et chiage
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 854.9 735.4 2005 319 114
+  xyzwh 1360.9 268.4 2005 319 114
 end
-statecanvas 128386 state_ref 143106 // mission claps zone depart et 
+statecanvas 128386 state_ref 143106 // mission claps
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 1319.5 623.1 2005 354 201
+  xyzwh 877.5 643.1 2005 354 201
 end
 statecanvas 128514 state_ref 143234 // mission rush zone centrale
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 1448.6 341.5 2005 344 191
-end
-pseudostatecanvas 128642 pseudostate_ref 141442 // junction
-   xyz 1022.8 283.5 2005
+  xyzwh 1375.6 415.5 2005 344 191
 end
 statecanvas 128770 state_ref 143362 // etat de decision
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 871.5 365.9 2005 316 103
+  xyzwh 897.5 390.9 2005 316 103
 end
 statecanvas 129026 state_ref 143490 // mission depot de tour
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 409.6 323.9 2005 204 74
+  xyzwh 492.6 406.9 2005 204 74
 end
-transitioncanvas 128898 transition_ref 150146 // <transition>
-  
-  from ref 128642 z 2006 to ref 128770
-  write_horizontally default show_definition default drawing_language default
+statecanvas 129794 state_ref 157442 // sortie de zone de depart
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  xyzwh 904 257 2005 305 89
 end
-transitioncanvas 129154 transition_ref 150274 // <transition>
-  
-  from ref 128770 z 2006 to ref 128258
-  write_horizontally default show_definition default drawing_language default
+statecanvas 130178 state_ref 158722 // mission zone ennemie
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  xyzwh 1359 654 2005 323 187
 end
-transitioncanvas 129282 transition_ref 150402 // <transition>
-  
-  from ref 128770 z 2006 to ref 128386
-  write_horizontally default show_definition default drawing_language default
+pseudostatecanvas 130562 pseudostate_ref 161410 // exit_point
+   xyz 1205 636 3005 label_xy 1194 655
 end
-transitioncanvas 129410 transition_ref 150530 // <transition>
-  
-  from ref 128770 z 2006 to ref 128514
-  write_horizontally default show_definition default drawing_language default
+pseudostatecanvas 130690 pseudostate_ref 167938 // initial
+   xyz 1023 214 2005
 end
 transitioncanvas 129538 transition_ref 150658 // <transition>
   
   from ref 128770 z 2006 to ref 128130
   write_horizontally default show_definition default drawing_language default
 end
-transitioncanvas 129666 transition_ref 150786 // <transition>
+transitioncanvas 130050 transition_ref 164738 // <transition>
   
-  from ref 128770 z 2006 to ref 129026
+  from ref 129794 z 2006 label "assFini" xyz 1037 359 2006 to ref 128770
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 130818 transition_ref 185602 // <transition>
+  
+  from ref 130690 z 2006 to ref 129794
   write_horizontally default show_definition default drawing_language default
 end
 end

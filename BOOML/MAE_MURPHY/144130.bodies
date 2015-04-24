@@ -1,0 +1,10 @@
+class waypoint_initial_State
+!!!165762.cpp!!!	create(inout stm : MAE_MURPHY) : void
+	_doentry(stm);
+!!!165890.cpp!!!	_doentry(inout stm : MAE_MURPHY) : void
+#ifdef VERBOSE_STATE_MACHINE
+	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission zone ennemie.waypoint initial");
+#endif
+// en BF droite
+!!!166018.cpp!!!	_upper(inout stm : MAE_MURPHY) : MAE_MURPHY::AnyState
+  return &stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state;

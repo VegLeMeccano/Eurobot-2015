@@ -1,6 +1,10 @@
 class MAE_COOP_R
 !!!137346.cpp!!!	MAE_COOP_R()
   _current_state = 0;
+!!!137602.cpp!!!	create() : bool
+if (_current_state == 0)
+(_current_state = &(*this)._mae_coop_r_state)->create(*this);
+return (_current_state != 0);
 !!!137986.cpp!!!	stratEnleve() : bool
   if (_current_state != 0) {
 #ifdef VERBOSE_STATE_MACHINE
@@ -41,10 +45,6 @@ class MAE_COOP_R
     _current_state->ioFini(*this);
   }
   return (_current_state != 0);
-!!!137602.cpp!!!	create() : bool
-if (_current_state == 0)
-(_current_state = &(*this)._mae_coop_r_state)->create(*this);
-return (_current_state != 0);
 !!!148866.cpp!!!	doActivity() : void
   _current_state->_do(*this);
 !!!148994.cpp!!!	_set_currentState(inout st : MAE_COOP_R::AnyState) : void
