@@ -25,7 +25,7 @@
 #define GAIN_KI_DEP 0.00
 #define GAIN_KD_DEP 0.00
 // norme sur les etats de transistion proche  et fini
-#define NEAR_ERROR_DEP 80.0
+#define NEAR_ERROR_DEP 100.0
 #define DONE_ERROR_DEP  30.0
 
 // gain PID cap (rotation)
@@ -37,7 +37,7 @@
 #define DONE_ERROR_CAP  4.0 * 3.14 / 180.0
 
 // compteur blocage
-#define BLOCAGE_MAX 10
+#define BLOCAGE_MAX 20
 
 
 class ControlLoop

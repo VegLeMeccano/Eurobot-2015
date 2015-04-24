@@ -310,21 +310,28 @@ void ControlLoop::compute_pids(){
 
             if (asserv_state == NEAR)
             {
+                Serial.print("BF DROITE NEAR: ");
+
+
                 A = 1.0;
-                B = 0;
+                B = 2.2;
                 alpha = -diff_cap( target_position.get_cap() ,  real_coord.get_cap() );
                 beta = 0;//  -diff_cap( target_position.get_cap()     ,  real_coord.get_cap() );
-                erreur_cap = diff_cap(A*alpha + B*beta,0);
+                erreur_cap = diff_cap(A*alpha + B*beta,0)/(A);
+                Serial.print(erreur_cap);
                 cmd_cap = pidcap.compute(erreur_cap + pidcap.get_target());  // car la formule du pidcap : target - input
+
+                //pidcap.setTarget(target_position.get_cap());
+                //cmd_cap = pidcap.compute(real_coord.get_cap());
 
             }
             else
             {
-                A = 0.5;
-                B = 1.0;
+                A = 1.0;
+                B = 2.2;
                 alpha = -diff_cap( target_position.get_cap() ,  real_coord.get_cap() );
                 beta =  -diff_cap( to_target.get_angle()     ,  real_coord.get_cap() );
-                erreur_cap = diff_cap(A*alpha + B*beta,0);
+                erreur_cap = diff_cap(A*alpha + B*beta,0)/(A+B);
                 cmd_cap = pidcap.compute(erreur_cap + pidcap.get_target());  // car la formule du pidcap : target - input
 
             }
