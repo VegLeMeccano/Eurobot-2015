@@ -146,20 +146,20 @@ BOUCLE DE CONTROL
 */
 void loop(){
 
-/*
+
 
     // enclenchement du start
    if (state == ALLUMAGE && bumper_START.is_on())
     {
         state = STARTMIS;
-        Serial.println("# STARTIN");
+        Serial.println("# START IN");
     }
 
     // debut de jeu quand le start est releve
     if (state == STARTMIS && bumper_START.is_off())
     {
         state = GAME ;
-        Serial.println("# START");
+        Serial.println("# START OUT");
         //slave->turn_on_evit();
         timer = millis();
         //Serial.println(timer);
@@ -170,7 +170,7 @@ void loop(){
     if ( (state == END) || (state == GAME && ((millis()-timer) > TEMPS_PARTIE ) ) )
     {
 
-        Serial.println("# ENDG");
+        Serial.println("# ENDGAME");
         state = END;
         slave->stop();
         //io->stop();
@@ -183,15 +183,15 @@ void loop(){
             slave->run();
             io->run();
         }
-*/
 
 
 
+/**
             com->run();
             slave->run();
             io->run();
             delay(1);
-
+*/
 
 /*
 
