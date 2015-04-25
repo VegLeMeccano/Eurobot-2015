@@ -10,39 +10,365 @@ Gestionnaire_Mission::Gestionnaire_Mission():
         mission_chiage_balle(true),
         mission_zone_centrale(true),
         mission_depot_tour_depart(true),
-        mission_depot_tour_estrade(true),
+        mission_depot_tour_estrade(false),
         mission_zone_ennemie(true),
-        coord_reel(0,0,0)
+        coord_reel(0,0,0)//, mae_murphy()
 {
+    //mae_murphy.create();
 
 }
 
-#define MISSION_CLAPS 0
-#define MISSION_DISTRIB 1
-#define MISSION_CHIAGE_BALLE 2
-#define MISSION_ZONE_CENTRALE 3
-#define MISSION_TOUR_DEPART 4
-#define MISSION_TOUR_ESTRADE 5
-#define MISSION_ZONE_ENNEMIE 6
+void Gestionnaire_Mission::set_coord(Coord coord_reel_)
+{
+    coord_reel = coord_reel_;
+}
+
+
+#define MISSION_CLAPS 1
+#define MISSION_DISTRIB 2
+#define MISSION_CHIAGE_BALLE 3
+#define MISSION_ZONE_CENTRALE 4
+#define MISSION_TOUR_DEPART 5
+#define MISSION_TOUR_ESTRADE 6
+#define MISSION_ZONE_ENNEMIE 7
 
 void Gestionnaire_Mission::decision_mission()
 {
+    actualisation_Priorite();
+    /// recolte des données sur les missions, on prend seulement si la missions n'est pas remplie
     vector<float> vectorDistance;
     vector<string> vectorName;
     vector<int> vectorMission;
+    vector<int> vectorPriorite;
+    vector<float> vectorDecision;
 
-    if(!mission_claps.is_accomplie())               { vectorMission.push_back(MISSION_CLAPS); vectorName.push_back(mission_claps.get_title()); vectorDistance.push_back(mission_claps.distance_to_mission(coord_reel)); }
-    if(!mission_distrib.is_accomplie())             { mission_distrib.affiche(); }
-    if(!mission_chiage_balle.is_accomplie())        { mission_chiage_balle.affiche(); }
-    if(!mission_zone_centrale.is_accomplie())       { mission_zone_centrale.affiche(); }
-    if(!mission_depot_tour_depart.is_accomplie())   { mission_depot_tour_depart.affiche(); }
-    if(!mission_depot_tour_estrade.is_accomplie())  { mission_depot_tour_estrade.affiche(); }
-    if(!mission_zone_ennemie.is_accomplie())        { mission_zone_ennemie.affiche(); }
+    if(!mission_claps.is_accomplie())
+    {
+        vectorMission.push_back(MISSION_CLAPS);
+        vectorName.push_back(mission_claps.get_title());
+        vectorDistance.push_back(mission_claps.distance_to_mission(coord_reel));
+        vectorPriorite.push_back(mission_claps.get_priorite());
+    }
+    if(!mission_distrib.is_accomplie())
+    {
+        vectorMission.push_back(MISSION_DISTRIB);
+        vectorName.push_back(mission_distrib.get_title());
+        vectorDistance.push_back(mission_distrib.distance_to_mission(coord_reel));
+        vectorPriorite.push_back(mission_distrib.get_priorite());
 
+    }
+    if(!mission_chiage_balle.is_accomplie())
+    {
+        vectorMission.push_back(MISSION_CHIAGE_BALLE);
+        vectorName.push_back(mission_chiage_balle.get_title());
+        vectorDistance.push_back(mission_chiage_balle.distance_to_mission(coord_reel));
+        vectorPriorite.push_back(mission_chiage_balle.get_priorite());
+    }
+    if(!mission_zone_centrale.is_accomplie())
+    {
+        vectorMission.push_back(MISSION_ZONE_CENTRALE);
+        vectorName.push_back(mission_zone_centrale.get_title());
+        vectorDistance.push_back(mission_zone_centrale.distance_to_mission(coord_reel));
+        vectorPriorite.push_back(mission_zone_centrale.get_priorite());
+    }
+    if(!mission_depot_tour_depart.is_accomplie())
+    {
+        vectorMission.push_back(MISSION_TOUR_DEPART);
+        vectorName.push_back(mission_depot_tour_depart.get_title());
+        vectorDistance.push_back(mission_depot_tour_depart.distance_to_mission(coord_reel));
+        vectorPriorite.push_back(mission_depot_tour_depart.get_priorite());
+    }
+    if(!mission_depot_tour_estrade.is_accomplie())
+    {
+        vectorMission.push_back(MISSION_TOUR_ESTRADE);
+        vectorName.push_back(mission_depot_tour_estrade.get_title());
+        vectorDistance.push_back(mission_depot_tour_estrade.distance_to_mission(coord_reel));
+        vectorPriorite.push_back(mission_depot_tour_estrade.get_priorite());
+    }
+    if(!mission_zone_ennemie.is_accomplie())
+    {
+        vectorMission.push_back(MISSION_ZONE_ENNEMIE);
+        vectorName.push_back(mission_zone_ennemie.get_title());
+        vectorDistance.push_back(mission_zone_ennemie.distance_to_mission(coord_reel));
+        vectorPriorite.push_back(mission_zone_ennemie.get_priorite());
+    }
+
+
+
+
+    /// affichage des missions à faire et les poids associées
     cout<<"mission dispo : "<<vectorDistance.size()<<endl;
+    for (int index=0; index<(int)vectorDistance.size(); index++) {
+        /** OPERATION POUR DECISION DE MISSION ICI : priorite - distance/1000*/
+        vectorDecision.push_back((float)vectorPriorite[index] - vectorDistance[index]/500.0);
+        cout.precision(2);
+        cout<<"["<<vectorMission[index]<<"] Prio : ["<< vectorPriorite[index]<<"] DIS : "<<(int)vectorDistance[index]<<"\t Poids :"<<vectorDecision[index]<<"  \t"<<vectorName[index]<<endl;
+    }
+
+
+    /// decision de la mission a faire
+    if(vectorDistance.size() == 0)
+    {
+        cout<<"aucune mission restante"<<endl;
+    }
+    else
+    {
+        if(vectorDistance.size() == 1)
+        {
+            cout<<"une seule mission restante"<<endl;
+            int mission_to_do = vectorMission[0];
+            cout<<"The mission to do : [" <<mission_to_do<<"] "<<vectorName[0]<<endl;
+
+            /// appel de trigger()
+            appel_trigger(mission_to_do);
+        }
+        else
+        {
+            /// choix a faire dans les prioritées, en prennant en compte les distances restantes
+            //cout<<"choix a faire ! "<<endl;
+            //float biggest = *max_element(vectorDecision.begin(),vectorDecision.end());
+            int index_max = distance(vectorDecision.begin(),max_element(vectorDecision.begin(),vectorDecision.end()));
+            int mission_to_do = vectorMission[index_max];
+            //cout << "The largest element is "  << biggest << endl;
+            //cout << "The element is : "  << index_max << endl;
+            cout << "The mission to do : ["  << mission_to_do << "] " << vectorName[index_max]<< endl;
+
+            /// appel de trigger()
+            appel_trigger(mission_to_do);
+        }
+    }
 
 
 }
+
+void Gestionnaire_Mission::evitement_mission()
+{
+    sortie_evitement = true;
+    cout<<"Evitement provoque sur mission ["<<mission_sortie_evitement<<"]"<<endl;
+}
+
+
+void Gestionnaire_Mission::appel_trigger(int mission_indice_)
+{
+    sortie_evitement = false;
+    cout<<"appel de trigger sur mission : ";
+    switch(mission_indice_)
+    {
+        case MISSION_CLAPS:
+            cout<<mission_claps.get_title();
+            // trigger
+            mission_sortie_evitement = MISSION_CLAPS;
+            break;
+
+        case MISSION_DISTRIB:
+            cout<<mission_distrib.get_title();
+            // trigger
+            mission_sortie_evitement = MISSION_DISTRIB;
+            break;
+
+        case MISSION_CHIAGE_BALLE:
+            cout<<mission_chiage_balle.get_title();
+            // trigger
+            mission_sortie_evitement = MISSION_CHIAGE_BALLE;
+            break;
+
+        case MISSION_ZONE_CENTRALE:
+            cout<<mission_zone_centrale.get_title();
+            // trigger
+            mission_sortie_evitement = MISSION_ZONE_CENTRALE;
+            break;
+
+        case MISSION_TOUR_DEPART:
+            cout<<mission_depot_tour_depart.get_title();
+            // trigger
+            mission_sortie_evitement = MISSION_TOUR_DEPART;
+            break;
+
+        case MISSION_TOUR_ESTRADE:
+            cout<<mission_depot_tour_estrade.get_title();
+            // trigger
+            mission_sortie_evitement = MISSION_TOUR_ESTRADE;
+            break;
+
+        case MISSION_ZONE_ENNEMIE:
+            cout<<mission_zone_ennemie.get_title();
+            // trigger
+            mission_sortie_evitement = MISSION_ZONE_ENNEMIE;
+            break;
+    }
+    cout<<endl;
+}
+
+
+
+void Gestionnaire_Mission::actualisation_Priorite()
+{
+    if(sortie_evitement == true)
+    {
+        switch(mission_sortie_evitement)
+        {
+            case MISSION_CLAPS:
+                mission_claps.set_priorite(PRIORITE_MISSION_FAIBLE);
+                break;
+
+            case MISSION_DISTRIB:
+                mission_distrib.set_priorite(PRIORITE_MISSION_FAIBLE);
+                break;
+
+            case MISSION_CHIAGE_BALLE:
+                mission_chiage_balle.set_priorite(PRIORITE_MISSION_FAIBLE);
+                break;
+
+            case MISSION_ZONE_CENTRALE:
+                mission_zone_centrale.set_priorite(PRIORITE_MISSION_FAIBLE);
+                break;
+
+            case MISSION_TOUR_DEPART:
+                mission_depot_tour_depart.set_priorite(PRIORITE_MISSION_FAIBLE);
+                break;
+
+            case MISSION_TOUR_ESTRADE:
+                mission_depot_tour_estrade.set_priorite(PRIORITE_MISSION_FAIBLE);
+                break;
+
+            case MISSION_ZONE_ENNEMIE:
+                mission_zone_ennemie.set_priorite(PRIORITE_MISSION_FAIBLE);
+                break;
+        }
+
+    }
+    else
+    {
+
+        /***********************************************************************************************************
+                    DISTRIB
+        ***********************************************************************************************************/
+        if(!mission_distrib.is_netoyage_zone_done() && !element_robot.pop_corn_present())
+        {
+            if(!mission_distrib.is_capture_gobelet_done())
+            {
+                mission_distrib.set_priorite(PRIORITE_MISSION_FIRST);
+            }
+            else
+            {
+                mission_distrib.set_priorite(PRIORITE_MISSION_FIRST);
+            }
+        }
+        else
+        {
+            if(!mission_distrib.is_capture_gobelet_done())
+            {
+                if(element_robot.gobelet_present())
+                {
+                    mission_distrib.set_priorite(PRIORITE_MISSION_FAIBLE);
+                }
+                else
+                {
+                    mission_distrib.set_priorite(PRIORITE_MISSION_MOYENNE);
+                }
+
+            }
+            else
+            {
+                mission_distrib.set_priorite(PRIORITE_MISSION_FAIBLE);
+            }
+        }
+
+        /***********************************************************************************************************
+                    CLAPS
+        ***********************************************************************************************************/
+        if(element_robot.gobelet_present())
+        {
+            mission_claps.set_priorite(PRIORITE_MISSION_MOYENNE);
+        }
+        else
+        {
+            mission_claps.set_priorite(PRIORITE_MISSION_HAUTE);
+        }
+
+
+
+        /***********************************************************************************************************
+                    ZONE CENTRALE
+        ***********************************************************************************************************/
+        mission_zone_centrale.set_priorite(PRIORITE_MISSION_MOYENNE);
+
+        /***********************************************************************************************************
+                    ZONE ENNEMIE
+        ***********************************************************************************************************/
+        //if()
+        mission_zone_ennemie.set_priorite(PRIORITE_MISSION_FAIBLE);
+
+
+
+        /***********************************************************************************************************
+                    CHIAGE
+        ***********************************************************************************************************/
+        /// si la mission distrib est close, on a un gobelet, des balles, etc...
+        /// donc faut aller ider ça vite fait
+        if(mission_distrib.is_accomplie())
+        {
+                mission_chiage_balle.set_priorite(PRIORITE_MISSION_FIRST);
+        }
+        else
+        {
+            /// si on a du pop corn, c'est qu'on a potentiellement autre chose, donc important
+            if( element_robot.pop_corn_present() )
+            {
+                mission_chiage_balle.set_priorite(PRIORITE_MISSION_FIRST);
+            }
+            else
+            {
+                /// si on a pas de pop corn mais un gobelet pas posé dans la zone, c'est peu etre le moment d'y aller
+                if (element_robot.gobelet_present() && !mission_chiage_balle.is_drop_gobelet())
+                {
+                    mission_chiage_balle.set_priorite(PRIORITE_MISSION_MOYENNE);
+                }
+                else
+                {
+                    mission_chiage_balle.set_priorite(PRIORITE_MISSION_FAIBLE);
+                }
+
+            }
+        }
+
+
+        /***********************************************************************************************************
+                    DEPOT DE PILE
+        ***********************************************************************************************************/
+        /// si on rempli les piles comme il faut
+        /// donc faut aller ider ça vite fait
+        if(element_robot.pile_droite_nbr()==4 || element_robot.pile_gauche_nbr()==4)
+        {
+            mission_depot_tour_depart.set_priorite(PRIORITE_MISSION_HAUTE);
+            mission_depot_tour_estrade.set_priorite(PRIORITE_MISSION_HAUTE);
+        }
+        else
+        {
+            /// si le temps presse on va vider quoi qu'il arrive
+            if((temps_restant<20) && (element_robot.pile_droite_nbr()>=1 || element_robot.pile_gauche_nbr()>=1) )
+            {
+                mission_depot_tour_depart.set_priorite(PRIORITE_MISSION_HAUTE);
+                mission_depot_tour_estrade.set_priorite(PRIORITE_MISSION_HAUTE);
+            }
+            else
+            {
+                mission_depot_tour_depart.set_priorite(PRIORITE_MISSION_FAIBLE);
+                mission_depot_tour_estrade.set_priorite(PRIORITE_MISSION_FAIBLE);
+            }
+        }// fin depot pile
+
+
+    }
+
+
+}
+
+void Gestionnaire_Mission::actualisation_temps_restant()
+{
+
+}
+
 
 void Gestionnaire_Mission::set_couleur(int couleur_)
 {
@@ -124,6 +450,7 @@ int Gestionnaire_Mission::strategie()
     {
         return STRAT_3;
     }
+    return 0;
 }
 
 void Gestionnaire_Mission::set_strategie_1(int strat_)
@@ -136,3 +463,9 @@ void Gestionnaire_Mission::set_strategie_2(int strat_)
     strategie_2 = strat_;
 }
 
+/*
+MAE_MURPHY* Gestionnaire_Mission::get_mae_murphy()
+{
+    return &mae_murphy();
+}
+*/

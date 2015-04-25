@@ -26,7 +26,6 @@ class Master
         bool time_out_on;
         Period periode_run;
 
-        MAE_MURPHY mae_murphy;
         int couleur;
         int cycle_attente;
         int portSerie;
@@ -50,19 +49,13 @@ class Master
 
         // couleur
         void set_couleur(int couleur_);     // fixe la couleur, appel depuis la COM
-        MAE_MURPHY* get_MAE_MURPHY();       // retourne la MAE, util? je sais pas
+
+        MAE_MURPHY* get_MAE_MURPHY();       // retourne la MAE, util? je sais pas, si pour la com
+        Gestionnaire_Mission* get_gestionnaire_mission();
+
         int get_Couleur();                  // couleur pour la strat
         bool is_Vert();                     // couleur pour la strat
         bool is_Jaune();                    // couleur pour la strat
-
-
-
-        // pour l'attente dans l'evitement
-        int get_cycle_attente();
-        void cycle_attente_incremente();
-        void cycle_attente_reset();
-
-
 
 };
 

@@ -34,10 +34,26 @@
 		</Compiler>
 		<Unit filename="..\MURPHY__MASTER_PI\Coord.cpp" />
 		<Unit filename="..\MURPHY__MASTER_PI\Coord.h" />
+		<Unit filename="..\MURPHY__MASTER_PI\Element_Robot.cpp" />
+		<Unit filename="..\MURPHY__MASTER_PI\Element_Robot.h" />
+		<Unit filename="..\MURPHY__MASTER_PI\Gestionnaire_Mission.cpp" />
+		<Unit filename="..\MURPHY__MASTER_PI\Gestionnaire_Mission.h" />
 		<Unit filename="..\MURPHY__MASTER_PI\Mission.cpp" />
 		<Unit filename="..\MURPHY__MASTER_PI\Mission.h" />
+		<Unit filename="..\MURPHY__MASTER_PI\Mission_Chiage_Balle.cpp" />
+		<Unit filename="..\MURPHY__MASTER_PI\Mission_Chiage_Balle.h" />
+		<Unit filename="..\MURPHY__MASTER_PI\Mission_Claps.cpp" />
+		<Unit filename="..\MURPHY__MASTER_PI\Mission_Claps.h" />
+		<Unit filename="..\MURPHY__MASTER_PI\Mission_Depot_Tour_Depart.cpp" />
+		<Unit filename="..\MURPHY__MASTER_PI\Mission_Depot_Tour_Depart.h" />
+		<Unit filename="..\MURPHY__MASTER_PI\Mission_Depot_Tour_Estrade.cpp" />
+		<Unit filename="..\MURPHY__MASTER_PI\Mission_Depot_Tour_Estrade.h" />
+		<Unit filename="..\MURPHY__MASTER_PI\Mission_Distrib.cpp" />
+		<Unit filename="..\MURPHY__MASTER_PI\Mission_Distrib.h" />
 		<Unit filename="..\MURPHY__MASTER_PI\Mission_Zone_Ennemie.cpp" />
 		<Unit filename="..\MURPHY__MASTER_PI\Mission_Zone_Ennemie.h" />
+		<Unit filename="..\MURPHY__MASTER_PI\Mission_Zone_centrale.cpp" />
+		<Unit filename="..\MURPHY__MASTER_PI\Mission_Zone_centrale.h" />
 		<Unit filename="main.cpp" />
 		<Extensions>
 			<code_completion />

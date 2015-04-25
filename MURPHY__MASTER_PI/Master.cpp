@@ -123,19 +123,12 @@ bool Master::is_time_out()
    return false;
 }
 
-/** gere les cycle d'attente de l'evitement
-*/
-int Master::get_cycle_attente()
+MAE_MURPHY* Master::get_MAE_MURPHY()
 {
-    return cycle_attente;
-}
-void Master::cycle_attente_incremente()
-{
-    cycle_attente++;
-}
-void Master::cycle_attente_reset()
-{
-    cycle_attente = 0;
+    return get_gestionnaire_mission()->get_mae_murhy();
 }
 
-
+Gestionnaire_Mission* Master::get_gestionnaire_mission()
+{
+    return &gestionnaire_mission;
+}

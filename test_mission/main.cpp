@@ -44,12 +44,59 @@ int main()
 
     Gestionnaire_Mission* gestionnaire;
     gestionnaire = new Gestionnaire_Mission();
+
+    /**
+    gestionnaire->set_coord(Coord(-1134,996,-90));
+    gestionnaire->decision_mission();
+    gestionnaire->evitement_mission();
     gestionnaire->decision_mission();
 
-    //gestionnaire->affiche_mission_active();
     gestionnaire->get_mission_claps()->mission_remplie();
+    //gestionnaire->get_mission_distrib()->mission_remplie();
+    gestionnaire->get_element_robot()->gobelet_saisie();
+    gestionnaire->decision_mission();
 
-    gestionnaire->affiche_mission_active();
+    gestionnaire->get_element_robot()->pop_corn_aspire();
+    gestionnaire->get_mission_distrib()->netoyage_zone_done();
+    //gestionnaire->get_mission_chiage_balle()->mission_remplie();
+    //gestionnaire->get_mission_claps()->mission_remplie();
+    //gestionnaire->get_mission_distrib()->mission_remplie();
+    gestionnaire->set_coord(Coord(0,800,0));
+
+    gestionnaire->decision_mission();
+    gestionnaire->get_mission_chiage_balle()->mission_remplie();
+    //gestionnaire->get_mission_chiage_balle()->mission_remplie();
+    gestionnaire->decision_mission();
+
+
+    gestionnaire->get_element_robot()->pile_droite_incr();
+    gestionnaire->get_element_robot()->pile_droite_incr();
+    gestionnaire->get_element_robot()->pile_droite_incr();
+    gestionnaire->get_element_robot()->pile_droite_incr();
+
+    gestionnaire->decision_mission();
+    //gestionnaire->affiche_mission_active();
+    //gestionnaire->get_mission_claps()->mission_remplie();
+
+    //gestionnaire->affiche_mission_active();
+
+    */
+    gestionnaire->set_coord(Coord(-1134,996,-90));
+    gestionnaire->decision_mission();
+    //gestionnaire->evitement_mission();
+    gestionnaire->get_element_robot()->pile_droite_incr();
+    gestionnaire->get_element_robot()->pile_droite_incr();
+    gestionnaire->get_element_robot()->pop_corn_aspire();
+    gestionnaire->decision_mission();
+    gestionnaire->get_mission_chiage_balle()->mission_remplie();
+    gestionnaire->decision_mission();
+    gestionnaire->get_mission_claps()->mission_remplie();
+    gestionnaire->get_element_robot()->gobelet_saisie();
+    gestionnaire->get_element_robot()->pile_droite_incr();
+    gestionnaire->get_element_robot()->pile_droite_incr();
+    gestionnaire->decision_mission();
+
+
 /*
     Mission_Zone_Ennemie* mission_zone_ennemie;
     mission_zone_ennemie = new Mission_Zone_Ennemie(true);
@@ -63,7 +110,7 @@ int main()
     }
 */
 
-    gestionnaire->decision_mission();
+
 
 
 

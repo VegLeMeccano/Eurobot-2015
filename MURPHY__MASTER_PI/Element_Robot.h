@@ -10,6 +10,7 @@ class Element_Robot
         int pile_droite;
         bool gobelet;
         bool pop_corn;
+        bool balle;
 
     public:
         Element_Robot();
@@ -30,6 +31,8 @@ class Element_Robot
         void pop_corn_decharge();
         bool pop_corn_present();
 
+        void balle_catch();
+        bool balle_presente();
 };
 
 #endif // ELEMENT_ROBOT_H

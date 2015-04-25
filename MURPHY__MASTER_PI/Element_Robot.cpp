@@ -4,7 +4,8 @@ Element_Robot::Element_Robot():
         pile_gauche(0),
         pile_droite(0),
         gobelet(false),
-        pop_corn(false)
+        pop_corn(false),
+        balle(false)
 {
     //ctor
 }
@@ -68,4 +69,14 @@ void Element_Robot::pop_corn_decharge()
 bool Element_Robot::pop_corn_present()
 {
     return pop_corn;
+}
+
+
+void Element_Robot::balle_catch()
+{
+    balle = true;
+}
+bool Element_Robot::balle_presente()
+{
+    return balle;
 }

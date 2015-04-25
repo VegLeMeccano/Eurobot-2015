@@ -2,40 +2,40 @@ format 76
 
 statecanvas 128002 state_ref 128130 // MAE_MURPHY
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 100.778 68.587 2000 698 629
+  xyzwh 102.738 67.867 2000 694 629
 end
 pseudostatecanvas 128130 pseudostate_ref 128130 // initial
-   xyz 455.417 119.56 2005
+   xyz 455.977 119.68 2005
 end
 statecanvas 128258 state_ref 128258 // Initialisation
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 351.591 156.746 2005 223 61
+  xyzwh 351.071 156.186 2005 223 61
 end
 statecanvas 128386 state_ref 128386 // Jeu
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 172.068 508.565 2005 215 61
+  xyzwh 171.198 510.105 2005 215 61
 end
 statecanvas 128514 state_ref 128514 // Evitement
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 539.219 512.605 2005 239 61
+  xyzwh 537.519 513.285 2005 239 61
 end
 statecanvas 130050 state_ref 135042 // Recalage Initial
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 346.581 258.544 2005 231 61
+  xyzwh 346.021 258.064 2005 231 61
 end
 pseudostatecanvas 130434 pseudostate_ref 141314 // exit_point
-   xyz 350.076 305.976 3005 label_xy 338 330
+   xyz 350.436 305.536 3005 label_xy 338 330
 end
 statecanvas 130946 state_ref 165762 // startin' block
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 183.781 380.962 2005 197 61
+  xyzwh 183.021 380.362 2005 197 61
 end
 pseudostatecanvas 131330 pseudostate_ref 189314 // exit_point
-   xyz 531.411 530.789 3005 label_xy 466 519
+   xyz 531.011 530.349 3005 label_xy 466 519
 end
 transitioncanvas 128898 transition_ref 128386 // <transition>
   
-  from ref 128386 z 2006 label "evitement" xyz 402 588 2006 to point 444.46 580.82
+  from ref 128386 z 2006 label "evitement" xyz 402 588 2006 to point 444.3 580.1
   line 129538 z 2006 to ref 128514
   write_horizontally default show_definition default drawing_language default
 end

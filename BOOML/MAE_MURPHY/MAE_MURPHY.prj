@@ -168,7 +168,10 @@ serialPrint(master->getPortSerie(),\"S5 590 1198 35 \\n\");
 		cpp_on_entry "// ferme le pince interne souleve
 serialPrint(master->getPortSerie(),\"??? \\n\");
 master->set_time_out(300);
-//mettre une varible sur le master pour dire qu'on a capturé un gobelet"
+
+//mettre une varible sur le master pour dire qu'on a capturé un gobelet
+mission_distrib.capture_gobelet_done();
+element_robot.gobelet_saisie();"
 	      transition 157954 "<transition>"
 		on state_ref 150530 // BF cap vers la zone de distrib
 		  cpp_trigger "time_out"
@@ -200,6 +203,13 @@ serialPrint(master->getPortSerie(),\"S3 -48 \\n\");
 	  end
 
 	  state 150658 "capture stands cote escalier"
+	      cpp_on_entry "/// Jaune : pile droite +2
+// element_robot.pile_droite_incr();
+// element_robot.pile_droite_incr();
+
+/// Vert : pile gauche +2
+// element_robot.pile_gauche_incr();
+// element_robot.pile_gauche_incr();"
 	    transition 201474 "<transition>"
 	      on state_ref 150786 // capture stand bordure
 	      external 
@@ -207,6 +217,12 @@ serialPrint(master->getPortSerie(),\"S3 -48 \\n\");
 	  end
 
 	  state 150786 "capture stand bordure"
+	      cpp_on_entry "// Jaune : pile gauche +1
+// element_robot.pile_gauche_incr();
+
+
+// Vert : pile droite +1
+// element_robot.pile_droite_incr();"
 	    transition 201602 "<transition>"
 	      on state_ref 150914 // vidage distributeur
 	      external 
@@ -214,6 +230,9 @@ serialPrint(master->getPortSerie(),\"S3 -48 \\n\");
 	  end
 
 	  state 150914 "vidage distributeur"
+	      cpp_on_entry "// element_robot.aspire();
+mission_distrib.netoyage_zone_done(); 
+"
 	    transition 202370 "<transition>"
 	      on state_ref 172674 // sortie zone
 	      external 
@@ -233,15 +252,15 @@ serialPrint(master->getPortSerie(),\"S3 -48 \\n\");
 	  end
 
 	  pseudostate 174722 choice 
-	    transition 201218 "<transition>"
-	      on state_ref 150146 // capture de gobelet escalier
-		cpp_guard "gobelet_Escalier_fait == false"
+	    transition 201346 "<transition>"
+	      on state_ref 150658 // capture stands cote escalier
+		cpp_guard "mission_distrib.is_capture_gobelet_done() "
 	      external 
 	    end
 
-	    transition 201346 "<transition>"
-	      on state_ref 150658 // capture stands cote escalier
-		cpp_guard "gobelet_Escalier_fait == true"
+	    transition 227330 "<transition>"
+	      on pseudostate_ref 195842 // choice
+		cpp_guard "!mission_distrib.is_capture_gobelet_done() "
 	      external 
 	    end
 	  end
@@ -255,7 +274,12 @@ serialPrint(master->getPortSerie(),\"S3 -48 \\n\");
 
 	  state 172674 "sortie zone"
 	      cpp_on_entry "// on se remet devant la zone de depart
-// BF droite vers la zone enemie"
+// BF droite vers la zone enemie
+
+if(vidange_faite() && gobelet_fait())
+{
+	mission_accomplie();
+}"
 	    transition 202498 "<transition>"
 	      on pseudostate_ref 174850 // exit_point
 	      external 
@@ -265,13 +289,27 @@ serialPrint(master->getPortSerie(),\"S3 -48 \\n\");
 	  pseudostate 174978 choice 
 	    transition 202114 "<transition>"
 	      on state_ref 150658 // capture stands cote escalier
-		cpp_guard "vidange_faite == false"
+		cpp_guard "!mission_distrib.is_netoyage_zone_done() "
 	      external 
 	    end
 
-	    transition 202242 "<transition>"
-	      on pseudostate_ref 174850 // exit_point
-		cpp_guard "vidange_faite == true"
+	    transition 227970 "<transition>"
+	      on state_ref 172674 // sortie zone
+		cpp_guard "mission_distrib.is_netoyage_zone_done() "
+	      external 
+	    end
+	  end
+
+	  pseudostate 195842 choice 
+	    transition 227586 "<transition>"
+	      on state_ref 150146 // capture de gobelet escalier
+		cpp_guard "!element_robot.gobelet_present()"
+	      external 
+	    end
+
+	    transition 228098 "<transition>"
+	      on state_ref 172674 // sortie zone
+		cpp_guard "element_robot.gobelet_present()"
 	      external 
 	    end
 	  end
@@ -712,8 +750,8 @@ serialPrint(master->getPortSerie(),\"S4 400 \\n\");"
 	  cpp_on_entry "cout<<\"etat évitement\"<<endl;"
 	associated_diagram statediagram_ref 167810 // evitement
 	statediagram 167810 "evitement"
-	  package_name_in_tab default show_context default auto_label_position default write_trans_label_horizontally default show_trans_definition default draw_all_relations default shadow default
-	  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+	  package_name_in_tab yes show_context default auto_label_position yes write_trans_label_horizontally yes show_trans_definition yes draw_all_relations yes shadow yes
+	  show_activities yes region_horizontally yes drawing_language c++ show_stereotype_properties yes
 	  size A0
 	end
 
@@ -732,6 +770,7 @@ serialPrint(master->getPortSerie(),\"S4 400 \\n\");"
 	end
 
 	state 188034 "faire des maneuvre"
+	    cpp_on_entry "// BF cap 90 ou -90 ou 180"
 	  transition 220674 "<transition>"
 	    on pseudostate_ref 189314 // exit_point
 	    external 

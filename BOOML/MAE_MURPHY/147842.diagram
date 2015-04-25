@@ -13,7 +13,7 @@ statecanvas 128258 state_ref 150274 // deplacement cible
 end
 statecanvas 128514 state_ref 150402 // capture
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 146 392 2005 427 109
+  xyzwh 146 392 2005 427 145
 end
 pseudostatecanvas 128770 pseudostate_ref 148226 // exit_point
    xyz 699 248 3005 label_xy 656 267
@@ -29,7 +29,7 @@ transitioncanvas 128386 transition_ref 157570 // <transition>
 end
 transitioncanvas 128642 transition_ref 157698 // <transition>
   
-  from ref 128258 z 2006 label "assFini" xyz 323 356 2006 to ref 128514
+  from ref 128258 z 2006 label "assFini" xyz 321 356 2006 to ref 128514
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 128898 transition_ref 157826 // <transition>
@@ -39,7 +39,7 @@ transitioncanvas 128898 transition_ref 157826 // <transition>
 end
 transitioncanvas 129282 transition_ref 157954 // <transition>
   
-  from ref 128514 z 2006 label "time_out" xyz 427 534 2006 to ref 129154
+  from ref 128514 z 2006 label "time_out" xyz 434.5 552 2006 to ref 129154
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 129410 transition_ref 158082 // <transition>

@@ -8,6 +8,12 @@
 #include "Coord.h"
 using namespace std;
 
+
+#define PRIORITE_MISSION_FAIBLE 0
+#define PRIORITE_MISSION_MOYENNE 1
+#define PRIORITE_MISSION_HAUTE 2
+#define PRIORITE_MISSION_FIRST 3
+
 class Mission
 {
     public:
@@ -29,6 +35,9 @@ class Mission
         void affiche();
         string get_title();
 
+        void set_priorite(int priorite_);
+        int get_priorite();
+
 
     protected:
         Coord coord_debut_mission;
@@ -36,6 +45,8 @@ class Mission
         int nbr_pts;
         bool mission_faite;
         string title;
+
+        int priorite;
 
 };
 

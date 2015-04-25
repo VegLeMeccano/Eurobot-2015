@@ -2,6 +2,7 @@
 #define GESTIONNAIRE_MISSION_H
 
 #include "Element_Robot.h"
+//#include "MAE_MURPHY.h"
 
 #include "Mission_Claps.h"
 #include "Mission_Depot_Tour_Depart.h"
@@ -17,6 +18,8 @@
 #define STRAT_3 3
 
 #include <vector>
+#include <iterator>
+#include <algorithm>
 using namespace std;
 
 class Gestionnaire_Mission
@@ -40,6 +43,7 @@ class Gestionnaire_Mission
 
         //Coordonne actuel
         Coord coord_reel;
+        //MAE_MURPHY mae_murphy;
 
         //
         int couleur;
@@ -48,6 +52,8 @@ class Gestionnaire_Mission
         // pour les trategies
         int strategie_1;
         int strategie_2;
+        int mission_sortie_evitement;
+        bool sortie_evitement;
 
     public:
         Gestionnaire_Mission();
@@ -70,6 +76,13 @@ class Gestionnaire_Mission
         Mission_Zone_Ennemie*           get_mission_zone_ennemie();
 
         Element_Robot* get_element_robot();
+
+        //MAE_MURPHY* get_mae_murphy();
+
+        void actualisation_Priorite();
+        void actualisation_temps_restant();
+        void appel_trigger(int mission_indice_);
+        void evitement_mission();                   // pour baisser la priorite de la mission
 
 
 };

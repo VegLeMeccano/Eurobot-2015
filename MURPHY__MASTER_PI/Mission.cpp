@@ -5,9 +5,19 @@ Mission::Mission(bool mission_a_faire_, int nbr_pts_, Coord coord_debut_mission_
         status((int)mission_a_faire_),        // statu de la mission
         nbr_pts(nbr_pts_),
         mission_faite(!mission_a_faire_),
-        title(title_)
+        title(title_),
+        priorite(0)
 {
     //ctor
+}
+
+void Mission::set_priorite(int priorite_)
+{
+    priorite = priorite_;
+}
+int Mission::get_priorite()
+{
+    return priorite;
 }
 
 
@@ -25,6 +35,7 @@ bool Mission::is_accomplie()
 
 void Mission::mission_remplie()
 {
+    cout<<title<<" -> remplie"<<endl;
     mission_faite = true;
 }
 
