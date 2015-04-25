@@ -25,7 +25,7 @@
 #define GAIN_KI_DEP 0.00
 #define GAIN_KD_DEP 0.00
 // norme sur les etats de transistion proche  et fini
-#define NEAR_ERROR_DEP 100.0
+#define NEAR_ERROR_DEP 80.0
 #define DONE_ERROR_DEP  30.0
 
 // gain PID cap (rotation)

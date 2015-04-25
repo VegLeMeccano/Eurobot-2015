@@ -310,15 +310,15 @@ void ControlLoop::compute_pids(){
 
             if (asserv_state == NEAR)
             {
-                Serial.print("BF DROITE NEAR: ");
+                //Serial.print("BF DROITE NEAR: ");
 
 
                 A = 1.0;
-                B = 2.2;
+                B = 2.0;
                 alpha = -diff_cap( target_position.get_cap() ,  real_coord.get_cap() );
-                beta = 0;//  -diff_cap( target_position.get_cap()     ,  real_coord.get_cap() );
-                erreur_cap = diff_cap(A*alpha + B*beta,0)/(A);
-                Serial.print(erreur_cap);
+                beta =  0;//-diff_cap( to_target.get_angle()     ,  target_position.get_cap() );
+                erreur_cap = diff_cap(A*alpha + B*beta,0);//(A+B);
+                //Serial.print(erreur_cap);
                 cmd_cap = pidcap.compute(erreur_cap + pidcap.get_target());  // car la formule du pidcap : target - input
 
                 //pidcap.setTarget(target_position.get_cap());
@@ -328,10 +328,10 @@ void ControlLoop::compute_pids(){
             else
             {
                 A = 1.0;
-                B = 2.2;
+                B = 2.0;
                 alpha = -diff_cap( target_position.get_cap() ,  real_coord.get_cap() );
-                beta =  -diff_cap( to_target.get_angle()     ,  real_coord.get_cap() );
-                erreur_cap = diff_cap(A*alpha + B*beta,0)/(A+B);
+                beta =  -diff_cap( to_target.get_angle()     ,  target_position.get_cap() );
+                erreur_cap = diff_cap(A*alpha + B*beta,0);//(A+B);
                 cmd_cap = pidcap.compute(erreur_cap + pidcap.get_target());  // car la formule du pidcap : target - input
 
             }

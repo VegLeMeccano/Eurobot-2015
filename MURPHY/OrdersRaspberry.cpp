@@ -533,6 +533,7 @@ void OrdersRaspberry::executeinstr()
         /** Arret moteur
         **/
         case 9:
+            Serial.println("SLAVE : stop");
             slave->stop();
             break;
         }
@@ -551,6 +552,7 @@ void OrdersRaspberry::executeinstr()
         /** desactivation evitement
         **/
         case 0:
+            Serial.println("EVITEMENT : OFF");
             slave->turn_off_evit();
             break;
 
@@ -558,6 +560,7 @@ void OrdersRaspberry::executeinstr()
         /** activation evitement
         **/
         case 1:
+            Serial.println("EVITEMENT : ACTIF");
             slave->turn_on_evit();
             break;
 
@@ -565,6 +568,7 @@ void OrdersRaspberry::executeinstr()
         /** debugg sonar
         **/
         case 2:
+            Serial.println("DEBUG SONAR: ");
             slave->get_control()->write_debug();
             break;
         }
