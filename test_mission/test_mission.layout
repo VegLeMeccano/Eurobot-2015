@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_layout_file>
+	<ActiveTarget name="Debug" />
+	<File name="..\MURPHY__MASTER_PI\Coord.cpp" open="0" top="0" tabpos="0">
+		<Cursor position="1638" topLine="73" />
+	</File>
+	<File name="..\MURPHY__MASTER_PI\Coord.h" open="0" top="0" tabpos="0">
+		<Cursor position="911" topLine="24" />
+	</File>
+	<File name="..\MURPHY__MASTER_PI\Mission.cpp" open="1" top="0" tabpos="1">
+		<Cursor position="984" topLine="26" />
+	</File>
+	<File name="..\MURPHY__MASTER_PI\Mission.h" open="1" top="0" tabpos="2">
+		<Cursor position="1024" topLine="0" />
+	</File>
+	<File name="..\MURPHY__MASTER_PI\Mission_Zone_Ennemie.cpp" open="1" top="0" tabpos="5">
+		<Cursor position="276" topLine="0" />
+	</File>
+	<File name="..\MURPHY__MASTER_PI\Mission_Zone_Ennemie.h" open="1" top="0" tabpos="4">
+		<Cursor position="6" topLine="0" />
+	</File>
+	<File name="main.cpp" open="1" top="0" tabpos="3">
+		<Cursor position="335" topLine="5" />
+	</File>
+</CodeBlocks_layout_file>

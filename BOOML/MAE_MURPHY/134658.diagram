@@ -2,62 +2,62 @@ format 76
 
 statecanvas 128002 state_ref 128386 // Jeu
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 385.665 180.719 2000 1210 813
+  xyzwh 105.624 48.6435 2000 1210 812
 end
 statecanvas 128130 state_ref 142850 // mission pillage distrib
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 404.05 546.148 2005 359 110
+  xyzwh 123.581 413.859 2005 359 110
 end
 statecanvas 128258 state_ref 142978 // mission attrap balle et chiage
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 469.662 699.17 2005 319 112
+  xyzwh 188.435 567.529 2005 319 111
 end
 statecanvas 128386 state_ref 143106 // mission claps
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 695.998 847.297 2005 295 99
+  xyzwh 414.074 715.773 2005 295 99
 end
 statecanvas 128514 state_ref 143234 // mission rush zone centrale
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 1249.86 484.398 2005 320 110
+  xyzwh 121.778 269.198 2005 320 110
 end
 statecanvas 129026 state_ref 143490 // mission depot de tour zone depart
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 1030.48 865.597 2005 213 73
+  xyzwh 773.067 733.211 2005 213 73
 end
 statecanvas 129794 state_ref 157442 // sortie de zone de depart
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 511.049 276.799 2005 305 89
+  xyzwh 230.787 144.785 2005 305 89
 end
 statecanvas 130178 state_ref 158722 // mission zone ennemie
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 1271.77 630.008 2005 257 77
+  xyzwh 990.412 498.395 2005 257 77
 end
 pseudostatecanvas 130562 pseudostate_ref 161410 // exit_point
-   xyz 927.72 841.195 3005 label_xy 918 860
+   xyz 646.789 709.802 3005 label_xy 637 728
 end
 pseudostatecanvas 130690 pseudostate_ref 167938 // initial
-   xyz 1017.87 218.573 2005
+   xyz 737.422 100.194 2005
 end
 statecanvas 130946 state_ref 172290 // decision
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 847.475 404.552 2005 360 130
+  xyzwh 566.027 273.049 2005 360 130
 end
 pseudostatecanvas 131586 pseudostate_ref 174466 // choice
-   xyz 1015.53 260.732 2005
+   xyz 734.71 128.36 2005
 end
 pseudostatecanvas 133506 pseudostate_ref 174850 // exit_point
-   xyz 723.003 634.374 3005 label_xy 686 652
+   xyz 442.045 502.071 3005 label_xy 405 520
 end
 pseudostatecanvas 134402 pseudostate_ref 181762 // exit_point
-   xyz 777.744 749.159 3005 label_xy 800 757
+   xyz 496.675 617.028 3005 label_xy 519 625
 end
 statecanvas 134658 state_ref 180098 // mission depot tour estrade
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 1153.81 741.812 2005 257 88
+  xyzwh 909.397 616.626 2005 257 88
 end
 transitioncanvas 131714 transition_ref 199426 // <transition>
   
-  from ref 131586 z 2006 label "[commencement == true]" xyz 836 267 2006 to ref 129794
+  from ref 131586 z 2006 label "[commencement == true]" xyz 555 135 2006 to ref 129794
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 131842 transition_ref 199554 // <transition>
@@ -67,12 +67,12 @@ transitioncanvas 131842 transition_ref 199554 // <transition>
 end
 transitioncanvas 131970 transition_ref 199682 // <transition>
   
-  from ref 131586 z 2006 label "commencement == false" xyz 1029 327 2006 to ref 130946
+  from ref 131586 z 2006 label "commencement == false" xyz 748 195 2006 to ref 130946
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 132098 transition_ref 199810 // <transition>
   
-  from ref 129794 z 2006 label "assFini" xyz 802 366 2006 to ref 130946
+  from ref 129794 z 2006 label "assFini" xyz 521 234 2006 to ref 130946
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 132866 transition_ref 200450 // <transition>
@@ -83,7 +83,7 @@ end
 transitioncanvas 133378 transition_ref 202626 // <transition>
   decenter_end 972
   
-  from ref 130946 z 2006 label "mission_distrib" xyz 745 508 2006 to ref 128130
+  from ref 130946 z 2006 label "mission_distrib" xyz 464 376 2006 to ref 128130
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 133634 transition_ref 209154 // <transition>
@@ -93,17 +93,17 @@ transitioncanvas 133634 transition_ref 209154 // <transition>
 end
 transitioncanvas 133762 transition_ref 209282 // <transition>
   
-  from ref 130946 z 2006 label "mission claps" xyz 894.5 684.5 2006 to ref 128386
+  from ref 130946 z 2006 label "mission claps" xyz 613 552 2006 to ref 128386
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 133890 transition_ref 209410 // <transition>
   
-  from ref 130946 z 2006 label "mission_depot_tour" xyz 1023 706 2006 to ref 129026
+  from ref 130946 z 2006 label "mission_depot_tour" xyz 754.5 574 2006 to ref 129026
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 134018 transition_ref 209538 // <transition>
   
-  from ref 130946 z 2006 label "mission_zone_ennemie" xyz 1168.5 569.5 2006 to ref 130178
+  from ref 130946 z 2006 label "mission_zone_ennemie" xyz 887 437 2006 to ref 130178
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 134146 transition_ref 209666 // <transition>

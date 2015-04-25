@@ -12,14 +12,9 @@
 #define COULEUR_JAUNE 0
 #define COULEUR_VERT 1
 
-class Gestionnaire_Mission
-{
-    private:
 
-    public:
-        Gestionnaire_Mission();
 
-};
+
 
 
 class Master
@@ -33,9 +28,11 @@ class Master
 
         MAE_MURPHY mae_murphy;
         int couleur;
-        int tour_de_roue;       // pour le deplacement lateral du debut
         int cycle_attente;
         int portSerie;
+
+        Gestionnaire_Mission gestionnaire_mission;
+
 
 
     public:
@@ -51,7 +48,7 @@ class Master
         void reset_time_out();
         bool is_time_out();
 
-
+        // couleur
         void set_couleur(int couleur_);     // fixe la couleur, appel depuis la COM
         MAE_MURPHY* get_MAE_MURPHY();       // retourne la MAE, util? je sais pas
         int get_Couleur();                  // couleur pour la strat

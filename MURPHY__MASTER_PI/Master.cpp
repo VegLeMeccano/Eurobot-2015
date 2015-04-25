@@ -1,12 +1,9 @@
 #include "Master.h"
-Gestionnaire_Mission::Gestionnaire_Mission()
-{
-
-}
 
 
-
-
+/********************************************************
+    MASTER
+*********************************************************/
 Master::Master(int portSerie_):
     periode_run(PERIODE_MASTER),
     time_out_on(false),
@@ -14,11 +11,15 @@ Master::Master(int portSerie_):
     couleur(0),
     tour_de_roue(0),
     cycle_attente(0),
-    portSerie(portSerie_)
+    portSerie(portSerie_),
+    gestionnaire_mission()
 {
     mae_murphy.create();
     cout << "[MASTER_MURPHY] initialisation" << endl;
 }
+
+
+
 
 int Master::getPortSerie()
 {
