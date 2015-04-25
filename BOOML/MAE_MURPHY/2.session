@@ -1,18 +1,14 @@
-window_sizes 1600 848 356 1238 600 82
+window_sizes 1600 878 230 1364 769 35
 diagrams
   active  statediagram_ref 128130 // Principal
-    986 577 100 0 0 0
-  statediagram_ref 134658 // Jeu
-    1238 692 100 0 21 424
-  statediagram_ref 154498 // mission zone ennemie
-    1234 692 100 0 0 0
+    1364 769 101 0 0 0
+  statediagram_ref 141186 // Recalage
+    1087 615 100 0 0 0
 end
 show_stereotypes
-selected 
-  package_ref 129 // MAE_MURPHY
+selected statediagram_ref 128130 // Principal
 open
-  pseudostate_ref 147970 // initial
-  pseudostate_ref 167938 // initial
+  state_ref 128514 // Evitement
   deploymentview_ref 128130 // MAE_MURPHY
 end
 end

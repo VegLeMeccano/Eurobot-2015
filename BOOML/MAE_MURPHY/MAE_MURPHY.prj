@@ -1,6 +1,6 @@
 format 76
 "MAE_MURPHY"
-  revision 32
+  revision 35
   modified_by 2 "Link"
   cpp_root_dir "D:/Club Robotique IRON MENAD 2/Eurobot 2015 Iron Menad/Eurobot-2015/MURPHY__MASTER_PI/"
 
@@ -109,8 +109,8 @@ format 76
 	  end
 
 	  pseudostate 147970 initial 
-	    transition 157314 "<transition>"
-	      on state_ref 150018 // sortie de la zone de depart
+	    transition 200834 "<transition>"
+	      on state_ref 172546 // point de depart mission
 	      external 
 	    end
 	  end
@@ -127,6 +127,7 @@ serialPrint(master->getPortSerie(),\"S4 400 \\n\");
 	  end
 
 	  state 150146 "capture de gobelet escalier"
+	      cpp_on_entry "// capture d gobelet pres de l'escalier"
 	    associated_diagram statediagram_ref 147842 // capture de gobelet escalier
 	    statediagram 147842 "capture de gobelet escalier"
 	      package_name_in_tab yes show_context default auto_label_position yes write_trans_label_horizontally yes show_trans_definition yes draw_all_relations yes shadow yes
@@ -176,6 +177,10 @@ master->set_time_out(300);
 	    end
 
 	    pseudostate 148226 exit_point "sortie capture gobelet"
+	      transition 201986 "<transition>"
+		on pseudostate_ref 174978 // choice
+		external 
+	      end
 	    end
 
 	    state 150530 "BF cap vers la zone de distrib"
@@ -195,18 +200,159 @@ serialPrint(master->getPortSerie(),\"S3 -48 \\n\");
 	  end
 
 	  state 150658 "capture stands cote escalier"
+	    transition 201474 "<transition>"
+	      on state_ref 150786 // capture stand bordure
+	      external 
+	    end
 	  end
 
 	  state 150786 "capture stand bordure"
+	    transition 201602 "<transition>"
+	      on state_ref 150914 // vidage distributeur
+	      external 
+	    end
 	  end
 
 	  state 150914 "vidage distributeur"
+	    transition 202370 "<transition>"
+	      on state_ref 172674 // sortie zone
+	      external 
+	    end
+	  end
+
+	  state 172546 "point de depart mission"
+	      cpp_on_entry "// devant la zone de depart
+// BF droite ?? pour y rejoindre
+// si commencement -> deja la
+// sinon on check ou on est puis BF cap vers le point, puis BF droite"
+	    transition 201090 "<transition>"
+	      on pseudostate_ref 174722 // choice
+		cpp_trigger "AssFini"
+	      external 
+	    end
+	  end
+
+	  pseudostate 174722 choice 
+	    transition 201218 "<transition>"
+	      on state_ref 150146 // capture de gobelet escalier
+		cpp_guard "gobelet_Escalier_fait == false"
+	      external 
+	    end
+
+	    transition 201346 "<transition>"
+	      on state_ref 150658 // capture stands cote escalier
+		cpp_guard "gobelet_Escalier_fait == true"
+	      external 
+	    end
+	  end
+
+	  pseudostate 174850 exit_point "sortie pillage distrib"
+	    transition 209154 "<transition>"
+	      on state_ref 172290 // decision
+	      external 
+	    end
+	  end
+
+	  state 172674 "sortie zone"
+	      cpp_on_entry "// on se remet devant la zone de depart
+// BF droite vers la zone enemie"
+	    transition 202498 "<transition>"
+	      on pseudostate_ref 174850 // exit_point
+	      external 
+	    end
+	  end
+
+	  pseudostate 174978 choice 
+	    transition 202114 "<transition>"
+	      on state_ref 150658 // capture stands cote escalier
+		cpp_guard "vidange_faite == false"
+	      external 
+	    end
+
+	    transition 202242 "<transition>"
+	      on pseudostate_ref 174850 // exit_point
+		cpp_guard "vidange_faite == true"
+	      external 
+	    end
 	  end
 	end
 
 	state 142978 "mission attrap balle et chiage"
-	    cpp_on_entry "// zone de depart
+	    cpp_on_entry "// de but : pres de zone de depart
 "
+	  associated_diagram statediagram_ref 161026 // mission attrap balle
+	  statediagram 161026 "mission attrap balle"
+	    package_name_in_tab yes show_context default auto_label_position yes write_trans_label_horizontally yes show_trans_definition yes draw_all_relations yes shadow yes
+	    show_activities yes region_horizontally yes drawing_language c++ show_stereotype_properties yes
+	    size A0
+	  end
+
+	  pseudostate 181634 initial 
+	    transition 209922 "<transition>"
+	      on state_ref 179202 // point de depart
+	      external 
+	    end
+	  end
+
+	  state 179202 "point de depart"
+	      cpp_on_entry "// rejoindre devant la zone de depart"
+	    transition 210178 "<transition>"
+	      on state_ref 179330 // orientation avant reculage
+	      external 
+	    end
+	  end
+
+	  state 179330 "orientation avant reculage"
+	    transition 210434 "<transition>"
+	      on state_ref 179458 // Recalage
+	      external 
+	    end
+	  end
+
+	  state 179458 "Recalage"
+	    transition 210562 "<transition>"
+	      on state_ref 179586 // capture de balle
+	      external 
+	    end
+	  end
+
+	  state 179586 "capture de balle"
+	    transition 210690 "<transition>"
+	      on state_ref 179714 // drop pop corn
+	      external 
+	    end
+	  end
+
+	  state 179714 "drop pop corn"
+	      cpp_on_entry "// drop si present"
+	    transition 210818 "<transition>"
+	      on state_ref 179842 // drop gobelet
+	      external 
+	    end
+	  end
+
+	  state 179842 "drop gobelet"
+	      cpp_on_entry "// drop si present"
+	    transition 210946 "<transition>"
+	      on state_ref 179970 // sortie
+	      external 
+	    end
+	  end
+
+	  pseudostate 181762 exit_point "sortie mission drop"
+	    transition 211074 "<transition>"
+	      on state_ref 172290 // decision
+	      external 
+	    end
+	  end
+
+	  state 179970 "sortie"
+	      cpp_on_entry "// aller devant la zone de depart"
+	    transition 210050 "<transition>"
+	      on pseudostate_ref 181762 // exit_point
+	      external 
+	    end
+	  end
 	end
 
 	state 143106 "mission claps"
@@ -281,36 +427,103 @@ serialPrint(master->getPortSerie(),\"S3 -48 \\n\");
 	  end
 
 	  pseudostate 161410 exit_point "fin claps"
+	    transition 200450 "<transition>"
+	      on state_ref 172290 // decision
+	      external 
+	    end
 	  end
 	end
 
 	state 143234 "mission rush zone centrale"
 	end
 
-	state 143362 "etat de decision"
-	    cpp_on_entry "// consultation du gestionnaire de mission
-// ou sequentiel"
-	  transition 150658 "<transition>"
-	    on state_ref 142850 // mission pillage distrib
-	    external 
+	state 143490 "mission depot de tour zone depart"
+	  associated_diagram statediagram_ref 161154 // mission depot tour zone depart
+	  statediagram 161154 "mission depot tour zone depart"
+	    package_name_in_tab default show_context default auto_label_position default write_trans_label_horizontally default show_trans_definition default draw_all_relations default shadow default
+	    show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+	    size A0
 	  end
-	end
 
-	state 143490 "mission depot de tour"
+	  pseudostate 181890 initial 
+	    transition 211330 "<transition>"
+	      on state_ref 180226 // way point initial
+	      external 
+	    end
+	  end
+
+	  state 180226 "way point initial"
+	    transition 211458 "<transition>"
+	      on state_ref 180610 // avance
+	      external 
+	    end
+	  end
+
+	  pseudostate 182018 exit_point "sortie "
+	  end
+
+	  state 180354 "depot des deux tour"
+	    transition 212226 "<transition>"
+	      on state_ref 180738 // recule
+	      external 
+	    end
+	  end
+
+	  state 180482 "depot une tour"
+	    transition 212354 "<transition>"
+	      on state_ref 180738 // recule
+	      external 
+	    end
+	  end
+
+	  state 180610 "avance"
+	    transition 211586 "<transition>"
+	      on pseudostate_ref 182146 // choice
+	      external 
+	    end
+	  end
+
+	  pseudostate 182146 choice 
+	    transition 211714 "<transition>"
+	      on state_ref 180354 // depot des deux tour
+	      external 
+	    end
+
+	    transition 211842 "<transition>"
+	      on state_ref 180482 // depot une tour
+	      external 
+	    end
+	  end
+
+	  state 180738 "recule"
+	    transition 211970 "<transition>"
+	      on state_ref 180866 // sortie
+	      external 
+	    end
+	  end
+
+	  state 180866 "sortie"
+	    transition 212098 "<transition>"
+	      on pseudostate_ref 182018 // exit_point
+	      external 
+	    end
+	  end
 	end
 
 	state 157442 "sortie de zone de depart"
 	    cpp_on_entry "// avance de 400mm
 // attention si on laisse coop'r derrière ou devant
 serialPrint(master->getPortSerie(),\"S4 400 \\n\");"
-	  transition 164738 "<transition>"
-	    on state_ref 143362 // etat de decision
+	  transition 199810 "<transition>"
+	    on state_ref 172290 // decision
 	      cpp_trigger "assFini"
 	    external 
 	  end
 	end
 
 	state 158722 "mission zone ennemie"
+	    cpp_on_entry "// claps ennemi
+// depot de goblets cinéma adverse"
 	  associated_diagram statediagram_ref 154498 // mission zone ennemie
 	  statediagram 154498 "mission zone ennemie"
 	    package_name_in_tab yes show_context default auto_label_position yes write_trans_label_horizontally yes show_trans_definition yes draw_all_relations yes shadow yes
@@ -327,10 +540,18 @@ serialPrint(master->getPortSerie(),\"S4 400 \\n\");"
 
 	  state 158850 "waypoint initial"
 	      cpp_on_entry "// en BF droite"
+	    transition 212482 "<transition>"
+	      on pseudostate_ref 182274 // choice
+	      external 
+	    end
 	  end
 
 	  state 158978 "claps central"
 	      cpp_on_entry "// mission à 5pts"
+	    transition 212738 "<transition>"
+	      on state_ref 159106 // depot gobelet
+	      external 
+	    end
 	  end
 
 	  state 159106 "depot gobelet"
@@ -340,21 +561,181 @@ serialPrint(master->getPortSerie(),\"S4 400 \\n\");"
 	  state 159234 "faire chier en zizagant"
 	      cpp_on_entry "// mission qui n'a pas de prix"
 	  end
+
+	  pseudostate 182274 choice 
+	    transition 212610 "<transition>"
+	      on state_ref 158978 // claps central
+	      external 
+	    end
+
+	    transition 212866 "<transition>"
+	      on state_ref 159106 // depot gobelet
+	      external 
+	    end
+
+	    transition 212994 "<transition>"
+	      on state_ref 159234 // faire chier en zizagant
+	      external 
+	    end
+	  end
 	end
 
 	pseudostate 167938 initial 
-	  transition 185602 "<transition>"
-	    on state_ref 157442 // sortie de zone de depart
+	  transition 199554 "<transition>"
+	    on pseudostate_ref 174466 // choice
 	    external 
+	  end
+	end
+
+	state 172290 "decision"
+	    cpp_on_entry "// decision du gestionnaire de mission
+// consulte les mission restante à faire et dans quel ordre
+// etat de depart apres sortie d'evitement "
+	  transition 202626 "<transition>"
+	    on state_ref 142850 // mission pillage distrib
+	      cpp_trigger "mission_distrib"
+	    external 
+	  end
+
+	  transition 209282 "<transition>"
+	    on state_ref 143106 // mission claps
+	      cpp_trigger "mission claps"
+	    external 
+	  end
+
+	  transition 209410 "<transition>"
+	    on state_ref 143490 // mission depot de tour zone depart
+	      cpp_trigger "mission_depot_tour"
+	    external 
+	  end
+
+	  transition 209538 "<transition>"
+	    on state_ref 158722 // mission zone ennemie
+	      cpp_trigger "mission_zone_ennemie"
+	    external 
+	  end
+
+	  transition 209666 "<transition>"
+	    on state_ref 142978 // mission attrap balle et chiage
+	    external 
+	  end
+
+	  transition 209794 "<transition>"
+	    on state_ref 143234 // mission rush zone centrale
+	    external 
+	  end
+
+	  transition 211202 "<transition>"
+	    on state_ref 180098 // mission depot tour estrade
+	    external 
+	  end
+	end
+
+	pseudostate 174466 choice 
+	  transition 199426 "<transition>"
+	    on state_ref 157442 // sortie de zone de depart
+	      cpp_guard "commencement == true"
+	    external 
+	  end
+
+	  transition 199682 "<transition>"
+	    on state_ref 172290 // decision
+	      cpp_trigger "commencement == false"
+	    external 
+	  end
+	end
+
+	state 180098 "mission depot tour estrade"
+	  associated_diagram statediagram_ref 161282 // mission depot tour estrade
+	  statediagram 161282 "mission depot tour estrade"
+	    package_name_in_tab default show_context default auto_label_position default write_trans_label_horizontally default show_trans_definition default draw_all_relations default shadow default
+	    show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+	    size A0
+	  end
+
+	  state 180994 "waypoint init"
+	    transition 213890 "<transition>"
+	      on state_ref 181506 // preparation
+	      external 
+	    end
+	  end
+
+	  pseudostate 182402 initial 
+	    transition 213122 "<transition>"
+	      on state_ref 180994 // waypoint init
+	      external 
+	    end
+	  end
+
+	  state 181122 "depot solo"
+	    transition 213378 "<transition>"
+	      on state_ref 181378 // sortie douce
+	      external 
+	    end
+	  end
+
+	  state 181250 "depot double"
+	    transition 213250 "<transition>"
+	      on state_ref 181378 // sortie douce
+	      external 
+	    end
+	  end
+
+	  pseudostate 182530 exit_point "sortie"
+	  end
+
+	  state 181378 "sortie douce"
+	  end
+
+	  pseudostate 182658 choice 
+	    transition 213634 "<transition>"
+	      on state_ref 181122 // depot solo
+	      external 
+	    end
+
+	    transition 213762 "<transition>"
+	      on state_ref 181250 // depot double
+	      external 
+	    end
+	  end
+
+	  state 181506 "preparation"
+	    transition 214018 "<transition>"
+	      on pseudostate_ref 182658 // choice
+	      external 
+	    end
 	  end
 	end
       end
 
       state 128514 "Evitement"
 	  cpp_on_entry "cout<<\"etat évitement\"<<endl;"
-	transition 134914 "<transition>"
-	  on state_ref 128386 // Jeu
-	  external 
+	associated_diagram statediagram_ref 167810 // evitement
+	statediagram 167810 "evitement"
+	  package_name_in_tab default show_context default auto_label_position default write_trans_label_horizontally default show_trans_definition default draw_all_relations default shadow default
+	  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+	  size A0
+	end
+
+	pseudostate 189186 junction 
+	  transition 220546 "<transition>"
+	    on state_ref 188034 // faire des maneuvre
+	    external 
+	  end
+	end
+
+	pseudostate 189314 exit_point "sortie evitement"
+	  transition 220802 "<transition>"
+	    on state_ref 128386 // Jeu
+	    external 
+	  end
+	end
+
+	state 188034 "faire des maneuvre"
+	  transition 220674 "<transition>"
+	    on pseudostate_ref 189314 // exit_point
+	    external 
+	  end
 	end
       end
 
@@ -516,6 +897,7 @@ master->set_time_out(300);"
       end
 
       state 165762 "startin' block"
+	  cpp_on_entry "cout<<\"ready !\"<<endl;"
 	transition 192514 "<transition>"
 	  on state_ref 128386 // Jeu
 	    cpp_trigger "start_enleve"
@@ -5792,7 +6174,7 @@ ${inlines}
 	relation 142082 -_->
 	  stereotype "friend"
 	  a default
-	    cpp default "#include in source"
+	    cpp default "${type}"
 	    classrelation_ref 142082 // <dependency>
 	  b parent class_ref 141058 // sortie_de_la_zone_de_depart_State
       end
@@ -5818,7 +6200,7 @@ ${inlines}
 	relation 142466 -_->
 	  stereotype "friend"
 	  a default
-	    cpp default "#include in source"
+	    cpp default "${type}"
 	    classrelation_ref 142466 // <dependency>
 	  b parent class_ref 141314 // deplacement_cible_State
       end
@@ -5844,7 +6226,7 @@ ${inlines}
 	relation 142722 -_->
 	  stereotype "friend"
 	  a default
-	    cpp default "#include in source"
+	    cpp default "${type}"
 	    classrelation_ref 142722 // <dependency>
 	  b parent class_ref 141442 // capture_State
       end
@@ -5853,7 +6235,7 @@ ${inlines}
 	relation 142978 -_->
 	  stereotype "friend"
 	  a default
-	    cpp default "#include in source"
+	    cpp default "${type}"
 	    classrelation_ref 142978 // <dependency>
 	  b parent class_ref 141570 // BF_cap_vers_la_zone_de_distrib_State
       end
@@ -5862,7 +6244,7 @@ ${inlines}
 	relation 143106 -_->
 	  stereotype "friend"
 	  a default
-	    cpp default "#include in source"
+	    cpp default "${type}"
 	    classrelation_ref 143106 // <dependency>
 	  b parent class_ref 141186 // capture_de_gobelet_escalier_State
       end
@@ -5871,7 +6253,7 @@ ${inlines}
 	relation 143362 -_->
 	  stereotype "friend"
 	  a default
-	    cpp default "#include in source"
+	    cpp default "${type}"
 	    classrelation_ref 143362 // <dependency>
 	  b parent class_ref 141698 // capture_stands_cote_escalier_State
       end
@@ -5880,7 +6262,7 @@ ${inlines}
 	relation 143618 -_->
 	  stereotype "friend"
 	  a default
-	    cpp default "#include in source"
+	    cpp default "${type}"
 	    classrelation_ref 143618 // <dependency>
 	  b parent class_ref 141826 // capture_stand_bordure_State
       end
@@ -5889,7 +6271,7 @@ ${inlines}
 	relation 143874 -_->
 	  stereotype "friend"
 	  a default
-	    cpp default "#include in source"
+	    cpp default "${type}"
 	    classrelation_ref 143874 // <dependency>
 	  b parent class_ref 141954 // vidage_distributeur_State
       end
@@ -5898,7 +6280,7 @@ ${inlines}
 	relation 144002 -_->
 	  stereotype "friend"
 	  a default
-	    cpp default "#include in source"
+	    cpp default "${type}"
 	    classrelation_ref 144002 // <dependency>
 	  b parent class_ref 140930 // mission_pillage_distrib_State
       end
@@ -5907,7 +6289,7 @@ ${inlines}
 	relation 144258 -_->
 	  stereotype "friend"
 	  a default
-	    cpp default "#include in source"
+	    cpp default "${type}"
 	    classrelation_ref 144258 // <dependency>
 	  b parent class_ref 142082 // mission_attrap_balle_et_chiage_State
       end
@@ -5916,7 +6298,7 @@ ${inlines}
 	relation 144642 -_->
 	  stereotype "friend"
 	  a default
-	    cpp default "#include in source"
+	    cpp default "${type}"
 	    classrelation_ref 144642 // <dependency>
 	  b parent class_ref 142338 // chope_du_stand_sur_la_route_State
       end
@@ -5925,7 +6307,7 @@ ${inlines}
 	relation 144898 -_->
 	  stereotype "friend"
 	  a default
-	    cpp default "#include in source"
+	    cpp default "${type}"
 	    classrelation_ref 144898 // <dependency>
 	  b parent class_ref 142466 // chope_du_gobelet_et_des_stands_State
       end
@@ -5934,7 +6316,7 @@ ${inlines}
 	relation 145154 -_->
 	  stereotype "friend"
 	  a default
-	    cpp default "#include in source"
+	    cpp default "${type}"
 	    classrelation_ref 145154 // <dependency>
 	  b parent class_ref 142594 // claps_1_State
       end
@@ -5943,7 +6325,7 @@ ${inlines}
 	relation 145410 -_->
 	  stereotype "friend"
 	  a default
-	    cpp default "#include in source"
+	    cpp default "${type}"
 	    classrelation_ref 145410 // <dependency>
 	  b parent class_ref 142722 // claps_2_State
       end
@@ -5952,7 +6334,7 @@ ${inlines}
 	relation 145666 -_->
 	  stereotype "friend"
 	  a default
-	    cpp default "#include in source"
+	    cpp default "${type}"
 	    classrelation_ref 145666 // <dependency>
 	  b parent class_ref 142850 // chope_stand_pres_estrade_State
       end
@@ -5961,7 +6343,7 @@ ${inlines}
 	relation 145922 -_->
 	  stereotype "friend"
 	  a default
-	    cpp default "#include in source"
+	    cpp default "${type}"
 	    classrelation_ref 145922 // <dependency>
 	  b parent class_ref 142978 // decision_State
       end
@@ -5970,7 +6352,7 @@ ${inlines}
 	relation 146178 -_->
 	  stereotype "friend"
 	  a default
-	    cpp default "#include in source"
+	    cpp default "${type}"
 	    classrelation_ref 146178 // <dependency>
 	  b parent class_ref 143106 // pose_pile_State
       end
@@ -5979,7 +6361,7 @@ ${inlines}
 	relation 146434 -_->
 	  stereotype "friend"
 	  a default
-	    cpp default "#include in source"
+	    cpp default "${type}"
 	    classrelation_ref 146434 // <dependency>
 	  b parent class_ref 143234 // chope_stand_milieu_State
       end
@@ -5988,7 +6370,7 @@ ${inlines}
 	relation 146690 -_->
 	  stereotype "friend"
 	  a default
-	    cpp default "#include in source"
+	    cpp default "${type}"
 	    classrelation_ref 146690 // <dependency>
 	  b parent class_ref 143362 // pose_seconde_pile_zone_de_depart_State
       end
@@ -5997,7 +6379,7 @@ ${inlines}
 	relation 146818 -_->
 	  stereotype "friend"
 	  a default
-	    cpp default "#include in source"
+	    cpp default "${type}"
 	    classrelation_ref 146818 // <dependency>
 	  b parent class_ref 142210 // mission_claps_State
       end
@@ -6006,7 +6388,7 @@ ${inlines}
 	relation 147074 -_->
 	  stereotype "friend"
 	  a default
-	    cpp default "#include in source"
+	    cpp default "${type}"
 	    classrelation_ref 147074 // <dependency>
 	  b parent class_ref 143490 // mission_rush_zone_centrale_State
       end
@@ -6015,7 +6397,7 @@ ${inlines}
 	relation 147330 -_->
 	  stereotype "friend"
 	  a default
-	    cpp default "#include in source"
+	    cpp default "${type}"
 	    classrelation_ref 147330 // <dependency>
 	  b parent class_ref 143618 // etat_de_decision_State
       end
@@ -6024,7 +6406,7 @@ ${inlines}
 	relation 147586 -_->
 	  stereotype "friend"
 	  a default
-	    cpp default "#include in source"
+	    cpp default "${type}"
 	    classrelation_ref 147586 // <dependency>
 	  b parent class_ref 143746 // mission_depot_de_tour_State
       end
@@ -6033,7 +6415,7 @@ ${inlines}
 	relation 147842 -_->
 	  stereotype "friend"
 	  a default
-	    cpp default "#include in source"
+	    cpp default "${type}"
 	    classrelation_ref 147842 // <dependency>
 	  b parent class_ref 143874 // sortie_de_zone_de_depart_State
       end
@@ -6042,7 +6424,7 @@ ${inlines}
 	relation 148226 -_->
 	  stereotype "friend"
 	  a default
-	    cpp default "#include in source"
+	    cpp default "${type}"
 	    classrelation_ref 148226 // <dependency>
 	  b parent class_ref 144130 // waypoint_initial_State
       end
@@ -6051,7 +6433,7 @@ ${inlines}
 	relation 148482 -_->
 	  stereotype "friend"
 	  a default
-	    cpp default "#include in source"
+	    cpp default "${type}"
 	    classrelation_ref 148482 // <dependency>
 	  b parent class_ref 144258 // claps_central_State
       end
@@ -6060,7 +6442,7 @@ ${inlines}
 	relation 148738 -_->
 	  stereotype "friend"
 	  a default
-	    cpp default "#include in source"
+	    cpp default "${type}"
 	    classrelation_ref 148738 // <dependency>
 	  b parent class_ref 144386 // depot_gobelet_State
       end
@@ -6069,7 +6451,7 @@ ${inlines}
 	relation 148994 -_->
 	  stereotype "friend"
 	  a default
-	    cpp default "#include in source"
+	    cpp default "${type}"
 	    classrelation_ref 148994 // <dependency>
 	  b parent class_ref 144514 // faire_chier_en_zizagant_State
       end
@@ -6078,7 +6460,7 @@ ${inlines}
 	relation 149122 -_->
 	  stereotype "friend"
 	  a default
-	    cpp default "#include in source"
+	    cpp default "${type}"
 	    classrelation_ref 149122 // <dependency>
 	  b parent class_ref 144002 // mission_zone_ennemie_State
       end
@@ -6087,7 +6469,7 @@ ${inlines}
 	relation 149250 -_->
 	  stereotype "friend"
 	  a default
-	    cpp default "#include in source"
+	    cpp default "${type}"
 	    classrelation_ref 149250 // <dependency>
 	  b parent class_ref 140802 // Jeu_State
       end
@@ -6096,7 +6478,7 @@ ${inlines}
 	relation 149506 -_->
 	  stereotype "friend"
 	  a default
-	    cpp default "#include in source"
+	    cpp default "${type}"
 	    classrelation_ref 149506 // <dependency>
 	  b parent class_ref 144642 // Evitement_State
       end
@@ -6122,7 +6504,7 @@ ${inlines}
 	relation 149890 -_->
 	  stereotype "friend"
 	  a default
-	    cpp default "#include in source"
+	    cpp default "${type}"
 	    classrelation_ref 149890 // <dependency>
 	  b parent class_ref 144898 // Recule_State
       end
@@ -6131,7 +6513,7 @@ ${inlines}
 	relation 150146 -_->
 	  stereotype "friend"
 	  a default
-	    cpp default "#include in source"
+	    cpp default "${type}"
 	    classrelation_ref 150146 // <dependency>
 	  b parent class_ref 145026 // set_X_CAP_State
       end
@@ -6140,7 +6522,7 @@ ${inlines}
 	relation 150402 -_->
 	  stereotype "friend"
 	  a default
-	    cpp default "#include in source"
+	    cpp default "${type}"
 	    classrelation_ref 150402 // <dependency>
 	  b parent class_ref 145154 // BF_90_deg_vers_les_marches_State
       end
@@ -6149,7 +6531,7 @@ ${inlines}
 	relation 150658 -_->
 	  stereotype "friend"
 	  a default
-	    cpp default "#include in source"
+	    cpp default "${type}"
 	    classrelation_ref 150658 // <dependency>
 	  b parent class_ref 145282 // Recule_bordure_claps_State
       end
@@ -6158,7 +6540,7 @@ ${inlines}
 	relation 150914 -_->
 	  stereotype "friend"
 	  a default
-	    cpp default "#include in source"
+	    cpp default "${type}"
 	    classrelation_ref 150914 // <dependency>
 	  b parent class_ref 145410 // BF_90_deg_State
       end
@@ -6167,7 +6549,7 @@ ${inlines}
 	relation 151170 -_->
 	  stereotype "friend"
 	  a default
-	    cpp default "#include in source"
+	    cpp default "${type}"
 	    classrelation_ref 151170 // <dependency>
 	  b parent class_ref 145538 // avance_State
       end
@@ -6176,7 +6558,7 @@ ${inlines}
 	relation 151426 -_->
 	  stereotype "friend"
 	  a default
-	    cpp default "#include in source"
+	    cpp default "${type}"
 	    classrelation_ref 151426 // <dependency>
 	  b parent class_ref 145666 // Recule_depart_State
       end
@@ -6185,7 +6567,7 @@ ${inlines}
 	relation 151682 -_->
 	  stereotype "friend"
 	  a default
-	    cpp default "#include in source"
+	    cpp default "${type}"
 	    classrelation_ref 151682 // <dependency>
 	  b parent class_ref 145794 // avance_un_peu_pour_tourner_State
       end
@@ -6194,7 +6576,7 @@ ${inlines}
 	relation 151938 -_->
 	  stereotype "friend"
 	  a default
-	    cpp default "#include in source"
+	    cpp default "${type}"
 	    classrelation_ref 151938 // <dependency>
 	  b parent class_ref 145922 // set_Y_State
       end
@@ -6203,7 +6585,7 @@ ${inlines}
 	relation 152194 -_->
 	  stereotype "friend"
 	  a default
-	    cpp default "#include in source"
+	    cpp default "${type}"
 	    classrelation_ref 152194 // <dependency>
 	  b parent class_ref 146050 // Re_set_x_cap_State
       end
@@ -6212,7 +6594,7 @@ ${inlines}
 	relation 152322 -_->
 	  stereotype "friend"
 	  a default
-	    cpp default "#include in source"
+	    cpp default "${type}"
 	    classrelation_ref 152322 // <dependency>
 	  b parent class_ref 144770 // Recalage_Initial_State
       end
@@ -6221,7 +6603,7 @@ ${inlines}
 	relation 152450 -_->
 	  stereotype "friend"
 	  a default
-	    cpp default "#include in source"
+	    cpp default "${type}"
 	    classrelation_ref 152450 // <dependency>
 	  b parent class_ref 140546 // MAE_MURPHY_State
       end
@@ -6309,7 +6691,7 @@ ${inlines}
 	relation 152834 -_->
 	  stereotype "friend"
 	  a default
-	    cpp default "#include in source"
+	    cpp default "${type}"
 	    classrelation_ref 152834 // <dependency>
 	  b parent class_ref 152578 // startin_block_State
       end

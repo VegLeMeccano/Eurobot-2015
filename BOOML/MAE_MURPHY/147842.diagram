@@ -5,7 +5,7 @@ statecanvas 128002 state_ref 150146 // capture de gobelet escalier
   xyzwh 117 93 2000 759 687
 end
 pseudostatecanvas 128130 pseudostate_ref 148098 // initial
-   xyz 311 122 2005
+   xyz 311 149 2005
 end
 statecanvas 128258 state_ref 150274 // deplacement cible
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
