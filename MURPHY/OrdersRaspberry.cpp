@@ -497,7 +497,7 @@ void OrdersRaspberry::executeinstr()
             stream >> v;
             Serial.print("speed ");
             Serial.println(atoi(v.c_str()));
-            slave->get_control()->set_speed(atoi(x.c_str()));
+            slave->get_control()->set_speed(atoi(v.c_str()));
             break;
 
 

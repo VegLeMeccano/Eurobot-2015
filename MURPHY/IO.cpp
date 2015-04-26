@@ -85,7 +85,7 @@ void Claps::ouverture()
    Aspiration balle
 *****************************************************/
 #define ASPIRATION_OFF 1000
-#define ASPIRATION_ON 1200
+#define ASPIRATION_ON 1300
 
 Aspiration::Aspiration()
 {
