@@ -571,6 +571,22 @@ void OrdersRaspberry::executeinstr()
             Serial.println("DEBUG SONAR: ");
             slave->get_control()->write_debug();
             break;
+
+
+        /** debugg sonar
+        **/
+        case 3:
+            Serial.println("DEBUG SONAR: flux active");
+            slave->bavardeur_sonar_on();// get_control()->bavardeur_sonar_on();
+            break;
+
+
+        /** debugg sonar
+        **/
+        case 4:
+            Serial.println("DEBUG SONAR: flux desactive");
+            slave->bavardeur_sonar_off(); //get_control()->bavardeur_sonar_off();
+            break;
         }
     }
     return;

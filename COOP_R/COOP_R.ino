@@ -82,7 +82,7 @@ void setup()
     Serial.println("BAS NIVEAU COOP'R");
 
 
-    delay(2000);
+    delay(1000);
 
     state = ALLUMAGE;
     //state = GAME;

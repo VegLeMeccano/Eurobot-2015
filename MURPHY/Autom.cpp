@@ -3,6 +3,7 @@
 
 #define PERIODE_PID 30
 #define PERIODE_COORD 10
+#define PERIODE_SONAR 500
 
 /**
 Autom implementation
@@ -10,6 +11,7 @@ Autom implementation
 Autom::Autom():
     real_coord(),
     period_update_coords(PERIODE_COORD),
+    period_sonar(PERIODE_SONAR),
     control(),
     period_pid_loop(PERIODE_PID),
     gain_inter_odos(GAIN_ODO_inter),
@@ -20,13 +22,15 @@ Autom::Autom():
     distance_g(0),
     distance_d(0),
     tic_total_g(0),
-    tic_total_d(0)
+    tic_total_d(0),
+    bavardeur_sonar(false)
    {
         reset_tics_odos();
         send_cmd();
         moteur_droit.attach(PIN_PWM_MOTEUR_PROPU_DROITE);
         moteur_gauche.attach(PIN_PWM_MOTEUR_PROPU_GAUCHE);
         stop();
+        bavardeur_sonar_off();
    }
 
 /** Actualisation du cap
@@ -175,6 +179,23 @@ void Autom::write_cmd(int cmd_g, int cmd_d, bool fw_g, bool fw_d){
 **/
 void Autom::run(){
 
+    // pour debugg sonar
+    if(period_sonar.is_over())
+    {
+        period_sonar.reset();
+        if(bavardeur_sonar)
+        {
+            // affiche de la merde
+            Serial.print("[SONAR G] ");
+            get_control()->get_sonar_g()->write_debug();
+            Serial.print("[SONAR D] ");
+            get_control()->get_sonar_d()->write_debug();
+            Serial.println("");
+        }
+
+    }
+
+
     // periode des coordonnes
     if (period_update_coords.is_over())
     {
@@ -304,3 +325,12 @@ void Autom::turn_off_evit()
     get_control()->turn_off_evit();
 }
 
+void Autom::bavardeur_sonar_on()
+{
+    bavardeur_sonar = true;
+}
+
+void Autom::bavardeur_sonar_off()
+{
+    bavardeur_sonar = false;
+}

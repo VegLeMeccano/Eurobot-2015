@@ -32,6 +32,7 @@ class Autom
         ControlLoop control;            // boucle de controle (PID et tout...)
         Period period_update_coords;    // periode de refreh position du robot
         Period period_pid_loop;         // periode de refreh autom
+        Period period_sonar;
         float gain_odo_g;               // gain odo gauche
         float gain_odo_d;               // gain odo droit
         float gain_inter_odos;          // gain inter odo
@@ -45,6 +46,7 @@ class Autom
         int tic_total_d;                // tic total droit
         float distance_g;               // distance prcourue a gauche
         float distance_d;               // distance prcourue a droite
+        bool bavardeur_sonar;
 
     public:
         Autom();
@@ -74,6 +76,8 @@ class Autom
 		int debuggTic_d();
 		void debuggDistanceInit();
 		void debuggTicInit();
+		void bavardeur_sonar_on();
+		void bavardeur_sonar_off();
 
 };
 
