@@ -85,7 +85,7 @@ void Claps::ouverture()
    Aspiration balle
 *****************************************************/
 #define ASPIRATION_OFF 1000
-#define ASPIRATION_ON 1200
+#define ASPIRATION_ON 1300
 
 Aspiration::Aspiration()
 {
@@ -324,13 +324,14 @@ void Balle_gauche::ejection()
 /****************************************************
    ejecteur (balle droite)
 *****************************************************/
-#define EJECTEUR_BAS 2023
-#define EJECTEUR_HAUT 990
+#define EJECTEUR_BAS 2200
+#define EJECTEUR_MIDDLE 1500
+#define EJECTEUR_HAUT 700
 
 Ejecteur::Ejecteur()
 {
     servo_ejecteur.attach(PIN_PWM_SERVO_DECLENCHEUR_BALLE_DROITE);
-    position_haute();
+    position_middle();
     //position_basse();
     Serial.println(" ejecteur init");
 }
@@ -338,6 +339,11 @@ Ejecteur::Ejecteur()
 void Ejecteur::position_basse()
 {
     servo_ejecteur.writeMicroseconds(EJECTEUR_BAS);
+}
+
+void Ejecteur::position_middle()
+{
+    servo_ejecteur.writeMicroseconds(EJECTEUR_MIDDLE);
 }
 
 void Ejecteur::position_haute()
@@ -349,7 +355,7 @@ void Ejecteur::position_haute()
 /****************************************************
    bras horizontal
 *****************************************************/
-#define BRAS_HORIZONTAL_OUVERTURE 1572
+#define BRAS_HORIZONTAL_OUVERTURE 1600
 #define BRAS_HORIZONTAL_FERMETURE 1807
 
 Bras_horizontal::Bras_horizontal()
@@ -373,10 +379,11 @@ void Bras_horizontal::fermeture()
 /****************************************************
    bras vertical
 *****************************************************/
-#define BRAS_VERTICAL_BAS 1100
-#define BRAS_VERTICAL_HAUT 1490
+#define BRAS_VERTICAL_BAS 800
+#define BRAS_VERTICAL_HAUT 2100
 
-Bras_vertical::Bras_vertical()
+Bras_vertical::Bras_vertical():
+    val_initiale(BRAS_VERTICAL_BAS)
 {
     servo_bras_vertical.attach(PIN_PWM_SERVO_BRAS_VERTICAL);
     monte();
@@ -390,7 +397,23 @@ void Bras_vertical::monte()
 
 void Bras_vertical::descend()
 {
+    val_initiale = BRAS_VERTICAL_BAS;
     servo_bras_vertical.writeMicroseconds(BRAS_VERTICAL_BAS);
+}
+
+bool Bras_vertical::is_montee_atteinte()
+{
+    return (val_initiale == BRAS_VERTICAL_HAUT);
+}
+
+void Bras_vertical::incremente(int val)
+{
+    val_initiale += val;
+    if(val_initiale > BRAS_VERTICAL_HAUT){val_initiale = BRAS_VERTICAL_HAUT;}
+}
+void Bras_vertical::send_commande()
+{
+    servo_bras_vertical.writeMicroseconds(val_initiale);
 }
 
 
@@ -400,8 +423,20 @@ void Bras_vertical::descend()
 /****************************************************
    Balle Droite (MAE, sequencage de mouvement)
 *****************************************************/
+
+#define ETAT_BALLE_DROITE_RANGE_DEPART 0
+#define ETAT_BALLE_DROITE_DEPLOYEMENT 1 //horizontal et gachette
+#define ETAT_BALLE_DROITE_PRISE 2 //descente
+#define ETAT_BALLE_DROITE_RELEVE 3 //remonte
+#define ETAT_BALLE_DROITE_RANGE_1 4 //horintal
+#define ETAT_BALLE_DROITE_RANGE_2 5 //gachette
+#define ETAT_BALLE_DROITE_EXPULSION 6 //horizontal
+#define ETAT_BALLE_DROITE_EXPULSION_RECHARGE 7 //horizontal
+#define ETAT_BALLE_DROITE_EXPULSION_SECONDE 8 //horizontal
+
+
 #define attente_balle_droite 800
-#define PERIODE_BALLE_DROITE 100
+#define PERIODE_BALLE_DROITE 50
 Balle_droite::Balle_droite():
     bras_vertical(),
     bras_horizontal(),
@@ -476,7 +511,7 @@ void Balle_droite::trigger(int transition)
 
         case ETAT_BALLE_DROITE_RELEVE :
             //Serial.println("ETAT_BALLE_DROITE_RELEVE");
-            if (transition == TRANSISTION_BALLE_DROITE_TIME_OUT)
+            if (transition == TRANSISTION_BALLE_DROITE_FIN_MONTEE)
                 {
                     state = ETAT_BALLE_DROITE_RANGE_1;
                 }
@@ -502,9 +537,27 @@ void Balle_droite::trigger(int transition)
             //Serial.println("ETAT_BALLE_DROITE_EXPULSION");
             if (transition == TRANSISTION_BALLE_DROITE_TIME_OUT)
             {
+                state = ETAT_BALLE_DROITE_EXPULSION_RECHARGE;
+            }
+            break;
+
+
+        case ETAT_BALLE_DROITE_EXPULSION_RECHARGE :
+            //Serial.println("ETAT_BALLE_DROITE_EXPULSION");
+            if (transition == TRANSISTION_BALLE_DROITE_TIME_OUT)
+            {
+                state = ETAT_BALLE_DROITE_EXPULSION_SECONDE;
+            }
+            break;
+
+        case ETAT_BALLE_DROITE_EXPULSION_SECONDE :
+            //Serial.println("ETAT_BALLE_DROITE_EXPULSION");
+            if (transition == TRANSISTION_BALLE_DROITE_TIME_OUT)
+            {
                 state = ETAT_BALLE_DROITE_RANGE_DEPART;
             }
             break;
+
     }
    if (old_state != state)
     {
@@ -531,7 +584,23 @@ void Balle_droite::run(){
             //Serial.print("time_out finish");
             trigger(TRANSISTION_BALLE_DROITE_TIME_OUT);
         }
+
+        if(state == ETAT_BALLE_DROITE_RELEVE)
+        {
+
+            if(bras_vertical.is_montee_atteinte())
+            {
+                trigger(TRANSISTION_BALLE_DROITE_FIN_MONTEE);
+            }
+            else
+            {
+                bras_vertical.incremente(10);
+                bras_vertical.send_commande();
+            }
+        }
     }
+
+
 
 }
 
@@ -560,13 +629,7 @@ bool Balle_droite::is_time_out()
    return false;
 }
 
-#define ETAT_BALLE_DROITE_RANGE_DEPART 0
-#define ETAT_BALLE_DROITE_DEPLOYEMENT 1 //horizontal et gachette
-#define ETAT_BALLE_DROITE_PRISE 2 //descente
-#define ETAT_BALLE_DROITE_RELEVE 3 //remonte
-#define ETAT_BALLE_DROITE_RANGE_1 4 //horintal
-#define ETAT_BALLE_DROITE_RANGE_2 5 //gachette
-#define ETAT_BALLE_DROITE_EXPULSION 6 //horizontal
+
 void Balle_droite::in_state_func()
 {
     switch (state)
@@ -574,7 +637,7 @@ void Balle_droite::in_state_func()
         case ETAT_BALLE_DROITE_RANGE_DEPART :
             bras_horizontal.fermeture();
             bras_vertical.monte();
-            ejecteur.position_haute();
+            ejecteur.position_middle();
             Serial.println("ETAT_BALLE_DROITE_RANGE_DEPART");
             break;
 
@@ -587,34 +650,51 @@ void Balle_droite::in_state_func()
 
         case ETAT_BALLE_DROITE_PRISE :
             //set_time_out(400, trigger_to_be);
-            set_time_out(attente_balle_droite);
+            set_time_out(500);
             bras_vertical.descend();
             Serial.println("ETAT_BALLE_DROITE_PRISE");
             break;
 
         case ETAT_BALLE_DROITE_RELEVE :
-            set_time_out(attente_balle_droite);
-            bras_vertical.monte();
+            //set_time_out(1000);
+            //bras_vertical.monte();
             Serial.println("ETAT_BALLE_DROITE_RELEVE");
             break;
 
         case ETAT_BALLE_DROITE_RANGE_1 :
-            set_time_out(attente_balle_droite);
+            set_time_out(500);
             bras_horizontal.fermeture();
             Serial.println("ETAT_BALLE_DROITE_RANGE_1");
             break;
 
         case ETAT_BALLE_DROITE_RANGE_2:
-            set_time_out(attente_balle_droite);
-            ejecteur.position_haute();
+            set_time_out(300);
+            ejecteur.position_middle();
             Serial.println("ETAT_BALLE_DROITE_RANGE_2");
             break;
 
         case ETAT_BALLE_DROITE_EXPULSION :
-            set_time_out(attente_balle_droite);
-            bras_horizontal.ouverture();
+            set_time_out(2000);
+            ejecteur.position_haute();
+            //bras_horizontal.ouverture();
             Serial.println("ETAT_BALLE_DROITE_EXPULSION");
             break;
+
+        case ETAT_BALLE_DROITE_EXPULSION_RECHARGE :
+            set_time_out(2000);
+            ejecteur.position_middle();
+            //bras_horizontal.ouverture();
+            Serial.println("ETAT_BALLE_DROITE_EXPULSION_RECHARGE");
+            break;
+
+        case ETAT_BALLE_DROITE_EXPULSION_SECONDE :
+            set_time_out(2000);
+            ejecteur.position_haute();
+            //bras_horizontal.ouverture();
+            Serial.println("ETAT_BALLE_DROITE_EXPULSION_RECHARGE");
+            break;
+
+
     }
 }
 
@@ -752,20 +832,22 @@ void ColorSensor::write_debug()
    Ascenseur (juste la montee et descente controlee)
 *****************************************************/
 #define ASCENSEUR_STOP_DROITE 1500
-#define ASCENSEUR_MONTE_DROITE 2000
-#define ASCENSEUR_DESCEND_DROITE 1000
+#define ASCENSEUR_MONTE_DROITE 1800
+#define ASCENSEUR_DESCEND_DROITE 1300
 
 #define ASCENSEUR_STOP_GAUCHE 1500
 #define ASCENSEUR_MONTE_GAUCHE 1200
-#define ASCENSEUR_DESCEND_GAUCHE 1800
+#define ASCENSEUR_DESCEND_GAUCHE 1700
 
-#define ASCENSEUR_DIRECTIVE_HAUT -1
-#define ASCENSEUR_DIRECTIVE_BAS 0
+#define ASCENSEUR_DIRECTIVE_HAUT 0
+#define ASCENSEUR_DIRECTIVE_BAS 1
+#define ASCENSEUR_DIRECTIVE_ESTRADE 2
+
 //constant odo a regler
 //voir si besoin de gauche et droite
-#define ASC_TARGET_CHOPE 130
-#define ASC_TARGET_DEPOT_ESTRADE 100
-#define ASC_TARGET_CHARGE_HAUTE 10
+#define ASC_TARGET_CHOPE 636 // on bump en bas
+#define ASC_TARGET_DEPOT_ESTRADE 420 // +- 10 tic
+#define ASC_TARGET_CHARGE_HAUTE 0
 
 Ascenseur::Ascenseur(bool cote_droit_s,int pin_bas,int pin_haut):
     bumper_asc_bas(pin_bas),
@@ -788,13 +870,13 @@ Ascenseur::Ascenseur(bool cote_droit_s,int pin_bas,int pin_haut):
         Serial.println(" ASC gauche init");
     }
     //while(bumper_asc_haut.is_off()){
-    send_monte();
+    //send_monte();
     //}
     // verif les bumpers....
-    delay(200);
-    send_desc();
-    delay(100);
-    send_maintien_p();
+    //delay(200);
+    //send_desc();
+    //delay(100);
+    //send_maintien_p();
 }
 
 
@@ -807,6 +889,8 @@ void Ascenseur::debug()
         Serial.println(bumper_asc_haut.is_on());
         Serial.print(" ---- ---- ---- ---- ---- ---- ---- Bumper Bas : ");
         Serial.println(bumper_asc_bas.is_on());
+        Serial.print(" ---- ---- ---- ---- ---- ---- ---- ticD_ASC : ");
+        Serial.println(ticD_ASC);
     }
     else
     {
@@ -815,6 +899,8 @@ void Ascenseur::debug()
         Serial.println(bumper_asc_haut.is_on());
         Serial.print(" ---- ---- ---- Bumper Bas : ");
         Serial.println(bumper_asc_bas.is_on());
+        Serial.print(" ---- ---- ---- ticG_ASC : ");
+        Serial.println(ticG_ASC);
     }
 
 
@@ -852,9 +938,10 @@ void Ascenseur::descend(){
     start_asserv(ASCENSEUR_DIRECTIVE_BAS);
 }
 
+// descend ou remonte a l'estrade
 void Ascenseur::estrade()
 {
-    start_asserv(ASC_TARGET_DEPOT_ESTRADE);
+    start_asserv(ASCENSEUR_DIRECTIVE_ESTRADE);
 }
 
 // definir les constantes
@@ -870,56 +957,45 @@ void Ascenseur::start_asserv(int target_)
 
 void Ascenseur::run()
 {
-    int tic_odo =0;
-    if(cote_droit)
+    // si on bump on reset dans tout les cas
+    if (bumper_asc_haut.is_on())
     {
-        tic_odo = ticD_ASC;
-    }
-    else
-    {
-        tic_odo = ticG_ASC;
+        resest_odo();
     }
 
+    // memorisation pour les compteurs
+    int tic_odo =0;
+    if(cote_droit){ tic_odo = ticD_ASC; }
+    else    {       tic_odo = ticG_ASC; }
+
+    /// si on a une asserv en cours
     if (in_asserv)
     {
-        // envoi vers le haut
+        /// envoi vers le haut
         if (target == ASCENSEUR_DIRECTIVE_HAUT)
         {
             if (bumper_asc_haut.is_on())
             {
                 stop();
-                //Serial.println("ASS FINI");
+                Serial.println("ASS FINI : bumper haut atteint");
                 in_asserv = false;
                 asserv_fini = true;
-                //send_zeros();
                 resest_odo();
             }
-
-            // pour asserv avec odos
-            //else if (tic_odo < TIC_HAUT)
-            //{
-           //     send_monte();
-            //}
            else
             {
                 send_monte();
                 asserv_fini = false;
             }
-
         }
 
-        // envoi vers le bas
-        else if (target == ASCENSEUR_DIRECTIVE_BAS)
+        /// envoi vers le bas
+        if (target == ASCENSEUR_DIRECTIVE_BAS)
         {
-          /*if (tic_odo > TIC_BAS)
-            {
-                send_desc();
-            }*/
           if (bumper_asc_bas.is_on())
             {
                 stop();
-                Serial.println("ASS FINI");
-                //send_zeros();
+                Serial.println("ASS FINI : bumper bas atteint");
                 in_asserv = false;
                 asserv_fini = true;
             }
@@ -929,26 +1005,34 @@ void Ascenseur::run()
                 asserv_fini = false;
             }
         }
-        /*
-        else
+
+        /// descend jusque l'estrade
+        if(target == ASCENSEUR_DIRECTIVE_ESTRADE)
         {
-            if (tic_odo > target + 10)
+            if(tic_odo < ASC_TARGET_DEPOT_ESTRADE + 10 && tic_odo > ASC_TARGET_DEPOT_ESTRADE - 10)
             {
-                send_monte();
+                stop();
+                Serial.println("ASS FINI : estrade atteinte");
+                in_asserv = false;
+                asserv_fini = true;
             }
-            else if (tic_odo < target - 10 )
+            else
             {
-                send_desc();
+                // si on a depasser on remonte
+                if(tic_odo > ASC_TARGET_DEPOT_ESTRADE + 5)
+                {
+                    send_monte();
+                    asserv_fini = false;
+                }
+                // sinon on descend
+                else
+                {
+                    send_desc();
+                    asserv_fini = false;
+                }
             }
-            else if (tic_odo < target)
-            {
-                send_maintien_p();
-            }
-            else if (tic_odo >= target)
-            {
-                send_zeros();
-            }
-        }*/
+
+        }
     }
 }
 
@@ -1062,7 +1146,7 @@ void Ascenseur::reset_asserv_fini_ext()
 
 
 //constructeur
-Constructeur_pile::Constructeur_pile(bool cote_droit_s,int pin_bas,int pin_haut):
+Constructeur_pile::Constructeur_pile(bool cote_droit_s,int pin_bas,int pin_haut, int pin_ir_bas):
     pinceur(cote_droit_s),
     ascenseur(cote_droit_s,pin_bas,pin_haut),
     colorSensor(cote_droit_s),
@@ -1074,7 +1158,8 @@ Constructeur_pile::Constructeur_pile(bool cote_droit_s,int pin_bas,int pin_haut)
     period_run(PERIODE_CONSTRUCTEUR_PILE),
     time_out_on(false),
     state(ETAT_PILE_INITIAL),
-    nombre_element(0)
+    nombre_element(0),
+    ir_bas_pince(pin_ir_bas,SEUIL_IR_BAS)
 {
     cote_droit = cote_droit_s;
     couleur = 0;
@@ -1085,12 +1170,17 @@ Constructeur_pile::Constructeur_pile(bool cote_droit_s,int pin_bas,int pin_haut)
         Serial.println(" Constructeur de pile gauche init");
     }
     ascenseur.monte();
+    ir_bas_pince.reverse();
 
 }
 
 void Constructeur_pile::debug()
 {
     ascenseur.debug();
+    Serial.print("valeur ir_bas : ");
+    Serial.print(ir_bas_pince.value_of());
+    Serial.print("\t presence : ");
+    Serial.println(ir_bas_pince.is_on());
 }
 
 // defini la pose de la pile estrade en hauteur et basse par terre
@@ -1218,15 +1308,15 @@ void Constructeur_pile::trigger(int transition)
 
         case ETAT_PILE_ANALYSE   :
             if (transition == TRANS_PILE_TIME_OUT){ //mettre les autre IR et compagnie
-
-                //if(/*TEST DE PRESENCE ET DE COULEUR*/){
+                // si on detecte qqchose dans la pince on le monte, pour incrementer la pile
+                if(ir_bas_pince.is_on()){
                     // SI COULEUR ok, sinon on re ouvre
-                //    state = ETAT_PILE_DECISION_MOVE;
-                //}
-                //else{
-                //    state = ETAT_PILE_INITIAL;
-                //}
-                state = ETAT_PILE_DECISION_MOVE;
+                    state = ETAT_PILE_DECISION_MOVE;
+                }
+                else{
+                    state = ETAT_PILE_INITIAL;
+                }
+                //state = ETAT_PILE_DECISION_MOVE;
             }
             break;
 
@@ -1569,8 +1659,8 @@ IO::IO():
         elevator_gobelet(),
         clap_gauche(false),
         clap_droite(true),
-        constructeur_pile_gauche(false,PIN_BUMPER_ASC_BAS_GAUCHE,PIN_BUMPER_RECALAGE_DROITE),//PIN_BUMPER_ASC_HAUT_GAUCHE
-        constructeur_pile_droite(true,PIN_BUMPER_ASC_BAS_DROITE,PIN_BUMPER_ASC_HAUT_DROITE),
+        constructeur_pile_gauche(false,PIN_BUMPER_ASC_BAS_GAUCHE,PIN_BUMPER_RECALAGE_DROITE,PIN_IR_BAS_GAUCHE),//PIN_BUMPER_ASC_HAUT_GAUCHE
+        constructeur_pile_droite(true,PIN_BUMPER_ASC_BAS_DROITE,PIN_BUMPER_ASC_HAUT_DROITE,PIN_IR_BAS_DROITE),
         camera(),
         capot(),
         aspiration(),

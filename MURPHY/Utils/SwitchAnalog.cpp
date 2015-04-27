@@ -4,6 +4,11 @@ SwitchAnalog::SwitchAnalog(int pin_, int seuil_):pin(pin_), seuil(seuil_), rever
 {
 }
 
+int SwitchAnalog::value_of()
+{
+    return analogRead(pin);
+}
+
 bool SwitchAnalog::is_on()
 {
     if (reversed)

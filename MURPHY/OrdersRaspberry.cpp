@@ -264,6 +264,7 @@ void OrdersRaspberry::executeinstr()
     case 'G':
         switch (ind)
         {
+            Serial.print("pile gauche : "); // ouvre les pinces
            case 0:
                 Serial.println("preparer prise"); // ouvre les pinces
                 io->get_Constructeur_pile_gauche()->trigger(TRANS_PILE_PREP_SAISIE);
@@ -301,12 +302,22 @@ void OrdersRaspberry::executeinstr()
                 Serial.println("replis"); // 2 modes de pose, sur l'estrade ou non
                 io->get_Constructeur_pile_gauche()->trigger(TRANS_PILE_REPLIS);
             break;
+
             case 7:
-                Serial.println("debug"); // 2 modes de pose, sur l'estrade ou non
+                Serial.println("debug ascenseur one shot"); // 2 modes de pose, sur l'estrade ou non
                 io->get_Constructeur_pile_gauche()->debug();
             break;
 
-        }
+             case 8:
+                Serial.println("set depot estrade"); // 2 modes de pose, sur l'estrade ou non
+                io->get_Constructeur_pile_gauche()->set_depot_estrade(true);
+            break;
+
+            case 9:
+                Serial.println("set depot sol"); // 2 modes de pose, sur l'estrade ou non
+                io->get_Constructeur_pile_gauche()->set_depot_estrade(false);
+            break;
+            }
         break;
 
     /*****************************************************
@@ -315,6 +326,7 @@ void OrdersRaspberry::executeinstr()
     case 'D':
         switch (ind)
         {
+            Serial.print("pile droite : "); // ouvre les pinces
            case 0:
                 Serial.println("preparer prise"); // ouvre les pinces
                 io->get_Constructeur_pile_droite()->trigger(TRANS_PILE_PREP_SAISIE);
@@ -352,9 +364,20 @@ void OrdersRaspberry::executeinstr()
                 Serial.println("replis"); // 2 modes de pose, sur l'estrade ou non
                 io->get_Constructeur_pile_droite()->trigger(TRANS_PILE_REPLIS);
             break;
+
             case 7:
-                Serial.println("debug"); // 2 modes de pose, sur l'estrade ou non
+                Serial.println("debug ascenseur, one shot"); // 2 modes de pose, sur l'estrade ou non
                 io->get_Constructeur_pile_droite()->debug();
+            break;
+
+             case 8:
+                Serial.println("set depot estrade"); // 2 modes de pose, sur l'estrade ou non
+                io->get_Constructeur_pile_droite()->set_depot_estrade(true);
+            break;
+
+            case 9:
+                Serial.println("set depot sol"); // 2 modes de pose, sur l'estrade ou non
+                io->get_Constructeur_pile_droite()->set_depot_estrade(false);
             break;
         }
         break;
@@ -497,7 +520,7 @@ void OrdersRaspberry::executeinstr()
             stream >> v;
             Serial.print("speed ");
             Serial.println(atoi(v.c_str()));
-            slave->get_control()->set_speed(atoi(x.c_str()));
+            slave->get_control()->set_speed(atoi(v.c_str()));
             break;
 
 
@@ -570,6 +593,22 @@ void OrdersRaspberry::executeinstr()
         case 2:
             Serial.println("DEBUG SONAR: ");
             slave->get_control()->write_debug();
+            break;
+
+
+        /** debugg sonar
+        **/
+        case 3:
+            Serial.println("DEBUG SONAR: flux active");
+            slave->bavardeur_sonar_on();// get_control()->bavardeur_sonar_on();
+            break;
+
+
+        /** debugg sonar
+        **/
+        case 4:
+            Serial.println("DEBUG SONAR: flux desactive");
+            slave->bavardeur_sonar_off(); //get_control()->bavardeur_sonar_off();
             break;
         }
     }

@@ -90,6 +90,8 @@ class ControlLoop
         void setTuningDep(float Kp, float Ki, float Kd );
         void turn_on_evit();
         void turn_off_evit();
+        Sonar* get_sonar_d();
+        Sonar* get_sonar_g();
 
 };
 

@@ -1169,7 +1169,7 @@ void Turbine::OFF(){
 }
 
 void Turbine::ON(){
-    turbine.writeMicroseconds(1200);
+    turbine.writeMicroseconds(1400); // a laisser fixe
 }
 
 

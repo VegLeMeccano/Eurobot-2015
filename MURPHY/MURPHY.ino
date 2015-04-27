@@ -74,20 +74,20 @@ void setup()
     attachInterrupt(PIN_ODO_PROPU_DROITE_A_INC, inc_ticD, RISING);
 
 
-    pinMode(2, OUTPUT);
-    pinMode(3, OUTPUT);
-    digitalWrite(2,LOW);
-    digitalWrite(3,LOW);
-    pinMode(PIN_ODO_ASC_GAUCHE_B_DIR, OUTPUT);
-    pinMode(PIN_ODO_ASC_DROITE_B_DIR, OUTPUT);
-    digitalWrite(PIN_ODO_ASC_GAUCHE_B_DIR,LOW);
-    digitalWrite(PIN_ODO_ASC_GAUCHE_B_DIR,LOW);
+    pinMode(2, INPUT);
+    pinMode(3, INPUT);
+    digitalWrite(2,HIGH);
+    digitalWrite(3,HIGH);
+    pinMode(PIN_ODO_ASC_GAUCHE_B_DIR, INPUT);
+    pinMode(PIN_ODO_ASC_DROITE_B_DIR, INPUT);
+    digitalWrite(PIN_ODO_ASC_GAUCHE_B_DIR,HIGH);
+    digitalWrite(PIN_ODO_ASC_GAUCHE_B_DIR,HIGH);
 
 
 
     // attachement des odos Ascenseur
-    //attachInterrupt(PIN_ODO_ASC_GAUCHE_A_INC, inc_ticG_ASC, RISING);
-    //attachInterrupt(PIN_ODO_ASC_DROITE_A_INC, inc_ticD_ASC, RISING);
+    attachInterrupt(PIN_ODO_ASC_GAUCHE_A_INC, inc_ticG_ASC, RISING);
+    attachInterrupt(PIN_ODO_ASC_DROITE_A_INC, inc_ticD_ASC, RISING);
 
     // attachement des capteurs couleur
     //attachInterrupt(PIN_COULEUR_DROITE, inc_pulse_color_D, RISING);

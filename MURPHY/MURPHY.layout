@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Arduino Mega 2560/ADK" />
+<<<<<<< HEAD
 	<File name="Autom.cpp" open="1" top="0" tabpos="7">
 		<Cursor position="0" topLine="0" />
 	</File>
@@ -36,5 +37,86 @@
 	</File>
 	<File name="pins.h" open="1" top="0" tabpos="3">
 		<Cursor position="0" topLine="0" />
+=======
+	<File name="ControlLoop.cpp" open="0" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="14496" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="IO.cpp" open="1" top="1" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="10685" topLine="416" />
+		</Cursor>
+	</File>
+	<File name="IO.h" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="0" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="Autom.cpp" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="117" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="Utils\SwitchAnalog.cpp" open="1" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="216" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="OrdersRaspberry.cpp" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="8973" topLine="293" />
+		</Cursor>
+	</File>
+	<File name="Utils\Coord.cpp" open="0" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1168" topLine="64" />
+		</Cursor>
+	</File>
+	<File name="MURPHY.ino" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1345" topLine="62" />
+		</Cursor>
+	</File>
+	<File name="Utils\PID.cpp" open="0" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1438" topLine="67" />
+		</Cursor>
+	</File>
+	<File name="ControlLoop.h" open="0" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="3059" topLine="75" />
+		</Cursor>
+	</File>
+	<File name="Utils\Sonar.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="630" topLine="19" />
+		</Cursor>
+	</File>
+	<File name="interrupts.cpp" open="1" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1147" topLine="53" />
+		</Cursor>
+	</File>
+	<File name="Utils\Sonar.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="207" topLine="5" />
+		</Cursor>
+	</File>
+	<File name="Utils\SwitchAnalog.h" open="1" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="210" topLine="0" />
+		</Cursor>
+	</File>
+	<File name="pins.h" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1086" topLine="42" />
+		</Cursor>
+	</File>
+	<File name="Autom.h" open="0" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="689" topLine="0" />
+		</Cursor>
+>>>>>>> origin/master
 	</File>
 </CodeBlocks_layout_file>

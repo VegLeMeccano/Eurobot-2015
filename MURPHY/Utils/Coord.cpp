@@ -37,10 +37,18 @@ A MODIFIER
 */
 bool Coord::is_on_map(){
     // check if the detected thing is on the map...
-    if (x < -1450 || x > 1450 || y < 0 || y > 950)
+    if(x<-1400 || x >1400 || y < 100 || y > 1900)
     {
         return false;
     }
+    else
+    {
+        if(y>1400 && x>-540 && x<540)
+        {
+            return false;
+        }
+    }
+    Serial.println("adversaire on map !");
     return true;
 }
 

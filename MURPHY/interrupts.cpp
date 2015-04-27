@@ -63,11 +63,11 @@ void inc_ticG_ASC(){
     chb = digitalRead(PIN_ODO_ASC_GAUCHE_B_DIR);
     if (chb != 1)
     {
-        ticG_ASC = ticG_ASC - 1;
+        ticG_ASC = ticG_ASC + 1;
     }
     else
     {
-        ticG_ASC = ticG_ASC + 1;
+        ticG_ASC = ticG_ASC - 1;
     }
 }
 

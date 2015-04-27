@@ -18,8 +18,8 @@ ControlLoop::ControlLoop():
     count_not_moving(0),
     late_pos(),
     detect_on(false),
-    sonarg(PIN_SONAR_GAUCHE, Coord(100., -159., 0.)),
-    sonard(PIN_SONAR_DROITE, Coord(100., 159., 0.))
+    sonarg(PIN_SONAR_GAUCHE, Coord(100., 159., 0.)),
+    sonard(PIN_SONAR_DROITE, Coord(100., -159., 0.))
     {
         set_speed(SLOW);        // on defini la vitesse initiale comme slow
         //sonarg.turn_off();      // evitement off
@@ -50,8 +50,8 @@ void ControlLoop::bf_avance(float d){
 /** definition des vitesses
 // a check sur PID
 **/
-#define MIN_MAX_SLOW 150
-#define MIN_MAX_MEDIUM 250
+#define MIN_MAX_SLOW 100
+#define MIN_MAX_MEDIUM 150
 #define MIN_MAX_FAST 250
 void ControlLoop::set_speed(int speed)
 {
@@ -478,12 +478,14 @@ void ControlLoop::check_adversary()
 
     if (to_target.scalar(Vector(real_coord)) <0.)
     {
-    //Serial.println("going backward...");
+        Serial.println("going backward...");
         return;
     }
 
+    // on check a gauche
     if (sonarg.adv_detected(real_coord)){
-        if (sonard.adv_detected(real_coord)){
+        if (sonard.adv_detected(real_coord))
+        {
             sonarg.mean_adv(sonard.get_adv());
         }
         write_real_coords();
@@ -572,4 +574,14 @@ void ControlLoop::write_debug()
     Serial.print("SonarD");
     sonard.write_debug();
 
+}
+
+Sonar* ControlLoop::get_sonar_d()
+{
+    return &sonard;
+}
+
+Sonar* ControlLoop::get_sonar_g()
+{
+    return &sonarg;
 }
