@@ -264,6 +264,7 @@ void OrdersRaspberry::executeinstr()
     case 'G':
         switch (ind)
         {
+            Serial.print("pile gauche : "); // ouvre les pinces
            case 0:
                 Serial.println("preparer prise"); // ouvre les pinces
                 io->get_Constructeur_pile_gauche()->trigger(TRANS_PILE_PREP_SAISIE);
@@ -301,12 +302,22 @@ void OrdersRaspberry::executeinstr()
                 Serial.println("replis"); // 2 modes de pose, sur l'estrade ou non
                 io->get_Constructeur_pile_gauche()->trigger(TRANS_PILE_REPLIS);
             break;
+
             case 7:
-                Serial.println("debug"); // 2 modes de pose, sur l'estrade ou non
+                Serial.println("debug ascenseur one shot"); // 2 modes de pose, sur l'estrade ou non
                 io->get_Constructeur_pile_gauche()->debug();
             break;
 
-        }
+             case 8:
+                Serial.println("set depot estrade"); // 2 modes de pose, sur l'estrade ou non
+                io->get_Constructeur_pile_gauche()->set_depot_estrade(true);
+            break;
+
+            case 9:
+                Serial.println("set depot sol"); // 2 modes de pose, sur l'estrade ou non
+                io->get_Constructeur_pile_gauche()->set_depot_estrade(false);
+            break;
+            }
         break;
 
     /*****************************************************
@@ -315,6 +326,7 @@ void OrdersRaspberry::executeinstr()
     case 'D':
         switch (ind)
         {
+            Serial.print("pile droite : "); // ouvre les pinces
            case 0:
                 Serial.println("preparer prise"); // ouvre les pinces
                 io->get_Constructeur_pile_droite()->trigger(TRANS_PILE_PREP_SAISIE);
@@ -352,9 +364,20 @@ void OrdersRaspberry::executeinstr()
                 Serial.println("replis"); // 2 modes de pose, sur l'estrade ou non
                 io->get_Constructeur_pile_droite()->trigger(TRANS_PILE_REPLIS);
             break;
+
             case 7:
-                Serial.println("debug"); // 2 modes de pose, sur l'estrade ou non
+                Serial.println("debug ascenseur, one shot"); // 2 modes de pose, sur l'estrade ou non
                 io->get_Constructeur_pile_droite()->debug();
+            break;
+
+             case 8:
+                Serial.println("set depot estrade"); // 2 modes de pose, sur l'estrade ou non
+                io->get_Constructeur_pile_droite()->set_depot_estrade(true);
+            break;
+
+            case 9:
+                Serial.println("set depot sol"); // 2 modes de pose, sur l'estrade ou non
+                io->get_Constructeur_pile_droite()->set_depot_estrade(false);
             break;
         }
         break;

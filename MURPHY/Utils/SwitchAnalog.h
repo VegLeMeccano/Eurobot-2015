@@ -15,6 +15,7 @@ class SwitchAnalog
         bool is_on();
         bool is_off();
         void reverse();
+        int value_of();
 };
 
 #endif

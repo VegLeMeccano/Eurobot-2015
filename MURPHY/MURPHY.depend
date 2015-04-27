@@ -1059,14 +1059,14 @@
 1430082374 source:c:\eurobot-2015\murphy\controlloop.cpp
 	"ControlLoop.h"
 
-1428429092 source:c:\eurobot-2015\murphy\interrupts.cpp
+1430094554 source:c:\eurobot-2015\murphy\interrupts.cpp
 	"interrupts.h"
 	"pins.h"
 
-1430021865 source:c:\eurobot-2015\murphy\io.cpp
+1430096967 source:c:\eurobot-2015\murphy\io.cpp
 	"IO.h"
 
-1429550167 c:\eurobot-2015\murphy\io.h
+1430102703 c:\eurobot-2015\murphy\io.h
 	"Utils/Period.h"
 	"Arduino.h"
 	<Servo.h>
@@ -1074,11 +1074,12 @@
 	"pins.h"
 	"Const.h"
 	"Utils/Switch.h"
+	"Utils/SwitchAnalog.h"
 
 1401412600 c:\eurobot-2015\murphy\utils\switch.h
 	"Arduino.h"
 
-1429910796 source:c:\eurobot-2015\murphy\murphy.ino
+1430092212 source:c:\eurobot-2015\murphy\murphy.ino
 	<Arduino.h>
 	<Servo.h>
 	"IO.h"
@@ -1107,19 +1108,19 @@
 1428448057 source:c:\eurobot-2015\murphy\utils\pid.cpp
 	"PID.h"
 
-1430082680 source:c:\eurobot-2015\murphy\utils\sonar.cpp
+1430084467 source:c:\eurobot-2015\murphy\utils\sonar.cpp
 	"Sonar.h"
 
 1401412600 source:c:\eurobot-2015\murphy\utils\switch.cpp
 	"Switch.h"
 
-1401412600 source:c:\eurobot-2015\murphy\utils\switchanalog.cpp
+1430088857 source:c:\eurobot-2015\murphy\utils\switchanalog.cpp
 	"SwitchAnalog.h"
 
-1401412600 c:\eurobot-2015\murphy\utils\switchanalog.h
+1430088826 c:\eurobot-2015\murphy\utils\switchanalog.h
 	"Arduino.h"
 
-1430078347 source:c:\eurobot-2015\murphy\ordersraspberry.cpp
+1430090013 source:c:\eurobot-2015\murphy\ordersraspberry.cpp
 	"OrdersRaspberry.h"
 
 1428580345 source:d:\club robotique iron menad 2\eurobot 2015 iron menad\eurobot-2015\murphy\autom.cpp

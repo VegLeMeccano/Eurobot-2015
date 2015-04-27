@@ -8,6 +8,7 @@
 #include "pins.h"
 #include "Const.h"
 #include "Utils/Switch.h"
+#include "Utils/SwitchAnalog.h"
 //#include "ColorSensor.h"
 
 
@@ -151,6 +152,7 @@ class Ejecteur
     public:
         Ejecteur();
         void position_basse();
+        void position_middle();
         void position_haute();
 };
 
@@ -175,10 +177,14 @@ class Bras_vertical
 {
     private:
         Servo servo_bras_vertical;
+        int val_initiale;
     public:
         Bras_vertical();
         void monte();
         void descend();
+        bool is_montee_atteinte();  // renvoi si le pwm cible est atteint
+        void incremente(int val);   // incremente la valeur
+        void send_commande();       // ecrit le pwm sur le servos
 };
 
 
@@ -201,6 +207,8 @@ class Bras_vertical
 #define TRANSISTION_BALLE_DROITE_TIME_OUT 0
 #define TRANSISTION_BALLE_DROITE_PRISE 1
 #define TRANSISTION_BALLE_DROITE_EJECTION 2
+#define TRANSISTION_BALLE_DROITE_FIN_MONTEE 3
+
 
 class Balle_droite
 {
@@ -341,6 +349,7 @@ class ColorSensor
 #define ETAT_PILE_DEPOT_INF_PREP_1 21
 #define ETAT_PILE_DEPOT_INF_PREP_2 22
 
+#define SEUIL_IR_BAS 400
 
 class Constructeur_pile
 {
@@ -351,6 +360,8 @@ class Constructeur_pile
         Taclette_EXT taclette_EXT;
         Taclette_INT taclette_INT;
         ColorSensor colorSensor;
+
+        SwitchAnalog ir_bas_pince;
 
         Period period_run;
 
@@ -369,7 +380,7 @@ class Constructeur_pile
         bool depot_estrade;
 
     public:
-        Constructeur_pile(bool cote_droit_s,int pin_bas,int pin_haut);
+        Constructeur_pile(bool cote_droit_s,int pin_bas,int pin_haut, int pin_ir_bas);
         void definition_couleur(int couleur_s);
         void run();
         void in_state_func();
