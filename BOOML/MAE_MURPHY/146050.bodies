@@ -5,7 +5,7 @@ class Re_set_x_cap_State
 #ifdef VERBOSE_STATE_MACHINE
     puts("DEBUG : current state is now .MAE_MURPHY.Recalage Initial");
 #endif
-    stm._mae_murphy_state._recalage_initial_state._exit3(stm);
+    stm._mae_murphy_state._recalage_initial_state._exit8(stm);
   }
 !!!173826.cpp!!!	create(inout stm : MAE_MURPHY) : void
 	_doentry(stm);

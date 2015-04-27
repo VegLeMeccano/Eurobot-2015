@@ -8,13 +8,6 @@ class Recalage_Initial_State
 #endif
     stm._mae_murphy_state._recalage_initial_state._recule_state.create(stm);
   }
-!!!172546.cpp!!!	_exit3(inout stm : MAE_MURPHY) : void
-  {
-    stm._set_currentState(stm._mae_murphy_state._startin_block_state);
-#ifdef VERBOSE_STATE_MACHINE
-    puts("DEBUG : current state is now .MAE_MURPHY.startin' block");
-#endif
-  }
 !!!174210.cpp!!!	_doentry(inout stm : MAE_MURPHY) : void
 #ifdef VERBOSE_STATE_MACHINE
 	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Recalage Initial");
@@ -22,3 +15,11 @@ class Recalage_Initial_State
 cout<<"etat recalage"<<endl;
 !!!174338.cpp!!!	_upper(inout stm : MAE_MURPHY) : MAE_MURPHY::AnyState
   return &stm._mae_murphy_state;
+!!!200194.cpp!!!	_exit8(inout stm : MAE_MURPHY) : void
+  {
+    stm._set_currentState(stm._mae_murphy_state._startin_block_state);
+#ifdef VERBOSE_STATE_MACHINE
+    puts("DEBUG : current state is now .MAE_MURPHY.startin' block");
+#endif
+    stm._mae_murphy_state._startin_block_state.create(stm);
+  }

@@ -1,11 +1,11 @@
 class sortie_de_zone_de_depart_State
 !!!165122.cpp!!!	assFini(inout stm : MAE_MURPHY) : void
   {
-    stm._set_currentState(stm._mae_murphy_state._jeu_state._etat_de_decision_state);
+    stm._set_currentState(stm._mae_murphy_state._jeu_state._decision_state);
 #ifdef VERBOSE_STATE_MACHINE
-    puts("DEBUG : current state is now .MAE_MURPHY.Jeu.etat de decision");
+    puts("DEBUG : current state is now .MAE_MURPHY.Jeu.decision");
 #endif
-    stm._mae_murphy_state._jeu_state._etat_de_decision_state.create(stm);
+    stm._mae_murphy_state._jeu_state._decision_state.create(stm);
   }
 !!!165250.cpp!!!	create(inout stm : MAE_MURPHY) : void
 	_doentry(stm);
