@@ -48,9 +48,6 @@ class MAE_MURPHY {
         // the current state doesn't manage the event mission_distrib, give it to the upper state
         virtual void mission_distrib(MAE_MURPHY & stm);
 
-        // the current state doesn't manage the event mission claps, give it to the upper state
-        virtual void mission claps(MAE_MURPHY & stm);
-
         // the current state doesn't manage the event mission_depot_tour, give it to the upper state
         virtual void mission_depot_tour(MAE_MURPHY & stm);
 
@@ -65,6 +62,9 @@ class MAE_MURPHY {
 
         // the current state doesn't manage the event mission_depot_estrade, give it to the upper state
         virtual void mission_depot_estrade(MAE_MURPHY & stm);
+
+        // the current state doesn't manage the event mission_claps, give it to the upper state
+        virtual void mission_claps(MAE_MURPHY & stm);
 
     };
     
@@ -744,9 +744,6 @@ class MAE_MURPHY {
                 // to manage the event mission_distrib
                 virtual void mission_distrib(MAE_MURPHY & stm);
 
-                // to manage the event mission claps
-                virtual void mission claps(MAE_MURPHY & stm);
-
                 // to manage the event mission_depot_tour
                 virtual void mission_depot_tour(MAE_MURPHY & stm);
 
@@ -770,6 +767,9 @@ class MAE_MURPHY {
 
                 // returns the state containing the current
                 virtual AnyState * _upper(MAE_MURPHY & stm);
+
+                // to manage the event mission_claps
+                virtual void mission_claps(MAE_MURPHY & stm);
 
             };
             
@@ -1532,9 +1532,6 @@ class MAE_MURPHY {
     // the operation you call to signal the event mission_distrib
     bool mission_distrib();
 
-    // the operation you call to signal the event mission claps
-    bool mission claps();
-
     // the operation you call to signal the event mission_depot_tour
     bool mission_depot_tour();
 
@@ -1558,6 +1555,9 @@ class MAE_MURPHY {
   friend class MAE_MURPHY_State::Jeu_State::mission_depot_tour_estrade_State::preparation_State;
   friend class MAE_MURPHY_State::Jeu_State::mission_depot_tour_estrade_State;
   friend class MAE_MURPHY_State::Evitement_State::faire_des_maneuvre_State;
+    // the operation you call to signal the event mission_claps
+    bool mission_claps();
+
 };
 // change the current state, internal
 inline void MAE_MURPHY::_set_currentState(MAE_MURPHY::AnyState & st) {

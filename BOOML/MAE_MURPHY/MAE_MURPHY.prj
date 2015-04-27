@@ -637,7 +637,7 @@ serialPrint(master->getPortSerie(),\"S4 400 \\n\");"
 
 	  transition 209282 "<transition>"
 	    on state_ref 143106 // mission claps
-	      cpp_trigger "mission claps"
+	      cpp_trigger "mission_claps"
 	    external 
 	  end
 

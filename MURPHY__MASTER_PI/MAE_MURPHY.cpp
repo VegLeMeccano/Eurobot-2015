@@ -123,18 +123,6 @@ void MAE_MURPHY::AnyState::mission_distrib(MAE_MURPHY & stm) {
 #endif
 }
 
-// the current state doesn't manage the event mission claps, give it to the upper state
-void MAE_MURPHY::AnyState::mission claps(MAE_MURPHY & stm) {
-    AnyState * st = _upper(stm);
-  
-    if (st != 0)
-      st->mission claps(stm);
-#ifdef VERBOSE_STATE_MACHINE
-    else
-      puts("DEBUG : transition mission claps not expected");
-#endif
-}
-
 // the current state doesn't manage the event mission_depot_tour, give it to the upper state
 void MAE_MURPHY::AnyState::mission_depot_tour(MAE_MURPHY & stm) {
     AnyState * st = _upper(stm);
@@ -192,6 +180,18 @@ void MAE_MURPHY::AnyState::mission_depot_estrade(MAE_MURPHY & stm) {
 #ifdef VERBOSE_STATE_MACHINE
     else
       puts("DEBUG : transition mission_depot_estrade not expected");
+#endif
+}
+
+// the current state doesn't manage the event mission_claps, give it to the upper state
+void MAE_MURPHY::AnyState::mission_claps(MAE_MURPHY & stm) {
+    AnyState * st = _upper(stm);
+  
+    if (st != 0)
+      st->mission_claps(stm);
+#ifdef VERBOSE_STATE_MACHINE
+    else
+      puts("DEBUG : transition mission_claps not expected");
 #endif
 }
 
@@ -1356,17 +1356,6 @@ void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::decision_State::mission_distrib(MA
     }
 }
 
-// to manage the event mission claps
-void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::decision_State::mission claps(MAE_MURPHY & stm) {
-    {
-      stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_claps_state);
-#ifdef VERBOSE_STATE_MACHINE
-      puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission claps");
-#endif
-      stm._mae_murphy_state._jeu_state._mission_claps_state.create(stm);
-    }
-}
-
 // to manage the event mission_depot_tour
 void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::decision_State::mission_depot_tour(MAE_MURPHY & stm) {
     {
@@ -1439,6 +1428,17 @@ void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::decision_State::_doentry(MAE_MURPH
 // returns the state containing the current
 MAE_MURPHY::AnyState * MAE_MURPHY::MAE_MURPHY_State::Jeu_State::decision_State::_upper(MAE_MURPHY & stm) {
     return &stm._mae_murphy_state._jeu_state;
+}
+
+// to manage the event mission_claps
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::decision_State::mission_claps(MAE_MURPHY & stm) {
+    {
+      stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_claps_state);
+#ifdef VERBOSE_STATE_MACHINE
+      puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission claps");
+#endif
+      stm._mae_murphy_state._jeu_state._mission_claps_state.create(stm);
+    }
 }
 
 MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::waypoint_initial_State::~waypoint_initial_State() {
@@ -2479,17 +2479,6 @@ bool MAE_MURPHY::mission_distrib() {
     return (_current_state != 0);
 }
 
-// the operation you call to signal the event mission claps
-bool MAE_MURPHY::mission claps() {
-    if (_current_state != 0) {
-#ifdef VERBOSE_STATE_MACHINE
-      puts("DEBUG : fire trigger mission claps");
-#endif
-      _current_state->mission claps(*this);
-    }
-    return (_current_state != 0);
-}
-
 // the operation you call to signal the event mission_depot_tour
 bool MAE_MURPHY::mission_depot_tour() {
     if (_current_state != 0) {
@@ -2541,6 +2530,17 @@ bool MAE_MURPHY::mission_depot_estrade() {
       puts("DEBUG : fire trigger mission_depot_estrade");
 #endif
       _current_state->mission_depot_estrade(*this);
+    }
+    return (_current_state != 0);
+}
+
+// the operation you call to signal the event mission_claps
+bool MAE_MURPHY::mission_claps() {
+    if (_current_state != 0) {
+#ifdef VERBOSE_STATE_MACHINE
+      puts("DEBUG : fire trigger mission_claps");
+#endif
+      _current_state->mission_claps(*this);
     }
     return (_current_state != 0);
 }

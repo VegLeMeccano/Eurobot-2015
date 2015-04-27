@@ -94,7 +94,7 @@ transitioncanvas 131970 transition_ref 202498 // <transition>
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 132226 transition_ref 227330 // <transition>
-  decenter_end 565
+  decenter_end 564
   
   from ref 129922 z 2006 label "[!mission_distrib.is_capture_gobelet_done() ]" xyz 360 336 2006 to ref 132098
   write_horizontally default show_definition default drawing_language default
