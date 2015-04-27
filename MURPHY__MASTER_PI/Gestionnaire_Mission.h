@@ -45,7 +45,7 @@ class Gestionnaire_Mission
         Coord coord_reel;
         //MAE_MURPHY mae_murphy;
 
-        //
+        // couleur et temps restant
         int couleur;
         long temps_restant;
 

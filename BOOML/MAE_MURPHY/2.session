@@ -2,13 +2,19 @@ window_sizes 1600 878 230 1364 769 35
 diagrams
   active  statediagram_ref 128130 // Principal
     1364 769 101 0 0 0
-  statediagram_ref 141186 // Recalage
+  statediagram_ref 134658 // Jeu
+    1087 615 81 0 0 0
+  statediagram_ref 147714 // mission pillage
+    1087 615 72 0 0 65
+  statediagram_ref 167810 // evitement
+    1087 615 100 0 0 0
+  statediagram_ref 147842 // capture de gobelet escalier
     1087 615 100 0 0 0
 end
 show_stereotypes
 selected statediagram_ref 128130 // Principal
 open
-  state_ref 128514 // Evitement
+  state_ref 142850 // mission pillage distrib
   deploymentview_ref 128130 // MAE_MURPHY
 end
 end

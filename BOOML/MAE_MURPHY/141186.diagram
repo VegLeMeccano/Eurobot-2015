@@ -2,53 +2,53 @@ format 76
 
 statecanvas 128002 state_ref 135042 // Recalage Initial
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 127.1 33.3 2000 1271 707
+  xyzwh 63.2708 33.9906 2000 1335 733
 end
 pseudostatecanvas 128130 pseudostate_ref 141186 // initial
-   xyz 284.6 89.4 2005
+   xyz 284.11 89.8503 2005
 end
 statecanvas 128258 state_ref 141570 // Recule
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 174.9 119.5 2005 271 75
+  xyzwh 174.871 119.747 2005 271 75
 end
 statecanvas 128386 state_ref 141698 // set X CAP
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 144.6 228.9 2005 331 183
+  xyzwh 144.571 228.284 2005 331 183
 end
 statecanvas 128514 state_ref 141826 // BF 90 deg vers les marches
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 537.3 527.6 2005 281 159
+  xyzwh 537.88 527.446 2005 281 159
 end
 statecanvas 128642 state_ref 141954 // Recule bordure claps
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 523.7 382.1 2005 309 89
+  xyzwh 523.28 382.507 2005 309 89
 end
 statecanvas 128770 state_ref 142082 // BF -90 deg
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 940.2 223.4 2005 291 131
+  xyzwh 940.043 223.703 2005 291 131
 end
 statecanvas 128898 state_ref 142210 // avance
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 920 101.7 2005 293 89
+  xyzwh 920.858 101.693 2005 293 89
 end
 statecanvas 129026 state_ref 142338 // Recule depart
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 932.6 390.4 2005 309 75
+  xyzwh 932.284 390.648 2005 309 75
 end
 pseudostatecanvas 129282 pseudostate_ref 141314 // exit_point
-   xyz 1081.8 696.3 3005 label_xy 1055 715
+   xyz 1081.85 696.438 3005 label_xy 1055 715
 end
 statecanvas 130306 state_ref 142466 // avance un peu pour tourner
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 154.2 445.8 2005 293 89
+  xyzwh 154.599 445.21 2005 293 89
 end
 statecanvas 130690 state_ref 142594 // set Y
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 511.2 118.6 2005 333 173
+  xyzwh 511.78 118.231 2005 333 173
 end
 statecanvas 130946 state_ref 142722 // Re set x cap
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 917.8 496.4 2005 343 173
+  xyzwh 917.167 496.054 2005 343 173
 end
 transitioncanvas 129154 transition_ref 148226 // <transition>
   

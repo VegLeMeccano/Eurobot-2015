@@ -10,8 +10,22 @@ class Mission_Zone_Ennemie : public Mission
         Mission_Zone_Ennemie(bool mission_a_faire_);
         void set_couleur(int couleur_);
 
+        void claps_done();
+        void depot_gobelet_done();
+        bool is_claps_done();
+        bool is_depot_gobelet_done();
+
+        int mode_chieur();
+        void mode_chieur_plus();
+        void mode_chieur_faible();
+        void mode_chieur_stop();
+
+
     private:
         int couleur;
+        bool claps;
+        bool depot_gobelet;
+        int chieur;
 
 };
 

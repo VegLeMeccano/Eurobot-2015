@@ -13,6 +13,12 @@ class Mission_Claps: public Mission
     private:
         int couleur;
 
+        bool claps_coin;
+        bool claps_estrade;
+        bool verre_et_stands;
+        bool stand_estrade;
+
+
 };
 
 #endif // MISSION_CLAPS_H
