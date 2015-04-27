@@ -9,15 +9,15 @@ pseudostatecanvas 128258 pseudostate_ref 181634 // initial
 end
 statecanvas 128386 state_ref 179202 // point de depart
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 104.6 180.8 2005 277 92
+  xyzwh 103.6 171.8 2005 277 92
 end
 statecanvas 128642 state_ref 179330 // orientation avant reculage
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 107 307.6 2005 308 114
+  xyzwh 91 310.6 2005 308 145
 end
 statecanvas 128770 state_ref 179458 // Recalage
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 129.8 463.7 2005 246 101
+  xyzwh 97.8 502.7 2005 297 103
 end
 statecanvas 128898 state_ref 179586 // capture de balle
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
@@ -50,17 +50,17 @@ transitioncanvas 129538 transition_ref 210050 // <transition>
 end
 transitioncanvas 129666 transition_ref 210178 // <transition>
   
-  from ref 128386 z 2006 to ref 128642
+  from ref 128386 z 2006 label "assFini" xyz 224 278 3000 to ref 128642
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 129922 transition_ref 210434 // <transition>
   
-  from ref 128642 z 2006 to ref 128770
+  from ref 128642 z 2006 label "assFini" xyz 227 470 3000 to ref 128770
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 130050 transition_ref 210562 // <transition>
   
-  from ref 128770 z 2006 to ref 128898
+  from ref 128770 z 2006 label "blocage" xyz 458 368 3000 to ref 128898
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 130178 transition_ref 210690 // <transition>

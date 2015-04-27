@@ -333,23 +333,38 @@ if(vidange_faite() && gobelet_fait())
 	  end
 
 	  state 179202 "point de depart"
-	      cpp_on_entry "// rejoindre devant la zone de depart"
+	      cpp_on_entry "// rejoindre devant la zone de depart
+// en BF droite sans cap final"
 	    transition 210178 "<transition>"
 	      on state_ref 179330 // orientation avant reculage
+		cpp_trigger "assFini"
 	      external 
 	    end
 	  end
 
 	  state 179330 "orientation avant reculage"
+	      cpp_on_entry "if(master->is_Jaune()){
+// vers le centre de la table
+serialPrint(master->getPortSerie(),\"S3 0 \\n\");
+}
+if(master->is_Vert()){
+serialPrint(master->getPortSerie(),\"S3 180 \\n\");
+}"
 	    transition 210434 "<transition>"
 	      on state_ref 179458 // Recalage
+		cpp_trigger "assFini"
 	      external 
 	    end
 	  end
 
 	  state 179458 "Recalage"
+	      cpp_on_entry "// vers le centre de la table
+serialPrint(master->getPortSerie(),\"S2 \\n\");
+
+// set X, Y CAP??"
 	    transition 210562 "<transition>"
 	      on state_ref 179586 // capture de balle
+		cpp_trigger "blocage"
 	      external 
 	    end
 	  end
@@ -695,6 +710,8 @@ serialPrint(master->getPortSerie(),\"S4 400 \\n\");"
 	  end
 
 	  state 180994 "waypoint init"
+	      cpp_on_entry "// rejoindre un point initial
+"
 	    transition 213890 "<transition>"
 	      on state_ref 181506 // preparation
 	      external 
@@ -811,14 +828,14 @@ serialPrint(master->getPortSerie(),\"S2 \\n\");"
 	    cpp_on_entry "if(master->is_Jaune()){
 // X = -1500 + 70 +96 = -1334
 // terrain, bordure, robot (axe de rotation)
-serialPrint(master->getPortSerie(),\"S0 -1334 0 -90 \\n\");
+serialPrint(master->getPortSerie(),\"S0 -1334 996 0 \\n\");
 }
 if(master->is_Vert()){
-serialPrint(master->getPortSerie(),\"S0 1334 0 90 \\n\");
+serialPrint(master->getPortSerie(),\"S0 1334 996 180 \\n\");
 }
 master->set_time_out(300);"
-	  transition 149250 "<transition>"
-	    on state_ref 142466 // avance un peu pour tourner
+	  transition 234882 "<transition>"
+	    on state_ref 194562 // coup de patte cote escalier pour confirmer le sens
 	      cpp_trigger "time_out"
 	    external 
 	  end
@@ -930,7 +947,36 @@ if(master->is_Vert()){
 serialPrint(master->getPortSerie(),\"S0 1334 996 90 \\n\");
 }
 master->set_time_out(300);"
-	  transition 149890 "<transition>"
+	end
+
+	state 194562 "coup de patte cote escalier pour confirmer le sens"
+	    cpp_on_entry "if(master->is_Jaune()){
+// coup de patte cote gauche
+serialPrint(master->getPortSerie(),\"C2 \\n\");
+}
+if(master->is_Vert()){
+// coup de patte cote droit
+serialPrint(master->getPortSerie(),\"C0 \\n\");
+}
+master->set_time_out(2000);"
+	  transition 234626 "<transition>"
+	    on state_ref 194690 // Referme les pattes
+	      cpp_trigger "time_out"
+	    external 
+	  end
+	end
+
+	state 194690 "Referme les pattes"
+	    cpp_on_entry "if(master->is_Jaune()){
+// coup de patte cote gauche
+serialPrint(master->getPortSerie(),\"C3 \\n\");
+}
+if(master->is_Vert()){
+// coup de patte cote droit
+serialPrint(master->getPortSerie(),\"C1 \\n\");
+}
+master->set_time_out(300);"
+	  transition 234754 "<transition>"
 	    on pseudostate_ref 141314 // exit_point
 	      cpp_trigger "time_out"
 	    external 
@@ -1206,24 +1252,6 @@ ${inlines}
 	  comment " the current state doesn't manage the event mission_distrib, give it to the upper state"
 	end
 
-	operation 194818 "mission claps"
-	  force_body_gen cpp_virtual public explicit_return_type "void"
-	  nparams 1
-	    param inout name "stm" type class_ref 140290 // MAE_MURPHY
-	  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
-"
-	  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
-  ${body}}
-"
-	  
-	  
-	  
-	  
-	  ncouples 1
-	  key "STM generated" value ""
-	  comment " the current state doesn't manage the event mission claps, give it to the upper state"
-	end
-
 	operation 195202 "mission_depot_tour"
 	  force_body_gen cpp_virtual public explicit_return_type "void"
 	  nparams 1
@@ -1312,6 +1340,24 @@ ${inlines}
 	  ncouples 1
 	  key "STM generated" value ""
 	  comment " the current state doesn't manage the event mission_depot_estrade, give it to the upper state"
+	end
+
+	operation 200706 "mission_claps"
+	  force_body_gen cpp_virtual public explicit_return_type "void"
+	  nparams 1
+	    param inout name "stm" type class_ref 140290 // MAE_MURPHY
+	  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+	  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+	  
+	  
+	  
+	  
+	  ncouples 1
+	  key "STM generated" value ""
+	  comment " the current state doesn't manage the event mission_claps, give it to the upper state"
 	end
       end
 
@@ -5225,24 +5271,6 @@ ${inlines}
 	      comment " to manage the event mission_distrib"
 	    end
 
-	    operation 194946 "mission claps"
-	      force_body_gen cpp_virtual public explicit_return_type "void"
-	      nparams 1
-	        param inout name "stm" type class_ref 140290 // MAE_MURPHY
-	      cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
-"
-	      cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
-  ${body}}
-"
-	      
-	      
-	      
-	      
-	      ncouples 1
-	      key "STM generated" value ""
-	      comment " to manage the event mission claps"
-	    end
-
 	    operation 195330 "mission_depot_tour"
 	      force_body_gen cpp_virtual public explicit_return_type "void"
 	      nparams 1
@@ -5385,6 +5413,24 @@ ${inlines}
 	      ncouples 1
 	      key "STM generated" value ""
 	      comment " returns the state containing the current"
+	    end
+
+	    operation 200834 "mission_claps"
+	      force_body_gen cpp_virtual public explicit_return_type "void"
+	      nparams 1
+	        param inout name "stm" type class_ref 140290 // MAE_MURPHY
+	      cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+	      cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+	      
+	      
+	      
+	      
+	      ncouples 1
+	      key "STM generated" value ""
+	      comment " to manage the event mission_claps"
 	    end
 	  end
 
@@ -9914,23 +9960,6 @@ ${inlines}
 	comment " the operation you call to signal the event mission_distrib"
       end
 
-      operation 194690 "mission claps"
-	force_body_gen public explicit_return_type "bool"
-	nparams 0
-	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
-"
-	cpp_def "${comment}${inline}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
-  ${body}}
-"
-	
-	
-	
-	
-	ncouples 1
-	key "STM generated" value ""
-	comment " the operation you call to signal the event mission claps"
-      end
-
       operation 195074 "mission_depot_tour"
 	force_body_gen public explicit_return_type "bool"
 	nparams 0
@@ -10086,6 +10115,23 @@ ${inlines}
 	    cpp default "#include in source"
 	    classrelation_ref 165378 // <dependency>
 	  b parent class_ref 162050 // faire_des_maneuvre_State
+      end
+
+      operation 200578 "mission_claps"
+	force_body_gen public explicit_return_type "bool"
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "${comment}${inline}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	
+	ncouples 1
+	key "STM generated" value ""
+	comment " the operation you call to signal the event mission_claps"
       end
     end
   end

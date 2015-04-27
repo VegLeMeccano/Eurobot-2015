@@ -80,15 +80,6 @@ class AnyState
   else
     puts("DEBUG : transition mission_distrib not expected");
 #endif
-!!!194818.cpp!!!	mission claps(inout stm : MAE_MURPHY) : void
-  AnyState * st = _upper(stm);
-
-  if (st != 0)
-    st->mission claps(stm);
-#ifdef VERBOSE_STATE_MACHINE
-  else
-    puts("DEBUG : transition mission claps not expected");
-#endif
 !!!195202.cpp!!!	mission_depot_tour(inout stm : MAE_MURPHY) : void
   AnyState * st = _upper(stm);
 
@@ -133,4 +124,13 @@ class AnyState
 #ifdef VERBOSE_STATE_MACHINE
   else
     puts("DEBUG : transition mission_depot_estrade not expected");
+#endif
+!!!200706.cpp!!!	mission_claps(inout stm : MAE_MURPHY) : void
+  AnyState * st = _upper(stm);
+
+  if (st != 0)
+    st->mission_claps(stm);
+#ifdef VERBOSE_STATE_MACHINE
+  else
+    puts("DEBUG : transition mission_claps not expected");
 #endif

@@ -2,58 +2,58 @@ format 76
 
 statecanvas 128002 state_ref 128386 // Jeu
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 106.424 49.1335 2000 1210 810
+  xyzwh 106.534 48.9235 2000 1210 810
 end
 statecanvas 128130 state_ref 142850 // mission pillage distrib
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 120.921 414.309 2005 364 110
+  xyzwh 120.781 413.549 2005 364 110
 end
 statecanvas 128258 state_ref 142978 // mission attrap balle et chiage
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 188.995 568.089 2005 319 110
+  xyzwh 188.205 566.929 2005 319 110
 end
 statecanvas 128386 state_ref 143106 // mission claps
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 411.114 715.493 2005 300 99
+  xyzwh 410.914 715.013 2005 300 99
 end
 statecanvas 128514 state_ref 143234 // mission rush zone centrale
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 120.658 266.998 2005 320 110
+  xyzwh 121.058 267.028 2005 320 110
 end
 statecanvas 129026 state_ref 143490 // mission depot de tour zone depart
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 772.987 733.331 2005 214 73
+  xyzwh 772.957 733.001 2005 214 73
 end
 statecanvas 129794 state_ref 157442 // sortie de zone de depart
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 226.907 144.025 2005 310 89
+  xyzwh 226.737 144.865 2005 310 89
 end
 statecanvas 130178 state_ref 158722 // mission zone ennemie
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 991.292 498.675 2005 257 77
+  xyzwh 991.462 498.155 2005 257 77
 end
 pseudostatecanvas 130562 pseudostate_ref 161410 // exit_point
-   xyz 646.189 709.442 3005 label_xy 637 728
+   xyz 646.839 709.182 3005 label_xy 637 728
 end
 pseudostatecanvas 130690 pseudostate_ref 167938 // initial
-   xyz 737.502 102.044 2005
+   xyz 737.282 102.774 2005
 end
 statecanvas 130946 state_ref 172290 // decision
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 565.957 272.809 2005 357 130
+  xyzwh 565.447 272.719 2005 357 130
 end
 pseudostatecanvas 131586 pseudostate_ref 174466 // choice
-   xyz 734.79 128.44 2005
+   xyz 734.57 128.22 2005
 end
 pseudostatecanvas 133506 pseudostate_ref 174850 // exit_point
-   xyz 442.525 502.351 3005 label_xy 405 520
+   xyz 442.455 502.081 3005 label_xy 405 520
 end
 pseudostatecanvas 134402 pseudostate_ref 181762 // exit_point
-   xyz 496.075 617.508 3005 label_xy 519 625
+   xyz 496.225 617.688 3005 label_xy 519 625
 end
 statecanvas 134658 state_ref 180098 // mission depot tour estrade
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 909.157 617.426 2005 257 88
+  xyzwh 909.067 617.226 2005 257 88
 end
 transitioncanvas 131714 transition_ref 199426 // <transition>
   
@@ -83,7 +83,7 @@ end
 transitioncanvas 133378 transition_ref 202626 // <transition>
   decenter_end 972
   
-  from ref 130946 z 2006 label "mission_distrib" xyz 465 375 2006 to ref 128130
+  from ref 130946 z 2006 label "mission_distrib" xyz 465.5 375 2006 to ref 128130
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 133634 transition_ref 209154 // <transition>
