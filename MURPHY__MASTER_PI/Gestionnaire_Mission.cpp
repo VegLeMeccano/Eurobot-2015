@@ -3,6 +3,7 @@
 /********************************************************
     GESTIONNAIRE DE MISSION
 *********************************************************/
+#define PERIODE_JEU 90000
 Gestionnaire_Mission::Gestionnaire_Mission():
         element_robot(),        // pour savoir ce qu'on a sous la dent
         mission_claps(true),
@@ -12,7 +13,9 @@ Gestionnaire_Mission::Gestionnaire_Mission():
         mission_depot_tour_depart(true),
         mission_depot_tour_estrade(false),
         mission_zone_ennemie(true),
-        coord_reel(0,0,0)//, mae_murphy()
+        coord_reel(0,0,0),
+        //, mae_murphy(),
+        period_jeu(PERIODE_JEU)
 {
     //mae_murphy.create();
 
@@ -203,6 +206,8 @@ void Gestionnaire_Mission::appel_trigger(int mission_indice_)
 
 void Gestionnaire_Mission::actualisation_Priorite()
 {
+    temps_restant = (period_jeu.time_elapsed()- PERIODE_JEU)/1000; // en s
+
     if(sortie_evitement == true)
     {
         switch(mission_sortie_evitement)

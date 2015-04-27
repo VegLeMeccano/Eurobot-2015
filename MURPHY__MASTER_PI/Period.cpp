@@ -32,5 +32,5 @@ void Period::set_periode(int period_){
 
 long Period::time_elapsed()
 {
-    return time_last_reset + t;
+    return  t - time_last_reset;
 }

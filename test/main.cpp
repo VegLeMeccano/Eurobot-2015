@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include "../MURPHY__MASTER_PI/Period.h"
 
+// mettre ../../../../../usr/lib/libwiringPi.so;
 using namespace std;
 
 int main()
