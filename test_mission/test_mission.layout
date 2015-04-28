@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Debug" />
-	<File name="..\MURPHY__MASTER_PI\Coord.cpp" open="0" top="0" tabpos="0">
-		<Cursor position="1638" topLine="73" />
+	<File name="..\MURPHY__MASTER_PI\Coord.cpp" open="1" top="0" tabpos="5">
+		<Cursor position="1067" topLine="40" />
 	</File>
-	<File name="..\MURPHY__MASTER_PI\Coord.h" open="0" top="0" tabpos="0">
-		<Cursor position="911" topLine="24" />
+	<File name="..\MURPHY__MASTER_PI\Coord.h" open="1" top="0" tabpos="4">
+		<Cursor position="1172" topLine="30" />
 	</File>
 	<File name="..\MURPHY__MASTER_PI\Element_Robot.cpp" open="0" top="0" tabpos="0">
 		<Cursor position="1163" topLine="51" />
@@ -13,11 +13,11 @@
 	<File name="..\MURPHY__MASTER_PI\Element_Robot.h" open="0" top="0" tabpos="0">
 		<Cursor position="453" topLine="12" />
 	</File>
-	<File name="..\MURPHY__MASTER_PI\Gestionnaire_Mission.cpp" open="1" top="0" tabpos="2">
-		<Cursor position="9033" topLine="242" />
+	<File name="..\MURPHY__MASTER_PI\Gestionnaire_Mission.cpp" open="1" top="0" tabpos="3">
+		<Cursor position="5952" topLine="141" />
 	</File>
-	<File name="..\MURPHY__MASTER_PI\Gestionnaire_Mission.h" open="1" top="0" tabpos="2">
-		<Cursor position="96" topLine="0" />
+	<File name="..\MURPHY__MASTER_PI\Gestionnaire_Mission.h" open="1" top="1" tabpos="2">
+		<Cursor position="2925" topLine="88" />
 	</File>
 	<File name="..\MURPHY__MASTER_PI\Mission.cpp" open="0" top="0" tabpos="1">
 		<Cursor position="807" topLine="29" />
@@ -67,7 +67,7 @@
 	<File name="..\MURPHY__MASTER_PI\Mission_Zone_centrale.h" open="0" top="0" tabpos="6">
 		<Cursor position="409" topLine="0" />
 	</File>
-	<File name="main.cpp" open="1" top="1" tabpos="2">
-		<Cursor position="2648" topLine="64" />
+	<File name="main.cpp" open="1" top="0" tabpos="1">
+		<Cursor position="3128" topLine="72" />
 	</File>
 </CodeBlocks_layout_file>

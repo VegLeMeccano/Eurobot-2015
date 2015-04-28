@@ -5,7 +5,7 @@ class faire_des_maneuvre_State
 #ifdef VERBOSE_STATE_MACHINE
     puts("DEBUG : current state is now .MAE_MURPHY.Evitement");
 #endif
-    stm._mae_murphy_state._evitement_state._exit7(stm);
+    stm._mae_murphy_state._evitement_state._exit8(stm);
     return (bool) 1;
   }
 !!!199810.cpp!!!	create(inout stm : MAE_MURPHY) : void

@@ -70,28 +70,12 @@ return (_current_state != 0);
     _current_state->start_enleve(*this);
   }
   return (_current_state != 0);
-!!!186370.cpp!!!	AssFini() : bool
-  if (_current_state != 0) {
-#ifdef VERBOSE_STATE_MACHINE
-    puts("DEBUG : fire trigger AssFini");
-#endif
-    _current_state->AssFini(*this);
-  }
-  return (_current_state != 0);
 !!!194306.cpp!!!	mission_distrib() : bool
   if (_current_state != 0) {
 #ifdef VERBOSE_STATE_MACHINE
     puts("DEBUG : fire trigger mission_distrib");
 #endif
     _current_state->mission_distrib(*this);
-  }
-  return (_current_state != 0);
-!!!194690.cpp!!!	mission claps() : bool
-  if (_current_state != 0) {
-#ifdef VERBOSE_STATE_MACHINE
-    puts("DEBUG : fire trigger mission claps");
-#endif
-    _current_state->mission claps(*this);
   }
   return (_current_state != 0);
 !!!195074.cpp!!!	mission_depot_tour() : bool
@@ -132,5 +116,13 @@ return (_current_state != 0);
     puts("DEBUG : fire trigger mission_depot_estrade");
 #endif
     _current_state->mission_depot_estrade(*this);
+  }
+  return (_current_state != 0);
+!!!200578.cpp!!!	mission_claps() : bool
+  if (_current_state != 0) {
+#ifdef VERBOSE_STATE_MACHINE
+    puts("DEBUG : fire trigger mission_claps");
+#endif
+    _current_state->mission_claps(*this);
   }
   return (_current_state != 0);

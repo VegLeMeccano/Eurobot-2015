@@ -26,7 +26,7 @@ statecanvas 129154 state_ref 150914 // vidage distributeur
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
   xyzwh 1028.63 627.261 2005 259 89
 end
-statecanvas 129282 state_ref 172546 // point de depart mission
+statecanvas 129282 state_ref 172546 // rejoindre le point de depart mission
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
   xyzwh 507.829 156.69 2010 403 103
 end
@@ -46,20 +46,17 @@ end
 pseudostatecanvas 132098 pseudostate_ref 195842 // choice
    xyz 215.337 334.275 2005
 end
+pseudostatecanvas 133890 pseudostate_ref 202498 // exit_point
+   xyz 700 248 3005 label_xy 696 267
+end
 transitioncanvas 129410 transition_ref 200834 // <transition>
   
   from ref 128130 z 2011 to ref 129282
   write_horizontally default show_definition default drawing_language default
 end
-transitioncanvas 130050 transition_ref 201090 // <transition>
-  decenter_end 518
-  
-  from ref 129282 z 2011 label "AssFini" xyz 669 283 2011 to ref 129922
-  write_horizontally default show_definition default drawing_language default
-end
 transitioncanvas 130306 transition_ref 201346 // <transition>
   
-  from ref 129922 z 2006 label "[mission_distrib.is_capture_gobelet_done() ]" xyz 763 338.5 2006 to ref 128898
+  from ref 129922 z 2006 label "[mission_distrib.is_capture_gobelet_done() ]" xyz 763 338 2006 to ref 128898
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 130434 transition_ref 201474 // <transition>
@@ -79,7 +76,7 @@ transitioncanvas 131330 transition_ref 201986 // <transition>
 end
 transitioncanvas 131458 transition_ref 202114 // <transition>
   
-  from ref 131202 z 2006 label "[!mission_distrib.is_netoyage_zone_done() ]" xyz 756 393.5 2006 to ref 128898
+  from ref 131202 z 2006 label "[!mission_distrib.is_netoyage_zone_done() ]" xyz 756 393 2006 to ref 128898
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 131842 transition_ref 202370 // <transition>
@@ -94,25 +91,30 @@ transitioncanvas 131970 transition_ref 202498 // <transition>
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 132226 transition_ref 227330 // <transition>
-  decenter_end 566
+  decenter_end 565
   
-  from ref 129922 z 2006 label "[!mission_distrib.is_capture_gobelet_done() ]" xyz 360.5 336 3000 to ref 132098
+  from ref 129922 z 2006 label "[!mission_distrib.is_capture_gobelet_done() ]" xyz 360 336 2006 to ref 132098
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 132482 transition_ref 227586 // <transition>
   decenter_begin 458
   
-  from ref 132098 z 2006 label "[!element_robot.gobelet_present()]" xyz 315.5 375 3000 to ref 128514
+  from ref 132098 z 2006 label "[!element_robot.gobelet_present()]" xyz 315 375 2006 to ref 128514
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 133250 transition_ref 227970 // <transition>
   
-  from ref 131202 z 2006 label "[mission_distrib.is_netoyage_zone_done() ]" xyz 534.5 559.5 3000 to ref 130946
+  from ref 131202 z 2006 label "[mission_distrib.is_netoyage_zone_done() ]" xyz 534 559 2006 to ref 130946
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 133762 transition_ref 228098 // <transition>
   
-  from ref 132098 z 2006 label "[element_robot.gobelet_present()]" xyz 119 450 3000 to ref 130946
+  from ref 132098 z 2006 label "[element_robot.gobelet_present()]" xyz 119 450 2006 to ref 130946
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 134018 transition_ref 242434 // <transition>
+  
+  from ref 133890 z 3006 to ref 129922
   write_horizontally default show_definition default drawing_language default
 end
 end

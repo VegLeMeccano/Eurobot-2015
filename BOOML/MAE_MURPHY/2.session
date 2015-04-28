@@ -1,20 +1,20 @@
-window_sizes 1600 878 230 1364 769 35
+window_sizes 1600 848 230 1364 769 35
 diagrams
-  active  statediagram_ref 128130 // Principal
-    1364 769 101 0 0 0
   statediagram_ref 134658 // Jeu
-    1087 615 81 0 0 0
-  statediagram_ref 147714 // mission pillage
-    1087 615 72 0 0 65
-  statediagram_ref 167810 // evitement
-    1087 615 100 0 0 0
+    1087 615 81 0 72 0
+  active  statediagram_ref 147714 // mission pillage
+    1364 739 100 0 180 0
+  statediagram_ref 174338 // rejoindre point initial mission
+    1087 591 100 0 138 0
   statediagram_ref 147842 // capture de gobelet escalier
-    1087 615 100 0 0 0
+    1087 591 100 0 0 0
 end
 show_stereotypes
-selected statediagram_ref 128130 // Principal
+selected 
+  package_ref 129 // MAE_MURPHY
 open
-  state_ref 142850 // mission pillage distrib
+  state_ref 128258 // Initialisation
+  state_ref 172546 // rejoindre le point de depart mission
   deploymentview_ref 128130 // MAE_MURPHY
 end
 end
