@@ -505,9 +505,10 @@ void OrdersRaspberry::executeinstr()
          x -> distance droit devant
          v -> vitesse de consigne (0 slow, 1 medium, 2 fast)
         **/
-        case 6: //BFCercle
-            stream >> x >> y >> r >> cap >> s >> v;
-            Serial.println("PAS FINI !!!!!");
+        case 6: //BF Droite simple (sans cap)
+            //stream >> x >> y >> r >> cap >> s >> v;
+            stream >> x >> y >> cap >> v;
+            Serial.println("BF Droite sans correction de cap");
             break;
 
 
