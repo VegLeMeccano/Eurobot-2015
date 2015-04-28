@@ -9,6 +9,12 @@ class waypoint_init_State
     return (bool) 1;
   }
 !!!197506.cpp!!!	create(inout stm : MAE_MURPHY) : void
+	_doentry(stm);
 	_completion(stm);
 !!!197634.cpp!!!	_upper(inout stm : MAE_MURPHY) : MAE_MURPHY::AnyState
   return &stm._mae_murphy_state._jeu_state._mission_depot_tour_estrade_state;
+!!!211330.cpp!!!	_doentry(inout stm : MAE_MURPHY) : void
+#ifdef VERBOSE_STATE_MACHINE
+	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission depot tour estrade.waypoint init");
+#endif
+// rejoindre un point initial

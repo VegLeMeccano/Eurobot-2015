@@ -39,7 +39,7 @@ transitioncanvas 128898 transition_ref 157826 // <transition>
 end
 transitioncanvas 129282 transition_ref 157954 // <transition>
   
-  from ref 128514 z 2006 label "time_out" xyz 434.5 552 2006 to ref 129154
+  from ref 128514 z 2006 label "time_out" xyz 434 552 2006 to ref 129154
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 129410 transition_ref 158082 // <transition>

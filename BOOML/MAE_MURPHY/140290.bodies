@@ -70,14 +70,6 @@ return (_current_state != 0);
     _current_state->start_enleve(*this);
   }
   return (_current_state != 0);
-!!!186370.cpp!!!	AssFini() : bool
-  if (_current_state != 0) {
-#ifdef VERBOSE_STATE_MACHINE
-    puts("DEBUG : fire trigger AssFini");
-#endif
-    _current_state->AssFini(*this);
-  }
-  return (_current_state != 0);
 !!!194306.cpp!!!	mission_distrib() : bool
   if (_current_state != 0) {
 #ifdef VERBOSE_STATE_MACHINE

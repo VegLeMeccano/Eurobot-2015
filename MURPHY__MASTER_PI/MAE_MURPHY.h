@@ -42,9 +42,6 @@ class MAE_MURPHY {
         // the current state doesn't manage the event start_enleve, give it to the upper state
         virtual void start_enleve(MAE_MURPHY & stm);
 
-        // the current state doesn't manage the event AssFini, give it to the upper state
-        virtual void AssFini(MAE_MURPHY & stm);
-
         // the current state doesn't manage the event mission_distrib, give it to the upper state
         virtual void mission_distrib(MAE_MURPHY & stm);
 
@@ -131,13 +128,48 @@ class MAE_MURPHY {
 
             };
             
+            // implement the state Referme les pattes
+            class Referme_les_pattes_State : public AnyState {
+              public:
+                virtual ~Referme_les_pattes_State();
+
+                // to manage the event time_out
+                virtual void time_out(MAE_MURPHY & stm);
+
+                // to manage the event create
+                virtual void create(MAE_MURPHY & stm);
+
+                // perform the 'entry behavior'
+                void _doentry(MAE_MURPHY & stm);
+
+                // returns the state containing the current
+                virtual AnyState * _upper(MAE_MURPHY & stm);
+
+            };
+            
+            // implement the state coup de patte cote escalier pour confirmer le sens
+            class coup_de_patte_cote_escalier_pour_confirmer_le_sens_State : public AnyState {
+              public:
+                virtual ~coup_de_patte_cote_escalier_pour_confirmer_le_sens_State();
+
+                // to manage the event time_out
+                virtual void time_out(MAE_MURPHY & stm);
+
+                // to manage the event create
+                virtual void create(MAE_MURPHY & stm);
+
+                // perform the 'entry behavior'
+                void _doentry(MAE_MURPHY & stm);
+
+                // returns the state containing the current
+                virtual AnyState * _upper(MAE_MURPHY & stm);
+
+            };
+            
             // implement the state Re set x cap
             class Re_set_x_cap_State : public AnyState {
               public:
                 virtual ~Re_set_x_cap_State();
-
-                // to manage the event time_out
-                virtual void time_out(MAE_MURPHY & stm);
 
                 // to manage the event create
                 virtual void create(MAE_MURPHY & stm);
@@ -349,8 +381,14 @@ class MAE_MURPHY {
             // returns the state containing the current
             virtual AnyState * _upper(MAE_MURPHY & stm);
 
+            // memorize the instance of the state coup de patte cote escalier pour confirmer le sens, internal
+            coup_de_patte_cote_escalier_pour_confirmer_le_sens_State _coup_de_patte_cote_escalier_pour_confirmer_le_sens_state;
+
+            // memorize the instance of the state Referme les pattes, internal
+            Referme_les_pattes_State _referme_les_pattes_state;
+
             // to manage the exit point 'sortie recalage', defined because probably shared
-            void _exit8(MAE_MURPHY & stm);
+            void _exit9(MAE_MURPHY & stm);
 
         };
         
@@ -390,7 +428,7 @@ class MAE_MURPHY {
             void _junction1(MAE_MURPHY & stm);
 
             // to manage the exit point 'sortie evitement', defined because probably shared
-            void _exit7(MAE_MURPHY & stm);
+            void _exit8(MAE_MURPHY & stm);
 
         };
         
@@ -437,16 +475,82 @@ class MAE_MURPHY {
 
                 };
                 
-                // implement the state point de depart mission
-                class point_de_depart_mission_State : public AnyState {
+                // implement the state rejoindre le point de depart mission
+                class rejoindre_le_point_de_depart_mission_State : public AnyState {
                   public:
-                    virtual ~point_de_depart_mission_State();
+                    // implement the state orientation vers objectif
+                    class orientation_vers_objectif_State : public AnyState {
+                      public:
+                        virtual ~orientation_vers_objectif_State();
 
-                    // to manage the event AssFini
-                    virtual void AssFini(MAE_MURPHY & stm);
+                        // to manage the event assFini
+                        virtual void assFini(MAE_MURPHY & stm);
+
+                        // to manage the event create
+                        virtual void create(MAE_MURPHY & stm);
+
+                        // perform the 'entry behavior'
+                        void _doentry(MAE_MURPHY & stm);
+
+                        // returns the state containing the current
+                        virtual AnyState * _upper(MAE_MURPHY & stm);
+
+                    };
+                    
+                    // implement the state orientation cap mission
+                    class orientation_cap_mission_State : public AnyState {
+                      public:
+                        virtual ~orientation_cap_mission_State();
+
+                        // to manage the event assFini
+                        virtual void assFini(MAE_MURPHY & stm);
+
+                        // to manage the event create
+                        virtual void create(MAE_MURPHY & stm);
+
+                        // perform the 'entry behavior'
+                        void _doentry(MAE_MURPHY & stm);
+
+                        // returns the state containing the current
+                        virtual AnyState * _upper(MAE_MURPHY & stm);
+
+                    };
+                    
+                    // implement the state BF droite vers l'objectif
+                    class BF_droite_vers_lobjectif_State : public AnyState {
+                      public:
+                        virtual ~BF_droite_vers_lobjectif_State();
+
+                        // to manage the event assFini
+                        virtual void assFini(MAE_MURPHY & stm);
+
+                        // to manage the event create
+                        virtual void create(MAE_MURPHY & stm);
+
+                        // perform the 'entry behavior'
+                        void _doentry(MAE_MURPHY & stm);
+
+                        // returns the state containing the current
+                        virtual AnyState * _upper(MAE_MURPHY & stm);
+
+                    };
+                    
+                    virtual ~rejoindre_le_point_de_depart_mission_State();
+
+                    // memorize the instance of the state orientation vers objectif, internal
+                    orientation_vers_objectif_State _orientation_vers_objectif_state;
+
+                    // memorize the instance of the state BF droite vers l'objectif, internal
+                    BF_droite_vers_lobjectif_State _bf_droite_vers_lobjectif_state;
+
+                    // memorize the instance of the state orientation cap mission, internal
+                    orientation_cap_mission_State _orientation_cap_mission_state;
 
                     // to manage the event create
                     virtual void create(MAE_MURPHY & stm);
+
+                    // to manage the exit point 'sortie', defined because probably shared
+                    void _exit2(MAE_MURPHY & stm);
 
                     // perform the 'entry behavior'
                     void _doentry(MAE_MURPHY & stm);
@@ -624,14 +728,14 @@ class MAE_MURPHY {
                 // returns the state containing the current
                 virtual AnyState * _upper(MAE_MURPHY & stm);
 
-                // memorize the instance of the state point de depart mission, internal
-                point_de_depart_mission_State _point_de_depart_mission_state;
-
                 // memorize the instance of the state sortie zone, internal
                 sortie_zone_State _sortie_zone_state;
 
+                // memorize the instance of the state rejoindre le point de depart mission, internal
+                rejoindre_le_point_de_depart_mission_State _rejoindre_le_point_de_depart_mission_state;
+
                 // to manage the exit point 'sortie pillage distrib', defined because probably shared
-                void _exit2(MAE_MURPHY & stm);
+                void _exit3(MAE_MURPHY & stm);
 
             };
             
@@ -650,6 +754,9 @@ class MAE_MURPHY {
 
                     // returns the state containing the current
                     virtual AnyState * _upper(MAE_MURPHY & stm);
+
+                    // perform the 'entry behavior'
+                    void _doentry(MAE_MURPHY & stm);
 
                 };
                 
@@ -728,11 +835,11 @@ class MAE_MURPHY {
                 // to manage the event create
                 virtual void create(MAE_MURPHY & stm);
 
-                // to manage the exit point 'sortie', defined because probably shared
-                void _exit6(MAE_MURPHY & stm);
-
                 // returns the state containing the current
                 virtual AnyState * _upper(MAE_MURPHY & stm);
+
+                // to manage the exit point 'sortie', defined because probably shared
+                void _exit7(MAE_MURPHY & stm);
 
             };
             
@@ -1004,11 +1111,11 @@ class MAE_MURPHY {
                 // to manage the event create
                 virtual void create(MAE_MURPHY & stm);
 
-                // to manage the exit point 'sortie ', defined because probably shared
-                void _exit5(MAE_MURPHY & stm);
-
                 // returns the state containing the current
                 virtual AnyState * _upper(MAE_MURPHY & stm);
+
+                // to manage the exit point 'sortie ', defined because probably shared
+                void _exit6(MAE_MURPHY & stm);
 
             };
             
@@ -1189,7 +1296,7 @@ class MAE_MURPHY {
                 virtual AnyState * _upper(MAE_MURPHY & stm);
 
                 // to manage the exit point 'fin claps', defined because probably shared
-                void _exit4(MAE_MURPHY & stm);
+                void _exit5(MAE_MURPHY & stm);
 
             };
             
@@ -1201,8 +1308,6 @@ class MAE_MURPHY {
                   public:
                     virtual ~point_de_depart_State();
 
-                    virtual bool _completion(MAE_MURPHY & stm);
-
                     // to manage the event create
                     virtual void create(MAE_MURPHY & stm);
 
@@ -1211,6 +1316,9 @@ class MAE_MURPHY {
 
                     // returns the state containing the current
                     virtual AnyState * _upper(MAE_MURPHY & stm);
+
+                    // to manage the event assFini
+                    virtual void assFini(MAE_MURPHY & stm);
 
                 };
                 
@@ -1288,13 +1396,17 @@ class MAE_MURPHY {
                   public:
                     virtual ~Recalage_State();
 
-                    virtual bool _completion(MAE_MURPHY & stm);
-
                     // to manage the event create
                     virtual void create(MAE_MURPHY & stm);
 
                     // returns the state containing the current
                     virtual AnyState * _upper(MAE_MURPHY & stm);
+
+                    // to manage the event blocage
+                    virtual void blocage(MAE_MURPHY & stm);
+
+                    // perform the 'entry behavior'
+                    void _doentry(MAE_MURPHY & stm);
 
                 };
                 
@@ -1303,13 +1415,17 @@ class MAE_MURPHY {
                   public:
                     virtual ~orientation_avant_reculage_State();
 
-                    virtual bool _completion(MAE_MURPHY & stm);
-
                     // to manage the event create
                     virtual void create(MAE_MURPHY & stm);
 
                     // returns the state containing the current
                     virtual AnyState * _upper(MAE_MURPHY & stm);
+
+                    // to manage the event assFini
+                    virtual void assFini(MAE_MURPHY & stm);
+
+                    // perform the 'entry behavior'
+                    void _doentry(MAE_MURPHY & stm);
 
                 };
                 
@@ -1346,7 +1462,7 @@ class MAE_MURPHY {
                 sortie_State _sortie_state;
 
                 // to manage the exit point 'sortie mission drop', defined because probably shared
-                void _exit3(MAE_MURPHY & stm);
+                void _exit4(MAE_MURPHY & stm);
 
             };
             
@@ -1510,10 +1626,6 @@ class MAE_MURPHY {
     bool start_enleve();
 
   friend class MAE_MURPHY_State::startin_block_State;
-    // the operation you call to signal the event AssFini
-    bool AssFini();
-
-  friend class MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::point_de_depart_mission_State;
   friend class MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::sortie_zone_State;
   friend class MAE_MURPHY_State::Jeu_State::mission_attrap_balle_et_chiage_State::point_de_depart_State;
   friend class MAE_MURPHY_State::Jeu_State::mission_attrap_balle_et_chiage_State::orientation_avant_reculage_State;
@@ -1558,6 +1670,12 @@ class MAE_MURPHY {
     // the operation you call to signal the event mission_claps
     bool mission_claps();
 
+  friend class MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::rejoindre_le_point_de_depart_mission_State::orientation_vers_objectif_State;
+  friend class MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::rejoindre_le_point_de_depart_mission_State::BF_droite_vers_lobjectif_State;
+  friend class MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::rejoindre_le_point_de_depart_mission_State::orientation_cap_mission_State;
+  friend class MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::rejoindre_le_point_de_depart_mission_State;
+  friend class MAE_MURPHY_State::Recalage_Initial_State::coup_de_patte_cote_escalier_pour_confirmer_le_sens_State;
+  friend class MAE_MURPHY_State::Recalage_Initial_State::Referme_les_pattes_State;
 };
 // change the current state, internal
 inline void MAE_MURPHY::_set_currentState(MAE_MURPHY::AnyState & st) {
