@@ -1,0 +1,3 @@
+class sortie_douce_State
+!!!198786.cpp!!!	_upper(inout stm : MAE_MURPHY) : MAE_MURPHY::AnyState
+  return &stm._mae_murphy_state._jeu_state._mission_depot_tour_estrade_state;

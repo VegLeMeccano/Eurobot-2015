@@ -29,3 +29,8 @@ bool Period::is_over(){
 void Period::set_periode(int period_){
     period = period_;
 }
+
+long Period::time_elapsed()
+{
+    return  t - time_last_reset;
+}

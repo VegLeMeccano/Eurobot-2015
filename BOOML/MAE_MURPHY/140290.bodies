@@ -70,3 +70,59 @@ return (_current_state != 0);
     _current_state->start_enleve(*this);
   }
   return (_current_state != 0);
+!!!194306.cpp!!!	mission_distrib() : bool
+  if (_current_state != 0) {
+#ifdef VERBOSE_STATE_MACHINE
+    puts("DEBUG : fire trigger mission_distrib");
+#endif
+    _current_state->mission_distrib(*this);
+  }
+  return (_current_state != 0);
+!!!195074.cpp!!!	mission_depot_tour() : bool
+  if (_current_state != 0) {
+#ifdef VERBOSE_STATE_MACHINE
+    puts("DEBUG : fire trigger mission_depot_tour");
+#endif
+    _current_state->mission_depot_tour(*this);
+  }
+  return (_current_state != 0);
+!!!195458.cpp!!!	mission_zone_ennemie() : bool
+  if (_current_state != 0) {
+#ifdef VERBOSE_STATE_MACHINE
+    puts("DEBUG : fire trigger mission_zone_ennemie");
+#endif
+    _current_state->mission_zone_ennemie(*this);
+  }
+  return (_current_state != 0);
+!!!195842.cpp!!!	mission_chiage() : bool
+  if (_current_state != 0) {
+#ifdef VERBOSE_STATE_MACHINE
+    puts("DEBUG : fire trigger mission_chiage");
+#endif
+    _current_state->mission_chiage(*this);
+  }
+  return (_current_state != 0);
+!!!196226.cpp!!!	mission_zone_centrale() : bool
+  if (_current_state != 0) {
+#ifdef VERBOSE_STATE_MACHINE
+    puts("DEBUG : fire trigger mission_zone_centrale");
+#endif
+    _current_state->mission_zone_centrale(*this);
+  }
+  return (_current_state != 0);
+!!!196610.cpp!!!	mission_depot_estrade() : bool
+  if (_current_state != 0) {
+#ifdef VERBOSE_STATE_MACHINE
+    puts("DEBUG : fire trigger mission_depot_estrade");
+#endif
+    _current_state->mission_depot_estrade(*this);
+  }
+  return (_current_state != 0);
+!!!200578.cpp!!!	mission_claps() : bool
+  if (_current_state != 0) {
+#ifdef VERBOSE_STATE_MACHINE
+    puts("DEBUG : fire trigger mission_claps");
+#endif
+    _current_state->mission_claps(*this);
+  }
+  return (_current_state != 0);

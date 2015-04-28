@@ -12,6 +12,8 @@ class Mission_Zone_centrale : public Mission
 
     private:
         int couleur;
+        bool stand_central;
+        bool stand_estrade;
 
 };
 

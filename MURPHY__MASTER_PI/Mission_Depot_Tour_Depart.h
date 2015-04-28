@@ -12,6 +12,8 @@ class Mission_Depot_Tour_Depart : public Mission
 
     private:
         int couleur;
+        bool depot_tour_1;
+        bool depot_tour_2;
 
 };
 

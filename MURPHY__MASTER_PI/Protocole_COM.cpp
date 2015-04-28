@@ -87,6 +87,11 @@ void Protocole_COM::executeinstr()
     //char ordre = cmdBuffer[bufindr][strchr_pointer];
     stream.str(s);
     std::string temp;
+    std::string ordre;
+    std::string name;
+    std::string x;
+    std::string y;
+    std::string cap;
     stream>>temp;
     char ordre = s[0];
     cout<<"[arduino] "<<s<<endl;
@@ -145,7 +150,7 @@ void Protocole_COM::executeinstr()
 
 
         /************************************************
-                CHECK FIN ASSERV
+                CHECK FIN ASSERV BASE ROULANTE
         *************************************************/
         if(s.find("NEAR") != string::npos)
         {
@@ -180,6 +185,123 @@ void Protocole_COM::executeinstr()
             cout<<"[Master] etat asserv, ennemi droite"<<endl;
             //master->get_MAE_COOP_R()->assFini();
         }
+
+
+         /************************************************
+                CHECK ASCENSEUR DROITE
+        *************************************************/
+        // check si la pince à été ouverte
+        if(s.find("ASC_DROITE PINCE OUVERTE") != string::npos)
+        {
+            cout<<"[Master] etat ascenseur droite, pince ouverte"<<endl;
+            //transistion sur mae... pince ouverte
+        }
+
+        // check si le stand a fini par etre stocke pour bouger ensuite
+        if(s.find("ASC_DROITE STAKED") != string::npos)
+        {
+            cout<<"[Master] etat ascenseur droite, un stand de plus !"<<endl;
+            master->get_gestionnaire_mission()->get_element_robot()->pile_droite_incr();
+            // transistion sur mae... ASC_UP_TO_DATE
+        }
+
+        // check si le stand a pas été pris pour bouger ensuite
+        if(s.find("ASC_DROITE BREDOUILLE") != string::npos)
+        {
+            cout<<"[Master] etat ascenseur droite, bredouille !"<<endl;
+            // transistion sur mae... ASC_UP_TO_DATE
+        }
+
+          // check si la pile est prete a etre deposé
+        if(s.find("ASC_DROITE PRET DEPOT") != string::npos)
+        {
+            cout<<"[Master] etat ascenseur droite, pret à poser !"<<endl;
+            //
+        }
+
+          // check si la pile est prete a etre deposé
+        if(s.find("ASC_DROITE LACHEE") != string::npos)
+        {
+            cout<<"[Master] etat ascenseur droite, pile lachée !"<<endl;
+            //
+        }
+
+          // check si la pile est prete a etre deposé
+        if(s.find("ASC_DROITE REPLIEE") != string::npos)
+        {
+            cout<<"[Master] etat ascenseur droite, replie !"<<endl;
+            //
+        }
+
+
+         /************************************************
+                CHECK ASCENSEUR GAUCHE
+        *************************************************/
+        // check si la pince à été ouverte
+        if(s.find("ASC_GAUCHE PINCE OUVERTE") != string::npos)
+        {
+            cout<<"[Master] etat ascenseur gauche, pince ouverte"<<endl;
+            //transistion sur mae... pince ouverte
+        }
+
+        // check si le stand a fini par etre stocke pour bouger ensuite
+        if(s.find("ASC_GAUCHE STAKED") != string::npos)
+        {
+            cout<<"[Master] etat ascenseur gauche, un stand de plus !"<<endl;
+            master->get_gestionnaire_mission()->get_element_robot()->pile_droite_incr();
+            // transistion sur mae... ASC_UP_TO_DATE
+        }
+
+        // check si le stand a pas été pris pour bouger ensuite
+        if(s.find("ASC_GAUCHE BREDOUILLE") != string::npos)
+        {
+            cout<<"[Master] etat ascenseur gauche, bredouille !"<<endl;
+            // transistion sur mae... ASC_UP_TO_DATE
+        }
+
+          // check si la pile est prete a etre deposé
+        if(s.find("ASC_GAUCHE PRET DEPOT") != string::npos)
+        {
+            cout<<"[Master] etat ascenseur gauche, pret à poser !"<<endl;
+            //
+        }
+
+          // check si la pile est prete a etre deposé
+        if(s.find("ASC_GAUCHE LACHEE") != string::npos)
+        {
+            cout<<"[Master] etat ascenseur gauche, pile lachée !"<<endl;
+            //
+        }
+
+          // check si la pile est prete a etre deposé
+        if(s.find("ASC_GAUCHE REPLIEE") != string::npos)
+        {
+            cout<<"[Master] etat ascenseur gauche, replie !"<<endl;
+            //
+        }
+
+
+         /************************************************
+                CHECK BRAS DROIT
+        *************************************************/
+        // check si le bras est rangé pour partir
+        if(s.find("BRAS DROIT FIN MONTEE") != string::npos)
+        {
+            cout<<"[Master] etat bras droite, fin de montee"<<endl;
+            //transistion sur mae... pince ouverte
+        }
+
+         /************************************************
+                CHECK BRAS DROIT
+        *************************************************/
+        // check si le bras est rangé pour partir
+        if(s.find("ASPIRATION FINIE") != string::npos)
+        {
+            cout<<"[Master] etat aspiration, finie"<<endl;
+            //transistion sur mae... pince ouverte
+        }
+
+
         break;
 
 
@@ -204,6 +326,8 @@ void Protocole_COM::executeinstr()
          //si reception de coordonnées
         if(s.find("COORD") != string::npos)
         {
+            stream>> ordre >> name >> x >> y >> cap;
+            master->get_gestionnaire_mission()->set_coord(atoi(x.c_str()),atoi(y.c_str()),atoi(cap.c_str()));
             // aller chercher les coordonnées dans la chaine
             // to do
             // et les mettre dans le master pour decision sur mission a venir

@@ -1,25 +1,28 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Debug" />
+	<File name="Coord.cpp" open="0" top="0" tabpos="0">
+		<Cursor position="1549" topLine="66" />
+	</File>
 	<File name="Element_Robot.h" open="0" top="0" tabpos="0">
 		<Cursor position="235" topLine="0" />
 	</File>
 	<File name="Gestionnaire_Mission.cpp" open="1" top="0" tabpos="1">
-		<Cursor position="16149" topLine="437" />
+		<Cursor position="8849" topLine="207" />
 	</File>
-	<File name="Gestionnaire_Mission.h" open="1" top="0" tabpos="6">
-		<Cursor position="2385" topLine="52" />
+	<File name="Gestionnaire_Mission.h" open="1" top="0" tabpos="2">
+		<Cursor position="1295" topLine="33" />
 	</File>
 	<File name="MAE_MURPHY.cpp" open="0" top="0" tabpos="1">
 		<Cursor position="2" topLine="0" />
 	</File>
-	<File name="Master.cpp" open="1" top="1" tabpos="5">
-		<Cursor position="506" topLine="0" />
+	<File name="Master.cpp" open="1" top="0" tabpos="6">
+		<Cursor position="352" topLine="9" />
 	</File>
-	<File name="Master.h" open="1" top="0" tabpos="4">
-		<Cursor position="1056" topLine="24" />
+	<File name="Master.h" open="1" top="0" tabpos="5">
+		<Cursor position="404" topLine="15" />
 	</File>
-	<File name="Mission.cpp" open="1" top="0" tabpos="2">
+	<File name="Mission.cpp" open="1" top="0" tabpos="3">
 		<Cursor position="1274" topLine="29" />
 	</File>
 	<File name="Mission.h" open="0" top="0" tabpos="0">
@@ -55,7 +58,7 @@
 	<File name="Mission_Distrib.h" open="0" top="0" tabpos="0">
 		<Cursor position="96" topLine="0" />
 	</File>
-	<File name="Mission_Zone_Ennemie.cpp" open="1" top="0" tabpos="3">
+	<File name="Mission_Zone_Ennemie.cpp" open="1" top="0" tabpos="4">
 		<Cursor position="262" topLine="0" />
 	</File>
 	<File name="Mission_Zone_Ennemie.h" open="0" top="0" tabpos="0">
@@ -67,11 +70,14 @@
 	<File name="Mission_Zone_centrale.h" open="0" top="0" tabpos="0">
 		<Cursor position="351" topLine="0" />
 	</File>
-	<File name="Period.h" open="0" top="0" tabpos="11">
-		<Cursor position="331" topLine="0" />
+	<File name="Period.cpp" open="0" top="0" tabpos="20">
+		<Cursor position="386" topLine="11" />
 	</File>
-	<File name="Protocole_COM.cpp" open="0" top="0" tabpos="4">
-		<Cursor position="317" topLine="0" />
+	<File name="Period.h" open="0" top="0" tabpos="19">
+		<Cursor position="56" topLine="0" />
+	</File>
+	<File name="Protocole_COM.cpp" open="1" top="1" tabpos="7">
+		<Cursor position="9737" topLine="313" />
 	</File>
 	<File name="main.cpp" open="0" top="0" tabpos="4">
 		<Cursor position="217" topLine="0" />

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Debug" />
-	<File name="..\MURPHY__MASTER_PI\Coord.cpp" open="0" top="0" tabpos="0">
-		<Cursor position="1638" topLine="73" />
+	<File name="..\MURPHY__MASTER_PI\Coord.cpp" open="1" top="0" tabpos="5">
+		<Cursor position="1067" topLine="40" />
 	</File>
-	<File name="..\MURPHY__MASTER_PI\Coord.h" open="0" top="0" tabpos="0">
-		<Cursor position="911" topLine="24" />
+	<File name="..\MURPHY__MASTER_PI\Coord.h" open="1" top="0" tabpos="4">
+		<Cursor position="1172" topLine="30" />
 	</File>
 	<File name="..\MURPHY__MASTER_PI\Element_Robot.cpp" open="0" top="0" tabpos="0">
 		<Cursor position="1163" topLine="51" />
@@ -13,11 +13,11 @@
 	<File name="..\MURPHY__MASTER_PI\Element_Robot.h" open="0" top="0" tabpos="0">
 		<Cursor position="453" topLine="12" />
 	</File>
-	<File name="..\MURPHY__MASTER_PI\Gestionnaire_Mission.cpp" open="1" top="0" tabpos="2">
-		<Cursor position="9033" topLine="240" />
+	<File name="..\MURPHY__MASTER_PI\Gestionnaire_Mission.cpp" open="1" top="0" tabpos="3">
+		<Cursor position="5952" topLine="141" />
 	</File>
-	<File name="..\MURPHY__MASTER_PI\Gestionnaire_Mission.h" open="0" top="0" tabpos="2">
-		<Cursor position="96" topLine="0" />
+	<File name="..\MURPHY__MASTER_PI\Gestionnaire_Mission.h" open="1" top="1" tabpos="2">
+		<Cursor position="2925" topLine="88" />
 	</File>
 	<File name="..\MURPHY__MASTER_PI\Mission.cpp" open="0" top="0" tabpos="1">
 		<Cursor position="807" topLine="29" />
@@ -28,34 +28,46 @@
 	<File name="..\MURPHY__MASTER_PI\Mission_Chiage_Balle.cpp" open="0" top="0" tabpos="0">
 		<Cursor position="947" topLine="38" />
 	</File>
-	<File name="..\MURPHY__MASTER_PI\Mission_Chiage_Balle.h" open="0" top="0" tabpos="0">
-		<Cursor position="434" topLine="3" />
+	<File name="..\MURPHY__MASTER_PI\Mission_Chiage_Balle.h" open="0" top="0" tabpos="10">
+		<Cursor position="434" topLine="0" />
 	</File>
 	<File name="..\MURPHY__MASTER_PI\Mission_Claps.cpp" open="0" top="0" tabpos="0">
 		<Cursor position="82" topLine="0" />
 	</File>
-	<File name="..\MURPHY__MASTER_PI\Mission_Depot_Tour_Depart.cpp" open="0" top="0" tabpos="0">
+	<File name="..\MURPHY__MASTER_PI\Mission_Claps.h" open="0" top="0" tabpos="2">
+		<Cursor position="390" topLine="0" />
+	</File>
+	<File name="..\MURPHY__MASTER_PI\Mission_Depot_Tour_Depart.cpp" open="0" top="0" tabpos="3">
 		<Cursor position="118" topLine="0" />
+	</File>
+	<File name="..\MURPHY__MASTER_PI\Mission_Depot_Tour_Depart.h" open="0" top="0" tabpos="9">
+		<Cursor position="324" topLine="0" />
 	</File>
 	<File name="..\MURPHY__MASTER_PI\Mission_Depot_Tour_Estrade.cpp" open="0" top="0" tabpos="0">
 		<Cursor position="121" topLine="0" />
 	</File>
+	<File name="..\MURPHY__MASTER_PI\Mission_Depot_Tour_Estrade.h" open="0" top="0" tabpos="8">
+		<Cursor position="430" topLine="0" />
+	</File>
 	<File name="..\MURPHY__MASTER_PI\Mission_Distrib.cpp" open="0" top="0" tabpos="0">
 		<Cursor position="616" topLine="19" />
 	</File>
-	<File name="..\MURPHY__MASTER_PI\Mission_Distrib.h" open="0" top="0" tabpos="0">
+	<File name="..\MURPHY__MASTER_PI\Mission_Distrib.h" open="0" top="0" tabpos="4">
 		<Cursor position="295" topLine="0" />
 	</File>
 	<File name="..\MURPHY__MASTER_PI\Mission_Zone_Ennemie.cpp" open="0" top="0" tabpos="5">
-		<Cursor position="208" topLine="0" />
+		<Cursor position="514" topLine="0" />
 	</File>
-	<File name="..\MURPHY__MASTER_PI\Mission_Zone_Ennemie.h" open="0" top="0" tabpos="4">
-		<Cursor position="6" topLine="0" />
+	<File name="..\MURPHY__MASTER_PI\Mission_Zone_Ennemie.h" open="0" top="0" tabpos="5">
+		<Cursor position="623" topLine="0" />
 	</File>
-	<File name="..\MURPHY__MASTER_PI\Mission_Zone_centrale.cpp" open="0" top="0" tabpos="0">
+	<File name="..\MURPHY__MASTER_PI\Mission_Zone_centrale.cpp" open="0" top="0" tabpos="7">
 		<Cursor position="106" topLine="0" />
 	</File>
-	<File name="main.cpp" open="1" top="1" tabpos="1">
-		<Cursor position="2949" topLine="64" />
+	<File name="..\MURPHY__MASTER_PI\Mission_Zone_centrale.h" open="0" top="0" tabpos="6">
+		<Cursor position="409" topLine="0" />
+	</File>
+	<File name="main.cpp" open="1" top="0" tabpos="1">
+		<Cursor position="3128" topLine="72" />
 	</File>
 </CodeBlocks_layout_file>

@@ -4,6 +4,8 @@
 #include "Element_Robot.h"
 //#include "MAE_MURPHY.h"
 
+///#include "Period.h"
+
 #include "Mission_Claps.h"
 #include "Mission_Depot_Tour_Depart.h"
 #include "Mission_Depot_Tour_Estrade.h"
@@ -20,6 +22,14 @@
 #include <vector>
 #include <iterator>
 #include <algorithm>
+
+#define MISSION_CLAPS 1
+#define MISSION_DISTRIB 2
+#define MISSION_CHIAGE_BALLE 3
+#define MISSION_ZONE_CENTRALE 4
+#define MISSION_TOUR_DEPART 5
+#define MISSION_TOUR_ESTRADE 6
+#define MISSION_ZONE_ENNEMIE 7
 using namespace std;
 
 class Gestionnaire_Mission
@@ -43,10 +53,18 @@ class Gestionnaire_Mission
 
         //Coordonne actuel
         Coord coord_reel;
+
+        float cap_to_mission;
+        float x_mission;
+        float y_mission;
+        float cap_mission;
+        bool alignement_to_mission;
+
         //MAE_MURPHY mae_murphy;
 
-        //
+        // couleur et temps restant
         int couleur;
+        ///Period period_jeu;
         long temps_restant;
 
         // pour les trategies
@@ -76,6 +94,11 @@ class Gestionnaire_Mission
         Mission_Zone_Ennemie*           get_mission_zone_ennemie();
 
         Element_Robot* get_element_robot();
+
+        float get_cap_to_mission();
+        float get_x_mission();
+        float get_y_to_mission();
+        float get_cap_mission();
 
         //MAE_MURPHY* get_mae_murphy();
 

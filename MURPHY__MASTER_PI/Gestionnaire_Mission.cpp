@@ -3,6 +3,7 @@
 /********************************************************
     GESTIONNAIRE DE MISSION
 *********************************************************/
+#define PERIODE_JEU 90000
 Gestionnaire_Mission::Gestionnaire_Mission():
         element_robot(),        // pour savoir ce qu'on a sous la dent
         mission_claps(true),
@@ -12,7 +13,11 @@ Gestionnaire_Mission::Gestionnaire_Mission():
         mission_depot_tour_depart(true),
         mission_depot_tour_estrade(false),
         mission_zone_ennemie(true),
-        coord_reel(0,0,0)//, mae_murphy()
+        coord_reel(0,0,0),
+        //, mae_murphy(),
+        /// period_jeu(PERIODE_JEU),
+        cap_to_mission(0),
+        alignement_to_mission(false)
 {
     //mae_murphy.create();
 
@@ -24,13 +29,7 @@ void Gestionnaire_Mission::set_coord(Coord coord_reel_)
 }
 
 
-#define MISSION_CLAPS 1
-#define MISSION_DISTRIB 2
-#define MISSION_CHIAGE_BALLE 3
-#define MISSION_ZONE_CENTRALE 4
-#define MISSION_TOUR_DEPART 5
-#define MISSION_TOUR_ESTRADE 6
-#define MISSION_ZONE_ENNEMIE 7
+
 
 void Gestionnaire_Mission::decision_mission()
 {
@@ -147,53 +146,117 @@ void Gestionnaire_Mission::evitement_mission()
     cout<<"Evitement provoque sur mission ["<<mission_sortie_evitement<<"]"<<endl;
 }
 
+float Gestionnaire_Mission::get_cap_to_mission()
+{
+    return cap_to_mission;
+}
+
+float Gestionnaire_Mission::get_x_mission()
+{
+    return x_mission;
+}
+
+float Gestionnaire_Mission::get_y_to_mission()
+{
+    return y_mission;
+}
+
+float Gestionnaire_Mission::get_cap_mission()
+{
+    return cap_mission;
+}
+
 
 void Gestionnaire_Mission::appel_trigger(int mission_indice_)
 {
     sortie_evitement = false;
     cout<<"appel de trigger sur mission : ";
+    Vector *vector_to_mission;
+
     switch(mission_indice_)
     {
         case MISSION_CLAPS:
-            cout<<mission_claps.get_title();
+            cout<<mission_claps.get_title()<<endl;
             // trigger
             mission_sortie_evitement = MISSION_CLAPS;
+            vector_to_mission = new Vector(coord_reel,mission_claps.get_coord_debut_mission());
+            cap_to_mission = vector_to_mission->get_angle();
+            x_mission = mission_claps.get_coord_debut_mission().get_x();
+            y_mission = mission_claps.get_coord_debut_mission().get_y();
+            cap_mission = mission_claps.get_coord_debut_mission().get_cap();
+            cout << "cap vers objectif : " << int(cap_to_mission*180 / PI) << endl;
             break;
 
         case MISSION_DISTRIB:
-            cout<<mission_distrib.get_title();
+            cout<<mission_distrib.get_title()<<endl;
             // trigger
             mission_sortie_evitement = MISSION_DISTRIB;
+            vector_to_mission = new Vector(coord_reel,mission_distrib.get_coord_debut_mission());
+            cap_to_mission = vector_to_mission->get_angle();
+            x_mission = mission_distrib.get_coord_debut_mission().get_x();
+            y_mission = mission_distrib.get_coord_debut_mission().get_y();
+            cap_mission = mission_distrib.get_coord_debut_mission().get_cap();
+            cout << "cap vers objectif : " << int(cap_to_mission*180 / PI) << endl;
             break;
 
         case MISSION_CHIAGE_BALLE:
-            cout<<mission_chiage_balle.get_title();
+            cout<<mission_chiage_balle.get_title()<<endl;
             // trigger
             mission_sortie_evitement = MISSION_CHIAGE_BALLE;
+            vector_to_mission = new Vector(coord_reel,mission_chiage_balle.get_coord_debut_mission());
+            cap_to_mission = vector_to_mission->get_angle();
+            x_mission = mission_chiage_balle.get_coord_debut_mission().get_x();
+            y_mission = mission_chiage_balle.get_coord_debut_mission().get_y();
+            cap_mission = mission_chiage_balle.get_coord_debut_mission().get_cap();
+            cout << "cap vers objectif : " << int(cap_to_mission*180 / PI) << endl;
             break;
 
         case MISSION_ZONE_CENTRALE:
-            cout<<mission_zone_centrale.get_title();
+            cout<<mission_zone_centrale.get_title()<<endl;
             // trigger
+            vector_to_mission = new Vector(coord_reel,mission_zone_centrale.get_coord_debut_mission());
+            cap_to_mission = vector_to_mission->get_angle();
+            x_mission = mission_zone_centrale.get_coord_debut_mission().get_x();
+            y_mission = mission_zone_centrale.get_coord_debut_mission().get_y();
+            cap_mission = mission_zone_centrale.get_coord_debut_mission().get_cap();
+            cout << "cap vers objectif : " << int(cap_to_mission*180 / PI) << endl;
             mission_sortie_evitement = MISSION_ZONE_CENTRALE;
             break;
 
         case MISSION_TOUR_DEPART:
-            cout<<mission_depot_tour_depart.get_title();
+            cout<<mission_depot_tour_depart.get_title()<<endl;
             // trigger
             mission_sortie_evitement = MISSION_TOUR_DEPART;
+            vector_to_mission = new Vector(coord_reel,mission_depot_tour_depart.get_coord_debut_mission());
+            cap_to_mission = vector_to_mission->get_angle();
+            x_mission = mission_depot_tour_depart.get_coord_debut_mission().get_x();
+            y_mission = mission_depot_tour_depart.get_coord_debut_mission().get_y();
+            cap_mission = mission_depot_tour_depart.get_coord_debut_mission().get_cap();
+            cout << "cap vers objectif : " << int(cap_to_mission*180 / PI)<< endl;
             break;
 
         case MISSION_TOUR_ESTRADE:
-            cout<<mission_depot_tour_estrade.get_title();
+            cout<<mission_depot_tour_estrade.get_title()<<endl;
             // trigger
             mission_sortie_evitement = MISSION_TOUR_ESTRADE;
+            vector_to_mission = new Vector(coord_reel,mission_depot_tour_estrade.get_coord_debut_mission());
+            cap_to_mission = vector_to_mission->get_angle();
+            x_mission = mission_depot_tour_estrade.get_coord_debut_mission().get_x();
+            y_mission = mission_depot_tour_estrade.get_coord_debut_mission().get_y();
+            cap_mission = mission_depot_tour_estrade.get_coord_debut_mission().get_cap();
+            cout << "cap vers objectif : " << int(cap_to_mission*180 / PI) << endl;
             break;
 
         case MISSION_ZONE_ENNEMIE:
-            cout<<mission_zone_ennemie.get_title();
+            cout<<mission_zone_ennemie.get_title()<<endl;
             // trigger
             mission_sortie_evitement = MISSION_ZONE_ENNEMIE;
+            vector_to_mission = new Vector(coord_reel,mission_zone_ennemie.get_coord_debut_mission());
+            cap_to_mission = vector_to_mission->get_angle();
+            x_mission = mission_zone_ennemie.get_coord_debut_mission().get_x();
+            y_mission = mission_zone_ennemie.get_coord_debut_mission().get_y();
+            cap_mission = mission_zone_ennemie.get_coord_debut_mission().get_cap();
+            cout << "cap vers objectif : " << int(cap_to_mission*180 / PI) << endl;
             break;
     }
     cout<<endl;
@@ -203,6 +266,9 @@ void Gestionnaire_Mission::appel_trigger(int mission_indice_)
 
 void Gestionnaire_Mission::actualisation_Priorite()
 {
+    // temps restant pour decision des truc important
+    ///temps_restant = (period_jeu.time_elapsed()- PERIODE_JEU)/1000; // en s
+
     if(sortie_evitement == true)
     {
         switch(mission_sortie_evitement)
