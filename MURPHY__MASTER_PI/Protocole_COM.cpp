@@ -87,6 +87,11 @@ void Protocole_COM::executeinstr()
     //char ordre = cmdBuffer[bufindr][strchr_pointer];
     stream.str(s);
     std::string temp;
+    std::string ordre;
+    std::string name;
+    std::string x;
+    std::string y;
+    std::string cap;
     stream>>temp;
     char ordre = s[0];
     cout<<"[arduino] "<<s<<endl;
@@ -321,6 +326,8 @@ void Protocole_COM::executeinstr()
          //si reception de coordonnées
         if(s.find("COORD") != string::npos)
         {
+            stream>> ordre >> name >> x >> y >> cap;
+            master->get_gestionnaire_mission()->set_coord(atoi(x.c_str()),atoi(y.c_str()),atoi(cap.c_str()));
             // aller chercher les coordonnées dans la chaine
             // to do
             // et les mettre dans le master pour decision sur mission a venir
