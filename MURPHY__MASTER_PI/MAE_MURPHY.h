@@ -64,7 +64,7 @@ class MAE_MURPHY {
         virtual void mission_claps(MAE_MURPHY & stm);
 
     };
-    
+
     // implement the state MAE_MURPHY
     class MAE_MURPHY_State : public AnyState {
       public:
@@ -86,7 +86,7 @@ class MAE_MURPHY {
             virtual AnyState * _upper(MAE_MURPHY & stm);
 
         };
-        
+
         // implement the state startin' block
         class startin_block_State : public AnyState {
           public:
@@ -105,7 +105,7 @@ class MAE_MURPHY {
             void _doentry(MAE_MURPHY & stm);
 
         };
-        
+
         // implement the state Recalage Initial
         class Recalage_Initial_State : public AnyState {
           public:
@@ -127,9 +127,15 @@ class MAE_MURPHY {
                 virtual AnyState * _upper(MAE_MURPHY & stm);
 
             };
+<<<<<<< HEAD
+
+            // implement the state Re set x cap
+            class Re_set_x_cap_State : public AnyState {
+=======
             
             // implement the state Referme les pattes
             class Referme_les_pattes_State : public AnyState {
+>>>>>>> 75b7966acbc13d7f29bf4844c353b8d14ecfd777
               public:
                 virtual ~Referme_les_pattes_State();
 
@@ -146,6 +152,9 @@ class MAE_MURPHY {
                 virtual AnyState * _upper(MAE_MURPHY & stm);
 
             };
+<<<<<<< HEAD
+
+=======
             
             // implement the state coup de patte cote escalier pour confirmer le sens
             class coup_de_patte_cote_escalier_pour_confirmer_le_sens_State : public AnyState {
@@ -182,6 +191,7 @@ class MAE_MURPHY {
 
             };
             
+>>>>>>> 75b7966acbc13d7f29bf4844c353b8d14ecfd777
             // implement the state set Y
             class set_Y_State : public AnyState {
               public:
@@ -200,7 +210,7 @@ class MAE_MURPHY {
                 virtual AnyState * _upper(MAE_MURPHY & stm);
 
             };
-            
+
             // implement the state avance un peu pour tourner
             class avance_un_peu_pour_tourner_State : public AnyState {
               public:
@@ -219,7 +229,7 @@ class MAE_MURPHY {
                 virtual AnyState * _upper(MAE_MURPHY & stm);
 
             };
-            
+
             // implement the state Recule depart
             class Recule_depart_State : public AnyState {
               public:
@@ -241,7 +251,7 @@ class MAE_MURPHY {
                 virtual AnyState * _upper(MAE_MURPHY & stm);
 
             };
-            
+
             // implement the state avance
             class avance_State : public AnyState {
               public:
@@ -260,7 +270,7 @@ class MAE_MURPHY {
                 virtual AnyState * _upper(MAE_MURPHY & stm);
 
             };
-            
+
             // implement the state BF -90 deg
             class BF_90_deg_State : public AnyState {
               public:
@@ -279,7 +289,7 @@ class MAE_MURPHY {
                 virtual AnyState * _upper(MAE_MURPHY & stm);
 
             };
-            
+
             // implement the state Recule bordure claps
             class Recule_bordure_claps_State : public AnyState {
               public:
@@ -301,7 +311,7 @@ class MAE_MURPHY {
                 virtual AnyState * _upper(MAE_MURPHY & stm);
 
             };
-            
+
             // implement the state BF 90 deg vers les marches
             class BF_90_deg_vers_les_marches_State : public AnyState {
               public:
@@ -320,7 +330,7 @@ class MAE_MURPHY {
                 virtual AnyState * _upper(MAE_MURPHY & stm);
 
             };
-            
+
             // implement the state set X CAP
             class set_X_CAP_State : public AnyState {
               public:
@@ -339,7 +349,7 @@ class MAE_MURPHY {
                 virtual AnyState * _upper(MAE_MURPHY & stm);
 
             };
-            
+
             virtual ~Recalage_Initial_State();
 
             // memorize the instance of the state Recule, internal
@@ -391,7 +401,7 @@ class MAE_MURPHY {
             void _exit9(MAE_MURPHY & stm);
 
         };
-        
+
         // implement the state Evitement
         class Evitement_State : public AnyState {
           public:
@@ -412,7 +422,7 @@ class MAE_MURPHY {
                 virtual AnyState * _upper(MAE_MURPHY & stm);
 
             };
-            
+
             virtual ~Evitement_State();
 
             // perform the 'entry behavior'
@@ -431,7 +441,7 @@ class MAE_MURPHY {
             void _exit8(MAE_MURPHY & stm);
 
         };
-        
+
         // implement the state Jeu
         class Jeu_State : public AnyState {
           public:
@@ -456,7 +466,7 @@ class MAE_MURPHY {
                     virtual AnyState * _upper(MAE_MURPHY & stm);
 
                 };
-                
+
                 // implement the state sortie zone
                 class sortie_zone_State : public AnyState {
                   public:
@@ -474,9 +484,15 @@ class MAE_MURPHY {
                     virtual AnyState * _upper(MAE_MURPHY & stm);
 
                 };
+<<<<<<< HEAD
+
+                // implement the state point de depart mission
+                class point_de_depart_mission_State : public AnyState {
+=======
                 
                 // implement the state rejoindre le point de depart mission
                 class rejoindre_le_point_de_depart_mission_State : public AnyState {
+>>>>>>> 75b7966acbc13d7f29bf4844c353b8d14ecfd777
                   public:
                     // implement the state orientation vers objectif
                     class orientation_vers_objectif_State : public AnyState {
@@ -559,7 +575,7 @@ class MAE_MURPHY {
                     virtual AnyState * _upper(MAE_MURPHY & stm);
 
                 };
-                
+
                 // implement the state vidage distributeur
                 class vidage_distributeur_State : public AnyState {
                   public:
@@ -577,7 +593,7 @@ class MAE_MURPHY {
                     void _doentry(MAE_MURPHY & stm);
 
                 };
-                
+
                 // implement the state capture stand bordure
                 class capture_stand_bordure_State : public AnyState {
                   public:
@@ -595,7 +611,7 @@ class MAE_MURPHY {
                     void _doentry(MAE_MURPHY & stm);
 
                 };
-                
+
                 // implement the state capture stands cote escalier
                 class capture_stands_cote_escalier_State : public AnyState {
                   public:
@@ -613,7 +629,7 @@ class MAE_MURPHY {
                     void _doentry(MAE_MURPHY & stm);
 
                 };
-                
+
                 // implement the state capture de gobelet escalier
                 class capture_de_gobelet_escalier_State : public AnyState {
                   public:
@@ -638,7 +654,7 @@ class MAE_MURPHY {
                         virtual AnyState * _upper(MAE_MURPHY & stm);
 
                     };
-                    
+
                     // implement the state BF cap vers la zone de distrib
                     class BF_cap_vers_la_zone_de_distrib_State : public AnyState {
                       public:
@@ -657,7 +673,7 @@ class MAE_MURPHY {
                         virtual AnyState * _upper(MAE_MURPHY & stm);
 
                     };
-                    
+
                     // implement the state capture
                     class capture_State : public AnyState {
                       public:
@@ -676,7 +692,7 @@ class MAE_MURPHY {
                         virtual AnyState * _upper(MAE_MURPHY & stm);
 
                     };
-                    
+
                     virtual ~capture_de_gobelet_escalier_State();
 
                     // memorize the instance of the state deplacement cible, internal
@@ -701,7 +717,7 @@ class MAE_MURPHY {
                     void _doentry(MAE_MURPHY & stm);
 
                 };
-                
+
                 virtual ~mission_pillage_distrib_State();
 
                 // memorize the instance of the state sortie de la zone de depart, internal
@@ -738,7 +754,7 @@ class MAE_MURPHY {
                 void _exit3(MAE_MURPHY & stm);
 
             };
-            
+
             // implement the state mission depot tour estrade
             class mission_depot_tour_estrade_State : public AnyState {
               public:
@@ -759,7 +775,7 @@ class MAE_MURPHY {
                     void _doentry(MAE_MURPHY & stm);
 
                 };
-                
+
                 // implement the state preparation
                 class preparation_State : public AnyState {
                   public:
@@ -774,7 +790,7 @@ class MAE_MURPHY {
                     virtual AnyState * _upper(MAE_MURPHY & stm);
 
                 };
-                
+
                 // implement the state sortie douce
                 class sortie_douce_State : public AnyState {
                   public:
@@ -784,7 +800,7 @@ class MAE_MURPHY {
                     virtual AnyState * _upper(MAE_MURPHY & stm);
 
                 };
-                
+
                 // implement the state depot double
                 class depot_double_State : public AnyState {
                   public:
@@ -799,7 +815,7 @@ class MAE_MURPHY {
                     virtual AnyState * _upper(MAE_MURPHY & stm);
 
                 };
-                
+
                 // implement the state depot solo
                 class depot_solo_State : public AnyState {
                   public:
@@ -814,7 +830,7 @@ class MAE_MURPHY {
                     virtual AnyState * _upper(MAE_MURPHY & stm);
 
                 };
-                
+
                 virtual ~mission_depot_tour_estrade_State();
 
                 // memorize the instance of the state waypoint init, internal
@@ -842,7 +858,7 @@ class MAE_MURPHY {
                 void _exit7(MAE_MURPHY & stm);
 
             };
-            
+
             // implement the state decision
             class decision_State : public AnyState {
               public:
@@ -879,7 +895,7 @@ class MAE_MURPHY {
                 virtual void mission_claps(MAE_MURPHY & stm);
 
             };
-            
+
             // implement the state mission zone ennemie
             class mission_zone_ennemie_State : public AnyState {
               public:
@@ -900,7 +916,7 @@ class MAE_MURPHY {
                     virtual bool _completion(MAE_MURPHY & stm);
 
                 };
-                
+
                 // implement the state faire chier en zizagant
                 class faire_chier_en_zizagant_State : public AnyState {
                   public:
@@ -916,7 +932,7 @@ class MAE_MURPHY {
                     virtual AnyState * _upper(MAE_MURPHY & stm);
 
                 };
-                
+
                 // implement the state depot gobelet
                 class depot_gobelet_State : public AnyState {
                   public:
@@ -932,7 +948,7 @@ class MAE_MURPHY {
                     virtual AnyState * _upper(MAE_MURPHY & stm);
 
                 };
-                
+
                 // implement the state claps central
                 class claps_central_State : public AnyState {
                   public:
@@ -950,7 +966,7 @@ class MAE_MURPHY {
                     virtual bool _completion(MAE_MURPHY & stm);
 
                 };
-                
+
                 virtual ~mission_zone_ennemie_State();
 
                 // memorize the instance of the state waypoint initial, internal
@@ -975,7 +991,7 @@ class MAE_MURPHY {
                 void _doentry(MAE_MURPHY & stm);
 
             };
-            
+
             // implement the state sortie de zone de depart
             class sortie_de_zone_de_depart_State : public AnyState {
               public:
@@ -994,7 +1010,7 @@ class MAE_MURPHY {
                 virtual AnyState * _upper(MAE_MURPHY & stm);
 
             };
-            
+
             // implement the state mission depot de tour zone depart
             class mission_depot_de_tour_zone_depart_State : public AnyState {
               public:
@@ -1012,7 +1028,7 @@ class MAE_MURPHY {
                     virtual AnyState * _upper(MAE_MURPHY & stm);
 
                 };
-                
+
                 // implement the state sortie
                 class sortie_State : public AnyState {
                   public:
@@ -1027,7 +1043,7 @@ class MAE_MURPHY {
                     virtual AnyState * _upper(MAE_MURPHY & stm);
 
                 };
-                
+
                 // implement the state recule
                 class recule_State : public AnyState {
                   public:
@@ -1042,7 +1058,7 @@ class MAE_MURPHY {
                     virtual AnyState * _upper(MAE_MURPHY & stm);
 
                 };
-                
+
                 // implement the state avance
                 class avance_State : public AnyState {
                   public:
@@ -1057,7 +1073,7 @@ class MAE_MURPHY {
                     virtual AnyState * _upper(MAE_MURPHY & stm);
 
                 };
-                
+
                 // implement the state depot une tour
                 class depot_une_tour_State : public AnyState {
                   public:
@@ -1072,7 +1088,7 @@ class MAE_MURPHY {
                     virtual AnyState * _upper(MAE_MURPHY & stm);
 
                 };
-                
+
                 // implement the state depot des deux tour
                 class depot_des_deux_tour_State : public AnyState {
                   public:
@@ -1087,7 +1103,7 @@ class MAE_MURPHY {
                     virtual AnyState * _upper(MAE_MURPHY & stm);
 
                 };
-                
+
                 virtual ~mission_depot_de_tour_zone_depart_State();
 
                 // memorize the instance of the state way point initial, internal
@@ -1118,7 +1134,7 @@ class MAE_MURPHY {
                 void _exit6(MAE_MURPHY & stm);
 
             };
-            
+
             // implement the state mission rush zone centrale
             class mission_rush_zone_centrale_State : public AnyState {
               public:
@@ -1128,7 +1144,7 @@ class MAE_MURPHY {
                 virtual AnyState * _upper(MAE_MURPHY & stm);
 
             };
-            
+
             // implement the state mission claps
             class mission_claps_State : public AnyState {
               public:
@@ -1146,7 +1162,7 @@ class MAE_MURPHY {
                     virtual AnyState * _upper(MAE_MURPHY & stm);
 
                 };
-                
+
                 // implement the state pose seconde pile? zone de depart
                 class pose_seconde_pile_zone_de_depart_State : public AnyState {
                   public:
@@ -1156,7 +1172,7 @@ class MAE_MURPHY {
                     virtual AnyState * _upper(MAE_MURPHY & stm);
 
                 };
-                
+
                 // implement the state chope stand milieu
                 class chope_stand_milieu_State : public AnyState {
                   public:
@@ -1171,7 +1187,7 @@ class MAE_MURPHY {
                     virtual AnyState * _upper(MAE_MURPHY & stm);
 
                 };
-                
+
                 // implement the state pose pile
                 class pose_pile_State : public AnyState {
                   public:
@@ -1186,7 +1202,7 @@ class MAE_MURPHY {
                     virtual AnyState * _upper(MAE_MURPHY & stm);
 
                 };
-                
+
                 // implement the state decision
                 class decision_State : public AnyState {
                   public:
@@ -1196,7 +1212,7 @@ class MAE_MURPHY {
                     virtual AnyState * _upper(MAE_MURPHY & stm);
 
                 };
-                
+
                 // implement the state chope stand pres estrade
                 class chope_stand_pres_estrade_State : public AnyState {
                   public:
@@ -1211,7 +1227,7 @@ class MAE_MURPHY {
                     virtual AnyState * _upper(MAE_MURPHY & stm);
 
                 };
-                
+
                 // implement the state claps 2
                 class claps_2_State : public AnyState {
                   public:
@@ -1226,7 +1242,7 @@ class MAE_MURPHY {
                     virtual AnyState * _upper(MAE_MURPHY & stm);
 
                 };
-                
+
                 // implement the state claps 1
                 class claps_1_State : public AnyState {
                   public:
@@ -1241,7 +1257,7 @@ class MAE_MURPHY {
                     virtual AnyState * _upper(MAE_MURPHY & stm);
 
                 };
-                
+
                 // implement the state chope du gobelet et des stands
                 class chope_du_gobelet_et_des_stands_State : public AnyState {
                   public:
@@ -1256,7 +1272,7 @@ class MAE_MURPHY {
                     virtual AnyState * _upper(MAE_MURPHY & stm);
 
                 };
-                
+
                 virtual ~mission_claps_State();
 
                 // memorize the instance of the state chope du stand sur la route, internal
@@ -1299,7 +1315,7 @@ class MAE_MURPHY {
                 void _exit5(MAE_MURPHY & stm);
 
             };
-            
+
             // implement the state mission attrap balle et chiage
             class mission_attrap_balle_et_chiage_State : public AnyState {
               public:
@@ -1321,7 +1337,7 @@ class MAE_MURPHY {
                     virtual void assFini(MAE_MURPHY & stm);
 
                 };
-                
+
                 // implement the state sortie
                 class sortie_State : public AnyState {
                   public:
@@ -1339,7 +1355,7 @@ class MAE_MURPHY {
                     virtual AnyState * _upper(MAE_MURPHY & stm);
 
                 };
-                
+
                 // implement the state drop gobelet
                 class drop_gobelet_State : public AnyState {
                   public:
@@ -1357,7 +1373,7 @@ class MAE_MURPHY {
                     virtual AnyState * _upper(MAE_MURPHY & stm);
 
                 };
-                
+
                 // implement the state drop pop corn
                 class drop_pop_corn_State : public AnyState {
                   public:
@@ -1375,7 +1391,7 @@ class MAE_MURPHY {
                     virtual AnyState * _upper(MAE_MURPHY & stm);
 
                 };
-                
+
                 // implement the state capture de balle
                 class capture_de_balle_State : public AnyState {
                   public:
@@ -1390,7 +1406,7 @@ class MAE_MURPHY {
                     virtual AnyState * _upper(MAE_MURPHY & stm);
 
                 };
-                
+
                 // implement the state Recalage
                 class Recalage_State : public AnyState {
                   public:
@@ -1409,7 +1425,7 @@ class MAE_MURPHY {
                     void _doentry(MAE_MURPHY & stm);
 
                 };
-                
+
                 // implement the state orientation avant reculage
                 class orientation_avant_reculage_State : public AnyState {
                   public:
@@ -1428,7 +1444,7 @@ class MAE_MURPHY {
                     void _doentry(MAE_MURPHY & stm);
 
                 };
-                
+
                 virtual ~mission_attrap_balle_et_chiage_State();
 
                 // to manage the event create
@@ -1465,7 +1481,7 @@ class MAE_MURPHY {
                 void _exit4(MAE_MURPHY & stm);
 
             };
-            
+
             virtual ~Jeu_State();
 
             // memorize the instance of the state mission pillage distrib, internal
@@ -1508,7 +1524,7 @@ class MAE_MURPHY {
             mission_depot_tour_estrade_State _mission_depot_tour_estrade_state;
 
         };
-        
+
         virtual ~MAE_MURPHY_State();
 
         // memorize the instance of the state Initialisation, internal
@@ -1533,7 +1549,7 @@ class MAE_MURPHY {
         startin_block_State _startin_block_state;
 
     };
-    
+
     // memorize the instance of the state MAE_MURPHY, internal
     MAE_MURPHY_State _mae_murphy_state;
 

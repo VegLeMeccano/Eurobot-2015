@@ -60,18 +60,24 @@ void ControlLoop::set_speed(int speed)
             Serial.println("SPEED -> SLOW");
 			piddep.setMinMax(MIN_MAX_SLOW);
             pidcap.setMinMax(MIN_MAX_SLOW);
+            setTuningCap(GAIN_KP_CAP_SLOW,GAIN_KI_CAP_SLOW,GAIN_KD_CAP_SLOW);
+            setTuningDep(GAIN_KP_DEP_SLOW,GAIN_KI_DEP_SLOW,GAIN_KD_DEP_SLOW);
             break;
 
         case MEDIUM:
             Serial.println("SPEED -> MEDIUM");
             piddep.setMinMax(MIN_MAX_MEDIUM);
             pidcap.setMinMax(MIN_MAX_MEDIUM);
+            setTuningCap(GAIN_KP_CAP_MEDIUM,GAIN_KI_CAP_MEDIUM,GAIN_KD_CAP_MEDIUM);
+            setTuningDep(GAIN_KP_DEP_MEDIUM,GAIN_KI_DEP_MEDIUM,GAIN_KD_DEP_MEDIUM);
             break;
 
         case FAST:
             Serial.println("SPEED -> FAST");
 			piddep.setMinMax(MIN_MAX_FAST);
             pidcap.setMinMax(MIN_MAX_FAST);
+            setTuningCap(GAIN_KP_CAP_FAST,GAIN_KI_CAP_FAST,GAIN_KD_CAP_FAST);
+            setTuningDep(GAIN_KP_DEP_FAST,GAIN_KI_DEP_FAST,GAIN_KD_DEP_FAST);
             break;
     }
 }
