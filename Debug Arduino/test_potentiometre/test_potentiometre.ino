@@ -11,8 +11,8 @@ double sensorValue = 0;  // variable to store the value coming from the sensor
 int PWM_value = 1000;
 double bis =0;
 
-int PWM_value_min = 1000; //1500-700;
-int PWM_value_max = 2000; //1500+700;
+int PWM_value_min = 1500-700;//1000; //1500-700;
+int PWM_value_max = 1500+700;//2000; //1500+700;
 int PWM_value_modif = 0;
 
 

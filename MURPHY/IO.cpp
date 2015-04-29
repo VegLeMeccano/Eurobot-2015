@@ -709,7 +709,7 @@ void Balle_droite::in_state_func()
 
 #define PINCEUR_DEPLOYEMENT_TOTAL_DROITE 1600
 #define PINCEUR_RELACHEMENT_DROITE 1270
-#define PINCEUR_SAISIE_DROITE 1056 //1156
+#define PINCEUR_SAISIE_DROITE 950 //1156
 
 Pinceur::Pinceur(bool cote_droit_s)
 {
@@ -832,12 +832,12 @@ void ColorSensor::write_debug()
    Ascenseur (juste la montee et descente controlee)
 *****************************************************/
 #define ASCENSEUR_STOP_DROITE 1500
-#define ASCENSEUR_MONTE_DROITE 1800
-#define ASCENSEUR_DESCEND_DROITE 1300
+#define ASCENSEUR_MONTE_DROITE 1900
+#define ASCENSEUR_DESCEND_DROITE 1100
 
 #define ASCENSEUR_STOP_GAUCHE 1500
-#define ASCENSEUR_MONTE_GAUCHE 1200
-#define ASCENSEUR_DESCEND_GAUCHE 1700
+#define ASCENSEUR_MONTE_GAUCHE 1100
+#define ASCENSEUR_DESCEND_GAUCHE 1900
 
 #define ASCENSEUR_DIRECTIVE_HAUT 0
 #define ASCENSEUR_DIRECTIVE_BAS 1
@@ -1762,7 +1762,7 @@ void Constructeur_pile::in_state_func()
             break;
 
         case ETAT_PILE_PRISE   :    // on ferme d'abord la pince interrieur
-            set_time_out(TEMPO_TEST_PILE*2);
+            set_time_out(100);
             //taclette_EXT.position_fermeture();
             taclette_INT.position_fermeture();
             Serial.println("ETAT_PILE_PRISE  ");
@@ -1777,12 +1777,12 @@ void Constructeur_pile::in_state_func()
 
 
         case ETAT_PILE_ANALYSE   :
-            set_time_out(TEMPO_TEST_PILE);
+            set_time_out(50);
             Serial.println("ETAT_PILE_ANALYSE  ");
             break;
 
         case ETAT_PILE_DECISION_MOVE   :
-            set_time_out(TEMPO_TEST_PILE);
+            set_time_out(50);
             Serial.println("ETAT_PILE_DECISION_MOVE  ");
             break;
 
