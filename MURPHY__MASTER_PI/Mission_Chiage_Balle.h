@@ -22,7 +22,7 @@ class Mission_Chiage_Balle : public Mission
         bool drop_pop_corn;
         bool drop_gobelet;
         bool catch_ball;
-        void change_pts();
+        //void change_pts();
 
 };
 

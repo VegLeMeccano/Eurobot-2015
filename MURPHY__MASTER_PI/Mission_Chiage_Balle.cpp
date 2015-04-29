@@ -49,16 +49,12 @@ void Mission_Chiage_Balle::set_couleur(int couleur_)
     couleur = couleur_;
     if(couleur == 0)
     {
-        set_coord_debut_mission(Coord(-940,999,-90));
+        set_coord_debut_mission(Coord(-900,999,0));
     }
     if(couleur == 1)
     {
-        set_coord_debut_mission(Coord(940,999, 90));
+        set_coord_debut_mission(Coord(900,999, 180));
     }
 }
 
 
-void Mission_Chiage_Balle::change_pts()
-{
-
-}

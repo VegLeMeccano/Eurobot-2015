@@ -82,7 +82,7 @@ int main()
 
     */
     gestionnaire->set_coord(Coord(-1134,996,-90));
-    gestionnaire->set_coord(Coord(0,0,-90));
+    //gestionnaire->set_coord(Coord(0,0,-90));
     gestionnaire->decision_mission();
     //gestionnaire->evitement_mission();
     gestionnaire->get_element_robot()->pile_droite_incr();

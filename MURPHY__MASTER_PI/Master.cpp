@@ -64,6 +64,7 @@ void Master::set_couleur(int couleur_)
     {
         cout << "[COULEUR] Vert" << endl;
     }
+    get_gestionnaire_mission()->set_couleur(couleur);
 }
 
 

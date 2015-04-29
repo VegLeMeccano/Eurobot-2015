@@ -17,13 +17,13 @@ Mission_Zone_Ennemie::Mission_Zone_Ennemie(bool mission_a_faire_):
 void Mission_Zone_Ennemie::set_couleur(int couleur_)
 {
     couleur = couleur_;
-    if(couleur == 0)
+    if(couleur == 0)    // jaune
     {
-        set_coord_debut_mission(Coord(0,600,-90));
+        set_coord_debut_mission(Coord(512,550,-25));
     }
-    if(couleur == 1)
+    if(couleur == 1)    // vert
     {
-        set_coord_debut_mission(Coord(0,600, 90));
+        set_coord_debut_mission(Coord(-512,550, 205));
     }
 }
 

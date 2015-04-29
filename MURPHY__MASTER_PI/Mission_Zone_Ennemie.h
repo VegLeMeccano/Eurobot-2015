@@ -12,6 +12,7 @@ class Mission_Zone_Ennemie : public Mission
 
         void claps_done();
         void depot_gobelet_done();
+
         bool is_claps_done();
         bool is_depot_gobelet_done();
 
