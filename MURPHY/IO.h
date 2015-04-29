@@ -305,6 +305,54 @@ class ColorSensor
         void write_debug();
 };
 
+// transistion d'etats
+#define TRANS_ASPIRATION_TIME_OUT 0
+#define TRANS_ASPIRATION_DEBOIT_DISTRIB 1
+#define TRANS_ASPIRATION_CLAPS_DROITE 2
+#define TRANS_ASPIRATION_CLAPS_GAUCHE 3
+
+//etats
+#define ETAT_ASPIRATION_INITIAL 0
+#define ETAT_ASPIRATION_TAPE_GAUCHE 1
+#define ETAT_ASPIRATION_TAPE_DROITE 2
+#define ETAT_ASPIRATION_DEBUT_ASPI 3
+#define ETAT_ASPIRATION_SORTIE_BRAS_DROITE 4
+#define ETAT_ASPIRATION_RENTRE_BRAS_DROITE 5
+#define ETAT_ASPIRATION_SORTIE_BRAS_GAUCHE 6
+#define ETAT_ASPIRATION_RENTRE_BRAS_GAUCHE 7
+#define ETAT_ASPIRATION_FIN_ASPI 8
+/****************************************************
+   ASPIRATION_BRAS
+*****************************************************/
+class Aspiration_Bras
+{
+    private:
+        Period period_run;
+        long t_over;
+        bool time_out_on;
+        int state;
+        Claps clap_gauche;
+        Claps clap_droite;
+        Aspiration aspiration;
+
+    public:
+        Aspiration_Bras();
+        void run();
+        void in_state_func();
+        void trigger(int transition);
+        void set_time_out(int dt_);
+        void reset_time_out();
+        bool is_time_out();
+        int actualState();
+
+        void tacle_droite();
+        void tacle_gauche();
+        void deboit_le_distrib();
+
+};
+
+
+
 
 
 /****************************************************
@@ -327,6 +375,7 @@ class ColorSensor
 #define ETAT_PILE_INITIAL 0
 #define ETAT_PILE_PREP_SAISIE 1
 #define ETAT_PILE_PRISE 2
+#define ETAT_PILE_PRISE_SEC 222
 #define ETAT_PILE_ANALYSE 3
 #define ETAT_PILE_DECISION_MOVE 4
 #define ETAT_PILE_RELACHEMENT 5
@@ -402,20 +451,21 @@ class Constructeur_pile
 /****************************************************
    IO
 *****************************************************/
-#define NOMBRE_MIN_STAND_AVANT_INJECTION 1
+#define NOMBRE_MIN_STAND_AVANT_INJECTION 3
 class IO
 {
     private:
+        Aspiration_Bras aspiration_bras;
         Elevator_Gobelet elevator_gobelet;
         Balle_droite balle_droite;
         Balle_gauche balle_gauche;
-        Claps clap_gauche;
-        Claps clap_droite;
+        //Claps clap_gauche;
+        //Claps clap_droite;
         Constructeur_pile constructeur_pile_gauche;
         Constructeur_pile constructeur_pile_droite;
         Camera camera;
         Capot capot;
-        Aspiration aspiration;
+        //Aspiration aspiration;
         bool couleur_jaune; // couleur de jeux, jaune ou vert, pour detection
         int nombre_element_pile_gauche;
         int nombre_element_pile_droite;
@@ -429,13 +479,13 @@ class IO
         void run();
         void balle_droite_trigger(int transition);
         Elevator_Gobelet* get_Elevator_gobelet();
-        Claps* get_Claps_droite();
-        Claps* get_Claps_gauche();
+        //Claps* get_Claps_droite();
+        //Claps* get_Claps_gauche();
         Constructeur_pile* get_Constructeur_pile_gauche();
         Constructeur_pile* get_Constructeur_pile_droite();
         Camera* get_Camera();
         Capot* get_Capot();
-        Aspiration* get_Aspiration();
+        Aspiration_Bras* get_Aspiration_Bras();
         Balle_droite* get_Balle_droite();
         Balle_gauche* get_Balle_gauche();
 };

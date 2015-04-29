@@ -1140,6 +1140,244 @@ void Ascenseur::reset_asserv_fini_ext()
     asserv_fini = false;
 }
 
+
+
+/****************************************************
+   ASPIRATION_BRAS
+*****************************************************/
+Aspiration_Bras::Aspiration_Bras():
+    clap_gauche(false),
+    clap_droite(true),
+    aspiration(),
+    period_run(50),
+    t_over(0),
+    time_out_on(false),
+    state(0)
+{
+    in_state_func();
+}
+
+
+// define la periode d'attente
+void Aspiration_Bras::set_time_out(int dt_)
+{
+    t_over = millis() + dt_;
+    time_out_on = true;
+    //Serial.println("time_out set ");
+}
+
+//reset le timer
+void Aspiration_Bras::reset_time_out()
+{
+    time_out_on = false;
+}
+
+// temps de periode fini?
+bool Aspiration_Bras::is_time_out()
+{
+   if (time_out_on && t_over < millis())
+   {
+     time_out_on = false;
+     return true;
+   }
+   return false;
+}
+
+void Aspiration_Bras::run()
+{
+    if (is_time_out())
+    {
+        trigger(TRANS_PILE_TIME_OUT);
+    }
+}
+
+void Aspiration_Bras::in_state_func()
+{
+    switch (state)
+    {
+        case ETAT_ASPIRATION_INITIAL  :
+            aspiration.off();
+            clap_droite.fermeture();
+            clap_gauche.fermeture();
+            Serial.println("ETAT_ASPIRATION_INITIAL ");
+            break;
+
+         case ETAT_ASPIRATION_TAPE_GAUCHE  :
+            set_time_out(2000);
+            clap_gauche.ouverture();
+            Serial.println("ETAT_ASPIRATION_TAPE_GAUCHE ");
+            break;
+
+          case ETAT_ASPIRATION_TAPE_DROITE  :
+            set_time_out(2000);
+            clap_droite.ouverture();
+            Serial.println("ETAT_ASPIRATION_TAPE_DROITE ");
+            break;
+
+         case ETAT_ASPIRATION_DEBUT_ASPI  :
+            set_time_out(200);
+            aspiration.on();
+            Serial.println("ETAT_ASPIRATION_DEBUT_ASPI ");
+            break;
+
+         case ETAT_ASPIRATION_SORTIE_BRAS_DROITE  :
+            set_time_out(2000);
+            clap_droite.ouverture();
+            Serial.println("ETAT_ASPIRATION_SORTIE_BRAS_DROITE ");
+            break;
+
+         case ETAT_ASPIRATION_RENTRE_BRAS_DROITE  :
+            set_time_out(100);
+            clap_droite.fermeture();
+            Serial.println("ETAT_ASPIRATION_RENTRE_BRAS_DROITE ");
+            break;
+
+        case ETAT_ASPIRATION_SORTIE_BRAS_GAUCHE  :
+            set_time_out(2000);
+            clap_gauche.ouverture();
+            Serial.println("ETAT_ASPIRATION_SORTIE_BRAS_GAUCHE ");
+            break;
+
+         case ETAT_ASPIRATION_RENTRE_BRAS_GAUCHE  :
+            set_time_out(100);
+            clap_gauche.fermeture();
+            Serial.println("ETAT_ASPIRATION_RENTRE_BRAS_GAUCHE ");
+            break;
+
+         case ETAT_ASPIRATION_FIN_ASPI  :
+            set_time_out(100);
+            aspiration.off();
+            Serial.println("ETAT_ASPIRATION_FIN_ASPI ");
+            break;
+
+    }
+}
+
+void Aspiration_Bras::trigger(int transition)
+{
+    Serial.println("");
+    Serial.print("appel trigger aspiration : ");
+    Serial.println(transition);
+    // add things here for MAE
+    if (transition == TRANS_ASPIRATION_CLAPS_DROITE  || transition == TRANS_ASPIRATION_CLAPS_GAUCHE || transition == TRANS_ASPIRATION_DEBOIT_DISTRIB )
+    {
+         Serial.println(" ");
+         Serial.print("TRANSISTION FORCEE -> aspiration bras: ");
+         Serial.println(transition);
+    }
+
+    if (transition == TRANS_PILE_TIME_OUT  )
+    {
+         Serial.println(" ");
+         Serial.print("TRANSITION AUTO (time out) -> aspiration bras: ");
+         Serial.println(transition);
+    }
+
+   Serial.print("ACTUAL STATE -> aspiration bras : ");
+   Serial.println(state);
+   int old_state;
+   old_state = state;
+
+   //evolution des etats
+   switch(state)
+    {
+
+        case ETAT_ASPIRATION_INITIAL  :
+            if (transition == TRANS_ASPIRATION_DEBOIT_DISTRIB){
+                state = ETAT_ASPIRATION_DEBUT_ASPI;
+            }
+            if (transition == TRANS_ASPIRATION_CLAPS_DROITE){
+                state = ETAT_ASPIRATION_TAPE_DROITE;
+            }
+            if (transition == TRANS_ASPIRATION_CLAPS_GAUCHE){
+                state = ETAT_ASPIRATION_TAPE_GAUCHE;
+            }
+            break;
+
+        case ETAT_ASPIRATION_TAPE_DROITE  :
+            if (transition == TRANS_ASPIRATION_TIME_OUT){
+                state = ETAT_ASPIRATION_INITIAL;
+                Serial.println("# CLAPS_DROITE_REPLIS");
+            }
+            break;
+
+        case ETAT_ASPIRATION_TAPE_GAUCHE  :
+            if (transition == TRANS_ASPIRATION_TIME_OUT){
+                state = ETAT_ASPIRATION_INITIAL;
+                Serial.println("# CLAPS_GAUCHE_REPLIS");
+            }
+            break;
+
+        case ETAT_ASPIRATION_DEBUT_ASPI  :
+            if (transition == TRANS_ASPIRATION_TIME_OUT){
+                state = ETAT_ASPIRATION_SORTIE_BRAS_DROITE;
+            }
+            break;
+
+        case ETAT_ASPIRATION_SORTIE_BRAS_DROITE  :
+            if (transition == TRANS_ASPIRATION_TIME_OUT){
+                state = ETAT_ASPIRATION_RENTRE_BRAS_DROITE;
+            }
+            break;
+
+         case ETAT_ASPIRATION_RENTRE_BRAS_DROITE  :
+            if (transition == TRANS_ASPIRATION_TIME_OUT){
+                state = ETAT_ASPIRATION_SORTIE_BRAS_GAUCHE;
+            }
+            break;
+
+         case ETAT_ASPIRATION_SORTIE_BRAS_GAUCHE  :
+            if (transition == TRANS_ASPIRATION_TIME_OUT){
+                state = ETAT_ASPIRATION_RENTRE_BRAS_GAUCHE;
+            }
+            break;
+
+         case ETAT_ASPIRATION_RENTRE_BRAS_GAUCHE  :
+            if (transition == TRANS_ASPIRATION_TIME_OUT){
+                state = ETAT_ASPIRATION_FIN_ASPI;
+            }
+            break;
+
+         case ETAT_ASPIRATION_FIN_ASPI  :
+            if (transition == TRANS_ASPIRATION_TIME_OUT){
+                state = ETAT_ASPIRATION_INITIAL;
+                Serial.println("# DISTRIB_DEBOITE");
+            }
+            break;
+    }
+   if (old_state != state)
+    {
+        Serial.print("NEW STATE ->  aspiration bras : ");
+        Serial.println(state);
+
+        reset_time_out();
+        in_state_func();
+    }
+}
+
+
+
+void Aspiration_Bras::tacle_droite()
+{
+    trigger(TRANS_ASPIRATION_CLAPS_DROITE);
+}
+
+void Aspiration_Bras::tacle_gauche()
+{
+    trigger(TRANS_ASPIRATION_CLAPS_DROITE);
+}
+
+void Aspiration_Bras::deboit_le_distrib()
+{
+    trigger(TRANS_ASPIRATION_DEBOIT_DISTRIB);
+}
+
+
+
+
+
+
+
 /****************************************************
    Constructeur de pile
 *****************************************************/
@@ -1302,9 +1540,16 @@ void Constructeur_pile::trigger(int transition)
 
         case ETAT_PILE_PRISE   :
             if (transition == TRANS_PILE_TIME_OUT){ //mettre les autre IR et compagnie
+                state = ETAT_PILE_PRISE_SEC;
+            }
+            break;
+
+        case ETAT_PILE_PRISE_SEC   :
+            if (transition == TRANS_PILE_TIME_OUT){ //mettre les autre IR et compagnie
                 state = ETAT_PILE_ANALYSE;
             }
             break;
+
 
         case ETAT_PILE_ANALYSE   :
             if (transition == TRANS_PILE_TIME_OUT){ //mettre les autre IR et compagnie
@@ -1516,12 +1761,20 @@ void Constructeur_pile::in_state_func()
             Serial.println("ETAT_PILE_PREP_SAISIE  ");
             break;
 
-        case ETAT_PILE_PRISE   :
-            set_time_out(TEMPO_TEST_PILE);
-            taclette_EXT.position_fermeture();
+        case ETAT_PILE_PRISE   :    // on ferme d'abord la pince interrieur
+            set_time_out(TEMPO_TEST_PILE*2);
+            //taclette_EXT.position_fermeture();
             taclette_INT.position_fermeture();
             Serial.println("ETAT_PILE_PRISE  ");
             break;
+
+        case ETAT_PILE_PRISE_SEC   :
+            set_time_out(TEMPO_TEST_PILE);
+            taclette_EXT.position_fermeture();
+            //taclette_INT.position_fermeture();
+            Serial.println("ETAT_PILE_PRISE_SEC  ");
+            break;
+
 
         case ETAT_PILE_ANALYSE   :
             set_time_out(TEMPO_TEST_PILE);
@@ -1657,13 +1910,13 @@ void Constructeur_pile::in_state_func()
 *****************************************************/
 IO::IO():
         elevator_gobelet(),
-        clap_gauche(false),
-        clap_droite(true),
+        //clap_gauche(false),
+        //clap_droite(true),
         constructeur_pile_gauche(false,PIN_BUMPER_ASC_BAS_GAUCHE,PIN_BUMPER_RECALAGE_DROITE,PIN_IR_BAS_GAUCHE),//PIN_BUMPER_ASC_HAUT_GAUCHE
         constructeur_pile_droite(true,PIN_BUMPER_ASC_BAS_DROITE,PIN_BUMPER_ASC_HAUT_DROITE,PIN_IR_BAS_DROITE),
         camera(),
         capot(),
-        aspiration(),
+        aspiration_bras(),
         balle_droite(),
         balle_gauche(),
         to_be_ejected_droite(true),
@@ -1687,6 +1940,7 @@ void IO::run()
     constructeur_pile_gauche.run();
     constructeur_pile_droite.run();
     balle_droite.run();
+    aspiration_bras.run();
 
     // injection des balles automatique, sinon on gere ca au master lors du depot... mais demande de checker a la main
     // comme ca si c bon niveau meca ... ce sera judicieux
@@ -1709,13 +1963,6 @@ void IO::run()
 }
 
 
-Claps* IO::get_Claps_droite(){
-    return &clap_droite;
-}
-
-Claps* IO::get_Claps_gauche(){
-    return &clap_gauche;
-}
 
 Constructeur_pile* IO::get_Constructeur_pile_gauche()
 {
@@ -1737,9 +1984,9 @@ Capot* IO::get_Capot()
     return &capot;
 }
 
-Aspiration* IO::get_Aspiration()
+Aspiration_Bras* IO:: get_Aspiration_Bras()
 {
-    return &aspiration;
+    return &aspiration_bras;
 }
 
 Balle_droite* IO::get_Balle_droite()
