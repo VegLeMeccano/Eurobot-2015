@@ -1203,13 +1203,13 @@ void Aspiration_Bras::in_state_func()
             break;
 
          case ETAT_ASPIRATION_TAPE_GAUCHE  :
-            set_time_out(2000);
+            set_time_out(1000);
             clap_gauche.ouverture();
             Serial.println("ETAT_ASPIRATION_TAPE_GAUCHE ");
             break;
 
           case ETAT_ASPIRATION_TAPE_DROITE  :
-            set_time_out(2000);
+            set_time_out(1000);
             clap_droite.ouverture();
             Serial.println("ETAT_ASPIRATION_TAPE_DROITE ");
             break;
@@ -1364,7 +1364,7 @@ void Aspiration_Bras::tacle_droite()
 
 void Aspiration_Bras::tacle_gauche()
 {
-    trigger(TRANS_ASPIRATION_CLAPS_DROITE);
+    trigger(TRANS_ASPIRATION_CLAPS_GAUCHE);
 }
 
 void Aspiration_Bras::deboit_le_distrib()
