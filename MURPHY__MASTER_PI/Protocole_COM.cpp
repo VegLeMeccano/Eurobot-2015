@@ -125,21 +125,48 @@ void Protocole_COM::executeinstr()
     */
 	case '#' :
 
+         /************************************************
+                CHECK STRAT
+        *************************************************/
         // start mis
-        if(s.find("START IN") != string::npos)
+        if(s.find("START_IN") != string::npos)
         {
             cout<<"[Master] start mis"<<endl;
         }
 
         //start retiré
-        if(s.find("START OUT") != string::npos)
+        if(s.find("START_OUT") != string::npos)
         {
             cout<<"[Master] start enleve"<<endl;
             master->get_MAE_COOP_R()->stratEnleve();
         }
 
         //fin des 90s
-        if(s.find("ENDDAME") != string::npos)
+        if(s.find("END_GAME") != string::npos)
+        {
+            cout<<"[Master] end of game"<<endl;
+            //master->get_MAE_COOP_R()->stratEnleve();
+        }
+
+
+         /************************************************
+                CHECK POP corn
+        *************************************************/
+        // start mis
+        if(s.find("CLAPS_DROITE_REPLIS") != string::npos)
+        {
+            cout<<"[Master] CLAPS_DROITE_REPLIS "<<endl;
+        }
+
+        //start retiré
+        if(s.find("CLAPS_GAUCHE_REPLIS") != string::npos)
+        {
+            cout<<"[Master] start enleve"<<endl;
+            master->get_MAE_COOP_R()->stratEnleve();
+        }
+
+        //fin des 90s
+        if(s.find("DISTRIB_DEBOITE") != string::npos)
         {
             cout<<"[Master] end of game"<<endl;
             //master->get_MAE_COOP_R()->stratEnleve();
@@ -147,40 +174,38 @@ void Protocole_COM::executeinstr()
 
 
 
-
-
         /************************************************
                 CHECK FIN ASSERV BASE ROULANTE
         *************************************************/
-        if(s.find("NEAR") != string::npos)
+        if(s.find("SLAVE_NEAR") != string::npos)
         {
             cout<<"[Master] etat asserv, proche"<<endl;
             //master->get_MAE_COOP_R()->adversaire();
         }
 
         // check si l'asserv est fini
-        if(s.find("AFINI") != string::npos)
+        if(s.find("SLAVE_AFINI") != string::npos)
         {
             cout<<"[Master] etat asserv, fini"<<endl;
             //master->get_MAE_COOP_R()->assFini();
         }
 
         // check si l'asserv est fini
-        if(s.find("BLOC") != string::npos)
+        if(s.find("SLAVE_BLOCAGE") != string::npos)
         {
             cout<<"[Master] etat asserv, blocage"<<endl;
             //master->get_MAE_COOP_R()->assFini();
         }
 
         // check si l'asserv est fini
-        if(s.find("ENNEMI_GAUCHE") != string::npos)
+        if(s.find("SLAVE_ENNEMI_GAUCHE") != string::npos)
         {
             cout<<"[Master] etat asserv, ennemi gauche"<<endl;
             //master->get_MAE_COOP_R()->assFini();
         }
 
         // check si l'asserv est fini
-        if(s.find("ENNEMI_DROITE") != string::npos)
+        if(s.find("SLAVE_ENNEMI_DROITE") != string::npos)
         {
             cout<<"[Master] etat asserv, ennemi droite"<<endl;
             //master->get_MAE_COOP_R()->assFini();
@@ -191,14 +216,14 @@ void Protocole_COM::executeinstr()
                 CHECK ASCENSEUR DROITE
         *************************************************/
         // check si la pince à été ouverte
-        if(s.find("ASC_DROITE PINCE OUVERTE") != string::npos)
+        if(s.find("ASC_DROITE_PINCE_OUVERTE") != string::npos)
         {
             cout<<"[Master] etat ascenseur droite, pince ouverte"<<endl;
             //transistion sur mae... pince ouverte
         }
 
         // check si le stand a fini par etre stocke pour bouger ensuite
-        if(s.find("ASC_DROITE STAKED") != string::npos)
+        if(s.find("ASC_DROITE_STAKED") != string::npos)
         {
             cout<<"[Master] etat ascenseur droite, un stand de plus !"<<endl;
             master->get_gestionnaire_mission()->get_element_robot()->pile_droite_incr();
@@ -206,28 +231,28 @@ void Protocole_COM::executeinstr()
         }
 
         // check si le stand a pas été pris pour bouger ensuite
-        if(s.find("ASC_DROITE BREDOUILLE") != string::npos)
+        if(s.find("ASC_DROITE_BREDOUILLE") != string::npos)
         {
             cout<<"[Master] etat ascenseur droite, bredouille !"<<endl;
             // transistion sur mae... ASC_UP_TO_DATE
         }
 
           // check si la pile est prete a etre deposé
-        if(s.find("ASC_DROITE PRET DEPOT") != string::npos)
+        if(s.find("ASC_DROITE_PRET_DEPOT") != string::npos)
         {
             cout<<"[Master] etat ascenseur droite, pret à poser !"<<endl;
             //
         }
 
           // check si la pile est prete a etre deposé
-        if(s.find("ASC_DROITE LACHEE") != string::npos)
+        if(s.find("ASC_DROITE_LACHEE") != string::npos)
         {
             cout<<"[Master] etat ascenseur droite, pile lachée !"<<endl;
             //
         }
 
           // check si la pile est prete a etre deposé
-        if(s.find("ASC_DROITE REPLIEE") != string::npos)
+        if(s.find("ASC_DROITE_REPLIEE") != string::npos)
         {
             cout<<"[Master] etat ascenseur droite, replie !"<<endl;
             //
@@ -238,14 +263,14 @@ void Protocole_COM::executeinstr()
                 CHECK ASCENSEUR GAUCHE
         *************************************************/
         // check si la pince à été ouverte
-        if(s.find("ASC_GAUCHE PINCE OUVERTE") != string::npos)
+        if(s.find("ASC_GAUCHE_PINCE_OUVERTE") != string::npos)
         {
             cout<<"[Master] etat ascenseur gauche, pince ouverte"<<endl;
             //transistion sur mae... pince ouverte
         }
 
         // check si le stand a fini par etre stocke pour bouger ensuite
-        if(s.find("ASC_GAUCHE STAKED") != string::npos)
+        if(s.find("ASC_GAUCHE_STAKED") != string::npos)
         {
             cout<<"[Master] etat ascenseur gauche, un stand de plus !"<<endl;
             master->get_gestionnaire_mission()->get_element_robot()->pile_droite_incr();
@@ -253,28 +278,28 @@ void Protocole_COM::executeinstr()
         }
 
         // check si le stand a pas été pris pour bouger ensuite
-        if(s.find("ASC_GAUCHE BREDOUILLE") != string::npos)
+        if(s.find("ASC_GAUCHE_BREDOUILLE") != string::npos)
         {
             cout<<"[Master] etat ascenseur gauche, bredouille !"<<endl;
             // transistion sur mae... ASC_UP_TO_DATE
         }
 
           // check si la pile est prete a etre deposé
-        if(s.find("ASC_GAUCHE PRET DEPOT") != string::npos)
+        if(s.find("ASC_GAUCHE_PRET DEPOT") != string::npos)
         {
             cout<<"[Master] etat ascenseur gauche, pret à poser !"<<endl;
             //
         }
 
           // check si la pile est prete a etre deposé
-        if(s.find("ASC_GAUCHE LACHEE") != string::npos)
+        if(s.find("ASC_GAUCHE_LACHEE") != string::npos)
         {
             cout<<"[Master] etat ascenseur gauche, pile lachée !"<<endl;
             //
         }
 
           // check si la pile est prete a etre deposé
-        if(s.find("ASC_GAUCHE REPLIEE") != string::npos)
+        if(s.find("ASC_GAUCHE_REPLIEE") != string::npos)
         {
             cout<<"[Master] etat ascenseur gauche, replie !"<<endl;
             //
@@ -285,21 +310,12 @@ void Protocole_COM::executeinstr()
                 CHECK BRAS DROIT
         *************************************************/
         // check si le bras est rangé pour partir
-        if(s.find("BRAS DROIT FIN MONTEE") != string::npos)
+        if(s.find("BRAS_DROIT_FIN _MONTEE") != string::npos)
         {
             cout<<"[Master] etat bras droite, fin de montee"<<endl;
             //transistion sur mae... pince ouverte
         }
 
-         /************************************************
-                CHECK BRAS DROIT
-        *************************************************/
-        // check si le bras est rangé pour partir
-        if(s.find("ASPIRATION FINIE") != string::npos)
-        {
-            cout<<"[Master] etat aspiration, finie"<<endl;
-            //transistion sur mae... pince ouverte
-        }
 
 
         break;
