@@ -514,6 +514,7 @@ void Balle_droite::trigger(int transition)
             if (transition == TRANSISTION_BALLE_DROITE_FIN_MONTEE)
                 {
                     state = ETAT_BALLE_DROITE_RANGE_1;
+                    Serial.println("# BRAS_DROIT_FIN__MONTEE");
                 }
             break;
 
@@ -1522,6 +1523,12 @@ void Constructeur_pile::trigger(int transition)
         case ETAT_PILE_INITIAL  :
             if (transition == TRANS_PILE_PREP_SAISIE){
                 state = ETAT_PILE_PREP_SAISIE;
+                if(cote_droit){
+                    Serial.println("# ASC_DROITE_PINCE_OUVERTE");
+                }
+                else{
+                    Serial.println("# ASC_GAUCHE_PINCE_OUVERTE");
+                }
             }
             if (transition == TRANS_PILE_PREP_DEPOT){
                 state = ETAT_PILE_DEPOT_DECISION;
@@ -1560,6 +1567,12 @@ void Constructeur_pile::trigger(int transition)
                 }
                 else{
                     state = ETAT_PILE_INITIAL;
+                     if(cote_droit){
+                        Serial.println("# ASC_DROITE_BREDOUILLE");
+                    }
+                    else{
+                        Serial.println("# ASC_GAUCHE_BREDOUILLE");
+                    }
                 }
                 //state = ETAT_PILE_DECISION_MOVE;
             }
@@ -1610,6 +1623,12 @@ void Constructeur_pile::trigger(int transition)
         case ETAT_PILE_SAISIE_FIN   :
             if (transition == TRANS_PILE_TIME_OUT){ //mettre les autre IR et compagnie
                 state = ETAT_PILE_INITIAL;
+                if(cote_droit){
+                    Serial.println("# ASC_DROITE_STAKED");
+                }
+                else{
+                    Serial.println("# ASC_GAUCHE_STAKED");
+                }
             }
             break;
 
@@ -1671,6 +1690,12 @@ void Constructeur_pile::trigger(int transition)
             if (transition == TRANS_PILE_REPLIS){ //mettre les autre IR et compagnie
                 state = ETAT_PILE_DEPOT_FULL_REPLIS_1;
                 nombre_element = 0;
+                if(cote_droit){
+                    Serial.println("# ASC_DROITE_LACHEE");
+                }
+                else{
+                    Serial.println("# ASC_GAUCHE_LACHEE");
+                }
             }
             break;
 
@@ -1683,6 +1708,12 @@ void Constructeur_pile::trigger(int transition)
           case ETAT_PILE_DEPOT_FULL_REPLIS_2    :
             if (transition == TRANS_PILE_TIME_OUT){ //mettre les autre IR et compagnie
                 state = ETAT_PILE_INITIAL;
+                if(cote_droit){
+                    Serial.println("# ASC_DROITE_REPLIEE");
+                }
+                else{
+                    Serial.println("# ASC_GAUCHE_REPLIEE");
+                }
             }
             break;
 
@@ -1861,7 +1892,13 @@ void Constructeur_pile::in_state_func()
             break;
 
          case ETAT_PILE_DEPOT_FULL_H_PRET    :
-            set_time_out(TEMPO_TEST_PILE);
+            //set_time_out(TEMPO_TEST_PILE);
+            if(cote_droit){
+                Serial.println("# ASC_DROITE_PRET_DEPOT");
+            }
+            else{
+                Serial.println("# ASC_GAUCHE_PRET_DEPOT");
+            }
             Serial.println("ETAT_PILE_DEPOT_FULL_H_PRET   ");
             break;
 

@@ -158,14 +158,14 @@ void ControlLoop::next_asserv_state(){
         case FAR:
             asserv_state = NEAR ;
             write_real_coords();
-            Serial.println("# NEAR");       // pour le master
+            Serial.println("# SLAVE_NEAR");       // pour le master
             break;
 
         // de proche a fini
         case NEAR:
             asserv_state = DONE ;
             write_real_coords();
-            Serial.println("# AFINI");      // pour le master
+            Serial.println("# SLAVE_AFINI");      // pour le master
             bf_type = STOP;
             break;
     }
@@ -464,7 +464,7 @@ void ControlLoop::check_blockage()
    if (count_not_moving > BLOCAGE_MAX)
    {
         write_real_coords();
-        Serial.println("# BLOC");
+        Serial.println("# SLAVE_BLOCAGE");
 
         set_BF(STOP, Coord());
         count_not_moving = 0;
@@ -497,14 +497,14 @@ void ControlLoop::check_adversary()
         write_real_coords();
         sonarg.write_adv_coord();
         set_BF(STOP, Coord());
-        Serial.println("# ENNEMI_GAUCHE");
+        Serial.println("# SLAVE_ENNEMI_GAUCHE");
     }
     else if (sonard.adv_detected(real_coord))
     {
         write_real_coords();
         sonard.write_adv_coord();
         set_BF(STOP, Coord());
-        Serial.println("# ENNEMI_DROITE");
+        Serial.println("# SLAVE_ENNEMI_DROITE");
     }
 
 }
