@@ -1,0 +1,42 @@
+format 76
+
+statecanvas 128002 state_ref 157570 // chope du stand sur la route
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  xyzwh 136 84 2000 681 565
+end
+statecanvas 128130 state_ref 224130 // BF cap
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  xyzwh 248 162 2005 55 33
+end
+statecanvas 128258 state_ref 224258 // BF droite
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  xyzwh 244 322 2005 69 33
+end
+statecanvas 128386 state_ref 224386 // ouverture de pince
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  xyzwh 220 246 2005 125 33
+end
+statecanvas 128514 state_ref 224514 // chope
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  xyzwh 245 411 2005 55 33
+end
+pseudostatecanvas 128642 pseudostate_ref 216450 // initial
+   xyz 266 121 2005
+end
+statecanvas 128770 state_ref 224642 // BF cap vers cinema
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  xyzwh 537 161 2005 127 33
+end
+statecanvas 128898 state_ref 224770 // BF droite sur cinema
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  xyzwh 573 247 2005 135 33
+end
+statecanvas 129026 state_ref 224898 // BF cap sur le coin
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  xyzwh 556 340 2005 117 33
+end
+statecanvas 129154 state_ref 225026 // BF droite sur le coin
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  xyzwh 552 460 2005 131 33
+end
+end

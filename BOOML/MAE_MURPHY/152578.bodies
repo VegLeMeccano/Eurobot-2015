@@ -15,4 +15,4 @@ class startin_block_State
 #ifdef VERBOSE_STATE_MACHINE
 	puts("DEBUG : execute entry behavior of .MAE_MURPHY.startin' block");
 #endif
-cout<<"ready !"<<endl;
+cout<<"MURPHY IS READY, PULL THE TRIGGER !"<<endl;

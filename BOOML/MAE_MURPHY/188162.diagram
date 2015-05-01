@@ -1,0 +1,7 @@
+format 76
+
+statecanvas 128002 state_ref 143234 // mission rush zone centrale
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  xyzwh 172 96 2000 513 361
+end
+end

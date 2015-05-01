@@ -25,18 +25,18 @@ statecanvas 128898 state_ref 179586 // capture de balle
 end
 statecanvas 129026 state_ref 179714 // drop pop corn
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 588.1 308.6 2005 283 112
+  xyzwh 583.1 322.6 2005 283 112
 end
 statecanvas 129154 state_ref 179842 // drop gobelet
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 581.1 469.7 2005 303 121
+  xyzwh 575.1 470.7 2005 303 121
 end
 pseudostatecanvas 129282 pseudostate_ref 181762 // exit_point
    xyz 438.3 707.4 3005 label_xy 401 723
 end
 statecanvas 129410 state_ref 179970 // sortie
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 617.1 646.3 2005 246 103
+  xyzwh 604.1 646.3 2005 246 103
 end
 transitioncanvas 128514 transition_ref 209922 // <transition>
   
@@ -50,22 +50,22 @@ transitioncanvas 129538 transition_ref 210050 // <transition>
 end
 transitioncanvas 129666 transition_ref 210178 // <transition>
   
-  from ref 128386 z 2006 label "assFini" xyz 224 278 3000 to ref 128642
+  from ref 128386 z 2006 label "assFini" xyz 224 278 2006 to ref 128642
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 129922 transition_ref 210434 // <transition>
   
-  from ref 128642 z 2006 label "assFini" xyz 227 470 3000 to ref 128770
+  from ref 128642 z 2006 label "assFini" xyz 227 470 2006 to ref 128770
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 130050 transition_ref 210562 // <transition>
   
-  from ref 128770 z 2006 label "blocage" xyz 458 368 3000 to ref 128898
+  from ref 128770 z 2006 label "blocage" xyz 458 368 2006 to ref 128898
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 130178 transition_ref 210690 // <transition>
   
-  from ref 128898 z 2006 to ref 129026
+  from ref 128898 z 2006 label "fin_montee_bras" xyz 681 278 3000 to ref 129026
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 130306 transition_ref 210818 // <transition>

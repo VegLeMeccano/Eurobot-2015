@@ -5,7 +5,7 @@ class sortie_zone_State
 #ifdef VERBOSE_STATE_MACHINE
     puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission pillage distrib");
 #endif
-    stm._mae_murphy_state._jeu_state._mission_pillage_distrib_state._exit3(stm);
+    stm._mae_murphy_state._jeu_state._mission_pillage_distrib_state._exit6(stm);
     return (bool) 1;
   }
 !!!187394.cpp!!!	create(inout stm : MAE_MURPHY) : void
@@ -18,9 +18,9 @@ class sortie_zone_State
 // on se remet devant la zone de depart
 // BF droite vers la zone enemie
 
-if(vidange_faite() && gobelet_fait())
+if(is_netoyage_zone_done() && is_capture_gobelet_done())
 {
-	mission_accomplie();
+	master->get_gestionnaire_mission()->mission_distrib()->mission_remplie();
 }
 !!!187650.cpp!!!	_upper(inout stm : MAE_MURPHY) : MAE_MURPHY::AnyState
   return &stm._mae_murphy_state._jeu_state._mission_pillage_distrib_state;

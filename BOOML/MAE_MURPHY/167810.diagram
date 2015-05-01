@@ -12,7 +12,7 @@ pseudostatecanvas 128258 pseudostate_ref 189314 // exit_point
 end
 statecanvas 128386 state_ref 188034 // faire des maneuvre
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 261 223 2005 207 61
+  xyzwh 146 209 2005 487 89
 end
 transitioncanvas 128514 transition_ref 220546 // <transition>
   

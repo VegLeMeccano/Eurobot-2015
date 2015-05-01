@@ -29,14 +29,6 @@ return (_current_state != 0);
     _current_state->assFini(*this);
   }
   return (_current_state != 0);
-!!!157570.cpp!!!	adversaire() : bool
-  if (_current_state != 0) {
-#ifdef VERBOSE_STATE_MACHINE
-    puts("DEBUG : fire trigger adversaire");
-#endif
-    _current_state->adversaire(*this);
-  }
-  return (_current_state != 0);
 !!!158338.cpp!!!	time_out() : bool
   if (_current_state != 0) {
 #ifdef VERBOSE_STATE_MACHINE
@@ -124,5 +116,37 @@ return (_current_state != 0);
     puts("DEBUG : fire trigger mission_claps");
 #endif
     _current_state->mission_claps(*this);
+  }
+  return (_current_state != 0);
+!!!224002.cpp!!!	pince_ouverte() : bool
+  if (_current_state != 0) {
+#ifdef VERBOSE_STATE_MACHINE
+    puts("DEBUG : fire trigger pince_ouverte");
+#endif
+    _current_state->pince_ouverte(*this);
+  }
+  return (_current_state != 0);
+!!!225282.cpp!!!	pince_stand_by() : bool
+  if (_current_state != 0) {
+#ifdef VERBOSE_STATE_MACHINE
+    puts("DEBUG : fire trigger pince_stand_by");
+#endif
+    _current_state->pince_stand_by(*this);
+  }
+  return (_current_state != 0);
+!!!233602.cpp!!!	distrib_deboite() : bool
+  if (_current_state != 0) {
+#ifdef VERBOSE_STATE_MACHINE
+    puts("DEBUG : fire trigger distrib_deboite");
+#endif
+    _current_state->distrib_deboite(*this);
+  }
+  return (_current_state != 0);
+!!!247426.cpp!!!	fin_montee_bras() : bool
+  if (_current_state != 0) {
+#ifdef VERBOSE_STATE_MACHINE
+    puts("DEBUG : fire trigger fin_montee_bras");
+#endif
+    _current_state->fin_montee_bras(*this);
   }
   return (_current_state != 0);

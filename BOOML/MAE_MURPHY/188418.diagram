@@ -1,0 +1,42 @@
+format 76
+
+statecanvas 128002 state_ref 157698 // chope du coin
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  xyzwh 185 108 2000 667 555
+end
+pseudostatecanvas 128130 pseudostate_ref 216578 // initial
+   xyz 321 180 2005
+end
+statecanvas 128258 state_ref 225154 // ouverture de pince
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  xyzwh 260 226 2005 125 33
+end
+statecanvas 128386 state_ref 225282 // avance
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  xyzwh 275 290 2005 59 33
+end
+statecanvas 128514 state_ref 225410 // chope 1
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  xyzwh 273 385 2005 63 33
+end
+statecanvas 128642 state_ref 225538 // re ouverture
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  xyzwh 273 459 2005 91 33
+end
+statecanvas 128770 state_ref 225666 // avance seconde
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  xyzwh 538 224 2005 109 33
+end
+statecanvas 128898 state_ref 225794 // chope 2 stands et gobelet
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  xyzwh 509 315 2005 163 33
+end
+statecanvas 129026 state_ref 225922 // BF cap
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  xyzwh 494 434 2005 55 33
+end
+statecanvas 129154 state_ref 226050 // claps 1
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  xyzwh 610 490 2005 59 33
+end
+end

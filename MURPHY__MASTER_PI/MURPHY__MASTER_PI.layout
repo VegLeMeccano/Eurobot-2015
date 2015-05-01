@@ -1,172 +1,28 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Debug" />
-<<<<<<< HEAD
-	<File name="Coord.cpp" open="0" top="0" tabpos="0">
-		<Cursor position="1549" topLine="66" />
+	<File name="Coord.cpp" open="1" top="0" tabpos="0">
+		<Cursor position="0" topLine="0" />
 	</File>
-	<File name="Element_Robot.h" open="0" top="0" tabpos="0">
-		<Cursor position="235" topLine="0" />
+	<File name="Gestionnaire_Mission.cpp" open="1" top="0" tabpos="0">
+		<Cursor position="0" topLine="0" />
 	</File>
-	<File name="Gestionnaire_Mission.cpp" open="0" top="0" tabpos="1">
-		<Cursor position="17581" topLine="426" />
+	<File name="Gestionnaire_Mission.h" open="0" top="0" tabpos="0">
+		<Cursor position="1607" topLine="54" />
 	</File>
-	<File name="Gestionnaire_Mission.h" open="0" top="0" tabpos="2">
-		<Cursor position="2135" topLine="76" />
+	<File name="MAE_MURPHY.cpp" open="1" top="1" tabpos="3">
+		<Cursor position="150607" topLine="3380" />
 	</File>
-	<File name="MAE_MURPHY.cpp" open="0" top="0" tabpos="1">
-		<Cursor position="2" topLine="0" />
+	<File name="Master.cpp" open="1" top="0" tabpos="2">
+		<Cursor position="532" topLine="45" />
 	</File>
-	<File name="Master.cpp" open="0" top="0" tabpos="6">
-		<Cursor position="1245" topLine="0" />
+	<File name="Mission.cpp" open="0" top="0" tabpos="0">
+		<Cursor position="338" topLine="0" />
 	</File>
-	<File name="Master.h" open="0" top="0" tabpos="5">
-		<Cursor position="404" topLine="15" />
+	<File name="Protocole_COM.cpp" open="1" top="0" tabpos="1">
+		<Cursor position="3917" topLine="148" />
 	</File>
-	<File name="Mission.cpp" open="0" top="0" tabpos="3">
-		<Cursor position="379" topLine="0" />
-	</File>
-	<File name="Mission.h" open="0" top="0" tabpos="0">
-		<Cursor position="875" topLine="12" />
-	</File>
-	<File name="Mission_Chiage_Balle.cpp" open="0" top="0" tabpos="5">
-		<Cursor position="357" topLine="0" />
-	</File>
-	<File name="Mission_Chiage_Balle.h" open="0" top="0" tabpos="0">
-		<Cursor position="468" topLine="4" />
-	</File>
-	<File name="Mission_Claps.cpp" open="0" top="0" tabpos="6">
-		<Cursor position="1069" topLine="0" />
-	</File>
-	<File name="Mission_Claps.h" open="0" top="0" tabpos="0">
-		<Cursor position="381" topLine="0" />
-	</File>
-	<File name="Mission_Depot_Tour_Depart.cpp" open="0" top="0" tabpos="7">
-		<Cursor position="956" topLine="26" />
-	</File>
-	<File name="Mission_Depot_Tour_Depart.h" open="0" top="0" tabpos="0">
-		<Cursor position="541" topLine="0" />
-	</File>
-	<File name="Mission_Depot_Tour_Estrade.cpp" open="0" top="0" tabpos="8">
-		<Cursor position="388" topLine="0" />
-	</File>
-	<File name="Mission_Depot_Tour_Estrade.h" open="0" top="0" tabpos="0">
-		<Cursor position="498" topLine="0" />
-	</File>
-	<File name="Mission_Distrib.cpp" open="0" top="0" tabpos="9">
-		<Cursor position="228" topLine="18" />
-	</File>
-	<File name="Mission_Distrib.h" open="0" top="0" tabpos="0">
-		<Cursor position="418" topLine="2" />
-	</File>
-	<File name="Mission_Zone_Ennemie.cpp" open="0" top="0" tabpos="4">
-		<Cursor position="445" topLine="37" />
-	</File>
-	<File name="Mission_Zone_Ennemie.h" open="0" top="0" tabpos="0">
-		<Cursor position="404" topLine="6" />
-	</File>
-	<File name="Mission_Zone_centrale.cpp" open="0" top="0" tabpos="4">
-		<Cursor position="1105" topLine="26" />
-	</File>
-	<File name="Mission_Zone_centrale.h" open="0" top="0" tabpos="0">
-		<Cursor position="506" topLine="5" />
-	</File>
-	<File name="Period.cpp" open="0" top="0" tabpos="20">
-		<Cursor position="386" topLine="11" />
-	</File>
-	<File name="Period.h" open="0" top="0" tabpos="19">
-		<Cursor position="56" topLine="0" />
-	</File>
-	<File name="Protocole_COM.cpp" open="0" top="0" tabpos="7">
-		<Cursor position="9243" topLine="244" />
-	</File>
-	<File name="main.cpp" open="0" top="0" tabpos="4">
-		<Cursor position="217" topLine="0" />
-=======
-	<File name="Mission_Claps.cpp" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="0" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="Mission_Zone_centrale.cpp" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="0" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="Mission_Depot_Tour_Depart.cpp" open="0" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="0" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="Mission_Chiage_Balle.cpp" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="0" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="Master.h" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="0" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="Period.cpp" open="0" top="0" tabpos="20" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="0" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="Mission.cpp" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="0" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="Mission_Depot_Tour_Estrade.cpp" open="0" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="0" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="Mission_Distrib.cpp" open="0" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="0" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="Gestionnaire_Mission.cpp" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="0" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="Gestionnaire_Mission.h" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="0" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="Protocole_COM.cpp" open="0" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="9805" topLine="324" />
-		</Cursor>
-	</File>
-	<File name="MAE_MURPHY.cpp" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="0" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="main.cpp" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="0" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="Mission_Zone_Ennemie.cpp" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="0" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="Period.h" open="0" top="0" tabpos="19" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="0" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="Master.cpp" open="1" top="1" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="0" topLine="0" />
-		</Cursor>
->>>>>>> origin/master
+	<File name="main.cpp" open="0" top="0" tabpos="0">
+		<Cursor position="1062" topLine="51" />
 	</File>
 </CodeBlocks_layout_file>

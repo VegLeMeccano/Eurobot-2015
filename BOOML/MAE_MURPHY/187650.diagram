@@ -1,0 +1,7 @@
+format 76
+
+statecanvas 128002 state_ref 158978 // claps central
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  xyzwh 222 80 2000 433 335
+end
+end

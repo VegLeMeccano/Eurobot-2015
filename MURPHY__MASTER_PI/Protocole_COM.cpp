@@ -162,7 +162,7 @@ void Protocole_COM::executeinstr()
         if(s.find("CLAPS_GAUCHE_REPLIS") != string::npos)
         {
             cout<<"[Master] start enleve"<<endl;
-            master->get_MAE_COOP_R()->stratEnleve();
+            //master->get_MAE_COOP_R()->stratEnleve();
         }
 
         //fin des 90s
@@ -170,6 +170,7 @@ void Protocole_COM::executeinstr()
         {
             cout<<"[Master] end of game"<<endl;
             //master->get_MAE_COOP_R()->stratEnleve();
+            master->get_gestionnaire_mission()->get_element_robot()->pop_corn_aspire();
         }
 
 
@@ -188,6 +189,7 @@ void Protocole_COM::executeinstr()
         {
             cout<<"[Master] etat asserv, fini"<<endl;
             //master->get_MAE_COOP_R()->assFini();
+
         }
 
         // check si l'asserv est fini
@@ -219,7 +221,7 @@ void Protocole_COM::executeinstr()
         if(s.find("ASC_DROITE_PINCE_OUVERTE") != string::npos)
         {
             cout<<"[Master] etat ascenseur droite, pince ouverte"<<endl;
-            //transistion sur mae... pince ouverte
+            master->get_gestionnaire_mission()->get_mae_murphy()->pince_ouverte();
         }
 
         // check si le stand a fini par etre stocke pour bouger ensuite
@@ -227,14 +229,14 @@ void Protocole_COM::executeinstr()
         {
             cout<<"[Master] etat ascenseur droite, un stand de plus !"<<endl;
             master->get_gestionnaire_mission()->get_element_robot()->pile_droite_incr();
-            // transistion sur mae... ASC_UP_TO_DATE
+            master->get_gestionnaire_mission()->get_mae_murphy()->pince_stand_by();
         }
 
         // check si le stand a pas été pris pour bouger ensuite
         if(s.find("ASC_DROITE_BREDOUILLE") != string::npos)
         {
             cout<<"[Master] etat ascenseur droite, bredouille !"<<endl;
-            // transistion sur mae... ASC_UP_TO_DATE
+            master->get_gestionnaire_mission()->get_mae_murphy()->pince_stand_by();
         }
 
           // check si la pile est prete a etre deposé
@@ -266,6 +268,7 @@ void Protocole_COM::executeinstr()
         if(s.find("ASC_GAUCHE_PINCE_OUVERTE") != string::npos)
         {
             cout<<"[Master] etat ascenseur gauche, pince ouverte"<<endl;
+            master->get_gestionnaire_mission()->get_mae_murphy()->pince_ouverte();
             //transistion sur mae... pince ouverte
         }
 
@@ -273,7 +276,8 @@ void Protocole_COM::executeinstr()
         if(s.find("ASC_GAUCHE_STAKED") != string::npos)
         {
             cout<<"[Master] etat ascenseur gauche, un stand de plus !"<<endl;
-            master->get_gestionnaire_mission()->get_element_robot()->pile_droite_incr();
+            master->get_gestionnaire_mission()->get_element_robot()->pile_gauche_incr();
+            master->get_gestionnaire_mission()->get_mae_murphy()->pince_stand_by();
             // transistion sur mae... ASC_UP_TO_DATE
         }
 
@@ -281,6 +285,7 @@ void Protocole_COM::executeinstr()
         if(s.find("ASC_GAUCHE_BREDOUILLE") != string::npos)
         {
             cout<<"[Master] etat ascenseur gauche, bredouille !"<<endl;
+            master->get_gestionnaire_mission()->get_mae_murphy()->pince_stand_by();
             // transistion sur mae... ASC_UP_TO_DATE
         }
 

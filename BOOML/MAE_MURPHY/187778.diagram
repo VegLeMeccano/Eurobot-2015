@@ -1,0 +1,7 @@
+format 76
+
+statecanvas 128002 state_ref 158850 // waypoint initial
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  xyzwh 269 76 2000 459 323
+end
+end

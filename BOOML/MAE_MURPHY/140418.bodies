@@ -26,15 +26,6 @@ class AnyState
   else
     puts("DEBUG : transition assFini not expected");
 #endif
-!!!157698.cpp!!!	adversaire(inout stm : MAE_MURPHY) : void
-  AnyState * st = _upper(stm);
-
-  if (st != 0)
-    st->adversaire(stm);
-#ifdef VERBOSE_STATE_MACHINE
-  else
-    puts("DEBUG : transition adversaire not expected");
-#endif
 !!!158466.cpp!!!	time_out(inout stm : MAE_MURPHY) : void
   AnyState * st = _upper(stm);
 
@@ -124,4 +115,40 @@ class AnyState
 #ifdef VERBOSE_STATE_MACHINE
   else
     puts("DEBUG : transition mission_claps not expected");
+#endif
+!!!224130.cpp!!!	pince_ouverte(inout stm : MAE_MURPHY) : void
+  AnyState * st = _upper(stm);
+
+  if (st != 0)
+    st->pince_ouverte(stm);
+#ifdef VERBOSE_STATE_MACHINE
+  else
+    puts("DEBUG : transition pince_ouverte not expected");
+#endif
+!!!225410.cpp!!!	pince_stand_by(inout stm : MAE_MURPHY) : void
+  AnyState * st = _upper(stm);
+
+  if (st != 0)
+    st->pince_stand_by(stm);
+#ifdef VERBOSE_STATE_MACHINE
+  else
+    puts("DEBUG : transition pince_stand_by not expected");
+#endif
+!!!233730.cpp!!!	distrib_deboite(inout stm : MAE_MURPHY) : void
+  AnyState * st = _upper(stm);
+
+  if (st != 0)
+    st->distrib_deboite(stm);
+#ifdef VERBOSE_STATE_MACHINE
+  else
+    puts("DEBUG : transition distrib_deboite not expected");
+#endif
+!!!247554.cpp!!!	fin_montee_bras(inout stm : MAE_MURPHY) : void
+  AnyState * st = _upper(stm);
+
+  if (st != 0)
+    st->fin_montee_bras(stm);
+#ifdef VERBOSE_STATE_MACHINE
+  else
+    puts("DEBUG : transition fin_montee_bras not expected");
 #endif

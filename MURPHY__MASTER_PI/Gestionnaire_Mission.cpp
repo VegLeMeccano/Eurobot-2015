@@ -17,10 +17,20 @@ Gestionnaire_Mission::Gestionnaire_Mission():
         //, mae_murphy(),
         /// period_jeu(PERIODE_JEU),
         cap_to_mission(0),
-        alignement_to_mission(false)
+        alignement_to_mission(false),
+        premiere_entree_decision(true)
 {
     //mae_murphy.create();
 
+}
+
+bool Gestionnaire_Mission::commencement()
+{
+    return premiere_entree_decision;
+}
+void Gestionnaire_Mission::commencement_end()
+{
+    premiere_entree_decision = false;
 }
 
 void Gestionnaire_Mission::set_coord(Coord coord_reel_)

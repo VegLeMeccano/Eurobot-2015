@@ -16,7 +16,7 @@ class mission_pillage_distrib_State
 // mission quart haut, capture du gobelet pres de l'escalier
 !!!160386.cpp!!!	_upper(inout stm : MAE_MURPHY) : MAE_MURPHY::AnyState
   return &stm._mae_murphy_state._jeu_state;
-!!!210178.cpp!!!	_exit3(inout stm : MAE_MURPHY) : void
+!!!236290.cpp!!!	_exit6(inout stm : MAE_MURPHY) : void
   {
     stm._set_currentState(stm._mae_murphy_state._jeu_state._decision_state);
 #ifdef VERBOSE_STATE_MACHINE

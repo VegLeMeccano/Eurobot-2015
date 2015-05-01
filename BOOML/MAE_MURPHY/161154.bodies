@@ -37,6 +37,7 @@ class decision_State
 #ifdef VERBOSE_STATE_MACHINE
     puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission rush zone centrale");
 #endif
+    stm._mae_murphy_state._jeu_state._mission_rush_zone_centrale_state.create(stm);
   }
 !!!196866.cpp!!!	mission_depot_estrade(inout stm : MAE_MURPHY) : void
   {
@@ -52,6 +53,9 @@ class decision_State
 #ifdef VERBOSE_STATE_MACHINE
 	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.decision");
 #endif
+cout<<"DECISION DE MISSION"<<endl;
+master->get_gestionnaire_mission()->decision_mission();
+
 // decision du gestionnaire de mission
 // consulte les mission restante à faire et dans quel ordre
 // etat de depart apres sortie d'evitement 

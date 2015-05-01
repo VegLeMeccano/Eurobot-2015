@@ -60,7 +60,7 @@ class Gestionnaire_Mission
         float cap_mission;
         bool alignement_to_mission;
 
-        //MAE_MURPHY mae_murphy;
+        MAE_MURPHY mae_murphy;
 
         // couleur et temps restant
         int couleur;
@@ -72,6 +72,7 @@ class Gestionnaire_Mission
         int strategie_2;
         int mission_sortie_evitement;
         bool sortie_evitement;
+        bool premiere_entree_decision;
 
     public:
         Gestionnaire_Mission();
@@ -84,6 +85,9 @@ class Gestionnaire_Mission
         void set_couleur(int couleur_);
         void decision_mission();            // appel de triger sur la mission a realiser
         void affiche_mission_active();
+
+        bool commencement();
+        void commencement_end();
 
         Mission_Claps*                  get_mission_claps();
         Mission_Distrib*                get_mission_distrib();
@@ -100,7 +104,7 @@ class Gestionnaire_Mission
         float get_y_to_mission();
         float get_cap_mission();
 
-        //MAE_MURPHY* get_mae_murphy();
+        MAE_MURPHY* get_mae_murphy();
 
         void actualisation_Priorite();
         void actualisation_temps_restant();

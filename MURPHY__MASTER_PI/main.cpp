@@ -65,7 +65,7 @@ int main()
     cout << "[MASTER_MURPHY] INITIALISATION DU MASTER" << endl;
     protocole_com = new Protocole_COM(master);
 
-
+    master->get_gestionnaire_mission()->commencement();
 
     cout<<"________________________________________"<<endl;
     cout << "[MASTER_MURPHY] boucle de jeu" << endl;
