@@ -1,14 +1,25 @@
 class chope_du_stand_sur_la_route_State
-!!!161026.cpp!!!	_completion(inout stm : MAE_MURPHY) : bool
+!!!161154.cpp!!!	create(inout stm : MAE_MURPHY) : void
+  _doentry(stm);
+  {
+    stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_claps_state._chope_du_stand_sur_la_route_state._bf_cap_state);
+#ifdef VERBOSE_STATE_MACHINE
+    puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission claps.chope du stand sur la route.BF cap");
+#endif
+    stm._mae_murphy_state._jeu_state._mission_claps_state._chope_du_stand_sur_la_route_state._bf_cap_state.create(stm);
+  }
+!!!161282.cpp!!!	_upper(inout stm : MAE_MURPHY) : MAE_MURPHY::AnyState
+  return &stm._mae_murphy_state._jeu_state._mission_claps_state;
+!!!268290.cpp!!!	_exit9(inout stm : MAE_MURPHY) : void
   {
     stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_claps_state._chope_du_coin_state);
 #ifdef VERBOSE_STATE_MACHINE
     puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission claps.chope du coin");
 #endif
     stm._mae_murphy_state._jeu_state._mission_claps_state._chope_du_coin_state.create(stm);
-    return (bool) 1;
   }
-!!!161154.cpp!!!	create(inout stm : MAE_MURPHY) : void
-	_completion(stm);
-!!!161282.cpp!!!	_upper(inout stm : MAE_MURPHY) : MAE_MURPHY::AnyState
-  return &stm._mae_murphy_state._jeu_state._mission_claps_state;
+!!!268418.cpp!!!	_doentry(inout stm : MAE_MURPHY) : void
+#ifdef VERBOSE_STATE_MACHINE
+	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission claps.chope du stand sur la route");
+#endif
+// chope le stand devant la zone de depart

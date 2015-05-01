@@ -155,21 +155,22 @@ void Protocole_COM::executeinstr()
         // start mis
         if(s.find("CLAPS_DROITE_REPLIS") != string::npos)
         {
-            cout<<"[Master] CLAPS_DROITE_REPLIS "<<endl;
+            cout<<"[Master] CLAPS_DROITE_REPLIS DD"<<endl;
+            master->get_MAE_COOP_R()->claps_replie();
         }
 
         //start retiré
         if(s.find("CLAPS_GAUCHE_REPLIS") != string::npos)
         {
-            cout<<"[Master] start enleve"<<endl;
-            //master->get_MAE_COOP_R()->stratEnleve();
+            cout<<"[Master]claps replie GG"<<endl;
+            master->get_MAE_COOP_R()->claps_replie();
         }
 
         //fin des 90s
         if(s.find("DISTRIB_DEBOITE") != string::npos)
         {
             cout<<"[Master] end of game"<<endl;
-            //master->get_MAE_COOP_R()->stratEnleve();
+            master->get_MAE_COOP_R()->distrib_deboite();
             master->get_gestionnaire_mission()->get_element_robot()->pop_corn_aspire();
         }
 
@@ -243,21 +244,22 @@ void Protocole_COM::executeinstr()
         if(s.find("ASC_DROITE_PRET_DEPOT") != string::npos)
         {
             cout<<"[Master] etat ascenseur droite, pret à poser !"<<endl;
-            //
+            //pince_ready_to_drop();
         }
 
           // check si la pile est prete a etre deposé
         if(s.find("ASC_DROITE_LACHEE") != string::npos)
         {
             cout<<"[Master] etat ascenseur droite, pile lachée !"<<endl;
-            //
+            master->get_gestionnaire_mission()->get_element_robot()->pile_droite_reset();
+            //pince_lache();
         }
 
           // check si la pile est prete a etre deposé
         if(s.find("ASC_DROITE_REPLIEE") != string::npos)
         {
             cout<<"[Master] etat ascenseur droite, replie !"<<endl;
-            //
+            // pince_range();
         }
 
 
@@ -300,6 +302,7 @@ void Protocole_COM::executeinstr()
         if(s.find("ASC_GAUCHE_LACHEE") != string::npos)
         {
             cout<<"[Master] etat ascenseur gauche, pile lachée !"<<endl;
+            master->get_gestionnaire_mission()->get_element_robot()->pile_gauche_reset();
             //
         }
 
@@ -318,6 +321,7 @@ void Protocole_COM::executeinstr()
         if(s.find("BRAS_DROIT_FIN _MONTEE") != string::npos)
         {
             cout<<"[Master] etat bras droite, fin de montee"<<endl;
+            master->get_MAE_COOP_R()->fin_montee_bras();
             //transistion sur mae... pince ouverte
         }
 

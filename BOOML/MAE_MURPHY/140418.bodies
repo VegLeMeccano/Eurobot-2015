@@ -62,15 +62,6 @@ class AnyState
   else
     puts("DEBUG : transition mission_distrib not expected");
 #endif
-!!!195202.cpp!!!	mission_depot_tour(inout stm : MAE_MURPHY) : void
-  AnyState * st = _upper(stm);
-
-  if (st != 0)
-    st->mission_depot_tour(stm);
-#ifdef VERBOSE_STATE_MACHINE
-  else
-    puts("DEBUG : transition mission_depot_tour not expected");
-#endif
 !!!195586.cpp!!!	mission_zone_ennemie(inout stm : MAE_MURPHY) : void
   AnyState * st = _upper(stm);
 
@@ -80,15 +71,6 @@ class AnyState
   else
     puts("DEBUG : transition mission_zone_ennemie not expected");
 #endif
-!!!195970.cpp!!!	mission_chiage(inout stm : MAE_MURPHY) : void
-  AnyState * st = _upper(stm);
-
-  if (st != 0)
-    st->mission_chiage(stm);
-#ifdef VERBOSE_STATE_MACHINE
-  else
-    puts("DEBUG : transition mission_chiage not expected");
-#endif
 !!!196354.cpp!!!	mission_zone_centrale(inout stm : MAE_MURPHY) : void
   AnyState * st = _upper(stm);
 
@@ -97,15 +79,6 @@ class AnyState
 #ifdef VERBOSE_STATE_MACHINE
   else
     puts("DEBUG : transition mission_zone_centrale not expected");
-#endif
-!!!196738.cpp!!!	mission_depot_estrade(inout stm : MAE_MURPHY) : void
-  AnyState * st = _upper(stm);
-
-  if (st != 0)
-    st->mission_depot_estrade(stm);
-#ifdef VERBOSE_STATE_MACHINE
-  else
-    puts("DEBUG : transition mission_depot_estrade not expected");
 #endif
 !!!200706.cpp!!!	mission_claps(inout stm : MAE_MURPHY) : void
   AnyState * st = _upper(stm);
@@ -151,4 +124,40 @@ class AnyState
 #ifdef VERBOSE_STATE_MACHINE
   else
     puts("DEBUG : transition fin_montee_bras not expected");
+#endif
+!!!270594.cpp!!!	claps_replie(inout stm : MAE_MURPHY) : void
+  AnyState * st = _upper(stm);
+
+  if (st != 0)
+    st->claps_replie(stm);
+#ifdef VERBOSE_STATE_MACHINE
+  else
+    puts("DEBUG : transition claps_replie not expected");
+#endif
+!!!287362.cpp!!!	mission_depot_tour_depart(inout stm : MAE_MURPHY) : void
+  AnyState * st = _upper(stm);
+
+  if (st != 0)
+    st->mission_depot_tour_depart(stm);
+#ifdef VERBOSE_STATE_MACHINE
+  else
+    puts("DEBUG : transition mission_depot_tour_depart not expected");
+#endif
+!!!287746.cpp!!!	mission_chiage_balle(inout stm : MAE_MURPHY) : void
+  AnyState * st = _upper(stm);
+
+  if (st != 0)
+    st->mission_chiage_balle(stm);
+#ifdef VERBOSE_STATE_MACHINE
+  else
+    puts("DEBUG : transition mission_chiage_balle not expected");
+#endif
+!!!288130.cpp!!!	mission_depot_tour_estrade(inout stm : MAE_MURPHY) : void
+  AnyState * st = _upper(stm);
+
+  if (st != 0)
+    st->mission_depot_tour_estrade(stm);
+#ifdef VERBOSE_STATE_MACHINE
+  else
+    puts("DEBUG : transition mission_depot_tour_estrade not expected");
 #endif

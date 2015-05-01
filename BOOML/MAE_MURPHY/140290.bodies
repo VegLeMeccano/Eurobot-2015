@@ -70,14 +70,6 @@ return (_current_state != 0);
     _current_state->mission_distrib(*this);
   }
   return (_current_state != 0);
-!!!195074.cpp!!!	mission_depot_tour() : bool
-  if (_current_state != 0) {
-#ifdef VERBOSE_STATE_MACHINE
-    puts("DEBUG : fire trigger mission_depot_tour");
-#endif
-    _current_state->mission_depot_tour(*this);
-  }
-  return (_current_state != 0);
 !!!195458.cpp!!!	mission_zone_ennemie() : bool
   if (_current_state != 0) {
 #ifdef VERBOSE_STATE_MACHINE
@@ -86,28 +78,12 @@ return (_current_state != 0);
     _current_state->mission_zone_ennemie(*this);
   }
   return (_current_state != 0);
-!!!195842.cpp!!!	mission_chiage() : bool
-  if (_current_state != 0) {
-#ifdef VERBOSE_STATE_MACHINE
-    puts("DEBUG : fire trigger mission_chiage");
-#endif
-    _current_state->mission_chiage(*this);
-  }
-  return (_current_state != 0);
 !!!196226.cpp!!!	mission_zone_centrale() : bool
   if (_current_state != 0) {
 #ifdef VERBOSE_STATE_MACHINE
     puts("DEBUG : fire trigger mission_zone_centrale");
 #endif
     _current_state->mission_zone_centrale(*this);
-  }
-  return (_current_state != 0);
-!!!196610.cpp!!!	mission_depot_estrade() : bool
-  if (_current_state != 0) {
-#ifdef VERBOSE_STATE_MACHINE
-    puts("DEBUG : fire trigger mission_depot_estrade");
-#endif
-    _current_state->mission_depot_estrade(*this);
   }
   return (_current_state != 0);
 !!!200578.cpp!!!	mission_claps() : bool
@@ -148,5 +124,37 @@ return (_current_state != 0);
     puts("DEBUG : fire trigger fin_montee_bras");
 #endif
     _current_state->fin_montee_bras(*this);
+  }
+  return (_current_state != 0);
+!!!270466.cpp!!!	claps_replie() : bool
+  if (_current_state != 0) {
+#ifdef VERBOSE_STATE_MACHINE
+    puts("DEBUG : fire trigger claps_replie");
+#endif
+    _current_state->claps_replie(*this);
+  }
+  return (_current_state != 0);
+!!!287234.cpp!!!	mission_depot_tour_depart() : bool
+  if (_current_state != 0) {
+#ifdef VERBOSE_STATE_MACHINE
+    puts("DEBUG : fire trigger mission_depot_tour_depart");
+#endif
+    _current_state->mission_depot_tour_depart(*this);
+  }
+  return (_current_state != 0);
+!!!287618.cpp!!!	mission_chiage_balle() : bool
+  if (_current_state != 0) {
+#ifdef VERBOSE_STATE_MACHINE
+    puts("DEBUG : fire trigger mission_chiage_balle");
+#endif
+    _current_state->mission_chiage_balle(*this);
+  }
+  return (_current_state != 0);
+!!!288002.cpp!!!	mission_depot_tour_estrade() : bool
+  if (_current_state != 0) {
+#ifdef VERBOSE_STATE_MACHINE
+    puts("DEBUG : fire trigger mission_depot_tour_estrade");
+#endif
+    _current_state->mission_depot_tour_estrade(*this);
   }
   return (_current_state != 0);

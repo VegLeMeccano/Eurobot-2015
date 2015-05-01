@@ -14,14 +14,14 @@ class set_X_Y_CAP_State
 	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Recalage Initial.set X Y CAP");
 #endif
 if(master->is_Jaune()){
-cout<<"SET X Y CAP ORIGIN, COULEUR JAUNE"<<endl;
-// X = -1500 + 70 +96 = -1334
-// terrain, bordure, robot (axe de rotation)
-serialPrint(master->getPortSerie(),"S0 -1334 996 0 \n");
+	cout<<"SET X Y CAP ORIGIN, COULEUR JAUNE"<<endl;
+	// X = -1500 + 70 +96 = -1334
+	// terrain, bordure, robot (axe de rotation)
+	serialPrint(master->getPortSerie(),"S0 -1334 996 0 \n");
 }
 if(master->is_Vert()){
-cout<<"SET X Y CAP ORIGIN, COULEUR VERT"<<endl;
-serialPrint(master->getPortSerie(),"S0 1334 996 180 \n");
+	cout<<"SET X Y CAP ORIGIN, COULEUR VERT"<<endl;
+	serialPrint(master->getPortSerie(),"S0 1334 996 180 \n");
 }
 master->set_time_out(300);
 !!!237698.cpp!!!	_upper(inout stm : MAE_MURPHY) : MAE_MURPHY::AnyState

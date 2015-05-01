@@ -22,20 +22,6 @@ statecanvas 128642 state_ref 201474 // orientation cap mission
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
   xyzwh 714 677 2005 325 145
 end
-pseudostatecanvas 128770 pseudostate_ref 202626 // choice
-   xyz 397 495 2005
-end
-transitioncanvas 129026 transition_ref 241538 // <transition>
-  decenter_begin 754
-  
-  from ref 128770 z 2006 label "[loin]" xyz 521 410 2006 to ref 128386
-  write_horizontally default show_definition default drawing_language default
-end
-transitioncanvas 129154 transition_ref 241666 // <transition>
-  
-  from ref 128770 z 2006 label "[!loin]" xyz 565 590 2006 to ref 128642
-  write_horizontally default show_definition default drawing_language default
-end
 transitioncanvas 129666 transition_ref 241922 // <transition>
   
   from ref 128386 z 2006 label "assFini" xyz 759 351 2006 to ref 128514

@@ -13,7 +13,7 @@ statecanvas 128258 state_ref 128258 // Initialisation
 end
 statecanvas 128386 state_ref 128386 // Jeu
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 172.968 508.125 2005 215 61
+  xyzwh 124.968 509.125 2005 263 89
 end
 statecanvas 128514 state_ref 128514 // Evitement
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
@@ -31,11 +31,11 @@ statecanvas 130946 state_ref 165762 // startin' block
   xyzwh 139.121 387.362 2005 367 61
 end
 pseudostatecanvas 131330 pseudostate_ref 189314 // exit_point
-   xyz 531.011 530.249 3005 label_xy 466 519
+   xyz 511.011 529.249 3005 label_xy 446 518
 end
 transitioncanvas 128898 transition_ref 128386 // <transition>
   
-  from ref 128386 z 2006 label "evitement" xyz 403 586 2006 to point 444 580
+  from ref 128386 z 2006 label "evitement" xyz 403 589 2006 to point 444 580
   line 129538 z 2006 to ref 128514
   write_horizontally default show_definition default drawing_language default
 end
@@ -56,7 +56,7 @@ transitioncanvas 131074 transition_ref 192386 // <transition>
 end
 transitioncanvas 131202 transition_ref 192514 // <transition>
   
-  from ref 130946 z 2006 label "start_enleve" xyz 237 456 2006 to ref 128386
+  from ref 130946 z 2006 label "start_enleve" xyz 228 456 2006 to ref 128386
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 131458 transition_ref 220802 // <transition>

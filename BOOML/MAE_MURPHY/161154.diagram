@@ -2,62 +2,84 @@ format 76
 
 statecanvas 128002 state_ref 143490 // mission depot de tour zone depart
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 163 50 2000 969 709
+  xyzwh 16.003 36.4909 2000 1511 877
 end
 pseudostatecanvas 128130 pseudostate_ref 181890 // initial
-   xyz 340 110 2005
+   xyz 370.715 96.6467 2005
 end
 statecanvas 128258 state_ref 180226 // way point initial
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 217 165 2005 265 131
+  xyzwh 247.651 149.841 2005 275 69
 end
 pseudostatecanvas 128514 pseudostate_ref 182018 // exit_point
-   xyz 683 665 3005 label_xy 678 684
+   xyz 1368.63 423.202 3005 label_xy 1363 442
 end
 statecanvas 128770 state_ref 180482 // depot une tour
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 548 322 2005 315 89
+  xyzwh 163.309 391.83 2005 570 285
 end
 statecanvas 128898 state_ref 180610 // avance
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 556 196 2005 189 63
+  xyzwh 860.722 445.973 2005 333 75
 end
 statecanvas 129666 state_ref 180738 // recule
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 594 456 2005 157 67
+  xyzwh 414.982 741.798 2005 337 75
 end
-statecanvas 129794 state_ref 180866 // sortie
+pseudostatecanvas 130690 pseudostate_ref 264578 // exit_point
+   xyz 493.33 201.293 3005 label_xy 489 220
+end
+statecanvas 130946 state_ref 255490 // prepare la pose
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 657 577 2005 109 75
+  xyzwh 766.868 88.917 2005 565 313
+end
+statecanvas 131330 state_ref 255618 // rembale les pinces
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  xyzwh 911.978 740.528 2005 311 75
+end
+statecanvas 131586 state_ref 255746 // BF cap vers la zone adverse
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  xyzwh 1147.61 537.862 2005 300 155
 end
 transitioncanvas 128386 transition_ref 211330 // <transition>
   
   from ref 128130 z 2006 to ref 128258
   write_horizontally default show_definition default drawing_language default
 end
-transitioncanvas 129026 transition_ref 211458 // <transition>
-  
-  from ref 128258 z 2006 to ref 128898
-  write_horizontally default show_definition default drawing_language default
-end
-transitioncanvas 129922 transition_ref 211970 // <transition>
-  
-  from ref 129666 z 2006 to ref 129794
-  write_horizontally default show_definition default drawing_language default
-end
-transitioncanvas 130050 transition_ref 212098 // <transition>
-  
-  from ref 129794 z 3006 to ref 128514
-  write_horizontally default show_definition default drawing_language default
-end
 transitioncanvas 130306 transition_ref 212354 // <transition>
   
-  from ref 128770 z 2006 to ref 129666
+  from ref 128770 z 2006 label "pince_lache" xyz 513 699 3000 to ref 129666
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 130562 transition_ref 267522 // <transition>
   
-  from ref 128898 z 2006 to ref 128770
+  from ref 128898 z 2006 label "assFini" xyz 784 494.5 3000 to ref 128770
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 131074 transition_ref 323586 // <transition>
+  
+  from ref 130690 z 3006 to ref 130946
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 131202 transition_ref 323714 // <transition>
+  decenter_end 407
+  
+  from ref 130946 z 2006 label "pince_ready_to_drop" xyz 964 412 3000 to ref 128898
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 131458 transition_ref 323842 // <transition>
+  
+  from ref 129666 z 2006 label "assFini" xyz 811 771.5 3000 to ref 131330
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 131714 transition_ref 323970 // <transition>
+  
+  from ref 131330 z 2006 to ref 131586
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 131842 transition_ref 324098 // <transition>
+  
+  from ref 131586 z 3006 label "assFini" xyz 1335.5 482 3000 to ref 128514
   write_horizontally default show_definition default drawing_language default
 end
 end

@@ -7,14 +7,6 @@ class decision_State
 #endif
     stm._mae_murphy_state._jeu_state._mission_pillage_distrib_state.create(stm);
   }
-!!!195330.cpp!!!	mission_depot_tour(inout stm : MAE_MURPHY) : void
-  {
-    stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_depot_de_tour_zone_depart_state);
-#ifdef VERBOSE_STATE_MACHINE
-    puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission depot de tour zone depart");
-#endif
-    stm._mae_murphy_state._jeu_state._mission_depot_de_tour_zone_depart_state.create(stm);
-  }
 !!!195714.cpp!!!	mission_zone_ennemie(inout stm : MAE_MURPHY) : void
   {
     stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state);
@@ -23,14 +15,6 @@ class decision_State
 #endif
     stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state.create(stm);
   }
-!!!196098.cpp!!!	mission_chiage(inout stm : MAE_MURPHY) : void
-  {
-    stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_attrap_balle_et_chiage_state);
-#ifdef VERBOSE_STATE_MACHINE
-    puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission attrap balle et chiage");
-#endif
-    stm._mae_murphy_state._jeu_state._mission_attrap_balle_et_chiage_state.create(stm);
-  }
 !!!196482.cpp!!!	mission_zone_centrale(inout stm : MAE_MURPHY) : void
   {
     stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_rush_zone_centrale_state);
@@ -38,14 +22,6 @@ class decision_State
     puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission rush zone centrale");
 #endif
     stm._mae_murphy_state._jeu_state._mission_rush_zone_centrale_state.create(stm);
-  }
-!!!196866.cpp!!!	mission_depot_estrade(inout stm : MAE_MURPHY) : void
-  {
-    stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_depot_tour_estrade_state);
-#ifdef VERBOSE_STATE_MACHINE
-    puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission depot tour estrade");
-#endif
-    stm._mae_murphy_state._jeu_state._mission_depot_tour_estrade_state.create(stm);
   }
 !!!196994.cpp!!!	create(inout stm : MAE_MURPHY) : void
 	_doentry(stm);
@@ -68,4 +44,28 @@ master->get_gestionnaire_mission()->decision_mission();
     puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission claps");
 #endif
     stm._mae_murphy_state._jeu_state._mission_claps_state.create(stm);
+  }
+!!!287490.cpp!!!	mission_depot_tour_depart(inout stm : MAE_MURPHY) : void
+  {
+    stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_depot_de_tour_zone_depart_state);
+#ifdef VERBOSE_STATE_MACHINE
+    puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission depot de tour zone depart");
+#endif
+    stm._mae_murphy_state._jeu_state._mission_depot_de_tour_zone_depart_state.create(stm);
+  }
+!!!287874.cpp!!!	mission_chiage_balle(inout stm : MAE_MURPHY) : void
+  {
+    stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_attrap_balle_et_chiage_state);
+#ifdef VERBOSE_STATE_MACHINE
+    puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission attrap balle et chiage");
+#endif
+    stm._mae_murphy_state._jeu_state._mission_attrap_balle_et_chiage_state.create(stm);
+  }
+!!!288258.cpp!!!	mission_depot_tour_estrade(inout stm : MAE_MURPHY) : void
+  {
+    stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_depot_tour_estrade_state);
+#ifdef VERBOSE_STATE_MACHINE
+    puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission depot tour estrade");
+#endif
+    stm._mae_murphy_state._jeu_state._mission_depot_tour_estrade_state.create(stm);
   }

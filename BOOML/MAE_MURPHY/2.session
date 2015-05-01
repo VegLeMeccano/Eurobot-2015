@@ -1,14 +1,16 @@
 window_sizes 1600 848 329 1265 769 35
+diagrams
+  statediagram_ref 128130 // Principal
+    1265 739 100 0 0 0
+  active  statediagram_ref 134658 // Jeu
+    1265 739 100 0 225 466
+end
 show_stereotypes
-selected statediagram_ref 180866 // capture stands escalier
+selected 
+  package_ref 129 // MAE_MURPHY
 open
-  pseudostate_ref 128130 // initial
-  state_ref 128258 // Initialisation
-  state_ref 150146 // capture de gobelet escalier
-  state_ref 150658 // capture stands cote escalier
-  state_ref 150786 // capture stand bordure
-  state_ref 143490 // mission depot de tour zone depart
-  state_ref 135042 // Recalage Initial
+  state_ref 180226 // way point initial
+  state_ref 181506 // preparation
   deploymentview_ref 128130 // MAE_MURPHY
 end
 end

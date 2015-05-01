@@ -1,0 +1,14 @@
+class BF_cap_to_next_State
+!!!286338.cpp!!!	_completion(inout stm : MAE_MURPHY) : bool
+  {
+    stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._claps_central_state);
+#ifdef VERBOSE_STATE_MACHINE
+    puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission zone ennemie.claps central");
+#endif
+    stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._claps_central_state._exit17(stm);
+    return (bool) 1;
+  }
+!!!286466.cpp!!!	create(inout stm : MAE_MURPHY) : void
+	_completion(stm);
+!!!286594.cpp!!!	_upper(inout stm : MAE_MURPHY) : MAE_MURPHY::AnyState
+  return &stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._claps_central_state;

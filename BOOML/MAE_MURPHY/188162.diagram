@@ -4,4 +4,15 @@ statecanvas 128002 state_ref 143234 // mission rush zone centrale
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
   xyzwh 172 96 2000 513 361
 end
+pseudostatecanvas 128130 pseudostate_ref 230274 // initial
+   xyz 280 211 2005
+end
+pseudostatecanvas 128258 pseudostate_ref 230402 // exit_point
+   xyz 373 352 3005 label_xy 335 371
+end
+transitioncanvas 128386 transition_ref 280706 // <transition>
+  
+  from ref 128130 z 3006 to ref 128258
+  write_horizontally default show_definition default drawing_language default
+end
 end

@@ -15,26 +15,28 @@ class waypoint_initial_State
 #ifdef VERBOSE_STATE_MACHINE
     puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission zone ennemie");
 #endif
-    {
+    if (!master->get_gestionnaire()->get_mission_zone_ennemie()->is_claps_done()) {
       stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._claps_central_state);
 #ifdef VERBOSE_STATE_MACHINE
       puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission zone ennemie.claps central");
 #endif
       stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._claps_central_state.create(stm);
     }
-    else {
-      stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._depot_gobelet_state);
+    else if (master->get_gestionnaire()->get_mission_zone_ennemie()->is_claps_done()) {
+      if (master->get_gestionnaire()->get_element_robot()->gobelet_present()) {
+        stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._depot_gobelet_state);
 #ifdef VERBOSE_STATE_MACHINE
-      puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission zone ennemie.depot gobelet");
+        puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission zone ennemie.depot gobelet");
 #endif
-      stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._depot_gobelet_state.create(stm);
-    }
-    else {
-      stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._faire_chier_en_zizagant_state);
+        stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._depot_gobelet_state.create(stm);
+      }
+      else {
+        stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._faire_chier_en_zizagant_state);
 #ifdef VERBOSE_STATE_MACHINE
-      puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission zone ennemie.faire chier en zizagant");
+        puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission zone ennemie.faire chier en zizagant");
 #endif
-      stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._faire_chier_en_zizagant_state.create(stm);
+        stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._faire_chier_en_zizagant_state.create(stm);
+      }
     }
     return (bool) 1;
   }

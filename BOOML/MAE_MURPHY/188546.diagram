@@ -5,7 +5,7 @@ statecanvas 128002 state_ref 157954 // claps estrade
   xyzwh 121 67 2000 687 525
 end
 pseudostatecanvas 128130 pseudostate_ref 216706 // initial
-   xyz 202 95 2005
+   xyz 205 131 2005
 end
 statecanvas 128258 state_ref 226178 // BF cap
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
@@ -13,17 +13,33 @@ statecanvas 128258 state_ref 226178 // BF cap
 end
 statecanvas 128386 state_ref 226306 // BF droite
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 179 296 2005 69 33
+  xyzwh 173 376 2005 69 33
 end
 statecanvas 128514 state_ref 226434 // Claps 3
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 183 375 2005 61 33
-end
-statecanvas 128642 state_ref 226562 // recule
-  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 211 492 2005 55 33
+  xyzwh 418 381 2005 61 33
 end
 pseudostatecanvas 128770 pseudostate_ref 216834 // exit_point
    xyz 421 158 3005 label_xy 403 177
+end
+transitioncanvas 128898 transition_ref 297858 // <transition>
+  
+  from ref 128130 z 2006 to ref 128258
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 129154 transition_ref 297986 // <transition>
+  
+  from ref 128258 z 2006 to ref 128386
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 129282 transition_ref 298114 // <transition>
+  
+  from ref 128386 z 2006 to ref 128514
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 129666 transition_ref 298498 // <transition>
+  
+  from ref 128514 z 3006 to ref 128770
+  write_horizontally default show_definition default drawing_language default
 end
 end

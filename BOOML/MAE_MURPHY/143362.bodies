@@ -1,3 +1,0 @@
-class pose_seconde_pile_zone_de_depart_State
-!!!163842.cpp!!!	_upper(inout stm : MAE_MURPHY) : MAE_MURPHY::AnyState
-  return &stm._mae_murphy_state._jeu_state._mission_claps_state;
