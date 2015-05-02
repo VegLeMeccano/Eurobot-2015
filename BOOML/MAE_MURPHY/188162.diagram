@@ -56,7 +56,7 @@ statecanvas 130562 state_ref 272002 // chope stand 3
 end
 statecanvas 130690 state_ref 272130 // tempo pour coop'r?
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 944.3 1100.5 2005 227 61
+  xyzwh 897.3 1090.5 2005 555 75
 end
 pseudostatecanvas 133122 pseudostate_ref 278274 // exit_point
    xyz 413.8 281 3005 label_xy 409 300
@@ -68,57 +68,57 @@ transitioncanvas 129026 transition_ref 340610 // <transition>
 end
 transitioncanvas 129538 transition_ref 340866 // <transition>
   
-  from ref 129154 z 2006 label "pince_ouverte" xyz 283 515 3000 to ref 129410
+  from ref 129154 z 2006 label "pince_ouverte" xyz 283 515 2006 to ref 129410
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 130818 transition_ref 340994 // <transition>
   
-  from ref 129410 z 2006 label "assFini" xyz 381.5 700 3000 to ref 129666
+  from ref 129410 z 2006 label "assFini" xyz 381 700 2006 to ref 129666
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 130946 transition_ref 341122 // <transition>
   
-  from ref 129666 z 2006 label "pince_stand_by" xyz 576.5 564 3000 to ref 129794
+  from ref 129666 z 2006 label "pince_stand_by" xyz 576 564 2006 to ref 129794
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 131074 transition_ref 341250 // <transition>
   
-  from ref 129794 z 2006 label "pince_ouverte" xyz 777.5 424 3000 to ref 129922
+  from ref 129794 z 2006 label "pince_ouverte" xyz 777 424 2006 to ref 129922
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 131202 transition_ref 341378 // <transition>
   
-  from ref 129922 z 2006 label "assFini" xyz 830.5 625.5 3000 to ref 130050
+  from ref 129922 z 2006 label "assFini" xyz 830 625 2006 to ref 130050
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 131330 transition_ref 341506 // <transition>
   
-  from ref 130050 z 2006 label "pince_stand_by" xyz 1019.5 570.5 3000 to ref 130178
+  from ref 130050 z 2006 label "pince_stand_by" xyz 1019 570 2006 to ref 130178
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 131586 transition_ref 341762 // <transition>
   
-  from ref 130178 z 2006 label "assFini" xyz 1285 464.5 3000 to ref 130306
+  from ref 130178 z 2006 label "assFini" xyz 1285 464 2006 to ref 130306
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 132098 transition_ref 342018 // <transition>
   
-  from ref 130306 z 2006 label "pince_ouverte" xyz 1297.5 685 3000 to ref 130434
+  from ref 130306 z 2006 label "pince_ouverte" xyz 1297 685 2006 to ref 130434
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 132226 transition_ref 342146 // <transition>
   
-  from ref 130434 z 2006 label "assFini" xyz 1246.5 858.5 3000 to ref 130562
+  from ref 130434 z 2006 label "assFini" xyz 1246 858 2006 to ref 130562
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 132354 transition_ref 342274 // <transition>
   
-  from ref 130562 z 2006 label "pince_stand_by" xyz 1071 1061 3000 to ref 130690
+  from ref 130562 z 2006 label "pince_stand_by" xyz 1144 1056 2006 to ref 130690
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 132482 transition_ref 342402 // <transition>
   
-  from ref 130690 z 3006 label "time_out" xyz 820.5 1144.5 3000 to ref 128258
+  from ref 130690 z 3006 label "time_out" xyz 796.5 1149 3006 to ref 128258
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 133250 transition_ref 343042 // <transition>

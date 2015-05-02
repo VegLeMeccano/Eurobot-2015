@@ -197,3 +197,15 @@ class AnyState
   else
     puts("DEBUG : transition end_game not expected");
 #endif
+!!!352514.cpp!!!	pince_ouverte
+(inout stm : MAE_MURPHY) : void
+  AnyState * st = _upper(stm);
+
+  if (st != 0)
+    st->pince_ouverte
+(stm);
+#ifdef VERBOSE_STATE_MACHINE
+  else
+    puts("DEBUG : transition pince_ouverte
+ not expected");
+#endif

@@ -87,6 +87,11 @@ class MAE_MURPHY {
         // the current state doesn't manage the event end_game, give it to the upper state
         virtual void end_game(MAE_MURPHY & stm);
 
+        // the current state doesn't manage the event pince_ouverte
+        //, give it to the upper state
+        virtual void pince_ouverte
+(MAE_MURPHY & stm);
+
     };
     
     // implement the state MAE_MURPHY
@@ -2018,6 +2023,9 @@ class MAE_MURPHY {
                     // returns the state containing the current
                     virtual AnyState * _upper(MAE_MURPHY & stm);
 
+                    // perform the 'exit behavior'
+                    void _doexit(MAE_MURPHY & stm);
+
                 };
                 
                 // implement the state chope stand 3
@@ -2268,81 +2276,6 @@ class MAE_MURPHY {
                 // implement the state chope du stand sur la route
                 class chope_du_stand_sur_la_route_State : public AnyState {
                   public:
-                    // implement the state BF cap
-                    class BF_cap_State : public AnyState {
-                      public:
-                        virtual ~BF_cap_State();
-
-                        // returns the state containing the current
-                        virtual AnyState * _upper(MAE_MURPHY & stm);
-
-                        virtual bool _completion(MAE_MURPHY & stm);
-
-                        // to manage the event create
-                        virtual void create(MAE_MURPHY & stm);
-
-                    };
-                    
-                    // implement the state BF droite sur le coin
-                    class BF_droite_sur_le_coin_State : public AnyState {
-                      public:
-                        virtual ~BF_droite_sur_le_coin_State();
-
-                        virtual bool _completion(MAE_MURPHY & stm);
-
-                        // to manage the event create
-                        virtual void create(MAE_MURPHY & stm);
-
-                        // returns the state containing the current
-                        virtual AnyState * _upper(MAE_MURPHY & stm);
-
-                    };
-                    
-                    // implement the state BF cap sur le coin
-                    class BF_cap_sur_le_coin_State : public AnyState {
-                      public:
-                        virtual ~BF_cap_sur_le_coin_State();
-
-                        virtual bool _completion(MAE_MURPHY & stm);
-
-                        // to manage the event create
-                        virtual void create(MAE_MURPHY & stm);
-
-                        // returns the state containing the current
-                        virtual AnyState * _upper(MAE_MURPHY & stm);
-
-                    };
-                    
-                    // implement the state BF droite sur cinema
-                    class BF_droite_sur_cinema_State : public AnyState {
-                      public:
-                        virtual ~BF_droite_sur_cinema_State();
-
-                        virtual bool _completion(MAE_MURPHY & stm);
-
-                        // to manage the event create
-                        virtual void create(MAE_MURPHY & stm);
-
-                        // returns the state containing the current
-                        virtual AnyState * _upper(MAE_MURPHY & stm);
-
-                    };
-                    
-                    // implement the state BF cap vers cinema
-                    class BF_cap_vers_cinema_State : public AnyState {
-                      public:
-                        virtual ~BF_cap_vers_cinema_State();
-
-                        virtual bool _completion(MAE_MURPHY & stm);
-
-                        // to manage the event create
-                        virtual void create(MAE_MURPHY & stm);
-
-                        // returns the state containing the current
-                        virtual AnyState * _upper(MAE_MURPHY & stm);
-
-                    };
-                    
                     // implement the state chope
                     class chope_State : public AnyState {
                       public:
@@ -2351,10 +2284,14 @@ class MAE_MURPHY {
                         // returns the state containing the current
                         virtual AnyState * _upper(MAE_MURPHY & stm);
 
-                        virtual bool _completion(MAE_MURPHY & stm);
-
                         // to manage the event create
                         virtual void create(MAE_MURPHY & stm);
+
+                        // to manage the event pince_stand_by
+                        virtual void pince_stand_by(MAE_MURPHY & stm);
+
+                        // perform the 'entry behavior'
+                        void _doentry(MAE_MURPHY & stm);
 
                     };
                     
@@ -2372,7 +2309,8 @@ class MAE_MURPHY {
                         // returns the state containing the current
                         virtual AnyState * _upper(MAE_MURPHY & stm);
 
-                        virtual bool _completion(MAE_MURPHY & stm);
+                        // to manage the event pince_ouverte
+                        virtual void pince_ouverte(MAE_MURPHY & stm);
 
                     };
                     
@@ -2384,10 +2322,14 @@ class MAE_MURPHY {
                         // returns the state containing the current
                         virtual AnyState * _upper(MAE_MURPHY & stm);
 
-                        virtual bool _completion(MAE_MURPHY & stm);
-
                         // to manage the event create
                         virtual void create(MAE_MURPHY & stm);
+
+                        // to manage the event assFini
+                        virtual void assFini(MAE_MURPHY & stm);
+
+                        // perform the 'entry behavior'
+                        void _doentry(MAE_MURPHY & stm);
 
                     };
                     
@@ -2399,9 +2341,6 @@ class MAE_MURPHY {
                     // returns the state containing the current
                     virtual AnyState * _upper(MAE_MURPHY & stm);
 
-                    // memorize the instance of the state BF cap, internal
-                    BF_cap_State _bf_cap_state;
-
                     // memorize the instance of the state BF droite, internal
                     BF_droite_State _bf_droite_state;
 
@@ -2410,18 +2349,6 @@ class MAE_MURPHY {
 
                     // memorize the instance of the state chope, internal
                     chope_State _chope_state;
-
-                    // memorize the instance of the state BF cap vers cinema, internal
-                    BF_cap_vers_cinema_State _bf_cap_vers_cinema_state;
-
-                    // memorize the instance of the state BF droite sur cinema, internal
-                    BF_droite_sur_cinema_State _bf_droite_sur_cinema_state;
-
-                    // memorize the instance of the state BF cap sur le coin, internal
-                    BF_cap_sur_le_coin_State _bf_cap_sur_le_coin_state;
-
-                    // memorize the instance of the state BF droite sur le coin, internal
-                    BF_droite_sur_le_coin_State _bf_droite_sur_le_coin_state;
 
                     // perform the 'entry behavior'
                     void _doentry(MAE_MURPHY & stm);
@@ -2446,6 +2373,9 @@ class MAE_MURPHY {
 
                         // returns the state containing the current
                         virtual AnyState * _upper(MAE_MURPHY & stm);
+
+                        // perform the 'entry behavior'
+                        void _doentry(MAE_MURPHY & stm);
 
                     };
                     
@@ -2486,10 +2416,65 @@ class MAE_MURPHY {
                 // implement the state waypoint initial
                 class waypoint_initial_State : public AnyState {
                   public:
+                    // implement the state cap to mission
+                    class cap_to_mission_State : public AnyState {
+                      public:
+                        virtual ~cap_to_mission_State();
+
+                        // to manage the event assFini
+                        virtual void assFini(MAE_MURPHY & stm);
+
+                        // to manage the event create
+                        virtual void create(MAE_MURPHY & stm);
+
+                        // perform the 'entry behavior'
+                        void _doentry(MAE_MURPHY & stm);
+
+                        // returns the state containing the current
+                        virtual AnyState * _upper(MAE_MURPHY & stm);
+
+                    };
+                    
+                    // implement the state cap mission
+                    class cap_mission_State : public AnyState {
+                      public:
+                        virtual ~cap_mission_State();
+
+                        // to manage the event assFini
+                        virtual void assFini(MAE_MURPHY & stm);
+
+                        // to manage the event create
+                        virtual void create(MAE_MURPHY & stm);
+
+                        // perform the 'entry behavior'
+                        void _doentry(MAE_MURPHY & stm);
+
+                        // returns the state containing the current
+                        virtual AnyState * _upper(MAE_MURPHY & stm);
+
+                    };
+                    
+                    // implement the state BF droite to mission
+                    class BF_droite_to_mission_State : public AnyState {
+                      public:
+                        virtual ~BF_droite_to_mission_State();
+
+                        // to manage the event assFini
+                        virtual void assFini(MAE_MURPHY & stm);
+
+                        // to manage the event create
+                        virtual void create(MAE_MURPHY & stm);
+
+                        // perform the 'entry behavior'
+                        void _doentry(MAE_MURPHY & stm);
+
+                        // returns the state containing the current
+                        virtual AnyState * _upper(MAE_MURPHY & stm);
+
+                    };
+                    
                     virtual ~waypoint_initial_State();
 
-                    virtual bool _completion(MAE_MURPHY & stm);
-
                     // to manage the event create
                     virtual void create(MAE_MURPHY & stm);
 
@@ -2499,95 +2484,16 @@ class MAE_MURPHY {
                     // returns the state containing the current
                     virtual AnyState * _upper(MAE_MURPHY & stm);
 
-                };
-                
-                // implement the state chope stand pres estrade
-                class chope_stand_pres_estrade_State : public AnyState {
-                  public:
-                    // implement the state avance
-                    class avance_State : public AnyState {
-                      public:
-                        virtual ~avance_State();
+                    // memorize the instance of the state cap to mission, internal
+                    cap_to_mission_State _cap_to_mission_state;
 
-                        virtual bool _completion(MAE_MURPHY & stm);
+                    // memorize the instance of the state BF droite to mission, internal
+                    BF_droite_to_mission_State _bf_droite_to_mission_state;
 
-                        // to manage the event create
-                        virtual void create(MAE_MURPHY & stm);
+                    // memorize the instance of the state cap mission, internal
+                    cap_mission_State _cap_mission_state;
 
-                        // returns the state containing the current
-                        virtual AnyState * _upper(MAE_MURPHY & stm);
-
-                    };
-                    
-                    // implement the state recule
-                    class recule_State : public AnyState {
-                      public:
-                        virtual ~recule_State();
-
-                        virtual bool _completion(MAE_MURPHY & stm);
-
-                        // to manage the event create
-                        virtual void create(MAE_MURPHY & stm);
-
-                        // returns the state containing the current
-                        virtual AnyState * _upper(MAE_MURPHY & stm);
-
-                    };
-                    
-                    // implement the state chope
-                    class chope_State : public AnyState {
-                      public:
-                        virtual ~chope_State();
-
-                        virtual bool _completion(MAE_MURPHY & stm);
-
-                        // to manage the event create
-                        virtual void create(MAE_MURPHY & stm);
-
-                        // returns the state containing the current
-                        virtual AnyState * _upper(MAE_MURPHY & stm);
-
-                    };
-                    
-                    // implement the state ouverture pince
-                    class ouverture_pince_State : public AnyState {
-                      public:
-                        virtual ~ouverture_pince_State();
-
-                        virtual bool _completion(MAE_MURPHY & stm);
-
-                        // to manage the event create
-                        virtual void create(MAE_MURPHY & stm);
-
-                        // returns the state containing the current
-                        virtual AnyState * _upper(MAE_MURPHY & stm);
-
-                    };
-                    
-                    virtual ~chope_stand_pres_estrade_State();
-
-                    // to manage the event create
-                    virtual void create(MAE_MURPHY & stm);
-
-                    // returns the state containing the current
-                    virtual AnyState * _upper(MAE_MURPHY & stm);
-
-                    // memorize the instance of the state avance, internal
-                    avance_State _avance_state;
-
-                    // memorize the instance of the state ouverture pince, internal
-                    ouverture_pince_State _ouverture_pince_state;
-
-                    // memorize the instance of the state chope, internal
-                    chope_State _chope_state;
-
-                    // memorize the instance of the state recule, internal
-                    recule_State _recule_state;
-
-                    // perform the 'entry behavior'
-                    void _doentry(MAE_MURPHY & stm);
-
-                    // to manage the exit point 'sortie stand estrade', defined because probably shared
+                    // to manage the exit point 'sortie w', defined because probably shared
                     void _exit14(MAE_MURPHY & stm);
 
                 };
@@ -2595,45 +2501,41 @@ class MAE_MURPHY {
                 // implement the state claps estrade
                 class claps_estrade_State : public AnyState {
                   public:
-                    // implement the state BF cap
-                    class BF_cap_State : public AnyState {
-                      public:
-                        virtual ~BF_cap_State();
-
-                        virtual bool _completion(MAE_MURPHY & stm);
-
-                        // to manage the event create
-                        virtual void create(MAE_MURPHY & stm);
-
-                        // returns the state containing the current
-                        virtual AnyState * _upper(MAE_MURPHY & stm);
-
-                    };
-                    
                     // implement the state Claps 3
                     class Claps_3_State : public AnyState {
                       public:
                         virtual ~Claps_3_State();
 
-                        virtual bool _completion(MAE_MURPHY & stm);
-
                         // to manage the event create
                         virtual void create(MAE_MURPHY & stm);
 
                         // returns the state containing the current
                         virtual AnyState * _upper(MAE_MURPHY & stm);
 
+                        // to manage the event claps_replie
+                        virtual void claps_replie(MAE_MURPHY & stm);
+
+                        // perform the 'entry behavior'
+                        void _doentry(MAE_MURPHY & stm);
+
+                        // perform the 'exit behavior'
+                        void _doexit(MAE_MURPHY & stm);
+
                     };
                     
-                    // implement the state BF droite
-                    class BF_droite_State : public AnyState {
+                    // implement the state BF droite sur claps estrade
+                    class BF_droite_sur_claps_estrade_State : public AnyState {
                       public:
-                        virtual ~BF_droite_State();
+                        virtual ~BF_droite_sur_claps_estrade_State();
 
-                        virtual bool _completion(MAE_MURPHY & stm);
+                        // to manage the event assFini
+                        virtual void assFini(MAE_MURPHY & stm);
 
                         // to manage the event create
                         virtual void create(MAE_MURPHY & stm);
+
+                        // perform the 'entry behavior'
+                        void _doentry(MAE_MURPHY & stm);
 
                         // returns the state containing the current
                         virtual AnyState * _upper(MAE_MURPHY & stm);
@@ -2641,12 +2543,6 @@ class MAE_MURPHY {
                     };
                     
                     virtual ~claps_estrade_State();
-
-                    // memorize the instance of the state BF cap, internal
-                    BF_cap_State _bf_cap_state;
-
-                    // memorize the instance of the state BF droite, internal
-                    BF_droite_State _bf_droite_state;
 
                     // memorize the instance of the state Claps 3, internal
                     Claps_3_State _claps_3_state;
@@ -2663,96 +2559,185 @@ class MAE_MURPHY {
                     // to manage the exit point 'sortie claps', defined because probably shared
                     void _exit13(MAE_MURPHY & stm);
 
+                    // memorize the instance of the state BF droite sur claps estrade, internal
+                    BF_droite_sur_claps_estrade_State _bf_droite_sur_claps_estrade_state;
+
                 };
                 
                 // implement the state chope du coin
                 class chope_du_coin_State : public AnyState {
                   public:
-                    // implement the state ouverture de pince
-                    class ouverture_de_pince_State : public AnyState {
+                    // implement the state avance claps
+                    class avance_claps_State : public AnyState {
                       public:
-                        virtual ~ouverture_de_pince_State();
+                        virtual ~avance_claps_State();
 
-                        // to manage the event pince_ouverte
-                        virtual void pince_ouverte(MAE_MURPHY & stm);
+                        // to manage the event assFini
+                        virtual void assFini(MAE_MURPHY & stm);
+
+                        // to manage the event create
+                        virtual void create(MAE_MURPHY & stm);
+
+                        // perform the 'entry behavior'
+                        void _doentry(MAE_MURPHY & stm);
 
                         // returns the state containing the current
                         virtual AnyState * _upper(MAE_MURPHY & stm);
 
                     };
                     
-                    // implement the state claps 1
-                    class claps_1_State : public AnyState {
+                    // implement the state set X CAP
+                    class set_X_CAP_State : public AnyState {
                       public:
-                        virtual ~claps_1_State();
+                        virtual ~set_X_CAP_State();
+
+                        // to manage the event time_out
+                        virtual void time_out(MAE_MURPHY & stm);
+
+                        // to manage the event create
+                        virtual void create(MAE_MURPHY & stm);
+
+                        // perform the 'entry behavior'
+                        void _doentry(MAE_MURPHY & stm);
+
+                        // returns the state containing the current
+                        virtual AnyState * _upper(MAE_MURPHY & stm);
+
+                    };
+                    
+                    // implement the state deboit claps coin
+                    class deboit_claps_coin_State : public AnyState {
+                      public:
+                        virtual ~deboit_claps_coin_State();
 
                         // to manage the event claps_replie
                         virtual void claps_replie(MAE_MURPHY & stm);
 
+                        // to manage the event create
+                        virtual void create(MAE_MURPHY & stm);
+
+                        // perform the 'entry behavior'
+                        void _doentry(MAE_MURPHY & stm);
+
+                        // perform the 'exit behavior'
+                        void _doexit(MAE_MURPHY & stm);
+
                         // returns the state containing the current
                         virtual AnyState * _upper(MAE_MURPHY & stm);
 
                     };
                     
-                    // implement the state BF cap
-                    class BF_cap_State : public AnyState {
+                    // implement the state BF CAP pour claps
+                    class BF_CAP_pour_claps_State : public AnyState {
                       public:
-                        virtual ~BF_cap_State();
+                        virtual ~BF_CAP_pour_claps_State();
 
                         // to manage the event assFini
                         virtual void assFini(MAE_MURPHY & stm);
 
+                        // to manage the event create
+                        virtual void create(MAE_MURPHY & stm);
+
+                        // perform the 'entry behavior'
+                        void _doentry(MAE_MURPHY & stm);
+
                         // returns the state containing the current
                         virtual AnyState * _upper(MAE_MURPHY & stm);
 
                     };
                     
-                    // implement the state chope 2 stands et gobelet
-                    class chope_2_stands_et_gobelet_State : public AnyState {
+                    // implement the state recalage
+                    class recalage_State : public AnyState {
                       public:
-                        virtual ~chope_2_stands_et_gobelet_State();
+                        virtual ~recalage_State();
+
+                        // to manage the event blocage
+                        virtual void blocage(MAE_MURPHY & stm);
+
+                        // to manage the event create
+                        virtual void create(MAE_MURPHY & stm);
+
+                        // perform the 'entry behavior'
+                        void _doentry(MAE_MURPHY & stm);
+
+                        // perform the 'exit behavior'
+                        void _doexit(MAE_MURPHY & stm);
+
+                        // returns the state containing the current
+                        virtual AnyState * _upper(MAE_MURPHY & stm);
+
+                    };
+                    
+                    // implement the state chope stand 2
+                    class chope_stand_2_State : public AnyState {
+                      public:
+                        virtual ~chope_stand_2_State();
 
                         // to manage the event pince_stand_by
                         virtual void pince_stand_by(MAE_MURPHY & stm);
 
+                        // to manage the event create
+                        virtual void create(MAE_MURPHY & stm);
+
+                        // perform the 'entry behavior'
+                        void _doentry(MAE_MURPHY & stm);
+
                         // returns the state containing the current
                         virtual AnyState * _upper(MAE_MURPHY & stm);
 
                     };
                     
-                    // implement the state avance seconde
-                    class avance_seconde_State : public AnyState {
+                    // implement the state re avance
+                    class re_avance_State : public AnyState {
                       public:
-                        virtual ~avance_seconde_State();
+                        virtual ~re_avance_State();
 
                         // to manage the event assFini
                         virtual void assFini(MAE_MURPHY & stm);
 
+                        // to manage the event create
+                        virtual void create(MAE_MURPHY & stm);
+
+                        // perform the 'entry behavior'
+                        void _doentry(MAE_MURPHY & stm);
+
                         // returns the state containing the current
                         virtual AnyState * _upper(MAE_MURPHY & stm);
 
                     };
                     
-                    // implement the state re ouverture
-                    class re_ouverture_State : public AnyState {
+                    // implement the state re ouvre pince
+                    class re_ouvre_pince_State : public AnyState {
                       public:
-                        virtual ~re_ouverture_State();
+                        virtual ~re_ouvre_pince_State();
 
                         // to manage the event pince_ouverte
                         virtual void pince_ouverte(MAE_MURPHY & stm);
 
+                        // to manage the event create
+                        virtual void create(MAE_MURPHY & stm);
+
+                        // perform the 'entry behavior'
+                        void _doentry(MAE_MURPHY & stm);
+
                         // returns the state containing the current
                         virtual AnyState * _upper(MAE_MURPHY & stm);
 
                     };
                     
-                    // implement the state chope 1
-                    class chope_1_State : public AnyState {
+                    // implement the state chope stand 1
+                    class chope_stand_1_State : public AnyState {
                       public:
-                        virtual ~chope_1_State();
+                        virtual ~chope_stand_1_State();
 
                         // to manage the event pince_stand_by
                         virtual void pince_stand_by(MAE_MURPHY & stm);
+
+                        // to manage the event create
+                        virtual void create(MAE_MURPHY & stm);
+
+                        // perform the 'entry behavior'
+                        void _doentry(MAE_MURPHY & stm);
 
                         // returns the state containing the current
                         virtual AnyState * _upper(MAE_MURPHY & stm);
@@ -2770,33 +2755,156 @@ class MAE_MURPHY {
                         // returns the state containing the current
                         virtual AnyState * _upper(MAE_MURPHY & stm);
 
+                        // to manage the event create
+                        virtual void create(MAE_MURPHY & stm);
+
+                        // perform the 'entry behavior'
+                        void _doentry(MAE_MURPHY & stm);
+
+                    };
+                    
+                    // implement the state ouvre pince
+                    class ouvre_pince_State : public AnyState {
+                      public:
+                        virtual ~ouvre_pince_State();
+
+                        // to manage the event pince_ouverte
+                        
+                        virtual void pince_ouverte
+(MAE_MURPHY & stm);
+
+                        // to manage the event create
+                        virtual void create(MAE_MURPHY & stm);
+
+                        // perform the 'entry behavior'
+                        void _doentry(MAE_MURPHY & stm);
+
+                        // returns the state containing the current
+                        virtual AnyState * _upper(MAE_MURPHY & stm);
+
+                    };
+                    
+                    // implement the state BF droite vers les stands
+                    class BF_droite_vers_les_stands_State : public AnyState {
+                      public:
+                        virtual ~BF_droite_vers_les_stands_State();
+
+                        // to manage the event assFini
+                        virtual void assFini(MAE_MURPHY & stm);
+
+                        // to manage the event create
+                        virtual void create(MAE_MURPHY & stm);
+
+                        // perform the 'entry behavior'
+                        void _doentry(MAE_MURPHY & stm);
+
+                        // returns the state containing the current
+                        virtual AnyState * _upper(MAE_MURPHY & stm);
+
+                    };
+                    
+                    // implement the state recule vers la zone de depart
+                    class recule_vers_la_zone_de_depart_State : public AnyState {
+                      public:
+                        virtual ~recule_vers_la_zone_de_depart_State();
+
+                        // to manage the event assFini
+                        virtual void assFini(MAE_MURPHY & stm);
+
+                        // to manage the event create
+                        virtual void create(MAE_MURPHY & stm);
+
+                        // perform the 'entry behavior'
+                        void _doentry(MAE_MURPHY & stm);
+
+                        // returns the state containing the current
+                        virtual AnyState * _upper(MAE_MURPHY & stm);
+
+                    };
+                    
+                    // implement the state BF CAP
+                    class BF_CAP_State : public AnyState {
+                      public:
+                        virtual ~BF_CAP_State();
+
+                        // to manage the event assFini
+                        virtual void assFini(MAE_MURPHY & stm);
+
+                        // to manage the event create
+                        virtual void create(MAE_MURPHY & stm);
+
+                        // perform the 'entry behavior'
+                        void _doentry(MAE_MURPHY & stm);
+
+                        // returns the state containing the current
+                        virtual AnyState * _upper(MAE_MURPHY & stm);
+
+                    };
+                    
+                    // implement the state recule des stands
+                    class recule_des_stands_State : public AnyState {
+                      public:
+                        virtual ~recule_des_stands_State();
+
+                        // to manage the event assFini
+                        virtual void assFini(MAE_MURPHY & stm);
+
+                        // to manage the event create
+                        virtual void create(MAE_MURPHY & stm);
+
+                        // perform the 'entry behavior'
+                        void _doentry(MAE_MURPHY & stm);
+
+                        // returns the state containing the current
+                        virtual AnyState * _upper(MAE_MURPHY & stm);
+
+                    };
+                    
+                    // implement the state chope gobelet
+                    class chope_gobelet_State : public AnyState {
+                      public:
+                        virtual ~chope_gobelet_State();
+
+                        // to manage the event time_out
+                        virtual void time_out(MAE_MURPHY & stm);
+
+                        // to manage the event create
+                        virtual void create(MAE_MURPHY & stm);
+
+                        // perform the 'entry behavior'
+                        void _doentry(MAE_MURPHY & stm);
+
+                        // returns the state containing the current
+                        virtual AnyState * _upper(MAE_MURPHY & stm);
+
+                    };
+                    
+                    // implement the state BF droite sur le verre
+                    class BF_droite_sur_le_verre_State : public AnyState {
+                      public:
+                        virtual ~BF_droite_sur_le_verre_State();
+
+                        // to manage the event assFini
+                        virtual void assFini(MAE_MURPHY & stm);
+
+                        // to manage the event create
+                        virtual void create(MAE_MURPHY & stm);
+
+                        // perform the 'entry behavior'
+                        void _doentry(MAE_MURPHY & stm);
+
+                        // returns the state containing the current
+                        virtual AnyState * _upper(MAE_MURPHY & stm);
+
                     };
                     
                     virtual ~chope_du_coin_State();
 
-                    // memorize the instance of the state ouverture de pince, internal
-                    ouverture_de_pince_State _ouverture_de_pince_state;
-
                     // memorize the instance of the state avance, internal
                     avance_State _avance_state;
 
-                    // memorize the instance of the state chope 1, internal
-                    chope_1_State _chope_1_state;
-
-                    // memorize the instance of the state re ouverture, internal
-                    re_ouverture_State _re_ouverture_state;
-
-                    // memorize the instance of the state avance seconde, internal
-                    avance_seconde_State _avance_seconde_state;
-
-                    // memorize the instance of the state chope 2 stands et gobelet, internal
-                    chope_2_stands_et_gobelet_State _chope_2_stands_et_gobelet_state;
-
-                    // memorize the instance of the state BF cap, internal
-                    BF_cap_State _bf_cap_state;
-
-                    // memorize the instance of the state claps 1, internal
-                    claps_1_State _claps_1_state;
+                    // memorize the instance of the state BF CAP, internal
+                    BF_CAP_State _bf_cap_state;
 
                     // to manage the event create
                     virtual void create(MAE_MURPHY & stm);
@@ -2810,15 +2918,57 @@ class MAE_MURPHY {
                     // to manage the exit point 'sortie coin', defined because probably shared
                     void _exit12(MAE_MURPHY & stm);
 
+                    // memorize the instance of the state BF droite sur le verre, internal
+                    BF_droite_sur_le_verre_State _bf_droite_sur_le_verre_state;
+
+                    // memorize the instance of the state chope gobelet, internal
+                    chope_gobelet_State _chope_gobelet_state;
+
+                    // memorize the instance of the state recule des stands, internal
+                    recule_des_stands_State _recule_des_stands_state;
+
+                    // memorize the instance of the state recule vers la zone de depart, internal
+                    recule_vers_la_zone_de_depart_State _recule_vers_la_zone_de_depart_state;
+
+                    // memorize the instance of the state BF droite vers les stands, internal
+                    BF_droite_vers_les_stands_State _bf_droite_vers_les_stands_state;
+
+                    // memorize the instance of the state ouvre pince, internal
+                    ouvre_pince_State _ouvre_pince_state;
+
+                    // memorize the instance of the state chope stand 1, internal
+                    chope_stand_1_State _chope_stand_1_state;
+
+                    // memorize the instance of the state re ouvre pince, internal
+                    re_ouvre_pince_State _re_ouvre_pince_state;
+
+                    // memorize the instance of the state re avance, internal
+                    re_avance_State _re_avance_state;
+
+                    // memorize the instance of the state chope stand 2, internal
+                    chope_stand_2_State _chope_stand_2_state;
+
+                    // memorize the instance of the state recalage, internal
+                    recalage_State _recalage_state;
+
+                    // memorize the instance of the state BF CAP pour claps, internal
+                    BF_CAP_pour_claps_State _bf_cap_pour_claps_state;
+
+                    // memorize the instance of the state deboit claps coin, internal
+                    deboit_claps_coin_State _deboit_claps_coin_state;
+
+                    // memorize the instance of the state set X CAP, internal
+                    set_X_CAP_State _set_x_cap_state;
+
+                    // memorize the instance of the state avance claps, internal
+                    avance_claps_State _avance_claps_state;
+
                 };
                 
                 virtual ~mission_claps_State();
 
                 // memorize the instance of the state chope du stand sur la route, internal
                 chope_du_stand_sur_la_route_State _chope_du_stand_sur_la_route_state;
-
-                // memorize the instance of the state chope stand pres estrade, internal
-                chope_stand_pres_estrade_State _chope_stand_pres_estrade_state;
 
                 // to manage the event create
                 virtual void create(MAE_MURPHY & stm);
@@ -3488,7 +3638,6 @@ class MAE_MURPHY {
   friend class MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State;
   friend class MAE_MURPHY_State::Jeu_State::mission_attrap_balle_et_chiage_State;
   friend class MAE_MURPHY_State::Jeu_State::mission_claps_State::chope_du_stand_sur_la_route_State;
-  friend class MAE_MURPHY_State::Jeu_State::mission_claps_State::chope_stand_pres_estrade_State;
   friend class MAE_MURPHY_State::Jeu_State::mission_claps_State;
   friend class MAE_MURPHY_State::Jeu_State::mission_rush_zone_centrale_State;
   friend class MAE_MURPHY_State::Jeu_State::sortie_de_zone_de_depart_State;
@@ -3598,7 +3747,6 @@ class MAE_MURPHY {
     // the operation you call to signal the event fin_montee_bras
     bool fin_montee_bras();
 
-  friend class MAE_MURPHY_State::Jeu_State::mission_claps_State::chope_du_stand_sur_la_route_State::BF_cap_State;
   friend class MAE_MURPHY_State::Jeu_State::mission_claps_State::chope_du_stand_sur_la_route_State::BF_droite_State;
   friend class MAE_MURPHY_State::Jeu_State::mission_claps_State::chope_du_stand_sur_la_route_State::ouverture_de_pince_State;
   friend class MAE_MURPHY_State::Jeu_State::mission_claps_State::chope_du_stand_sur_la_route_State::chope_State;
@@ -3606,30 +3754,13 @@ class MAE_MURPHY {
   friend class MAE_MURPHY_State::Jeu_State::mission_attrap_balle_et_chiage_State::point_de_depart_State::BF_droite_to_objectif_State;
   friend class MAE_MURPHY_State::Jeu_State::mission_attrap_balle_et_chiage_State::point_de_depart_State::BF_cap_mission_State;
   friend class MAE_MURPHY_State::Jeu_State::mission_attrap_balle_et_chiage_State::avance_State;
-  friend class MAE_MURPHY_State::Jeu_State::mission_claps_State::chope_du_stand_sur_la_route_State::BF_cap_vers_cinema_State;
-  friend class MAE_MURPHY_State::Jeu_State::mission_claps_State::chope_du_stand_sur_la_route_State::BF_droite_sur_cinema_State;
-  friend class MAE_MURPHY_State::Jeu_State::mission_claps_State::chope_du_stand_sur_la_route_State::BF_cap_sur_le_coin_State;
-  friend class MAE_MURPHY_State::Jeu_State::mission_claps_State::chope_du_stand_sur_la_route_State::BF_droite_sur_le_coin_State;
-  friend class MAE_MURPHY_State::Jeu_State::mission_claps_State::chope_du_coin_State::ouverture_de_pince_State;
   friend class MAE_MURPHY_State::Jeu_State::mission_claps_State::chope_du_coin_State::avance_State;
-  friend class MAE_MURPHY_State::Jeu_State::mission_claps_State::chope_du_coin_State::chope_1_State;
-  friend class MAE_MURPHY_State::Jeu_State::mission_claps_State::chope_du_coin_State::re_ouverture_State;
-  friend class MAE_MURPHY_State::Jeu_State::mission_claps_State::chope_du_coin_State::avance_seconde_State;
-  friend class MAE_MURPHY_State::Jeu_State::mission_claps_State::chope_du_coin_State::chope_2_stands_et_gobelet_State;
-  friend class MAE_MURPHY_State::Jeu_State::mission_claps_State::chope_du_coin_State::BF_cap_State;
     // the operation you call to signal the event claps_replie
     bool claps_replie();
 
-  friend class MAE_MURPHY_State::Jeu_State::mission_claps_State::chope_du_coin_State::claps_1_State;
   friend class MAE_MURPHY_State::Jeu_State::mission_claps_State::chope_du_coin_State;
-  friend class MAE_MURPHY_State::Jeu_State::mission_claps_State::claps_estrade_State::BF_cap_State;
-  friend class MAE_MURPHY_State::Jeu_State::mission_claps_State::claps_estrade_State::BF_droite_State;
   friend class MAE_MURPHY_State::Jeu_State::mission_claps_State::claps_estrade_State::Claps_3_State;
   friend class MAE_MURPHY_State::Jeu_State::mission_claps_State::claps_estrade_State;
-  friend class MAE_MURPHY_State::Jeu_State::mission_claps_State::chope_stand_pres_estrade_State::avance_State;
-  friend class MAE_MURPHY_State::Jeu_State::mission_claps_State::chope_stand_pres_estrade_State::ouverture_pince_State;
-  friend class MAE_MURPHY_State::Jeu_State::mission_claps_State::chope_stand_pres_estrade_State::chope_State;
-  friend class MAE_MURPHY_State::Jeu_State::mission_claps_State::chope_stand_pres_estrade_State::recule_State;
   friend class MAE_MURPHY_State::Jeu_State::mission_claps_State::waypoint_initial_State;
   friend class MAE_MURPHY_State::Jeu_State::mission_claps_State::sortie_de_zone_State::BF_cap_State;
   friend class MAE_MURPHY_State::Jeu_State::mission_claps_State::sortie_de_zone_State::avance_State;
@@ -3707,6 +3838,31 @@ class MAE_MURPHY {
   friend class MAE_MURPHY_State::Jeu_State::mission_rush_zone_centrale_State::BF_droite_stand_3_State;
   friend class MAE_MURPHY_State::Jeu_State::mission_rush_zone_centrale_State::chope_stand_3_State;
   friend class MAE_MURPHY_State::Jeu_State::mission_rush_zone_centrale_State::tempo_pour_coopr_State;
+  friend class MAE_MURPHY_State::Jeu_State::mission_claps_State::chope_du_coin_State::BF_droite_sur_le_verre_State;
+  friend class MAE_MURPHY_State::Jeu_State::mission_claps_State::chope_du_coin_State::chope_gobelet_State;
+  friend class MAE_MURPHY_State::Jeu_State::mission_claps_State::chope_du_coin_State::recule_des_stands_State;
+  friend class MAE_MURPHY_State::Jeu_State::mission_claps_State::chope_du_coin_State::BF_CAP_State;
+  friend class MAE_MURPHY_State::Jeu_State::mission_claps_State::chope_du_coin_State::recule_vers_la_zone_de_depart_State;
+  friend class MAE_MURPHY_State::Jeu_State::mission_claps_State::chope_du_coin_State::BF_droite_vers_les_stands_State;
+    // the operation you call to signal the event pince_ouverte
+    
+    bool pince_ouverte
+();
+
+  friend class MAE_MURPHY_State::Jeu_State::mission_claps_State::chope_du_coin_State::ouvre_pince_State;
+  friend class MAE_MURPHY_State::Jeu_State::mission_claps_State::chope_du_coin_State::chope_stand_1_State;
+  friend class MAE_MURPHY_State::Jeu_State::mission_claps_State::chope_du_coin_State::re_ouvre_pince_State;
+  friend class MAE_MURPHY_State::Jeu_State::mission_claps_State::chope_du_coin_State::re_avance_State;
+  friend class MAE_MURPHY_State::Jeu_State::mission_claps_State::chope_du_coin_State::chope_stand_2_State;
+  friend class MAE_MURPHY_State::Jeu_State::mission_claps_State::chope_du_coin_State::recalage_State;
+  friend class MAE_MURPHY_State::Jeu_State::mission_claps_State::chope_du_coin_State::BF_CAP_pour_claps_State;
+  friend class MAE_MURPHY_State::Jeu_State::mission_claps_State::chope_du_coin_State::deboit_claps_coin_State;
+  friend class MAE_MURPHY_State::Jeu_State::mission_claps_State::chope_du_coin_State::set_X_CAP_State;
+  friend class MAE_MURPHY_State::Jeu_State::mission_claps_State::chope_du_coin_State::avance_claps_State;
+  friend class MAE_MURPHY_State::Jeu_State::mission_claps_State::claps_estrade_State::BF_droite_sur_claps_estrade_State;
+  friend class MAE_MURPHY_State::Jeu_State::mission_claps_State::waypoint_initial_State::cap_to_mission_State;
+  friend class MAE_MURPHY_State::Jeu_State::mission_claps_State::waypoint_initial_State::BF_droite_to_mission_State;
+  friend class MAE_MURPHY_State::Jeu_State::mission_claps_State::waypoint_initial_State::cap_mission_State;
 };
 // change the current state, internal
 inline void MAE_MURPHY::_set_currentState(MAE_MURPHY::AnyState & st) {

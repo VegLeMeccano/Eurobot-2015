@@ -1,6 +1,6 @@
 format 76
 "MAE_MURPHY"
-  revision 53
+  revision 54
   modified_by 2 "Link"
   cpp_root_dir "D:/Club Robotique IRON MENAD 2/Eurobot 2015 Iron Menad/Eurobot-2015/MURPHY__MASTER_PI/"
 
@@ -1103,9 +1103,9 @@ serialPrint(master->getPortSerie(),\"P3 \\n\");"
 	  state 179842 "drop gobelet"
 	      cpp_on_entry "// drop si present
 master->set_time_out(200);
-if(master->get_gestionnaire_mission()->get_element_robot()->pop_corn_present())
+if(master->get_gestionnaire_mission()->get_element_robot()->gobelet_present())
 {
-	master->get_gestionnaire_mission()->get_element_robot()->pop_corn_decharge();
+	master->get_gestionnaire_mission()->get_element_robot()->gobelet_relache();
 	master->get_gestionnaire_mission()->get_mission_chiage()->drop_gobelet_done();
 	// drop gobelet
 	serialPrint(master->getPortSerie(),\"P6 \\n\");
@@ -1172,73 +1172,63 @@ master->get_gestionnaire_mission()->get_mission_chiage()->mission_remplie();"
 	      size A0
 	    end
 
-	    state 224130 "BF cap"
-	      transition 294786 "<transition>"
-		on state_ref 224386 // ouverture de pince
-		external 
-	      end
-	    end
-
 	    state 224258 "BF droite"
+		cpp_on_entry "if(master->is_Jaune()){
+// BF droite sur le gobelet 
+serialPrint(master->getPortSerie(),\"S5 -835 744 -90 \\n\");
+}
+if(master->is_Vert()){
+// BF droite sur le gobelet 
+serialPrint(master->getPortSerie(),\"S5 835 744 -90 \\n\");
+}"
 	      transition 295042 "<transition>"
 		on state_ref 224514 // chope
+		  cpp_trigger "assFini"
 		external 
 	      end
 	    end
 
 	    state 224386 "ouverture de pince"
-		cpp_on_entry "// ouverture ou pas si on a chope deja ou pas"
+		cpp_on_entry "if(master->is_Jaune()){
+// ouvre pince gauche
+serialPrint(master->getPortSerie(),\"G0 \\n\");
+}
+if(master->is_Vert()){
+serialPrint(master->getPortSerie(),\"D0 \\n\");
+}"
 	      transition 294914 "<transition>"
 		on state_ref 224258 // BF droite
+		  cpp_trigger "pince_ouverte"
 		external 
 	      end
 	    end
 
 	    state 224514 "chope"
-	      transition 295170 "<transition>"
-		on state_ref 224642 // BF cap vers cinema
+		cpp_on_entry "if(master->is_Jaune()){
+// ouvre pince gauche
+serialPrint(master->getPortSerie(),\"G1 \\n\");
+}
+if(master->is_Vert()){
+serialPrint(master->getPortSerie(),\"D1 \\n\");
+}
+master->get_gestionnaire_mission()->get_mission_claps()->stand_depart_done();"
+	      transition 350594 "<transition>"
+		on pseudostate_ref 243586 // exit_point
+		  cpp_trigger "pince_stand_by"
 		external 
 	      end
 	    end
 
 	    pseudostate 216450 initial 
-	      transition 294658 "<transition>"
-		on state_ref 224130 // BF cap
-		external 
-	      end
-	    end
-
-	    state 224642 "BF cap vers cinema"
-	      transition 295298 "<transition>"
-		on state_ref 224770 // BF droite sur cinema
-		external 
-	      end
-	    end
-
-	    state 224770 "BF droite sur cinema"
-	      transition 295426 "<transition>"
-		on state_ref 224898 // BF cap sur le coin
-		external 
-	      end
-	    end
-
-	    state 224898 "BF cap sur le coin"
-	      transition 295554 "<transition>"
-		on state_ref 225026 // BF droite sur le coin
-		external 
-	      end
-	    end
-
-	    state 225026 "BF droite sur le coin"
-	      transition 295682 "<transition>"
-		on pseudostate_ref 243586 // exit_point
+	      transition 350466 "<transition>"
+		on state_ref 224386 // ouverture de pince
 		external 
 	      end
 	    end
 
 	    pseudostate 243586 exit_point "sortie stand"
-	      transition 295810 "<transition>"
-		on state_ref 157698 // chope du coin
+	      transition 351234 "<transition>"
+		on pseudostate_ref 285314 // choice
 		external 
 	      end
 	    end
@@ -1247,7 +1237,8 @@ master->get_gestionnaire_mission()->get_mission_chiage()->mission_remplie();"
 	  state 157698 "chope du coin"
 	      cpp_on_entry "// chope les 2 stands
 // le gobelet
-// et fait le claps du coin"
+// et fait le claps du coin
+// attention faut pas avoir un gobelet dans le cul"
 	    associated_diagram statediagram_ref 188418 // chope du coin
 	    statediagram 188418 "chope du coin"
 	      package_name_in_tab yes show_context default auto_label_position yes write_trans_label_horizontally yes show_trans_definition yes draw_all_relations yes shadow yes
@@ -1256,79 +1247,238 @@ master->get_gestionnaire_mission()->get_mission_chiage()->mission_remplie();"
 	    end
 
 	    pseudostate 216578 initial 
-	      transition 295938 "<transition>"
-		on state_ref 225154 // ouverture de pince
+	      transition 353154 "<transition>"
+		on state_ref 225282 // BF droite sur le verre
 		external 
 	      end
 	    end
 
-	    state 225154 "ouverture de pince"
-	      transition 296066 "<transition>"
-		on state_ref 225282 // avance
-		  cpp_trigger "pince_ouverte"
-		external 
-	      end
-	    end
-
-	    state 225282 "avance"
+	    state 225282 "BF droite sur le verre"
+		cpp_on_entry "if(master->is_Jaune()){
+// BF droite sur le gobelet 
+serialPrint(master->getPortSerie(),\"S5 -1224 247 180 \\n\");
+}
+if(master->is_Vert()){
+// BF droite sur le gobelet 
+serialPrint(master->getPortSerie(),\"S5 1224 247 0 \\n\");
+}"
 	      transition 296194 "<transition>"
-		on state_ref 225410 // chope 1
+		on state_ref 225410 // chope gobelet
 		  cpp_trigger "assFini"
 		external 
 	      end
 	    end
 
-	    state 225410 "chope 1"
+	    state 225410 "chope gobelet"
+		cpp_on_entry "serialPrint(master->getPortSerie(),\"P5 \\n\");
+master->set_time_out(200);
+master->get_gestionnaire_mission()->get_element_robot()->gobelet_saisie();"
 	      transition 296322 "<transition>"
-		on state_ref 225538 // re ouverture
+		on state_ref 225538 // recule des stands
+		  cpp_trigger "time_out"
+		external 
+	      end
+	    end
+
+	    state 225538 "recule des stands"
+		cpp_on_entry "serialPrint(master->getPortSerie(),\"S4 -200 \\n\");"
+	      transition 296450 "<transition>"
+		on state_ref 225666 // BF CAP
+		  cpp_trigger "assFini"
+		external 
+	      end
+	    end
+
+	    state 225666 "BF CAP"
+		cpp_on_entry "serialPrint(master->getPortSerie(),\"S3 -90 \\n\");"
+	      transition 296578 "<transition>"
+		on state_ref 225794 // recule vers la zone de depart
+		  cpp_trigger "assFini"
+		external 
+	      end
+	    end
+
+	    state 225794 "recule vers la zone de depart"
+		cpp_on_entry "serialPrint(master->getPortSerie(),\"S4 -350 \\n\");"
+	      transition 296706 "<transition>"
+		on state_ref 225922 // BF droite vers les stands
+		  cpp_trigger "assFini"
+		external 
+	      end
+	    end
+
+	    state 225922 "BF droite vers les stands"
+		cpp_on_entry "if(master->is_Jaune()){
+// BF droite sur le gobelet 
+serialPrint(master->getPortSerie(),\"S5 -1180 474 -90 \\n\");
+}
+if(master->is_Vert()){
+// BF droite sur le gobelet 
+serialPrint(master->getPortSerie(),\"S5 1180 474 -90 \\n\");
+}"
+	      transition 296834 "<transition>"
+		on state_ref 226050 // ouvre pince
+		  cpp_trigger "assFini"
+		external 
+	      end
+	    end
+
+	    state 226050 "ouvre pince"
+		cpp_on_entry "if(master->is_Jaune()){
+// ouverture de pince
+serialPrint(master->getPortSerie(),\"D0 \\n\");
+}
+if(master->is_Vert()){
+serialPrint(master->getPortSerie(),\"G0 \\n\");
+}"
+	      transition 352130 "<transition>"
+		on state_ref 279426 // avance
+		  cpp_trigger "pince_ouverte
+"
+		external 
+	      end
+	    end
+
+	    pseudostate 243714 exit_point "sortie coin"
+	      transition 351746 "<transition>"
+		on pseudostate_ref 285442 // choice
+		external 
+	      end
+	    end
+
+	    state 279426 "avance"
+		cpp_on_entry "serialPrint(master->getPortSerie(),\"S4 100 \\n\");"
+	      transition 352258 "<transition>"
+		on state_ref 279554 // chope stand 1
+		  cpp_trigger "assFini"
+		external 
+	      end
+	    end
+
+	    state 279554 "chope stand 1"
+		cpp_on_entry "if(master->is_Jaune()){
+// ouverture de pince
+serialPrint(master->getPortSerie(),\"D1 \\n\");
+}
+if(master->is_Vert()){
+serialPrint(master->getPortSerie(),\"G1 \\n\");
+}"
+	      transition 352386 "<transition>"
+		on state_ref 279682 // re ouvre pince
 		  cpp_trigger "pince_stand_by"
 		external 
 	      end
 	    end
 
-	    state 225538 "re ouverture"
-	      transition 296450 "<transition>"
-		on state_ref 225666 // avance seconde
+	    state 279682 "re ouvre pince"
+		cpp_on_entry "if(master->is_Jaune()){
+// ouverture de pince
+serialPrint(master->getPortSerie(),\"D0 \\n\");
+}
+if(master->is_Vert()){
+serialPrint(master->getPortSerie(),\"G0 \\n\");
+}"
+	      transition 352514 "<transition>"
+		on state_ref 279810 // re avance
 		  cpp_trigger "pince_ouverte"
 		external 
 	      end
 	    end
 
-	    state 225666 "avance seconde"
-	      transition 296578 "<transition>"
-		on state_ref 225794 // chope 2 stands et gobelet
+	    state 279810 "re avance"
+		cpp_on_entry "serialPrint(master->getPortSerie(),\"S4 125 \\n\");
+"
+	      transition 352770 "<transition>"
+		on state_ref 279938 // chope stand 2
 		  cpp_trigger "assFini"
 		external 
 	      end
 	    end
 
-	    state 225794 "chope 2 stands et gobelet"
-	      transition 296706 "<transition>"
-		on state_ref 225922 // BF cap
+	    state 279938 "chope stand 2"
+		cpp_on_entry "if(master->is_Jaune()){
+// ouverture de pince
+serialPrint(master->getPortSerie(),\"D1 \\n\");
+}
+if(master->is_Vert()){
+serialPrint(master->getPortSerie(),\"G1 \\n\");
+}"
+	      transition 353282 "<transition>"
+		on state_ref 280194 // BF CAP pour claps
 		  cpp_trigger "pince_stand_by"
 		external 
 	      end
 	    end
 
-	    state 225922 "BF cap"
-	      transition 296834 "<transition>"
-		on state_ref 226050 // claps 1
+	    state 280066 "recalage"
+		cpp_on_entry "serialPrint(master->getPortSerie(),\"S2 \\n\");
+"
+		cpp_on_exit "serialPrint(master->getPortSerie(),\"S1 \\n\");
+"
+	      transition 353538 "<transition>"
+		on state_ref 280450 // set X CAP
+		  cpp_trigger "blocage"
+		external 
+	      end
+	    end
+
+	    state 280194 "BF CAP pour claps"
+		cpp_on_entry "if(master->is_Jaune()){
+// BF droite sur le gobelet 
+serialPrint(master->getPortSerie(),\"S3 0 \\n\");
+}
+if(master->is_Vert()){
+// BF droite sur le gobelet 
+serialPrint(master->getPortSerie(),\"S3 180 \\n\");
+}"
+	      transition 353410 "<transition>"
+		on state_ref 280066 // recalage
 		  cpp_trigger "assFini"
 		external 
 	      end
 	    end
 
-	    state 226050 "claps 1"
-	      transition 297218 "<transition>"
+	    state 280322 "deboit claps coin"
+		cpp_on_entry "if(master->is_Jaune()){
+// BF droite sur le gobelet 
+serialPrint(master->getPortSerie(),\"C0 \\n\");
+}
+if(master->is_Vert()){
+// BF droite sur le gobelet 
+serialPrint(master->getPortSerie(),\"C2 \\n\");
+}"
+		cpp_on_exit "master->get_gestionnaire_mission()->get_mission_claps()->zone_coin_done();"
+	      transition 352898 "<transition>"
 		on pseudostate_ref 243714 // exit_point
 		  cpp_trigger "claps_replie"
 		external 
 	      end
 	    end
 
-	    pseudostate 243714 exit_point "sortie coin"
-	      transition 297474 "<transition>"
-		on state_ref 157954 // claps estrade
+	    state 280450 "set X CAP"
+		cpp_on_entry "if(master->is_Jaune()){
+// BF droite sur le gobelet 
+serialPrint(master->getPortSerie(),\"S0 -1404 247 0\\n\"); // mettre le Y du S
+}
+if(master->is_Vert()){
+// BF droite sur le gobelet 
+serialPrint(master->getPortSerie(),\"S0 1404 247 180 \\n\");
+}
+master->set_time_out(50);"
+	      transition 353794 "<transition>"
+		on state_ref 280578 // avance claps
+		  cpp_trigger "time_out"
+		external 
+	      end
+	    end
+
+	    state 280578 "avance claps"
+		cpp_on_entry "// de 100mm
+serialPrint(master->getPortSerie(),\"S4 100 \\n\");
+"
+	      transition 353922 "<transition>"
+		on state_ref 280322 // deboit claps coin
+		  cpp_trigger "assFini"
 		external 
 	      end
 	    end
@@ -1345,28 +1495,41 @@ master->get_gestionnaire_mission()->get_mission_chiage()->mission_remplie();"
 
 	    pseudostate 216706 initial 
 	      transition 297858 "<transition>"
-		on state_ref 226178 // BF cap
+		on state_ref 226178 // BF droite sur claps estrade
 		external 
 	      end
 	    end
 
-	    state 226178 "BF cap"
-	      transition 297986 "<transition>"
-		on state_ref 226306 // BF droite
-		external 
-	      end
-	    end
-
-	    state 226306 "BF droite"
-	      transition 298114 "<transition>"
+	    state 226178 "BF droite sur claps estrade"
+		cpp_on_entry "if(master->is_Jaune()){
+// BF droite sur le gobelet 
+serialPrint(master->getPortSerie(),\"S5 -715 219 0 \\n\");
+}
+if(master->is_Vert()){
+// BF droite sur le gobelet 
+serialPrint(master->getPortSerie(),\"S5 715 219 180 \\n\");
+}"
+	      transition 350338 "<transition>"
 		on state_ref 226434 // Claps 3
+		  cpp_trigger "assFini"
 		external 
 	      end
 	    end
 
 	    state 226434 "Claps 3"
+		cpp_on_entry "// claps cote droit pour jaune
+if(master->is_Jaune()){
+// ouverture du claps
+serialPrint(master->getPortSerie(),\"C0 \\n\");
+}
+if(master->is_Vert()){
+// BF droite sur le gobelet 
+serialPrint(master->getPortSerie(),\"C2 \\n\");
+}"
+		cpp_on_exit "master->get_gestionnaire_mission()->get_mission_claps()->claps_estrade_done();"
 	      transition 298498 "<transition>"
 		on pseudostate_ref 216834 // exit_point
+		  cpp_trigger "claps_replie"
 		external 
 	      end
 	    end
@@ -1396,8 +1559,8 @@ master->get_gestionnaire_mission()->get_mission_chiage()->mission_remplie();"
 	    end
 
 	    pseudostate 284930 exit_point "sortie w"
-	      transition 350082 "<transition>"
-		on state_ref 157570 // chope du stand sur la route
+	      transition 350850 "<transition>"
+		on pseudostate_ref 285186 // choice
 		external 
 	      end
 	    end
@@ -1453,8 +1616,8 @@ cout<<\"ORIENTATION VERS MISSION : \"<<ordre<<endl;"
 	  state 158466 "sortie de zone"
 	    associated_diagram statediagram_ref 201730 // sortie de zone
 	    statediagram 201730 "sortie de zone"
-	      package_name_in_tab default show_context default auto_label_position default write_trans_label_horizontally default show_trans_definition default draw_all_relations default shadow default
-	      show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+	      package_name_in_tab yes show_context default auto_label_position yes write_trans_label_horizontally yes show_trans_definition yes draw_all_relations yes shadow yes
+	      show_activities yes region_horizontally yes drawing_language c++ show_stereotype_properties yes
 	      size A0
 	    end
 
@@ -1466,6 +1629,12 @@ cout<<\"ORIENTATION VERS MISSION : \"<<ordre<<endl;"
 	    end
 
 	    state 240514 "BF cap"
+		cpp_on_entry "if(	master->get_gestionnaire_mission()->get_mission_claps()->is_stand_depart_done()
+	&& master->get_gestionnaire_mission()->get_mission_claps()->is_zone_coin_done()
+	&& master->get_gestionnaire_mission()->get_mission_claps()->is_claps_estrade_done())
+{
+	master->get_gestionnaire_mission()->get_mission_claps()->mission_remplie();
+}"
 	      transition 306050 "<transition>"
 		on state_ref 240642 // avance
 		external 
@@ -1494,6 +1663,47 @@ cout<<\"ORIENTATION VERS MISSION : \"<<ordre<<endl;"
 	    end
 	  end
 
+	  pseudostate 285186 choice 
+	    transition 350978 "<transition>"
+	      on state_ref 157570 // chope du stand sur la route
+		cpp_guard "!master->get_gestionnaire_mission()->get_mission_claps()->is_stand_depart_done()"
+	      external 
+	    end
+
+	    transition 351106 "<transition>"
+	      on pseudostate_ref 285314 // choice
+		cpp_guard "master->get_gestionnaire_mission()->get_mission_claps()->is_stand_depart_done()"
+	      external 
+	    end
+	  end
+
+	  pseudostate 285314 choice 
+	    transition 351362 "<transition>"
+	      on pseudostate_ref 285442 // choice
+		cpp_guard "master->get_gestionnaire_mission()->get_mission_claps()->is_zone_coin_done()"
+	      external 
+	    end
+
+	    transition 351618 "<transition>"
+	      on state_ref 157698 // chope du coin
+		cpp_guard "!master->get_gestionnaire_mission()->get_mission_claps()->is_zone_coin_done()"
+	      external 
+	    end
+	  end
+
+	  pseudostate 285442 choice 
+	    transition 351874 "<transition>"
+	      on state_ref 158466 // sortie de zone
+		cpp_guard "master->get_gestionnaire_mission()->get_mission_claps()->is_is_clap_estrade_done()"
+	      external 
+	    end
+
+	    transition 352002 "<transition>"
+	      on state_ref 157954 // claps estrade
+		cpp_guard "!master->get_gestionnaire_mission()->get_mission_claps()->is_is_clap_estrade_done()"
+	      external 
+	    end
+	  end
 	end
 
 	state 143234 "mission rush zone centrale"
@@ -1732,6 +1942,7 @@ serialPrint(master->getPortSerie(),\"D1 \\n\");
 
 	  state 272130 "tempo pour coop'r?"
 	      cpp_on_entry "master->set_time_out(300);"
+	      cpp_on_exit "master->get_gestionnaire_mission()->get_mission_zone_centrale()->mission_remplie();"
 	    transition 342402 "<transition>"
 	      on pseudostate_ref 230402 // exit_point
 		cpp_trigger "time_out"
@@ -2176,7 +2387,7 @@ serialPrint(master->getPortSerie(),\"S3 0 \\n\");
 		cpp_on_entry "serialPrint(master->getPortSerie(),\"P6 \\n\");
 master->set_time_out(300);
 master->get_gestionnaire()->get_mission_zone_ennemie()->depot_gobelet_done();
-"
+master->get_gestionnaire()->get_element_robot()->drop_gobelet_done();"
 	      transition 332034 "<transition>"
 		on state_ref 263298 // avance
 		  cpp_trigger "time_out"
@@ -3049,6 +3260,26 @@ ${inlines}
 	  ncouples 1
 	  key "STM generated" value ""
 	  comment " the current state doesn't manage the event end_game, give it to the upper state"
+	end
+
+	operation 352514 "pince_ouverte
+"
+	  force_body_gen cpp_virtual public explicit_return_type "void"
+	  nparams 1
+	    param inout name "stm" type class_ref 140290 // MAE_MURPHY
+	  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+	  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+	  
+	  
+	  
+	  
+	  ncouples 1
+	  key "STM generated" value ""
+	  comment " the current state doesn't manage the event pince_ouverte
+, give it to the upper state"
 	end
       end
 
@@ -14124,6 +14355,24 @@ ${inlines}
 		key "STM generated" value ""
 		comment " returns the state containing the current"
 	      end
+
+	      operation 360962 "_doexit"
+		force_body_gen public explicit_return_type "void"
+		nparams 1
+		  param inout name "stm" type class_ref 140290 // MAE_MURPHY
+		cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+		cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+		
+		
+		
+		
+		ncouples 1
+		key "STM generated" value ""
+		comment " perform the 'exit behavior'"
+	      end
 	    end
 
 	    class 228226 "chope_stand_3_State"
@@ -15529,471 +15778,6 @@ ${inlines}
 	      ncouples 1
 	      key "STM generated" value ""
 	      comment " implement the state chope du stand sur la route"
-	      class 185346 "BF_cap_State"
-		visibility public 
-		cpp_decl "${comment}${template}class ${name}${inherit} {
-${members}};
-${inlines}
-"
-		java_decl ""
-		php_decl ""
-		python_2_2 python_decl ""
-		idl_decl ""
-		explicit_switch_type ""
-		
-		ncouples 1
-		key "STM generated" value ""
-		comment " implement the state BF cap"
-		operation 244482 "~BF_cap_State"
-		  force_body_gen cpp_virtual public explicit_return_type ""
-		  nparams 0
-		  cpp_decl "    ${comment}${inline}${virtual}${name}${(}${)}${volatile}${throw};
-"
-		  cpp_def "${comment}${inline}${class}::${name}${(}${)}${volatile}${throw} {
-  ${body}}
-"
-		  
-		  
-		  
-		  
-		  ncouples 1
-		  key "STM generated" value ""
-		end
-
-		classrelation 192642 // <generalisation>
-		  relation 192642 ---|>
-		    a public
-		      cpp default "${type}"
-		      classrelation_ref 192642 // <generalisation>
-		    b parent class_ref 140418 // AnyState
-		end
-
-		operation 247810 "_upper"
-		  force_body_gen cpp_virtual public return_type class_ref 140418 // AnyState
-		  nparams 1
-		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
-		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} * ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
-"
-		  cpp_def "${comment}${inline}${type} * ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
-  ${body}}
-"
-		  
-		  
-		  
-		  
-		  ncouples 1
-		  key "STM generated" value ""
-		  comment " returns the state containing the current"
-		end
-
-		operation 265858 "_completion"
-		  force_body_gen cpp_virtual public explicit_return_type "bool"
-		  nparams 1
-		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
-		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
-"
-		  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
-  ${body}}
-"
-		  
-		  
-		  
-		  
-		  ncouples 1
-		  key "STM generated" value ""
-		end
-
-		operation 265986 "create"
-		  force_body_gen cpp_virtual public explicit_return_type "void"
-		  nparams 1
-		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
-		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
-"
-		  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
-  ${body}}
-"
-		  
-		  
-		  
-		  
-		  ncouples 1
-		  key "STM generated" value ""
-		  comment " to manage the event create"
-		end
-	      end
-
-	      class 186242 "BF_droite_sur_le_coin_State"
-		visibility public 
-		cpp_decl "${comment}${template}class ${name}${inherit} {
-${members}};
-${inlines}
-"
-		java_decl ""
-		php_decl ""
-		python_2_2 python_decl ""
-		idl_decl ""
-		explicit_switch_type ""
-		
-		ncouples 1
-		key "STM generated" value ""
-		comment " implement the state BF droite sur le coin"
-		operation 245378 "~BF_droite_sur_le_coin_State"
-		  force_body_gen cpp_virtual public explicit_return_type ""
-		  nparams 0
-		  cpp_decl "    ${comment}${inline}${virtual}${name}${(}${)}${volatile}${throw};
-"
-		  cpp_def "${comment}${inline}${class}::${name}${(}${)}${volatile}${throw} {
-  ${body}}
-"
-		  
-		  
-		  
-		  
-		  ncouples 1
-		  key "STM generated" value ""
-		end
-
-		classrelation 208258 // <generalisation>
-		  relation 208258 ---|>
-		    a public
-		      cpp default "${type}"
-		      classrelation_ref 208258 // <generalisation>
-		    b parent class_ref 140418 // AnyState
-		end
-
-		operation 267906 "_completion"
-		  force_body_gen cpp_virtual public explicit_return_type "bool"
-		  nparams 1
-		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
-		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
-"
-		  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
-  ${body}}
-"
-		  
-		  
-		  
-		  
-		  ncouples 1
-		  key "STM generated" value ""
-		end
-
-		operation 268034 "create"
-		  force_body_gen cpp_virtual public explicit_return_type "void"
-		  nparams 1
-		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
-		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
-"
-		  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
-  ${body}}
-"
-		  
-		  
-		  
-		  
-		  ncouples 1
-		  key "STM generated" value ""
-		  comment " to manage the event create"
-		end
-
-		operation 268162 "_upper"
-		  force_body_gen cpp_virtual public return_type class_ref 140418 // AnyState
-		  nparams 1
-		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
-		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} * ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
-"
-		  cpp_def "${comment}${inline}${type} * ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
-  ${body}}
-"
-		  
-		  
-		  
-		  
-		  ncouples 1
-		  key "STM generated" value ""
-		  comment " returns the state containing the current"
-		end
-	      end
-
-	      class 186114 "BF_cap_sur_le_coin_State"
-		visibility public 
-		cpp_decl "${comment}${template}class ${name}${inherit} {
-${members}};
-${inlines}
-"
-		java_decl ""
-		php_decl ""
-		python_2_2 python_decl ""
-		idl_decl ""
-		explicit_switch_type ""
-		
-		ncouples 1
-		key "STM generated" value ""
-		comment " implement the state BF cap sur le coin"
-		operation 245250 "~BF_cap_sur_le_coin_State"
-		  force_body_gen cpp_virtual public explicit_return_type ""
-		  nparams 0
-		  cpp_decl "    ${comment}${inline}${virtual}${name}${(}${)}${volatile}${throw};
-"
-		  cpp_def "${comment}${inline}${class}::${name}${(}${)}${volatile}${throw} {
-  ${body}}
-"
-		  
-		  
-		  
-		  
-		  ncouples 1
-		  key "STM generated" value ""
-		end
-
-		classrelation 208002 // <generalisation>
-		  relation 208002 ---|>
-		    a public
-		      cpp default "${type}"
-		      classrelation_ref 208002 // <generalisation>
-		    b parent class_ref 140418 // AnyState
-		end
-
-		operation 267522 "_completion"
-		  force_body_gen cpp_virtual public explicit_return_type "bool"
-		  nparams 1
-		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
-		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
-"
-		  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
-  ${body}}
-"
-		  
-		  
-		  
-		  
-		  ncouples 1
-		  key "STM generated" value ""
-		end
-
-		operation 267650 "create"
-		  force_body_gen cpp_virtual public explicit_return_type "void"
-		  nparams 1
-		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
-		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
-"
-		  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
-  ${body}}
-"
-		  
-		  
-		  
-		  
-		  ncouples 1
-		  key "STM generated" value ""
-		  comment " to manage the event create"
-		end
-
-		operation 267778 "_upper"
-		  force_body_gen cpp_virtual public return_type class_ref 140418 // AnyState
-		  nparams 1
-		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
-		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} * ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
-"
-		  cpp_def "${comment}${inline}${type} * ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
-  ${body}}
-"
-		  
-		  
-		  
-		  
-		  ncouples 1
-		  key "STM generated" value ""
-		  comment " returns the state containing the current"
-		end
-	      end
-
-	      class 185986 "BF_droite_sur_cinema_State"
-		visibility public 
-		cpp_decl "${comment}${template}class ${name}${inherit} {
-${members}};
-${inlines}
-"
-		java_decl ""
-		php_decl ""
-		python_2_2 python_decl ""
-		idl_decl ""
-		explicit_switch_type ""
-		
-		ncouples 1
-		key "STM generated" value ""
-		comment " implement the state BF droite sur cinema"
-		operation 245122 "~BF_droite_sur_cinema_State"
-		  force_body_gen cpp_virtual public explicit_return_type ""
-		  nparams 0
-		  cpp_decl "    ${comment}${inline}${virtual}${name}${(}${)}${volatile}${throw};
-"
-		  cpp_def "${comment}${inline}${class}::${name}${(}${)}${volatile}${throw} {
-  ${body}}
-"
-		  
-		  
-		  
-		  
-		  ncouples 1
-		  key "STM generated" value ""
-		end
-
-		classrelation 207746 // <generalisation>
-		  relation 207746 ---|>
-		    a public
-		      cpp default "${type}"
-		      classrelation_ref 207746 // <generalisation>
-		    b parent class_ref 140418 // AnyState
-		end
-
-		operation 267138 "_completion"
-		  force_body_gen cpp_virtual public explicit_return_type "bool"
-		  nparams 1
-		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
-		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
-"
-		  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
-  ${body}}
-"
-		  
-		  
-		  
-		  
-		  ncouples 1
-		  key "STM generated" value ""
-		end
-
-		operation 267266 "create"
-		  force_body_gen cpp_virtual public explicit_return_type "void"
-		  nparams 1
-		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
-		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
-"
-		  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
-  ${body}}
-"
-		  
-		  
-		  
-		  
-		  ncouples 1
-		  key "STM generated" value ""
-		  comment " to manage the event create"
-		end
-
-		operation 267394 "_upper"
-		  force_body_gen cpp_virtual public return_type class_ref 140418 // AnyState
-		  nparams 1
-		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
-		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} * ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
-"
-		  cpp_def "${comment}${inline}${type} * ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
-  ${body}}
-"
-		  
-		  
-		  
-		  
-		  ncouples 1
-		  key "STM generated" value ""
-		  comment " returns the state containing the current"
-		end
-	      end
-
-	      class 185858 "BF_cap_vers_cinema_State"
-		visibility public 
-		cpp_decl "${comment}${template}class ${name}${inherit} {
-${members}};
-${inlines}
-"
-		java_decl ""
-		php_decl ""
-		python_2_2 python_decl ""
-		idl_decl ""
-		explicit_switch_type ""
-		
-		ncouples 1
-		key "STM generated" value ""
-		comment " implement the state BF cap vers cinema"
-		operation 244994 "~BF_cap_vers_cinema_State"
-		  force_body_gen cpp_virtual public explicit_return_type ""
-		  nparams 0
-		  cpp_decl "    ${comment}${inline}${virtual}${name}${(}${)}${volatile}${throw};
-"
-		  cpp_def "${comment}${inline}${class}::${name}${(}${)}${volatile}${throw} {
-  ${body}}
-"
-		  
-		  
-		  
-		  
-		  ncouples 1
-		  key "STM generated" value ""
-		end
-
-		classrelation 207490 // <generalisation>
-		  relation 207490 ---|>
-		    a public
-		      cpp default "${type}"
-		      classrelation_ref 207490 // <generalisation>
-		    b parent class_ref 140418 // AnyState
-		end
-
-		operation 266754 "_completion"
-		  force_body_gen cpp_virtual public explicit_return_type "bool"
-		  nparams 1
-		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
-		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
-"
-		  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
-  ${body}}
-"
-		  
-		  
-		  
-		  
-		  ncouples 1
-		  key "STM generated" value ""
-		end
-
-		operation 266882 "create"
-		  force_body_gen cpp_virtual public explicit_return_type "void"
-		  nparams 1
-		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
-		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
-"
-		  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
-  ${body}}
-"
-		  
-		  
-		  
-		  
-		  ncouples 1
-		  key "STM generated" value ""
-		  comment " to manage the event create"
-		end
-
-		operation 267010 "_upper"
-		  force_body_gen cpp_virtual public return_type class_ref 140418 // AnyState
-		  nparams 1
-		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
-		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} * ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
-"
-		  cpp_def "${comment}${inline}${type} * ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
-  ${body}}
-"
-		  
-		  
-		  
-		  
-		  ncouples 1
-		  key "STM generated" value ""
-		  comment " returns the state containing the current"
-		end
-	      end
-
 	      class 185730 "chope_State"
 		visibility public 
 		cpp_decl "${comment}${template}class ${name}${inherit} {
@@ -16051,23 +15835,6 @@ ${inlines}
 		  comment " returns the state containing the current"
 		end
 
-		operation 266498 "_completion"
-		  force_body_gen cpp_virtual public explicit_return_type "bool"
-		  nparams 1
-		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
-		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
-"
-		  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
-  ${body}}
-"
-		  
-		  
-		  
-		  
-		  ncouples 1
-		  key "STM generated" value ""
-		end
-
 		operation 266626 "create"
 		  force_body_gen cpp_virtual public explicit_return_type "void"
 		  nparams 1
@@ -16084,6 +15851,42 @@ ${inlines}
 		  ncouples 1
 		  key "STM generated" value ""
 		  comment " to manage the event create"
+		end
+
+		operation 349058 "pince_stand_by"
+		  force_body_gen cpp_virtual public explicit_return_type "void"
+		  nparams 1
+		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
+		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+		  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+		  
+		  
+		  
+		  
+		  ncouples 1
+		  key "STM generated" value ""
+		  comment " to manage the event pince_stand_by"
+		end
+
+		operation 349186 "_doentry"
+		  force_body_gen public explicit_return_type "void"
+		  nparams 1
+		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
+		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+		  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+		  
+		  
+		  
+		  
+		  ncouples 1
+		  key "STM generated" value ""
+		  comment " perform the 'entry behavior'"
 		end
 	      end
 
@@ -16180,8 +15983,8 @@ ${inlines}
 		  comment " returns the state containing the current"
 		end
 
-		operation 266370 "_completion"
-		  force_body_gen cpp_virtual public explicit_return_type "bool"
+		operation 348930 "pince_ouverte"
+		  force_body_gen cpp_virtual public explicit_return_type "void"
 		  nparams 1
 		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
 		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
@@ -16195,6 +15998,7 @@ ${inlines}
 		  
 		  ncouples 1
 		  key "STM generated" value ""
+		  comment " to manage the event pince_ouverte"
 		end
 	      end
 
@@ -16255,23 +16059,6 @@ ${inlines}
 		  comment " returns the state containing the current"
 		end
 
-		operation 266114 "_completion"
-		  force_body_gen cpp_virtual public explicit_return_type "bool"
-		  nparams 1
-		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
-		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
-"
-		  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
-  ${body}}
-"
-		  
-		  
-		  
-		  
-		  ncouples 1
-		  key "STM generated" value ""
-		end
-
 		operation 266242 "create"
 		  force_body_gen cpp_virtual public explicit_return_type "void"
 		  nparams 1
@@ -16288,6 +16075,42 @@ ${inlines}
 		  ncouples 1
 		  key "STM generated" value ""
 		  comment " to manage the event create"
+		end
+
+		operation 348674 "assFini"
+		  force_body_gen cpp_virtual public explicit_return_type "void"
+		  nparams 1
+		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
+		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+		  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+		  
+		  
+		  
+		  
+		  ncouples 1
+		  key "STM generated" value ""
+		  comment " to manage the event assFini"
+		end
+
+		operation 348802 "_doentry"
+		  force_body_gen public explicit_return_type "void"
+		  nparams 1
+		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
+		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+		  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+		  
+		  
+		  
+		  
+		  ncouples 1
+		  key "STM generated" value ""
+		  comment " perform the 'entry behavior'"
 		end
 	      end
 
@@ -16351,19 +16174,6 @@ ${inlines}
 		comment " returns the state containing the current"
 	      end
 
-	      attribute 184834 "_bf_cap_state"
-		public type class_ref 185346 // BF_cap_State
-		cpp_decl "    ${comment}${static}${mutable}${volatile}${const}${type} ${name}${value};
-"
-		java_decl ""
-		php_decl ""
-		python_decl ""
-		idl_decl ""
-		ncouples 1
-		key "STM generated" value ""
-		comment " memorize the instance of the state BF cap, internal"
-	      end
-
 	      attribute 184962 "_bf_droite_state"
 		public type class_ref 185474 // BF_droite_State
 		cpp_decl "    ${comment}${static}${mutable}${volatile}${const}${type} ${name}${value};
@@ -16401,58 +16211,6 @@ ${inlines}
 		ncouples 1
 		key "STM generated" value ""
 		comment " memorize the instance of the state chope, internal"
-	      end
-
-	      attribute 185346 "_bf_cap_vers_cinema_state"
-		public type class_ref 185858 // BF_cap_vers_cinema_State
-		cpp_decl "    ${comment}${static}${mutable}${volatile}${const}${type} ${name}${value};
-"
-		java_decl ""
-		php_decl ""
-		python_decl ""
-		idl_decl ""
-		ncouples 1
-		key "STM generated" value ""
-		comment " memorize the instance of the state BF cap vers cinema, internal"
-	      end
-
-	      attribute 185474 "_bf_droite_sur_cinema_state"
-		public type class_ref 185986 // BF_droite_sur_cinema_State
-		cpp_decl "    ${comment}${static}${mutable}${volatile}${const}${type} ${name}${value};
-"
-		java_decl ""
-		php_decl ""
-		python_decl ""
-		idl_decl ""
-		ncouples 1
-		key "STM generated" value ""
-		comment " memorize the instance of the state BF droite sur cinema, internal"
-	      end
-
-	      attribute 185602 "_bf_cap_sur_le_coin_state"
-		public type class_ref 186114 // BF_cap_sur_le_coin_State
-		cpp_decl "    ${comment}${static}${mutable}${volatile}${const}${type} ${name}${value};
-"
-		java_decl ""
-		php_decl ""
-		python_decl ""
-		idl_decl ""
-		ncouples 1
-		key "STM generated" value ""
-		comment " memorize the instance of the state BF cap sur le coin, internal"
-	      end
-
-	      attribute 185730 "_bf_droite_sur_le_coin_state"
-		public type class_ref 186242 // BF_droite_sur_le_coin_State
-		cpp_decl "    ${comment}${static}${mutable}${volatile}${const}${type} ${name}${value};
-"
-		java_decl ""
-		php_decl ""
-		python_decl ""
-		idl_decl ""
-		ncouples 1
-		key "STM generated" value ""
-		comment " memorize the instance of the state BF droite sur le coin, internal"
 	      end
 
 	      operation 268418 "_doentry"
@@ -16597,6 +16355,24 @@ ${inlines}
 		  ncouples 1
 		  key "STM generated" value ""
 		  comment " returns the state containing the current"
+		end
+
+		operation 360834 "_doentry"
+		  force_body_gen public explicit_return_type "void"
+		  nparams 1
+		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
+		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+		  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+		  
+		  
+		  
+		  
+		  ncouples 1
+		  key "STM generated" value ""
+		  comment " perform the 'entry behavior'"
 		end
 	      end
 
@@ -16813,6 +16589,342 @@ ${inlines}
 	      ncouples 1
 	      key "STM generated" value ""
 	      comment " implement the state waypoint initial"
+	      class 237058 "cap_to_mission_State"
+		visibility public 
+		cpp_decl "${comment}${template}class ${name}${inherit} {
+${members}};
+${inlines}
+"
+		java_decl ""
+		php_decl ""
+		python_2_2 python_decl ""
+		idl_decl ""
+		explicit_switch_type ""
+		
+		ncouples 1
+		key "STM generated" value ""
+		comment " implement the state cap to mission"
+		operation 348290 "~cap_to_mission_State"
+		  force_body_gen cpp_virtual public explicit_return_type ""
+		  nparams 0
+		  cpp_decl "    ${comment}${inline}${virtual}${name}${(}${)}${volatile}${throw};
+"
+		  cpp_def "${comment}${inline}${class}::${name}${(}${)}${volatile}${throw} {
+  ${body}}
+"
+		  
+		  
+		  
+		  
+		  ncouples 1
+		  key "STM generated" value ""
+		end
+
+		classrelation 257410 // <generalisation>
+		  relation 257410 ---|>
+		    a public
+		      cpp default "${type}"
+		      classrelation_ref 257410 // <generalisation>
+		    b parent class_ref 140418 // AnyState
+		end
+
+		operation 359298 "assFini"
+		  force_body_gen cpp_virtual public explicit_return_type "void"
+		  nparams 1
+		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
+		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+		  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+		  
+		  
+		  
+		  
+		  ncouples 1
+		  key "STM generated" value ""
+		  comment " to manage the event assFini"
+		end
+
+		operation 359426 "create"
+		  force_body_gen cpp_virtual public explicit_return_type "void"
+		  nparams 1
+		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
+		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+		  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+		  
+		  
+		  
+		  
+		  ncouples 1
+		  key "STM generated" value ""
+		  comment " to manage the event create"
+		end
+
+		operation 359554 "_doentry"
+		  force_body_gen public explicit_return_type "void"
+		  nparams 1
+		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
+		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+		  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+		  
+		  
+		  
+		  
+		  ncouples 1
+		  key "STM generated" value ""
+		  comment " perform the 'entry behavior'"
+		end
+
+		operation 359682 "_upper"
+		  force_body_gen cpp_virtual public return_type class_ref 140418 // AnyState
+		  nparams 1
+		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
+		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} * ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+		  cpp_def "${comment}${inline}${type} * ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+		  
+		  
+		  
+		  
+		  ncouples 1
+		  key "STM generated" value ""
+		  comment " returns the state containing the current"
+		end
+	      end
+
+	      class 237314 "cap_mission_State"
+		visibility public 
+		cpp_decl "${comment}${template}class ${name}${inherit} {
+${members}};
+${inlines}
+"
+		java_decl ""
+		php_decl ""
+		python_2_2 python_decl ""
+		idl_decl ""
+		explicit_switch_type ""
+		
+		ncouples 1
+		key "STM generated" value ""
+		comment " implement the state cap mission"
+		operation 348546 "~cap_mission_State"
+		  force_body_gen cpp_virtual public explicit_return_type ""
+		  nparams 0
+		  cpp_decl "    ${comment}${inline}${virtual}${name}${(}${)}${volatile}${throw};
+"
+		  cpp_def "${comment}${inline}${class}::${name}${(}${)}${volatile}${throw} {
+  ${body}}
+"
+		  
+		  
+		  
+		  
+		  ncouples 1
+		  key "STM generated" value ""
+		end
+
+		classrelation 257922 // <generalisation>
+		  relation 257922 ---|>
+		    a public
+		      cpp default "${type}"
+		      classrelation_ref 257922 // <generalisation>
+		    b parent class_ref 140418 // AnyState
+		end
+
+		operation 360322 "assFini"
+		  force_body_gen cpp_virtual public explicit_return_type "void"
+		  nparams 1
+		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
+		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+		  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+		  
+		  
+		  
+		  
+		  ncouples 1
+		  key "STM generated" value ""
+		  comment " to manage the event assFini"
+		end
+
+		operation 360450 "create"
+		  force_body_gen cpp_virtual public explicit_return_type "void"
+		  nparams 1
+		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
+		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+		  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+		  
+		  
+		  
+		  
+		  ncouples 1
+		  key "STM generated" value ""
+		  comment " to manage the event create"
+		end
+
+		operation 360578 "_doentry"
+		  force_body_gen public explicit_return_type "void"
+		  nparams 1
+		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
+		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+		  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+		  
+		  
+		  
+		  
+		  ncouples 1
+		  key "STM generated" value ""
+		  comment " perform the 'entry behavior'"
+		end
+
+		operation 360706 "_upper"
+		  force_body_gen cpp_virtual public return_type class_ref 140418 // AnyState
+		  nparams 1
+		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
+		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} * ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+		  cpp_def "${comment}${inline}${type} * ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+		  
+		  
+		  
+		  
+		  ncouples 1
+		  key "STM generated" value ""
+		  comment " returns the state containing the current"
+		end
+	      end
+
+	      class 237186 "BF_droite_to_mission_State"
+		visibility public 
+		cpp_decl "${comment}${template}class ${name}${inherit} {
+${members}};
+${inlines}
+"
+		java_decl ""
+		php_decl ""
+		python_2_2 python_decl ""
+		idl_decl ""
+		explicit_switch_type ""
+		
+		ncouples 1
+		key "STM generated" value ""
+		comment " implement the state BF droite to mission"
+		operation 348418 "~BF_droite_to_mission_State"
+		  force_body_gen cpp_virtual public explicit_return_type ""
+		  nparams 0
+		  cpp_decl "    ${comment}${inline}${virtual}${name}${(}${)}${volatile}${throw};
+"
+		  cpp_def "${comment}${inline}${class}::${name}${(}${)}${volatile}${throw} {
+  ${body}}
+"
+		  
+		  
+		  
+		  
+		  ncouples 1
+		  key "STM generated" value ""
+		end
+
+		classrelation 257666 // <generalisation>
+		  relation 257666 ---|>
+		    a public
+		      cpp default "${type}"
+		      classrelation_ref 257666 // <generalisation>
+		    b parent class_ref 140418 // AnyState
+		end
+
+		operation 359810 "assFini"
+		  force_body_gen cpp_virtual public explicit_return_type "void"
+		  nparams 1
+		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
+		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+		  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+		  
+		  
+		  
+		  
+		  ncouples 1
+		  key "STM generated" value ""
+		  comment " to manage the event assFini"
+		end
+
+		operation 359938 "create"
+		  force_body_gen cpp_virtual public explicit_return_type "void"
+		  nparams 1
+		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
+		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+		  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+		  
+		  
+		  
+		  
+		  ncouples 1
+		  key "STM generated" value ""
+		  comment " to manage the event create"
+		end
+
+		operation 360066 "_doentry"
+		  force_body_gen public explicit_return_type "void"
+		  nparams 1
+		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
+		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+		  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+		  
+		  
+		  
+		  
+		  ncouples 1
+		  key "STM generated" value ""
+		  comment " perform the 'entry behavior'"
+		end
+
+		operation 360194 "_upper"
+		  force_body_gen cpp_virtual public return_type class_ref 140418 // AnyState
+		  nparams 1
+		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
+		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} * ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+		  cpp_def "${comment}${inline}${type} * ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+		  
+		  
+		  
+		  
+		  ncouples 1
+		  key "STM generated" value ""
+		  comment " returns the state containing the current"
+		end
+	      end
+
 	      operation 247298 "~waypoint_initial_State"
 		force_body_gen cpp_virtual public explicit_return_type ""
 		nparams 0
@@ -16835,23 +16947,6 @@ ${inlines}
 		    cpp default "${type}"
 		    classrelation_ref 212866 // <generalisation>
 		  b parent class_ref 140418 // AnyState
-	      end
-
-	      operation 274818 "_completion"
-		force_body_gen cpp_virtual public explicit_return_type "bool"
-		nparams 1
-		  param inout name "stm" type class_ref 140290 // MAE_MURPHY
-		cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
-"
-		cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
-  ${body}}
-"
-		
-		
-		
-		
-		ncouples 1
-		key "STM generated" value ""
 	      end
 
 	      operation 274946 "create"
@@ -16907,457 +17002,9 @@ ${inlines}
 		key "STM generated" value ""
 		comment " returns the state containing the current"
 	      end
-	    end
 
-	    class 142850 "chope_stand_pres_estrade_State"
-	      visibility public 
-	      cpp_decl "${comment}${template}class ${name}${inherit} {
-${members}};
-${inlines}
-"
-	      java_decl ""
-	      php_decl ""
-	      python_2_2 python_decl ""
-	      idl_decl ""
-	      explicit_switch_type ""
-	      
-	      ncouples 1
-	      key "STM generated" value ""
-	      comment " implement the state chope stand pres estrade"
-	      class 201602 "avance_State"
-		visibility public 
-		cpp_decl "${comment}${template}class ${name}${inherit} {
-${members}};
-${inlines}
-"
-		java_decl ""
-		php_decl ""
-		python_2_2 python_decl ""
-		idl_decl ""
-		explicit_switch_type ""
-		
-		ncouples 1
-		key "STM generated" value ""
-		comment " implement the state avance"
-		operation 264962 "~avance_State"
-		  force_body_gen cpp_virtual public explicit_return_type ""
-		  nparams 0
-		  cpp_decl "    ${comment}${inline}${virtual}${name}${(}${)}${volatile}${throw};
-"
-		  cpp_def "${comment}${inline}${class}::${name}${(}${)}${volatile}${throw} {
-  ${body}}
-"
-		  
-		  
-		  
-		  
-		  ncouples 1
-		  key "STM generated" value ""
-		end
-
-		classrelation 211842 // <generalisation>
-		  relation 211842 ---|>
-		    a public
-		      cpp default "${type}"
-		      classrelation_ref 211842 // <generalisation>
-		    b parent class_ref 140418 // AnyState
-		end
-
-		operation 273154 "_completion"
-		  force_body_gen cpp_virtual public explicit_return_type "bool"
-		  nparams 1
-		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
-		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
-"
-		  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
-  ${body}}
-"
-		  
-		  
-		  
-		  
-		  ncouples 1
-		  key "STM generated" value ""
-		end
-
-		operation 273282 "create"
-		  force_body_gen cpp_virtual public explicit_return_type "void"
-		  nparams 1
-		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
-		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
-"
-		  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
-  ${body}}
-"
-		  
-		  
-		  
-		  
-		  ncouples 1
-		  key "STM generated" value ""
-		  comment " to manage the event create"
-		end
-
-		operation 273410 "_upper"
-		  force_body_gen cpp_virtual public return_type class_ref 140418 // AnyState
-		  nparams 1
-		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
-		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} * ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
-"
-		  cpp_def "${comment}${inline}${type} * ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
-  ${body}}
-"
-		  
-		  
-		  
-		  
-		  ncouples 1
-		  key "STM generated" value ""
-		  comment " returns the state containing the current"
-		end
-	      end
-
-	      class 201986 "recule_State"
-		visibility public 
-		cpp_decl "${comment}${template}class ${name}${inherit} {
-${members}};
-${inlines}
-"
-		java_decl ""
-		php_decl ""
-		python_2_2 python_decl ""
-		idl_decl ""
-		explicit_switch_type ""
-		
-		ncouples 1
-		key "STM generated" value ""
-		comment " implement the state recule"
-		operation 265346 "~recule_State"
-		  force_body_gen cpp_virtual public explicit_return_type ""
-		  nparams 0
-		  cpp_decl "    ${comment}${inline}${virtual}${name}${(}${)}${volatile}${throw};
-"
-		  cpp_def "${comment}${inline}${class}::${name}${(}${)}${volatile}${throw} {
-  ${body}}
-"
-		  
-		  
-		  
-		  
-		  ncouples 1
-		  key "STM generated" value ""
-		end
-
-		classrelation 212610 // <generalisation>
-		  relation 212610 ---|>
-		    a public
-		      cpp default "${type}"
-		      classrelation_ref 212610 // <generalisation>
-		    b parent class_ref 140418 // AnyState
-		end
-
-		operation 274306 "_completion"
-		  force_body_gen cpp_virtual public explicit_return_type "bool"
-		  nparams 1
-		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
-		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
-"
-		  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
-  ${body}}
-"
-		  
-		  
-		  
-		  
-		  ncouples 1
-		  key "STM generated" value ""
-		end
-
-		operation 274434 "create"
-		  force_body_gen cpp_virtual public explicit_return_type "void"
-		  nparams 1
-		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
-		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
-"
-		  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
-  ${body}}
-"
-		  
-		  
-		  
-		  
-		  ncouples 1
-		  key "STM generated" value ""
-		  comment " to manage the event create"
-		end
-
-		operation 274562 "_upper"
-		  force_body_gen cpp_virtual public return_type class_ref 140418 // AnyState
-		  nparams 1
-		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
-		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} * ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
-"
-		  cpp_def "${comment}${inline}${type} * ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
-  ${body}}
-"
-		  
-		  
-		  
-		  
-		  ncouples 1
-		  key "STM generated" value ""
-		  comment " returns the state containing the current"
-		end
-	      end
-
-	      class 201858 "chope_State"
-		visibility public 
-		cpp_decl "${comment}${template}class ${name}${inherit} {
-${members}};
-${inlines}
-"
-		java_decl ""
-		php_decl ""
-		python_2_2 python_decl ""
-		idl_decl ""
-		explicit_switch_type ""
-		
-		ncouples 1
-		key "STM generated" value ""
-		comment " implement the state chope"
-		operation 265218 "~chope_State"
-		  force_body_gen cpp_virtual public explicit_return_type ""
-		  nparams 0
-		  cpp_decl "    ${comment}${inline}${virtual}${name}${(}${)}${volatile}${throw};
-"
-		  cpp_def "${comment}${inline}${class}::${name}${(}${)}${volatile}${throw} {
-  ${body}}
-"
-		  
-		  
-		  
-		  
-		  ncouples 1
-		  key "STM generated" value ""
-		end
-
-		classrelation 212354 // <generalisation>
-		  relation 212354 ---|>
-		    a public
-		      cpp default "${type}"
-		      classrelation_ref 212354 // <generalisation>
-		    b parent class_ref 140418 // AnyState
-		end
-
-		operation 273922 "_completion"
-		  force_body_gen cpp_virtual public explicit_return_type "bool"
-		  nparams 1
-		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
-		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
-"
-		  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
-  ${body}}
-"
-		  
-		  
-		  
-		  
-		  ncouples 1
-		  key "STM generated" value ""
-		end
-
-		operation 274050 "create"
-		  force_body_gen cpp_virtual public explicit_return_type "void"
-		  nparams 1
-		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
-		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
-"
-		  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
-  ${body}}
-"
-		  
-		  
-		  
-		  
-		  ncouples 1
-		  key "STM generated" value ""
-		  comment " to manage the event create"
-		end
-
-		operation 274178 "_upper"
-		  force_body_gen cpp_virtual public return_type class_ref 140418 // AnyState
-		  nparams 1
-		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
-		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} * ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
-"
-		  cpp_def "${comment}${inline}${type} * ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
-  ${body}}
-"
-		  
-		  
-		  
-		  
-		  ncouples 1
-		  key "STM generated" value ""
-		  comment " returns the state containing the current"
-		end
-	      end
-
-	      class 201730 "ouverture_pince_State"
-		visibility public 
-		cpp_decl "${comment}${template}class ${name}${inherit} {
-${members}};
-${inlines}
-"
-		java_decl ""
-		php_decl ""
-		python_2_2 python_decl ""
-		idl_decl ""
-		explicit_switch_type ""
-		
-		ncouples 1
-		key "STM generated" value ""
-		comment " implement the state ouverture pince"
-		operation 265090 "~ouverture_pince_State"
-		  force_body_gen cpp_virtual public explicit_return_type ""
-		  nparams 0
-		  cpp_decl "    ${comment}${inline}${virtual}${name}${(}${)}${volatile}${throw};
-"
-		  cpp_def "${comment}${inline}${class}::${name}${(}${)}${volatile}${throw} {
-  ${body}}
-"
-		  
-		  
-		  
-		  
-		  ncouples 1
-		  key "STM generated" value ""
-		end
-
-		classrelation 212098 // <generalisation>
-		  relation 212098 ---|>
-		    a public
-		      cpp default "${type}"
-		      classrelation_ref 212098 // <generalisation>
-		    b parent class_ref 140418 // AnyState
-		end
-
-		operation 273538 "_completion"
-		  force_body_gen cpp_virtual public explicit_return_type "bool"
-		  nparams 1
-		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
-		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
-"
-		  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
-  ${body}}
-"
-		  
-		  
-		  
-		  
-		  ncouples 1
-		  key "STM generated" value ""
-		end
-
-		operation 273666 "create"
-		  force_body_gen cpp_virtual public explicit_return_type "void"
-		  nparams 1
-		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
-		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
-"
-		  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
-  ${body}}
-"
-		  
-		  
-		  
-		  
-		  ncouples 1
-		  key "STM generated" value ""
-		  comment " to manage the event create"
-		end
-
-		operation 273794 "_upper"
-		  force_body_gen cpp_virtual public return_type class_ref 140418 // AnyState
-		  nparams 1
-		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
-		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} * ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
-"
-		  cpp_def "${comment}${inline}${type} * ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
-  ${body}}
-"
-		  
-		  
-		  
-		  
-		  ncouples 1
-		  key "STM generated" value ""
-		  comment " returns the state containing the current"
-		end
-	      end
-
-	      operation 144898 "~chope_stand_pres_estrade_State"
-		force_body_gen cpp_virtual public explicit_return_type ""
-		nparams 0
-		cpp_decl "    ${comment}${inline}${virtual}${name}${(}${)}${volatile}${throw};
-"
-		cpp_def "${comment}${inline}${class}::${name}${(}${)}${volatile}${throw} {
-  ${body}}
-"
-		
-		
-		
-		
-		ncouples 1
-		key "STM generated" value ""
-	      end
-
-	      classrelation 145538 // <generalisation>
-		relation 145538 ---|>
-		  a public
-		    cpp default "${type}"
-		    classrelation_ref 145538 // <generalisation>
-		  b parent class_ref 140418 // AnyState
-	      end
-
-	      operation 162690 "create"
-		force_body_gen cpp_virtual public explicit_return_type "void"
-		nparams 1
-		  param inout name "stm" type class_ref 140290 // MAE_MURPHY
-		cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
-"
-		cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
-  ${body}}
-"
-		
-		
-		
-		
-		ncouples 1
-		key "STM generated" value ""
-		comment " to manage the event create"
-	      end
-
-	      operation 162818 "_upper"
-		force_body_gen cpp_virtual public return_type class_ref 140418 // AnyState
-		nparams 1
-		  param inout name "stm" type class_ref 140290 // MAE_MURPHY
-		cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} * ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
-"
-		cpp_def "${comment}${inline}${type} * ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
-  ${body}}
-"
-		
-		
-		
-		
-		ncouples 1
-		key "STM generated" value ""
-		comment " returns the state containing the current"
-	      end
-
-	      attribute 201090 "_avance_state"
-		public type class_ref 201602 // avance_State
+	      attribute 236418 "_cap_to_mission_state"
+		public type class_ref 237058 // cap_to_mission_State
 		cpp_decl "    ${comment}${static}${mutable}${volatile}${const}${type} ${name}${value};
 "
 		java_decl ""
@@ -17366,11 +17013,11 @@ ${inlines}
 		idl_decl ""
 		ncouples 1
 		key "STM generated" value ""
-		comment " memorize the instance of the state avance, internal"
+		comment " memorize the instance of the state cap to mission, internal"
 	      end
 
-	      attribute 201218 "_ouverture_pince_state"
-		public type class_ref 201730 // ouverture_pince_State
+	      attribute 236546 "_bf_droite_to_mission_state"
+		public type class_ref 237186 // BF_droite_to_mission_State
 		cpp_decl "    ${comment}${static}${mutable}${volatile}${const}${type} ${name}${value};
 "
 		java_decl ""
@@ -17379,11 +17026,11 @@ ${inlines}
 		idl_decl ""
 		ncouples 1
 		key "STM generated" value ""
-		comment " memorize the instance of the state ouverture pince, internal"
+		comment " memorize the instance of the state BF droite to mission, internal"
 	      end
 
-	      attribute 201346 "_chope_state"
-		public type class_ref 201858 // chope_State
+	      attribute 236674 "_cap_mission_state"
+		public type class_ref 237314 // cap_mission_State
 		cpp_decl "    ${comment}${static}${mutable}${volatile}${const}${type} ${name}${value};
 "
 		java_decl ""
@@ -17392,23 +17039,10 @@ ${inlines}
 		idl_decl ""
 		ncouples 1
 		key "STM generated" value ""
-		comment " memorize the instance of the state chope, internal"
+		comment " memorize the instance of the state cap mission, internal"
 	      end
 
-	      attribute 201474 "_recule_state"
-		public type class_ref 201986 // recule_State
-		cpp_decl "    ${comment}${static}${mutable}${volatile}${const}${type} ${name}${value};
-"
-		java_decl ""
-		php_decl ""
-		python_decl ""
-		idl_decl ""
-		ncouples 1
-		key "STM generated" value ""
-		comment " memorize the instance of the state recule, internal"
-	      end
-
-	      operation 274690 "_doentry"
+	      operation 359170 "_exit14"
 		force_body_gen public explicit_return_type "void"
 		nparams 1
 		  param inout name "stm" type class_ref 140290 // MAE_MURPHY
@@ -17423,25 +17057,7 @@ ${inlines}
 		
 		ncouples 1
 		key "STM generated" value ""
-		comment " perform the 'entry behavior'"
-	      end
-
-	      operation 330370 "_exit14"
-		force_body_gen public explicit_return_type "void"
-		nparams 1
-		  param inout name "stm" type class_ref 140290 // MAE_MURPHY
-		cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
-"
-		cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
-  ${body}}
-"
-		
-		
-		
-		
-		ncouples 1
-		key "STM generated" value ""
-		comment " to manage the exit point 'sortie stand estrade', defined because probably shared"
+		comment " to manage the exit point 'sortie w', defined because probably shared"
 	      end
 	    end
 
@@ -17460,99 +17076,6 @@ ${inlines}
 	      ncouples 1
 	      key "STM generated" value ""
 	      comment " implement the state claps estrade"
-	      class 187650 "BF_cap_State"
-		visibility public 
-		cpp_decl "${comment}${template}class ${name}${inherit} {
-${members}};
-${inlines}
-"
-		java_decl ""
-		php_decl ""
-		python_2_2 python_decl ""
-		idl_decl ""
-		explicit_switch_type ""
-		
-		ncouples 1
-		key "STM generated" value ""
-		comment " implement the state BF cap"
-		operation 246786 "~BF_cap_State"
-		  force_body_gen cpp_virtual public explicit_return_type ""
-		  nparams 0
-		  cpp_decl "    ${comment}${inline}${virtual}${name}${(}${)}${volatile}${throw};
-"
-		  cpp_def "${comment}${inline}${class}::${name}${(}${)}${volatile}${throw} {
-  ${body}}
-"
-		  
-		  
-		  
-		  
-		  ncouples 1
-		  key "STM generated" value ""
-		end
-
-		classrelation 210946 // <generalisation>
-		  relation 210946 ---|>
-		    a public
-		      cpp default "${type}"
-		      classrelation_ref 210946 // <generalisation>
-		    b parent class_ref 140418 // AnyState
-		end
-
-		operation 271490 "_completion"
-		  force_body_gen cpp_virtual public explicit_return_type "bool"
-		  nparams 1
-		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
-		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
-"
-		  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
-  ${body}}
-"
-		  
-		  
-		  
-		  
-		  ncouples 1
-		  key "STM generated" value ""
-		end
-
-		operation 271618 "create"
-		  force_body_gen cpp_virtual public explicit_return_type "void"
-		  nparams 1
-		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
-		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
-"
-		  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
-  ${body}}
-"
-		  
-		  
-		  
-		  
-		  ncouples 1
-		  key "STM generated" value ""
-		  comment " to manage the event create"
-		end
-
-		operation 271746 "_upper"
-		  force_body_gen cpp_virtual public return_type class_ref 140418 // AnyState
-		  nparams 1
-		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
-		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} * ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
-"
-		  cpp_def "${comment}${inline}${type} * ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
-  ${body}}
-"
-		  
-		  
-		  
-		  
-		  ncouples 1
-		  key "STM generated" value ""
-		  comment " returns the state containing the current"
-		end
-	      end
-
 	      class 187906 "Claps_3_State"
 		visibility public 
 		cpp_decl "${comment}${template}class ${name}${inherit} {
@@ -17592,23 +17115,6 @@ ${inlines}
 		    b parent class_ref 140418 // AnyState
 		end
 
-		operation 272258 "_completion"
-		  force_body_gen cpp_virtual public explicit_return_type "bool"
-		  nparams 1
-		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
-		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
-"
-		  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
-  ${body}}
-"
-		  
-		  
-		  
-		  
-		  ncouples 1
-		  key "STM generated" value ""
-		end
-
 		operation 272386 "create"
 		  force_body_gen cpp_virtual public explicit_return_type "void"
 		  nparams 1
@@ -17644,9 +17150,63 @@ ${inlines}
 		  key "STM generated" value ""
 		  comment " returns the state containing the current"
 		end
+
+		operation 358786 "claps_replie"
+		  force_body_gen cpp_virtual public explicit_return_type "void"
+		  nparams 1
+		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
+		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+		  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+		  
+		  
+		  
+		  
+		  ncouples 1
+		  key "STM generated" value ""
+		  comment " to manage the event claps_replie"
+		end
+
+		operation 358914 "_doentry"
+		  force_body_gen public explicit_return_type "void"
+		  nparams 1
+		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
+		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+		  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+		  
+		  
+		  
+		  
+		  ncouples 1
+		  key "STM generated" value ""
+		  comment " perform the 'entry behavior'"
+		end
+
+		operation 359042 "_doexit"
+		  force_body_gen public explicit_return_type "void"
+		  nparams 1
+		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
+		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+		  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+		  
+		  
+		  
+		  
+		  ncouples 1
+		  key "STM generated" value ""
+		  comment " perform the 'exit behavior'"
+		end
 	      end
 
-	      class 187778 "BF_droite_State"
+	      class 236930 "BF_droite_sur_claps_estrade_State"
 		visibility public 
 		cpp_decl "${comment}${template}class ${name}${inherit} {
 ${members}};
@@ -17660,8 +17220,8 @@ ${inlines}
 		
 		ncouples 1
 		key "STM generated" value ""
-		comment " implement the state BF droite"
-		operation 246914 "~BF_droite_State"
+		comment " implement the state BF droite sur claps estrade"
+		operation 348162 "~BF_droite_sur_claps_estrade_State"
 		  force_body_gen cpp_virtual public explicit_return_type ""
 		  nparams 0
 		  cpp_decl "    ${comment}${inline}${virtual}${name}${(}${)}${volatile}${throw};
@@ -17677,16 +17237,16 @@ ${inlines}
 		  key "STM generated" value ""
 		end
 
-		classrelation 211202 // <generalisation>
-		  relation 211202 ---|>
+		classrelation 257154 // <generalisation>
+		  relation 257154 ---|>
 		    a public
 		      cpp default "${type}"
-		      classrelation_ref 211202 // <generalisation>
+		      classrelation_ref 257154 // <generalisation>
 		    b parent class_ref 140418 // AnyState
 		end
 
-		operation 271874 "_completion"
-		  force_body_gen cpp_virtual public explicit_return_type "bool"
+		operation 358274 "assFini"
+		  force_body_gen cpp_virtual public explicit_return_type "void"
 		  nparams 1
 		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
 		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
@@ -17700,9 +17260,10 @@ ${inlines}
 		  
 		  ncouples 1
 		  key "STM generated" value ""
+		  comment " to manage the event assFini"
 		end
 
-		operation 272002 "create"
+		operation 358402 "create"
 		  force_body_gen cpp_virtual public explicit_return_type "void"
 		  nparams 1
 		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
@@ -17720,7 +17281,25 @@ ${inlines}
 		  comment " to manage the event create"
 		end
 
-		operation 272130 "_upper"
+		operation 358530 "_doentry"
+		  force_body_gen public explicit_return_type "void"
+		  nparams 1
+		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
+		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+		  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+		  
+		  
+		  
+		  
+		  ncouples 1
+		  key "STM generated" value ""
+		  comment " perform the 'entry behavior'"
+		end
+
+		operation 358658 "_upper"
 		  force_body_gen cpp_virtual public return_type class_ref 140418 // AnyState
 		  nparams 1
 		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
@@ -17753,32 +17332,6 @@ ${inlines}
 		
 		ncouples 1
 		key "STM generated" value ""
-	      end
-
-	      attribute 187138 "_bf_cap_state"
-		public type class_ref 187650 // BF_cap_State
-		cpp_decl "    ${comment}${static}${mutable}${volatile}${const}${type} ${name}${value};
-"
-		java_decl ""
-		php_decl ""
-		python_decl ""
-		idl_decl ""
-		ncouples 1
-		key "STM generated" value ""
-		comment " memorize the instance of the state BF cap, internal"
-	      end
-
-	      attribute 187266 "_bf_droite_state"
-		public type class_ref 187778 // BF_droite_State
-		cpp_decl "    ${comment}${static}${mutable}${volatile}${const}${type} ${name}${value};
-"
-		java_decl ""
-		php_decl ""
-		python_decl ""
-		idl_decl ""
-		ncouples 1
-		key "STM generated" value ""
-		comment " memorize the instance of the state BF droite, internal"
 	      end
 
 	      attribute 187394 "_claps_3_state"
@@ -17873,6 +17426,19 @@ ${inlines}
 		key "STM generated" value ""
 		comment " to manage the exit point 'sortie claps', defined because probably shared"
 	      end
+
+	      attribute 236290 "_bf_droite_sur_claps_estrade_state"
+		public type class_ref 236930 // BF_droite_sur_claps_estrade_State
+		cpp_decl "    ${comment}${static}${mutable}${volatile}${const}${type} ${name}${value};
+"
+		java_decl ""
+		php_decl ""
+		python_decl ""
+		idl_decl ""
+		ncouples 1
+		key "STM generated" value ""
+		comment " memorize the instance of the state BF droite sur claps estrade, internal"
+	      end
 	    end
 
 	    class 186370 "chope_du_coin_State"
@@ -17890,7 +17456,7 @@ ${inlines}
 	      ncouples 1
 	      key "STM generated" value ""
 	      comment " implement the state chope du coin"
-	      class 186498 "ouverture_de_pince_State"
+	      class 236802 "avance_claps_State"
 		visibility public 
 		cpp_decl "${comment}${template}class ${name}${inherit} {
 ${members}};
@@ -17904,8 +17470,8 @@ ${inlines}
 		
 		ncouples 1
 		key "STM generated" value ""
-		comment " implement the state ouverture de pince"
-		operation 245634 "~ouverture_de_pince_State"
+		comment " implement the state avance claps"
+		operation 348034 "~avance_claps_State"
 		  force_body_gen cpp_virtual public explicit_return_type ""
 		  nparams 0
 		  cpp_decl "    ${comment}${inline}${virtual}${name}${(}${)}${volatile}${throw};
@@ -17921,15 +17487,15 @@ ${inlines}
 		  key "STM generated" value ""
 		end
 
-		classrelation 208642 // <generalisation>
-		  relation 208642 ---|>
+		classrelation 256898 // <generalisation>
+		  relation 256898 ---|>
 		    a public
 		      cpp default "${type}"
-		      classrelation_ref 208642 // <generalisation>
+		      classrelation_ref 256898 // <generalisation>
 		    b parent class_ref 140418 // AnyState
 		end
 
-		operation 268674 "pince_ouverte"
+		operation 357762 "assFini"
 		  force_body_gen cpp_virtual public explicit_return_type "void"
 		  nparams 1
 		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
@@ -17944,10 +17510,46 @@ ${inlines}
 		  
 		  ncouples 1
 		  key "STM generated" value ""
-		  comment " to manage the event pince_ouverte"
+		  comment " to manage the event assFini"
 		end
 
-		operation 268802 "_upper"
+		operation 357890 "create"
+		  force_body_gen cpp_virtual public explicit_return_type "void"
+		  nparams 1
+		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
+		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+		  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+		  
+		  
+		  
+		  
+		  ncouples 1
+		  key "STM generated" value ""
+		  comment " to manage the event create"
+		end
+
+		operation 358018 "_doentry"
+		  force_body_gen public explicit_return_type "void"
+		  nparams 1
+		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
+		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+		  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+		  
+		  
+		  
+		  
+		  ncouples 1
+		  key "STM generated" value ""
+		  comment " perform the 'entry behavior'"
+		end
+
+		operation 358146 "_upper"
 		  force_body_gen cpp_virtual public return_type class_ref 140418 // AnyState
 		  nparams 1
 		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
@@ -17966,7 +17568,7 @@ ${inlines}
 		end
 	      end
 
-	      class 187394 "claps_1_State"
+	      class 236674 "set_X_CAP_State"
 		visibility public 
 		cpp_decl "${comment}${template}class ${name}${inherit} {
 ${members}};
@@ -17980,8 +17582,8 @@ ${inlines}
 		
 		ncouples 1
 		key "STM generated" value ""
-		comment " implement the state claps 1"
-		operation 246530 "~claps_1_State"
+		comment " implement the state set X CAP"
+		operation 347906 "~set_X_CAP_State"
 		  force_body_gen cpp_virtual public explicit_return_type ""
 		  nparams 0
 		  cpp_decl "    ${comment}${inline}${virtual}${name}${(}${)}${volatile}${throw};
@@ -17997,15 +17599,127 @@ ${inlines}
 		  key "STM generated" value ""
 		end
 
-		classrelation 210434 // <generalisation>
-		  relation 210434 ---|>
+		classrelation 256642 // <generalisation>
+		  relation 256642 ---|>
 		    a public
 		      cpp default "${type}"
-		      classrelation_ref 210434 // <generalisation>
+		      classrelation_ref 256642 // <generalisation>
 		    b parent class_ref 140418 // AnyState
 		end
 
-		operation 270722 "claps_replie"
+		operation 357250 "time_out"
+		  force_body_gen cpp_virtual public explicit_return_type "void"
+		  nparams 1
+		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
+		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+		  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+		  
+		  
+		  
+		  
+		  ncouples 1
+		  key "STM generated" value ""
+		  comment " to manage the event time_out"
+		end
+
+		operation 357378 "create"
+		  force_body_gen cpp_virtual public explicit_return_type "void"
+		  nparams 1
+		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
+		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+		  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+		  
+		  
+		  
+		  
+		  ncouples 1
+		  key "STM generated" value ""
+		  comment " to manage the event create"
+		end
+
+		operation 357506 "_doentry"
+		  force_body_gen public explicit_return_type "void"
+		  nparams 1
+		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
+		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+		  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+		  
+		  
+		  
+		  
+		  ncouples 1
+		  key "STM generated" value ""
+		  comment " perform the 'entry behavior'"
+		end
+
+		operation 357634 "_upper"
+		  force_body_gen cpp_virtual public return_type class_ref 140418 // AnyState
+		  nparams 1
+		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
+		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} * ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+		  cpp_def "${comment}${inline}${type} * ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+		  
+		  
+		  
+		  
+		  ncouples 1
+		  key "STM generated" value ""
+		  comment " returns the state containing the current"
+		end
+	      end
+
+	      class 236546 "deboit_claps_coin_State"
+		visibility public 
+		cpp_decl "${comment}${template}class ${name}${inherit} {
+${members}};
+${inlines}
+"
+		java_decl ""
+		php_decl ""
+		python_2_2 python_decl ""
+		idl_decl ""
+		explicit_switch_type ""
+		
+		ncouples 1
+		key "STM generated" value ""
+		comment " implement the state deboit claps coin"
+		operation 347778 "~deboit_claps_coin_State"
+		  force_body_gen cpp_virtual public explicit_return_type ""
+		  nparams 0
+		  cpp_decl "    ${comment}${inline}${virtual}${name}${(}${)}${volatile}${throw};
+"
+		  cpp_def "${comment}${inline}${class}::${name}${(}${)}${volatile}${throw} {
+  ${body}}
+"
+		  
+		  
+		  
+		  
+		  ncouples 1
+		  key "STM generated" value ""
+		end
+
+		classrelation 256386 // <generalisation>
+		  relation 256386 ---|>
+		    a public
+		      cpp default "${type}"
+		      classrelation_ref 256386 // <generalisation>
+		    b parent class_ref 140418 // AnyState
+		end
+
+		operation 356610 "claps_replie"
 		  force_body_gen cpp_virtual public explicit_return_type "void"
 		  nparams 1
 		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
@@ -18023,7 +17737,61 @@ ${inlines}
 		  comment " to manage the event claps_replie"
 		end
 
-		operation 270850 "_upper"
+		operation 356738 "create"
+		  force_body_gen cpp_virtual public explicit_return_type "void"
+		  nparams 1
+		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
+		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+		  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+		  
+		  
+		  
+		  
+		  ncouples 1
+		  key "STM generated" value ""
+		  comment " to manage the event create"
+		end
+
+		operation 356866 "_doentry"
+		  force_body_gen public explicit_return_type "void"
+		  nparams 1
+		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
+		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+		  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+		  
+		  
+		  
+		  
+		  ncouples 1
+		  key "STM generated" value ""
+		  comment " perform the 'entry behavior'"
+		end
+
+		operation 356994 "_doexit"
+		  force_body_gen public explicit_return_type "void"
+		  nparams 1
+		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
+		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+		  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+		  
+		  
+		  
+		  
+		  ncouples 1
+		  key "STM generated" value ""
+		  comment " perform the 'exit behavior'"
+		end
+
+		operation 357122 "_upper"
 		  force_body_gen cpp_virtual public return_type class_ref 140418 // AnyState
 		  nparams 1
 		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
@@ -18042,7 +17810,7 @@ ${inlines}
 		end
 	      end
 
-	      class 187266 "BF_cap_State"
+	      class 236418 "BF_CAP_pour_claps_State"
 		visibility public 
 		cpp_decl "${comment}${template}class ${name}${inherit} {
 ${members}};
@@ -18056,8 +17824,8 @@ ${inlines}
 		
 		ncouples 1
 		key "STM generated" value ""
-		comment " implement the state BF cap"
-		operation 246402 "~BF_cap_State"
+		comment " implement the state BF CAP pour claps"
+		operation 347650 "~BF_CAP_pour_claps_State"
 		  force_body_gen cpp_virtual public explicit_return_type ""
 		  nparams 0
 		  cpp_decl "    ${comment}${inline}${virtual}${name}${(}${)}${volatile}${throw};
@@ -18073,15 +17841,15 @@ ${inlines}
 		  key "STM generated" value ""
 		end
 
-		classrelation 210178 // <generalisation>
-		  relation 210178 ---|>
+		classrelation 256130 // <generalisation>
+		  relation 256130 ---|>
 		    a public
 		      cpp default "${type}"
-		      classrelation_ref 210178 // <generalisation>
+		      classrelation_ref 256130 // <generalisation>
 		    b parent class_ref 140418 // AnyState
 		end
 
-		operation 270210 "assFini"
+		operation 356098 "assFini"
 		  force_body_gen cpp_virtual public explicit_return_type "void"
 		  nparams 1
 		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
@@ -18099,7 +17867,43 @@ ${inlines}
 		  comment " to manage the event assFini"
 		end
 
-		operation 270338 "_upper"
+		operation 356226 "create"
+		  force_body_gen cpp_virtual public explicit_return_type "void"
+		  nparams 1
+		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
+		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+		  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+		  
+		  
+		  
+		  
+		  ncouples 1
+		  key "STM generated" value ""
+		  comment " to manage the event create"
+		end
+
+		operation 356354 "_doentry"
+		  force_body_gen public explicit_return_type "void"
+		  nparams 1
+		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
+		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+		  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+		  
+		  
+		  
+		  
+		  ncouples 1
+		  key "STM generated" value ""
+		  comment " perform the 'entry behavior'"
+		end
+
+		operation 356482 "_upper"
 		  force_body_gen cpp_virtual public return_type class_ref 140418 // AnyState
 		  nparams 1
 		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
@@ -18118,7 +17922,7 @@ ${inlines}
 		end
 	      end
 
-	      class 187138 "chope_2_stands_et_gobelet_State"
+	      class 236290 "recalage_State"
 		visibility public 
 		cpp_decl "${comment}${template}class ${name}${inherit} {
 ${members}};
@@ -18132,8 +17936,8 @@ ${inlines}
 		
 		ncouples 1
 		key "STM generated" value ""
-		comment " implement the state chope 2 stands et gobelet"
-		operation 246274 "~chope_2_stands_et_gobelet_State"
+		comment " implement the state recalage"
+		operation 347522 "~recalage_State"
 		  force_body_gen cpp_virtual public explicit_return_type ""
 		  nparams 0
 		  cpp_decl "    ${comment}${inline}${virtual}${name}${(}${)}${volatile}${throw};
@@ -18149,15 +17953,145 @@ ${inlines}
 		  key "STM generated" value ""
 		end
 
-		classrelation 209922 // <generalisation>
-		  relation 209922 ---|>
+		classrelation 255874 // <generalisation>
+		  relation 255874 ---|>
 		    a public
 		      cpp default "${type}"
-		      classrelation_ref 209922 // <generalisation>
+		      classrelation_ref 255874 // <generalisation>
 		    b parent class_ref 140418 // AnyState
 		end
 
-		operation 269954 "pince_stand_by"
+		operation 355458 "blocage"
+		  force_body_gen cpp_virtual public explicit_return_type "void"
+		  nparams 1
+		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
+		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+		  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+		  
+		  
+		  
+		  
+		  ncouples 1
+		  key "STM generated" value ""
+		  comment " to manage the event blocage"
+		end
+
+		operation 355586 "create"
+		  force_body_gen cpp_virtual public explicit_return_type "void"
+		  nparams 1
+		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
+		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+		  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+		  
+		  
+		  
+		  
+		  ncouples 1
+		  key "STM generated" value ""
+		  comment " to manage the event create"
+		end
+
+		operation 355714 "_doentry"
+		  force_body_gen public explicit_return_type "void"
+		  nparams 1
+		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
+		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+		  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+		  
+		  
+		  
+		  
+		  ncouples 1
+		  key "STM generated" value ""
+		  comment " perform the 'entry behavior'"
+		end
+
+		operation 355842 "_doexit"
+		  force_body_gen public explicit_return_type "void"
+		  nparams 1
+		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
+		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+		  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+		  
+		  
+		  
+		  
+		  ncouples 1
+		  key "STM generated" value ""
+		  comment " perform the 'exit behavior'"
+		end
+
+		operation 355970 "_upper"
+		  force_body_gen cpp_virtual public return_type class_ref 140418 // AnyState
+		  nparams 1
+		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
+		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} * ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+		  cpp_def "${comment}${inline}${type} * ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+		  
+		  
+		  
+		  
+		  ncouples 1
+		  key "STM generated" value ""
+		  comment " returns the state containing the current"
+		end
+	      end
+
+	      class 236162 "chope_stand_2_State"
+		visibility public 
+		cpp_decl "${comment}${template}class ${name}${inherit} {
+${members}};
+${inlines}
+"
+		java_decl ""
+		php_decl ""
+		python_2_2 python_decl ""
+		idl_decl ""
+		explicit_switch_type ""
+		
+		ncouples 1
+		key "STM generated" value ""
+		comment " implement the state chope stand 2"
+		operation 347394 "~chope_stand_2_State"
+		  force_body_gen cpp_virtual public explicit_return_type ""
+		  nparams 0
+		  cpp_decl "    ${comment}${inline}${virtual}${name}${(}${)}${volatile}${throw};
+"
+		  cpp_def "${comment}${inline}${class}::${name}${(}${)}${volatile}${throw} {
+  ${body}}
+"
+		  
+		  
+		  
+		  
+		  ncouples 1
+		  key "STM generated" value ""
+		end
+
+		classrelation 255618 // <generalisation>
+		  relation 255618 ---|>
+		    a public
+		      cpp default "${type}"
+		      classrelation_ref 255618 // <generalisation>
+		    b parent class_ref 140418 // AnyState
+		end
+
+		operation 354946 "pince_stand_by"
 		  force_body_gen cpp_virtual public explicit_return_type "void"
 		  nparams 1
 		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
@@ -18175,7 +18109,43 @@ ${inlines}
 		  comment " to manage the event pince_stand_by"
 		end
 
-		operation 270082 "_upper"
+		operation 355074 "create"
+		  force_body_gen cpp_virtual public explicit_return_type "void"
+		  nparams 1
+		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
+		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+		  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+		  
+		  
+		  
+		  
+		  ncouples 1
+		  key "STM generated" value ""
+		  comment " to manage the event create"
+		end
+
+		operation 355202 "_doentry"
+		  force_body_gen public explicit_return_type "void"
+		  nparams 1
+		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
+		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+		  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+		  
+		  
+		  
+		  
+		  ncouples 1
+		  key "STM generated" value ""
+		  comment " perform the 'entry behavior'"
+		end
+
+		operation 355330 "_upper"
 		  force_body_gen cpp_virtual public return_type class_ref 140418 // AnyState
 		  nparams 1
 		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
@@ -18194,7 +18164,7 @@ ${inlines}
 		end
 	      end
 
-	      class 187010 "avance_seconde_State"
+	      class 236034 "re_avance_State"
 		visibility public 
 		cpp_decl "${comment}${template}class ${name}${inherit} {
 ${members}};
@@ -18208,8 +18178,8 @@ ${inlines}
 		
 		ncouples 1
 		key "STM generated" value ""
-		comment " implement the state avance seconde"
-		operation 246146 "~avance_seconde_State"
+		comment " implement the state re avance"
+		operation 347266 "~re_avance_State"
 		  force_body_gen cpp_virtual public explicit_return_type ""
 		  nparams 0
 		  cpp_decl "    ${comment}${inline}${virtual}${name}${(}${)}${volatile}${throw};
@@ -18225,15 +18195,15 @@ ${inlines}
 		  key "STM generated" value ""
 		end
 
-		classrelation 209666 // <generalisation>
-		  relation 209666 ---|>
+		classrelation 255362 // <generalisation>
+		  relation 255362 ---|>
 		    a public
 		      cpp default "${type}"
-		      classrelation_ref 209666 // <generalisation>
+		      classrelation_ref 255362 // <generalisation>
 		    b parent class_ref 140418 // AnyState
 		end
 
-		operation 269698 "assFini"
+		operation 354434 "assFini"
 		  force_body_gen cpp_virtual public explicit_return_type "void"
 		  nparams 1
 		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
@@ -18251,7 +18221,43 @@ ${inlines}
 		  comment " to manage the event assFini"
 		end
 
-		operation 269826 "_upper"
+		operation 354562 "create"
+		  force_body_gen cpp_virtual public explicit_return_type "void"
+		  nparams 1
+		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
+		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+		  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+		  
+		  
+		  
+		  
+		  ncouples 1
+		  key "STM generated" value ""
+		  comment " to manage the event create"
+		end
+
+		operation 354690 "_doentry"
+		  force_body_gen public explicit_return_type "void"
+		  nparams 1
+		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
+		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+		  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+		  
+		  
+		  
+		  
+		  ncouples 1
+		  key "STM generated" value ""
+		  comment " perform the 'entry behavior'"
+		end
+
+		operation 354818 "_upper"
 		  force_body_gen cpp_virtual public return_type class_ref 140418 // AnyState
 		  nparams 1
 		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
@@ -18270,7 +18276,7 @@ ${inlines}
 		end
 	      end
 
-	      class 186882 "re_ouverture_State"
+	      class 235906 "re_ouvre_pince_State"
 		visibility public 
 		cpp_decl "${comment}${template}class ${name}${inherit} {
 ${members}};
@@ -18284,8 +18290,8 @@ ${inlines}
 		
 		ncouples 1
 		key "STM generated" value ""
-		comment " implement the state re ouverture"
-		operation 246018 "~re_ouverture_State"
+		comment " implement the state re ouvre pince"
+		operation 347138 "~re_ouvre_pince_State"
 		  force_body_gen cpp_virtual public explicit_return_type ""
 		  nparams 0
 		  cpp_decl "    ${comment}${inline}${virtual}${name}${(}${)}${volatile}${throw};
@@ -18301,15 +18307,15 @@ ${inlines}
 		  key "STM generated" value ""
 		end
 
-		classrelation 209410 // <generalisation>
-		  relation 209410 ---|>
+		classrelation 255106 // <generalisation>
+		  relation 255106 ---|>
 		    a public
 		      cpp default "${type}"
-		      classrelation_ref 209410 // <generalisation>
+		      classrelation_ref 255106 // <generalisation>
 		    b parent class_ref 140418 // AnyState
 		end
 
-		operation 269442 "pince_ouverte"
+		operation 353922 "pince_ouverte"
 		  force_body_gen cpp_virtual public explicit_return_type "void"
 		  nparams 1
 		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
@@ -18327,7 +18333,43 @@ ${inlines}
 		  comment " to manage the event pince_ouverte"
 		end
 
-		operation 269570 "_upper"
+		operation 354050 "create"
+		  force_body_gen cpp_virtual public explicit_return_type "void"
+		  nparams 1
+		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
+		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+		  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+		  
+		  
+		  
+		  
+		  ncouples 1
+		  key "STM generated" value ""
+		  comment " to manage the event create"
+		end
+
+		operation 354178 "_doentry"
+		  force_body_gen public explicit_return_type "void"
+		  nparams 1
+		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
+		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+		  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+		  
+		  
+		  
+		  
+		  ncouples 1
+		  key "STM generated" value ""
+		  comment " perform the 'entry behavior'"
+		end
+
+		operation 354306 "_upper"
 		  force_body_gen cpp_virtual public return_type class_ref 140418 // AnyState
 		  nparams 1
 		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
@@ -18346,7 +18388,7 @@ ${inlines}
 		end
 	      end
 
-	      class 186754 "chope_1_State"
+	      class 235778 "chope_stand_1_State"
 		visibility public 
 		cpp_decl "${comment}${template}class ${name}${inherit} {
 ${members}};
@@ -18360,8 +18402,8 @@ ${inlines}
 		
 		ncouples 1
 		key "STM generated" value ""
-		comment " implement the state chope 1"
-		operation 245890 "~chope_1_State"
+		comment " implement the state chope stand 1"
+		operation 347010 "~chope_stand_1_State"
 		  force_body_gen cpp_virtual public explicit_return_type ""
 		  nparams 0
 		  cpp_decl "    ${comment}${inline}${virtual}${name}${(}${)}${volatile}${throw};
@@ -18377,15 +18419,15 @@ ${inlines}
 		  key "STM generated" value ""
 		end
 
-		classrelation 209154 // <generalisation>
-		  relation 209154 ---|>
+		classrelation 254850 // <generalisation>
+		  relation 254850 ---|>
 		    a public
 		      cpp default "${type}"
-		      classrelation_ref 209154 // <generalisation>
+		      classrelation_ref 254850 // <generalisation>
 		    b parent class_ref 140418 // AnyState
 		end
 
-		operation 269186 "pince_stand_by"
+		operation 353410 "pince_stand_by"
 		  force_body_gen cpp_virtual public explicit_return_type "void"
 		  nparams 1
 		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
@@ -18403,7 +18445,43 @@ ${inlines}
 		  comment " to manage the event pince_stand_by"
 		end
 
-		operation 269314 "_upper"
+		operation 353538 "create"
+		  force_body_gen cpp_virtual public explicit_return_type "void"
+		  nparams 1
+		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
+		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+		  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+		  
+		  
+		  
+		  
+		  ncouples 1
+		  key "STM generated" value ""
+		  comment " to manage the event create"
+		end
+
+		operation 353666 "_doentry"
+		  force_body_gen public explicit_return_type "void"
+		  nparams 1
+		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
+		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+		  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+		  
+		  
+		  
+		  
+		  ncouples 1
+		  key "STM generated" value ""
+		  comment " perform the 'entry behavior'"
+		end
+
+		operation 353794 "_upper"
 		  force_body_gen cpp_virtual public return_type class_ref 140418 // AnyState
 		  nparams 1
 		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
@@ -18496,6 +18574,828 @@ ${inlines}
 		  key "STM generated" value ""
 		  comment " returns the state containing the current"
 		end
+
+		operation 353154 "create"
+		  force_body_gen cpp_virtual public explicit_return_type "void"
+		  nparams 1
+		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
+		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+		  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+		  
+		  
+		  
+		  
+		  ncouples 1
+		  key "STM generated" value ""
+		  comment " to manage the event create"
+		end
+
+		operation 353282 "_doentry"
+		  force_body_gen public explicit_return_type "void"
+		  nparams 1
+		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
+		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+		  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+		  
+		  
+		  
+		  
+		  ncouples 1
+		  key "STM generated" value ""
+		  comment " perform the 'entry behavior'"
+		end
+	      end
+
+	      class 235650 "ouvre_pince_State"
+		visibility public 
+		cpp_decl "${comment}${template}class ${name}${inherit} {
+${members}};
+${inlines}
+"
+		java_decl ""
+		php_decl ""
+		python_2_2 python_decl ""
+		idl_decl ""
+		explicit_switch_type ""
+		
+		ncouples 1
+		key "STM generated" value ""
+		comment " implement the state ouvre pince"
+		operation 346882 "~ouvre_pince_State"
+		  force_body_gen cpp_virtual public explicit_return_type ""
+		  nparams 0
+		  cpp_decl "    ${comment}${inline}${virtual}${name}${(}${)}${volatile}${throw};
+"
+		  cpp_def "${comment}${inline}${class}::${name}${(}${)}${volatile}${throw} {
+  ${body}}
+"
+		  
+		  
+		  
+		  
+		  ncouples 1
+		  key "STM generated" value ""
+		end
+
+		classrelation 254594 // <generalisation>
+		  relation 254594 ---|>
+		    a public
+		      cpp default "${type}"
+		      classrelation_ref 254594 // <generalisation>
+		    b parent class_ref 140418 // AnyState
+		end
+
+		operation 352642 "pince_ouverte
+"
+		  force_body_gen cpp_virtual public explicit_return_type "void"
+		  nparams 1
+		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
+		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+		  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+		  
+		  
+		  
+		  
+		  ncouples 1
+		  key "STM generated" value ""
+		  comment " to manage the event pince_ouverte
+"
+		end
+
+		operation 352770 "create"
+		  force_body_gen cpp_virtual public explicit_return_type "void"
+		  nparams 1
+		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
+		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+		  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+		  
+		  
+		  
+		  
+		  ncouples 1
+		  key "STM generated" value ""
+		  comment " to manage the event create"
+		end
+
+		operation 352898 "_doentry"
+		  force_body_gen public explicit_return_type "void"
+		  nparams 1
+		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
+		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+		  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+		  
+		  
+		  
+		  
+		  ncouples 1
+		  key "STM generated" value ""
+		  comment " perform the 'entry behavior'"
+		end
+
+		operation 353026 "_upper"
+		  force_body_gen cpp_virtual public return_type class_ref 140418 // AnyState
+		  nparams 1
+		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
+		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} * ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+		  cpp_def "${comment}${inline}${type} * ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+		  
+		  
+		  
+		  
+		  ncouples 1
+		  key "STM generated" value ""
+		  comment " returns the state containing the current"
+		end
+	      end
+
+	      class 235522 "BF_droite_vers_les_stands_State"
+		visibility public 
+		cpp_decl "${comment}${template}class ${name}${inherit} {
+${members}};
+${inlines}
+"
+		java_decl ""
+		php_decl ""
+		python_2_2 python_decl ""
+		idl_decl ""
+		explicit_switch_type ""
+		
+		ncouples 1
+		key "STM generated" value ""
+		comment " implement the state BF droite vers les stands"
+		operation 346754 "~BF_droite_vers_les_stands_State"
+		  force_body_gen cpp_virtual public explicit_return_type ""
+		  nparams 0
+		  cpp_decl "    ${comment}${inline}${virtual}${name}${(}${)}${volatile}${throw};
+"
+		  cpp_def "${comment}${inline}${class}::${name}${(}${)}${volatile}${throw} {
+  ${body}}
+"
+		  
+		  
+		  
+		  
+		  ncouples 1
+		  key "STM generated" value ""
+		end
+
+		classrelation 254338 // <generalisation>
+		  relation 254338 ---|>
+		    a public
+		      cpp default "${type}"
+		      classrelation_ref 254338 // <generalisation>
+		    b parent class_ref 140418 // AnyState
+		end
+
+		operation 351874 "assFini"
+		  force_body_gen cpp_virtual public explicit_return_type "void"
+		  nparams 1
+		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
+		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+		  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+		  
+		  
+		  
+		  
+		  ncouples 1
+		  key "STM generated" value ""
+		  comment " to manage the event assFini"
+		end
+
+		operation 352002 "create"
+		  force_body_gen cpp_virtual public explicit_return_type "void"
+		  nparams 1
+		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
+		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+		  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+		  
+		  
+		  
+		  
+		  ncouples 1
+		  key "STM generated" value ""
+		  comment " to manage the event create"
+		end
+
+		operation 352130 "_doentry"
+		  force_body_gen public explicit_return_type "void"
+		  nparams 1
+		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
+		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+		  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+		  
+		  
+		  
+		  
+		  ncouples 1
+		  key "STM generated" value ""
+		  comment " perform the 'entry behavior'"
+		end
+
+		operation 352258 "_upper"
+		  force_body_gen cpp_virtual public return_type class_ref 140418 // AnyState
+		  nparams 1
+		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
+		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} * ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+		  cpp_def "${comment}${inline}${type} * ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+		  
+		  
+		  
+		  
+		  ncouples 1
+		  key "STM generated" value ""
+		  comment " returns the state containing the current"
+		end
+	      end
+
+	      class 235394 "recule_vers_la_zone_de_depart_State"
+		visibility public 
+		cpp_decl "${comment}${template}class ${name}${inherit} {
+${members}};
+${inlines}
+"
+		java_decl ""
+		php_decl ""
+		python_2_2 python_decl ""
+		idl_decl ""
+		explicit_switch_type ""
+		
+		ncouples 1
+		key "STM generated" value ""
+		comment " implement the state recule vers la zone de depart"
+		operation 346626 "~recule_vers_la_zone_de_depart_State"
+		  force_body_gen cpp_virtual public explicit_return_type ""
+		  nparams 0
+		  cpp_decl "    ${comment}${inline}${virtual}${name}${(}${)}${volatile}${throw};
+"
+		  cpp_def "${comment}${inline}${class}::${name}${(}${)}${volatile}${throw} {
+  ${body}}
+"
+		  
+		  
+		  
+		  
+		  ncouples 1
+		  key "STM generated" value ""
+		end
+
+		classrelation 254082 // <generalisation>
+		  relation 254082 ---|>
+		    a public
+		      cpp default "${type}"
+		      classrelation_ref 254082 // <generalisation>
+		    b parent class_ref 140418 // AnyState
+		end
+
+		operation 351362 "assFini"
+		  force_body_gen cpp_virtual public explicit_return_type "void"
+		  nparams 1
+		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
+		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+		  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+		  
+		  
+		  
+		  
+		  ncouples 1
+		  key "STM generated" value ""
+		  comment " to manage the event assFini"
+		end
+
+		operation 351490 "create"
+		  force_body_gen cpp_virtual public explicit_return_type "void"
+		  nparams 1
+		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
+		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+		  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+		  
+		  
+		  
+		  
+		  ncouples 1
+		  key "STM generated" value ""
+		  comment " to manage the event create"
+		end
+
+		operation 351618 "_doentry"
+		  force_body_gen public explicit_return_type "void"
+		  nparams 1
+		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
+		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+		  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+		  
+		  
+		  
+		  
+		  ncouples 1
+		  key "STM generated" value ""
+		  comment " perform the 'entry behavior'"
+		end
+
+		operation 351746 "_upper"
+		  force_body_gen cpp_virtual public return_type class_ref 140418 // AnyState
+		  nparams 1
+		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
+		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} * ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+		  cpp_def "${comment}${inline}${type} * ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+		  
+		  
+		  
+		  
+		  ncouples 1
+		  key "STM generated" value ""
+		  comment " returns the state containing the current"
+		end
+	      end
+
+	      class 235266 "BF_CAP_State"
+		visibility public 
+		cpp_decl "${comment}${template}class ${name}${inherit} {
+${members}};
+${inlines}
+"
+		java_decl ""
+		php_decl ""
+		python_2_2 python_decl ""
+		idl_decl ""
+		explicit_switch_type ""
+		
+		ncouples 1
+		key "STM generated" value ""
+		comment " implement the state BF CAP"
+		operation 346498 "~BF_CAP_State"
+		  force_body_gen cpp_virtual public explicit_return_type ""
+		  nparams 0
+		  cpp_decl "    ${comment}${inline}${virtual}${name}${(}${)}${volatile}${throw};
+"
+		  cpp_def "${comment}${inline}${class}::${name}${(}${)}${volatile}${throw} {
+  ${body}}
+"
+		  
+		  
+		  
+		  
+		  ncouples 1
+		  key "STM generated" value ""
+		end
+
+		classrelation 253826 // <generalisation>
+		  relation 253826 ---|>
+		    a public
+		      cpp default "${type}"
+		      classrelation_ref 253826 // <generalisation>
+		    b parent class_ref 140418 // AnyState
+		end
+
+		operation 350850 "assFini"
+		  force_body_gen cpp_virtual public explicit_return_type "void"
+		  nparams 1
+		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
+		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+		  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+		  
+		  
+		  
+		  
+		  ncouples 1
+		  key "STM generated" value ""
+		  comment " to manage the event assFini"
+		end
+
+		operation 350978 "create"
+		  force_body_gen cpp_virtual public explicit_return_type "void"
+		  nparams 1
+		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
+		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+		  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+		  
+		  
+		  
+		  
+		  ncouples 1
+		  key "STM generated" value ""
+		  comment " to manage the event create"
+		end
+
+		operation 351106 "_doentry"
+		  force_body_gen public explicit_return_type "void"
+		  nparams 1
+		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
+		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+		  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+		  
+		  
+		  
+		  
+		  ncouples 1
+		  key "STM generated" value ""
+		  comment " perform the 'entry behavior'"
+		end
+
+		operation 351234 "_upper"
+		  force_body_gen cpp_virtual public return_type class_ref 140418 // AnyState
+		  nparams 1
+		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
+		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} * ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+		  cpp_def "${comment}${inline}${type} * ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+		  
+		  
+		  
+		  
+		  ncouples 1
+		  key "STM generated" value ""
+		  comment " returns the state containing the current"
+		end
+	      end
+
+	      class 235138 "recule_des_stands_State"
+		visibility public 
+		cpp_decl "${comment}${template}class ${name}${inherit} {
+${members}};
+${inlines}
+"
+		java_decl ""
+		php_decl ""
+		python_2_2 python_decl ""
+		idl_decl ""
+		explicit_switch_type ""
+		
+		ncouples 1
+		key "STM generated" value ""
+		comment " implement the state recule des stands"
+		operation 346370 "~recule_des_stands_State"
+		  force_body_gen cpp_virtual public explicit_return_type ""
+		  nparams 0
+		  cpp_decl "    ${comment}${inline}${virtual}${name}${(}${)}${volatile}${throw};
+"
+		  cpp_def "${comment}${inline}${class}::${name}${(}${)}${volatile}${throw} {
+  ${body}}
+"
+		  
+		  
+		  
+		  
+		  ncouples 1
+		  key "STM generated" value ""
+		end
+
+		classrelation 253570 // <generalisation>
+		  relation 253570 ---|>
+		    a public
+		      cpp default "${type}"
+		      classrelation_ref 253570 // <generalisation>
+		    b parent class_ref 140418 // AnyState
+		end
+
+		operation 350338 "assFini"
+		  force_body_gen cpp_virtual public explicit_return_type "void"
+		  nparams 1
+		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
+		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+		  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+		  
+		  
+		  
+		  
+		  ncouples 1
+		  key "STM generated" value ""
+		  comment " to manage the event assFini"
+		end
+
+		operation 350466 "create"
+		  force_body_gen cpp_virtual public explicit_return_type "void"
+		  nparams 1
+		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
+		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+		  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+		  
+		  
+		  
+		  
+		  ncouples 1
+		  key "STM generated" value ""
+		  comment " to manage the event create"
+		end
+
+		operation 350594 "_doentry"
+		  force_body_gen public explicit_return_type "void"
+		  nparams 1
+		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
+		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+		  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+		  
+		  
+		  
+		  
+		  ncouples 1
+		  key "STM generated" value ""
+		  comment " perform the 'entry behavior'"
+		end
+
+		operation 350722 "_upper"
+		  force_body_gen cpp_virtual public return_type class_ref 140418 // AnyState
+		  nparams 1
+		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
+		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} * ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+		  cpp_def "${comment}${inline}${type} * ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+		  
+		  
+		  
+		  
+		  ncouples 1
+		  key "STM generated" value ""
+		  comment " returns the state containing the current"
+		end
+	      end
+
+	      class 235010 "chope_gobelet_State"
+		visibility public 
+		cpp_decl "${comment}${template}class ${name}${inherit} {
+${members}};
+${inlines}
+"
+		java_decl ""
+		php_decl ""
+		python_2_2 python_decl ""
+		idl_decl ""
+		explicit_switch_type ""
+		
+		ncouples 1
+		key "STM generated" value ""
+		comment " implement the state chope gobelet"
+		operation 346242 "~chope_gobelet_State"
+		  force_body_gen cpp_virtual public explicit_return_type ""
+		  nparams 0
+		  cpp_decl "    ${comment}${inline}${virtual}${name}${(}${)}${volatile}${throw};
+"
+		  cpp_def "${comment}${inline}${class}::${name}${(}${)}${volatile}${throw} {
+  ${body}}
+"
+		  
+		  
+		  
+		  
+		  ncouples 1
+		  key "STM generated" value ""
+		end
+
+		classrelation 253314 // <generalisation>
+		  relation 253314 ---|>
+		    a public
+		      cpp default "${type}"
+		      classrelation_ref 253314 // <generalisation>
+		    b parent class_ref 140418 // AnyState
+		end
+
+		operation 349826 "time_out"
+		  force_body_gen cpp_virtual public explicit_return_type "void"
+		  nparams 1
+		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
+		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+		  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+		  
+		  
+		  
+		  
+		  ncouples 1
+		  key "STM generated" value ""
+		  comment " to manage the event time_out"
+		end
+
+		operation 349954 "create"
+		  force_body_gen cpp_virtual public explicit_return_type "void"
+		  nparams 1
+		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
+		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+		  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+		  
+		  
+		  
+		  
+		  ncouples 1
+		  key "STM generated" value ""
+		  comment " to manage the event create"
+		end
+
+		operation 350082 "_doentry"
+		  force_body_gen public explicit_return_type "void"
+		  nparams 1
+		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
+		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+		  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+		  
+		  
+		  
+		  
+		  ncouples 1
+		  key "STM generated" value ""
+		  comment " perform the 'entry behavior'"
+		end
+
+		operation 350210 "_upper"
+		  force_body_gen cpp_virtual public return_type class_ref 140418 // AnyState
+		  nparams 1
+		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
+		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} * ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+		  cpp_def "${comment}${inline}${type} * ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+		  
+		  
+		  
+		  
+		  ncouples 1
+		  key "STM generated" value ""
+		  comment " returns the state containing the current"
+		end
+	      end
+
+	      class 234882 "BF_droite_sur_le_verre_State"
+		visibility public 
+		cpp_decl "${comment}${template}class ${name}${inherit} {
+${members}};
+${inlines}
+"
+		java_decl ""
+		php_decl ""
+		python_2_2 python_decl ""
+		idl_decl ""
+		explicit_switch_type ""
+		
+		ncouples 1
+		key "STM generated" value ""
+		comment " implement the state BF droite sur le verre"
+		operation 346114 "~BF_droite_sur_le_verre_State"
+		  force_body_gen cpp_virtual public explicit_return_type ""
+		  nparams 0
+		  cpp_decl "    ${comment}${inline}${virtual}${name}${(}${)}${volatile}${throw};
+"
+		  cpp_def "${comment}${inline}${class}::${name}${(}${)}${volatile}${throw} {
+  ${body}}
+"
+		  
+		  
+		  
+		  
+		  ncouples 1
+		  key "STM generated" value ""
+		end
+
+		classrelation 253058 // <generalisation>
+		  relation 253058 ---|>
+		    a public
+		      cpp default "${type}"
+		      classrelation_ref 253058 // <generalisation>
+		    b parent class_ref 140418 // AnyState
+		end
+
+		operation 349314 "assFini"
+		  force_body_gen cpp_virtual public explicit_return_type "void"
+		  nparams 1
+		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
+		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+		  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+		  
+		  
+		  
+		  
+		  ncouples 1
+		  key "STM generated" value ""
+		  comment " to manage the event assFini"
+		end
+
+		operation 349442 "create"
+		  force_body_gen cpp_virtual public explicit_return_type "void"
+		  nparams 1
+		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
+		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+		  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+		  
+		  
+		  
+		  
+		  ncouples 1
+		  key "STM generated" value ""
+		  comment " to manage the event create"
+		end
+
+		operation 349570 "_doentry"
+		  force_body_gen public explicit_return_type "void"
+		  nparams 1
+		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
+		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+		  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+		  
+		  
+		  
+		  
+		  ncouples 1
+		  key "STM generated" value ""
+		  comment " perform the 'entry behavior'"
+		end
+
+		operation 349698 "_upper"
+		  force_body_gen cpp_virtual public return_type class_ref 140418 // AnyState
+		  nparams 1
+		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
+		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} * ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+		  cpp_def "${comment}${inline}${type} * ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+		  
+		  
+		  
+		  
+		  ncouples 1
+		  key "STM generated" value ""
+		  comment " returns the state containing the current"
+		end
 	      end
 
 	      operation 245506 "~chope_du_coin_State"
@@ -18514,19 +19414,6 @@ ${inlines}
 		key "STM generated" value ""
 	      end
 
-	      attribute 185986 "_ouverture_de_pince_state"
-		public type class_ref 186498 // ouverture_de_pince_State
-		cpp_decl "    ${comment}${static}${mutable}${volatile}${const}${type} ${name}${value};
-"
-		java_decl ""
-		php_decl ""
-		python_decl ""
-		idl_decl ""
-		ncouples 1
-		key "STM generated" value ""
-		comment " memorize the instance of the state ouverture de pince, internal"
-	      end
-
 	      attribute 186114 "_avance_state"
 		public type class_ref 186626 // avance_State
 		cpp_decl "    ${comment}${static}${mutable}${volatile}${const}${type} ${name}${value};
@@ -18540,60 +19427,8 @@ ${inlines}
 		comment " memorize the instance of the state avance, internal"
 	      end
 
-	      attribute 186242 "_chope_1_state"
-		public type class_ref 186754 // chope_1_State
-		cpp_decl "    ${comment}${static}${mutable}${volatile}${const}${type} ${name}${value};
-"
-		java_decl ""
-		php_decl ""
-		python_decl ""
-		idl_decl ""
-		ncouples 1
-		key "STM generated" value ""
-		comment " memorize the instance of the state chope 1, internal"
-	      end
-
-	      attribute 186370 "_re_ouverture_state"
-		public type class_ref 186882 // re_ouverture_State
-		cpp_decl "    ${comment}${static}${mutable}${volatile}${const}${type} ${name}${value};
-"
-		java_decl ""
-		php_decl ""
-		python_decl ""
-		idl_decl ""
-		ncouples 1
-		key "STM generated" value ""
-		comment " memorize the instance of the state re ouverture, internal"
-	      end
-
-	      attribute 186498 "_avance_seconde_state"
-		public type class_ref 187010 // avance_seconde_State
-		cpp_decl "    ${comment}${static}${mutable}${volatile}${const}${type} ${name}${value};
-"
-		java_decl ""
-		php_decl ""
-		python_decl ""
-		idl_decl ""
-		ncouples 1
-		key "STM generated" value ""
-		comment " memorize the instance of the state avance seconde, internal"
-	      end
-
-	      attribute 186626 "_chope_2_stands_et_gobelet_state"
-		public type class_ref 187138 // chope_2_stands_et_gobelet_State
-		cpp_decl "    ${comment}${static}${mutable}${volatile}${const}${type} ${name}${value};
-"
-		java_decl ""
-		php_decl ""
-		python_decl ""
-		idl_decl ""
-		ncouples 1
-		key "STM generated" value ""
-		comment " memorize the instance of the state chope 2 stands et gobelet, internal"
-	      end
-
 	      attribute 186754 "_bf_cap_state"
-		public type class_ref 187266 // BF_cap_State
+		public type class_ref 235266 // BF_CAP_State
 		cpp_decl "    ${comment}${static}${mutable}${volatile}${const}${type} ${name}${value};
 "
 		java_decl ""
@@ -18602,20 +19437,7 @@ ${inlines}
 		idl_decl ""
 		ncouples 1
 		key "STM generated" value ""
-		comment " memorize the instance of the state BF cap, internal"
-	      end
-
-	      attribute 186882 "_claps_1_state"
-		public type class_ref 187394 // claps_1_State
-		cpp_decl "    ${comment}${static}${mutable}${volatile}${const}${type} ${name}${value};
-"
-		java_decl ""
-		php_decl ""
-		python_decl ""
-		idl_decl ""
-		ncouples 1
-		key "STM generated" value ""
-		comment " memorize the instance of the state claps 1, internal"
+		comment " memorize the instance of the state BF CAP, internal"
 	      end
 
 	      classrelation 208514 // <generalisation>
@@ -18697,6 +19519,201 @@ ${inlines}
 		key "STM generated" value ""
 		comment " to manage the exit point 'sortie coin', defined because probably shared"
 	      end
+
+	      attribute 234370 "_bf_droite_sur_le_verre_state"
+		public type class_ref 234882 // BF_droite_sur_le_verre_State
+		cpp_decl "    ${comment}${static}${mutable}${volatile}${const}${type} ${name}${value};
+"
+		java_decl ""
+		php_decl ""
+		python_decl ""
+		idl_decl ""
+		ncouples 1
+		key "STM generated" value ""
+		comment " memorize the instance of the state BF droite sur le verre, internal"
+	      end
+
+	      attribute 234498 "_chope_gobelet_state"
+		public type class_ref 235010 // chope_gobelet_State
+		cpp_decl "    ${comment}${static}${mutable}${volatile}${const}${type} ${name}${value};
+"
+		java_decl ""
+		php_decl ""
+		python_decl ""
+		idl_decl ""
+		ncouples 1
+		key "STM generated" value ""
+		comment " memorize the instance of the state chope gobelet, internal"
+	      end
+
+	      attribute 234626 "_recule_des_stands_state"
+		public type class_ref 235138 // recule_des_stands_State
+		cpp_decl "    ${comment}${static}${mutable}${volatile}${const}${type} ${name}${value};
+"
+		java_decl ""
+		php_decl ""
+		python_decl ""
+		idl_decl ""
+		ncouples 1
+		key "STM generated" value ""
+		comment " memorize the instance of the state recule des stands, internal"
+	      end
+
+	      attribute 234754 "_recule_vers_la_zone_de_depart_state"
+		public type class_ref 235394 // recule_vers_la_zone_de_depart_State
+		cpp_decl "    ${comment}${static}${mutable}${volatile}${const}${type} ${name}${value};
+"
+		java_decl ""
+		php_decl ""
+		python_decl ""
+		idl_decl ""
+		ncouples 1
+		key "STM generated" value ""
+		comment " memorize the instance of the state recule vers la zone de depart, internal"
+	      end
+
+	      attribute 234882 "_bf_droite_vers_les_stands_state"
+		public type class_ref 235522 // BF_droite_vers_les_stands_State
+		cpp_decl "    ${comment}${static}${mutable}${volatile}${const}${type} ${name}${value};
+"
+		java_decl ""
+		php_decl ""
+		python_decl ""
+		idl_decl ""
+		ncouples 1
+		key "STM generated" value ""
+		comment " memorize the instance of the state BF droite vers les stands, internal"
+	      end
+
+	      attribute 235010 "_ouvre_pince_state"
+		public type class_ref 235650 // ouvre_pince_State
+		cpp_decl "    ${comment}${static}${mutable}${volatile}${const}${type} ${name}${value};
+"
+		java_decl ""
+		php_decl ""
+		python_decl ""
+		idl_decl ""
+		ncouples 1
+		key "STM generated" value ""
+		comment " memorize the instance of the state ouvre pince, internal"
+	      end
+
+	      attribute 235138 "_chope_stand_1_state"
+		public type class_ref 235778 // chope_stand_1_State
+		cpp_decl "    ${comment}${static}${mutable}${volatile}${const}${type} ${name}${value};
+"
+		java_decl ""
+		php_decl ""
+		python_decl ""
+		idl_decl ""
+		ncouples 1
+		key "STM generated" value ""
+		comment " memorize the instance of the state chope stand 1, internal"
+	      end
+
+	      attribute 235266 "_re_ouvre_pince_state"
+		public type class_ref 235906 // re_ouvre_pince_State
+		cpp_decl "    ${comment}${static}${mutable}${volatile}${const}${type} ${name}${value};
+"
+		java_decl ""
+		php_decl ""
+		python_decl ""
+		idl_decl ""
+		ncouples 1
+		key "STM generated" value ""
+		comment " memorize the instance of the state re ouvre pince, internal"
+	      end
+
+	      attribute 235394 "_re_avance_state"
+		public type class_ref 236034 // re_avance_State
+		cpp_decl "    ${comment}${static}${mutable}${volatile}${const}${type} ${name}${value};
+"
+		java_decl ""
+		php_decl ""
+		python_decl ""
+		idl_decl ""
+		ncouples 1
+		key "STM generated" value ""
+		comment " memorize the instance of the state re avance, internal"
+	      end
+
+	      attribute 235522 "_chope_stand_2_state"
+		public type class_ref 236162 // chope_stand_2_State
+		cpp_decl "    ${comment}${static}${mutable}${volatile}${const}${type} ${name}${value};
+"
+		java_decl ""
+		php_decl ""
+		python_decl ""
+		idl_decl ""
+		ncouples 1
+		key "STM generated" value ""
+		comment " memorize the instance of the state chope stand 2, internal"
+	      end
+
+	      attribute 235650 "_recalage_state"
+		public type class_ref 236290 // recalage_State
+		cpp_decl "    ${comment}${static}${mutable}${volatile}${const}${type} ${name}${value};
+"
+		java_decl ""
+		php_decl ""
+		python_decl ""
+		idl_decl ""
+		ncouples 1
+		key "STM generated" value ""
+		comment " memorize the instance of the state recalage, internal"
+	      end
+
+	      attribute 235778 "_bf_cap_pour_claps_state"
+		public type class_ref 236418 // BF_CAP_pour_claps_State
+		cpp_decl "    ${comment}${static}${mutable}${volatile}${const}${type} ${name}${value};
+"
+		java_decl ""
+		php_decl ""
+		python_decl ""
+		idl_decl ""
+		ncouples 1
+		key "STM generated" value ""
+		comment " memorize the instance of the state BF CAP pour claps, internal"
+	      end
+
+	      attribute 235906 "_deboit_claps_coin_state"
+		public type class_ref 236546 // deboit_claps_coin_State
+		cpp_decl "    ${comment}${static}${mutable}${volatile}${const}${type} ${name}${value};
+"
+		java_decl ""
+		php_decl ""
+		python_decl ""
+		idl_decl ""
+		ncouples 1
+		key "STM generated" value ""
+		comment " memorize the instance of the state deboit claps coin, internal"
+	      end
+
+	      attribute 236034 "_set_x_cap_state"
+		public type class_ref 236674 // set_X_CAP_State
+		cpp_decl "    ${comment}${static}${mutable}${volatile}${const}${type} ${name}${value};
+"
+		java_decl ""
+		php_decl ""
+		python_decl ""
+		idl_decl ""
+		ncouples 1
+		key "STM generated" value ""
+		comment " memorize the instance of the state set X CAP, internal"
+	      end
+
+	      attribute 236162 "_avance_claps_state"
+		public type class_ref 236802 // avance_claps_State
+		cpp_decl "    ${comment}${static}${mutable}${volatile}${const}${type} ${name}${value};
+"
+		java_decl ""
+		php_decl ""
+		python_decl ""
+		idl_decl ""
+		ncouples 1
+		key "STM generated" value ""
+		comment " memorize the instance of the state avance claps, internal"
+	      end
 	    end
 
 	    operation 144258 "~mission_claps_State"
@@ -18726,19 +19743,6 @@ ${inlines}
 	      ncouples 1
 	      key "STM generated" value ""
 	      comment " memorize the instance of the state chope du stand sur la route, internal"
-	    end
-
-	    attribute 142338 "_chope_stand_pres_estrade_state"
-	      public type class_ref 142850 // chope_stand_pres_estrade_State
-	      cpp_decl "    ${comment}${static}${mutable}${volatile}${const}${type} ${name}${value};
-"
-	      java_decl ""
-	      php_decl ""
-	      python_decl ""
-	      idl_decl ""
-	      ncouples 1
-	      key "STM generated" value ""
-	      comment " memorize the instance of the state chope stand pres estrade, internal"
 	    end
 
 	    classrelation 144386 // <generalisation>
@@ -22528,15 +23532,6 @@ ${inlines}
 	  b parent class_ref 142338 // chope_du_stand_sur_la_route_State
       end
 
-      classrelation 145666 // <dependency>
-	relation 145666 -_->
-	  stereotype "friend"
-	  a default
-	    cpp default "${type}"
-	    classrelation_ref 145666 // <dependency>
-	  b parent class_ref 142850 // chope_stand_pres_estrade_State
-      end
-
       classrelation 146818 // <dependency>
 	relation 146818 -_->
 	  stereotype "friend"
@@ -23336,15 +24331,6 @@ ${inlines}
 	comment " the operation you call to signal the event fin_montee_bras"
       end
 
-      classrelation 192770 // <dependency>
-	relation 192770 -_->
-	  stereotype "friend"
-	  a default
-	    cpp default "${type}"
-	    classrelation_ref 192770 // <dependency>
-	  b parent class_ref 185346 // BF_cap_State
-      end
-
       classrelation 193026 // <dependency>
 	relation 193026 -_->
 	  stereotype "friend"
@@ -23408,51 +24394,6 @@ ${inlines}
 	  b parent class_ref 195074 // avance_State
       end
 
-      classrelation 207618 // <dependency>
-	relation 207618 -_->
-	  stereotype "friend"
-	  a default
-	    cpp default "${type}"
-	    classrelation_ref 207618 // <dependency>
-	  b parent class_ref 185858 // BF_cap_vers_cinema_State
-      end
-
-      classrelation 207874 // <dependency>
-	relation 207874 -_->
-	  stereotype "friend"
-	  a default
-	    cpp default "${type}"
-	    classrelation_ref 207874 // <dependency>
-	  b parent class_ref 185986 // BF_droite_sur_cinema_State
-      end
-
-      classrelation 208130 // <dependency>
-	relation 208130 -_->
-	  stereotype "friend"
-	  a default
-	    cpp default "${type}"
-	    classrelation_ref 208130 // <dependency>
-	  b parent class_ref 186114 // BF_cap_sur_le_coin_State
-      end
-
-      classrelation 208386 // <dependency>
-	relation 208386 -_->
-	  stereotype "friend"
-	  a default
-	    cpp default "${type}"
-	    classrelation_ref 208386 // <dependency>
-	  b parent class_ref 186242 // BF_droite_sur_le_coin_State
-      end
-
-      classrelation 208770 // <dependency>
-	relation 208770 -_->
-	  stereotype "friend"
-	  a default
-	    cpp default "${type}"
-	    classrelation_ref 208770 // <dependency>
-	  b parent class_ref 186498 // ouverture_de_pince_State
-      end
-
       classrelation 209026 // <dependency>
 	relation 209026 -_->
 	  stereotype "friend"
@@ -23460,51 +24401,6 @@ ${inlines}
 	    cpp default "${type}"
 	    classrelation_ref 209026 // <dependency>
 	  b parent class_ref 186626 // avance_State
-      end
-
-      classrelation 209282 // <dependency>
-	relation 209282 -_->
-	  stereotype "friend"
-	  a default
-	    cpp default "${type}"
-	    classrelation_ref 209282 // <dependency>
-	  b parent class_ref 186754 // chope_1_State
-      end
-
-      classrelation 209538 // <dependency>
-	relation 209538 -_->
-	  stereotype "friend"
-	  a default
-	    cpp default "${type}"
-	    classrelation_ref 209538 // <dependency>
-	  b parent class_ref 186882 // re_ouverture_State
-      end
-
-      classrelation 209794 // <dependency>
-	relation 209794 -_->
-	  stereotype "friend"
-	  a default
-	    cpp default "${type}"
-	    classrelation_ref 209794 // <dependency>
-	  b parent class_ref 187010 // avance_seconde_State
-      end
-
-      classrelation 210050 // <dependency>
-	relation 210050 -_->
-	  stereotype "friend"
-	  a default
-	    cpp default "${type}"
-	    classrelation_ref 210050 // <dependency>
-	  b parent class_ref 187138 // chope_2_stands_et_gobelet_State
-      end
-
-      classrelation 210306 // <dependency>
-	relation 210306 -_->
-	  stereotype "friend"
-	  a default
-	    cpp default "${type}"
-	    classrelation_ref 210306 // <dependency>
-	  b parent class_ref 187266 // BF_cap_State
       end
 
       operation 270466 "claps_replie"
@@ -23524,15 +24420,6 @@ ${inlines}
 	comment " the operation you call to signal the event claps_replie"
       end
 
-      classrelation 210562 // <dependency>
-	relation 210562 -_->
-	  stereotype "friend"
-	  a default
-	    cpp default "${type}"
-	    classrelation_ref 210562 // <dependency>
-	  b parent class_ref 187394 // claps_1_State
-      end
-
       classrelation 210690 // <dependency>
 	relation 210690 -_->
 	  stereotype "friend"
@@ -23540,24 +24427,6 @@ ${inlines}
 	    cpp default "${type}"
 	    classrelation_ref 210690 // <dependency>
 	  b parent class_ref 186370 // chope_du_coin_State
-      end
-
-      classrelation 211074 // <dependency>
-	relation 211074 -_->
-	  stereotype "friend"
-	  a default
-	    cpp default "${type}"
-	    classrelation_ref 211074 // <dependency>
-	  b parent class_ref 187650 // BF_cap_State
-      end
-
-      classrelation 211330 // <dependency>
-	relation 211330 -_->
-	  stereotype "friend"
-	  a default
-	    cpp default "${type}"
-	    classrelation_ref 211330 // <dependency>
-	  b parent class_ref 187778 // BF_droite_State
       end
 
       classrelation 211586 // <dependency>
@@ -23576,42 +24445,6 @@ ${inlines}
 	    cpp default "${type}"
 	    classrelation_ref 211714 // <dependency>
 	  b parent class_ref 187522 // claps_estrade_State
-      end
-
-      classrelation 211970 // <dependency>
-	relation 211970 -_->
-	  stereotype "friend"
-	  a default
-	    cpp default "${type}"
-	    classrelation_ref 211970 // <dependency>
-	  b parent class_ref 201602 // avance_State
-      end
-
-      classrelation 212226 // <dependency>
-	relation 212226 -_->
-	  stereotype "friend"
-	  a default
-	    cpp default "${type}"
-	    classrelation_ref 212226 // <dependency>
-	  b parent class_ref 201730 // ouverture_pince_State
-      end
-
-      classrelation 212482 // <dependency>
-	relation 212482 -_->
-	  stereotype "friend"
-	  a default
-	    cpp default "${type}"
-	    classrelation_ref 212482 // <dependency>
-	  b parent class_ref 201858 // chope_State
-      end
-
-      classrelation 212738 // <dependency>
-	relation 212738 -_->
-	  stereotype "friend"
-	  a default
-	    cpp default "${type}"
-	    classrelation_ref 212738 // <dependency>
-	  b parent class_ref 201986 // recule_State
       end
 
       classrelation 212994 // <dependency>
@@ -24096,7 +24929,7 @@ ${inlines}
 	relation 243074 -_->
 	  stereotype "friend"
 	  a default
-	    cpp default "#include in source"
+	    cpp default "${type}"
 	    classrelation_ref 243074 // <dependency>
 	  b parent class_ref 226690 // cap_to_mission_State
       end
@@ -24105,7 +24938,7 @@ ${inlines}
 	relation 243330 -_->
 	  stereotype "friend"
 	  a default
-	    cpp default "#include in source"
+	    cpp default "${type}"
 	    classrelation_ref 243330 // <dependency>
 	  b parent class_ref 226818 // BF_droite_to_mission_State
       end
@@ -24114,7 +24947,7 @@ ${inlines}
 	relation 243586 -_->
 	  stereotype "friend"
 	  a default
-	    cpp default "#include in source"
+	    cpp default "${type}"
 	    classrelation_ref 243586 // <dependency>
 	  b parent class_ref 226946 // cap_mission_State
       end
@@ -24123,7 +24956,7 @@ ${inlines}
 	relation 243714 -_->
 	  stereotype "friend"
 	  a default
-	    cpp default "#include in source"
+	    cpp default "${type}"
 	    classrelation_ref 243714 // <dependency>
 	  b parent class_ref 226562 // waypoint_init_State
       end
@@ -24132,7 +24965,7 @@ ${inlines}
 	relation 243970 -_->
 	  stereotype "friend"
 	  a default
-	    cpp default "#include in source"
+	    cpp default "${type}"
 	    classrelation_ref 243970 // <dependency>
 	  b parent class_ref 227074 // ouverture_pince_State
       end
@@ -24141,7 +24974,7 @@ ${inlines}
 	relation 244226 -_->
 	  stereotype "friend"
 	  a default
-	    cpp default "#include in source"
+	    cpp default "${type}"
 	    classrelation_ref 244226 // <dependency>
 	  b parent class_ref 227202 // BF_droite_stand_1_State
       end
@@ -24150,7 +24983,7 @@ ${inlines}
 	relation 244482 -_->
 	  stereotype "friend"
 	  a default
-	    cpp default "#include in source"
+	    cpp default "${type}"
 	    classrelation_ref 244482 // <dependency>
 	  b parent class_ref 227330 // chope_stand_1_State
       end
@@ -24159,7 +24992,7 @@ ${inlines}
 	relation 244738 -_->
 	  stereotype "friend"
 	  a default
-	    cpp default "#include in source"
+	    cpp default "${type}"
 	    classrelation_ref 244738 // <dependency>
 	  b parent class_ref 227458 // re_ouverture_pince_State
       end
@@ -24168,7 +25001,7 @@ ${inlines}
 	relation 244994 -_->
 	  stereotype "friend"
 	  a default
-	    cpp default "#include in source"
+	    cpp default "${type}"
 	    classrelation_ref 244994 // <dependency>
 	  b parent class_ref 227586 // BF_droite_stand_2_State
       end
@@ -24177,7 +25010,7 @@ ${inlines}
 	relation 245250 -_->
 	  stereotype "friend"
 	  a default
-	    cpp default "#include in source"
+	    cpp default "${type}"
 	    classrelation_ref 245250 // <dependency>
 	  b parent class_ref 227714 // chope_stand_2_State
       end
@@ -24186,7 +25019,7 @@ ${inlines}
 	relation 245506 -_->
 	  stereotype "friend"
 	  a default
-	    cpp default "#include in source"
+	    cpp default "${type}"
 	    classrelation_ref 245506 // <dependency>
 	  b parent class_ref 227842 // BF_cap_sur_stand_3_State
       end
@@ -24195,7 +25028,7 @@ ${inlines}
 	relation 245762 -_->
 	  stereotype "friend"
 	  a default
-	    cpp default "#include in source"
+	    cpp default "${type}"
 	    classrelation_ref 245762 // <dependency>
 	  b parent class_ref 227970 // re_re_ouverture_pince_State
       end
@@ -24204,7 +25037,7 @@ ${inlines}
 	relation 246018 -_->
 	  stereotype "friend"
 	  a default
-	    cpp default "#include in source"
+	    cpp default "${type}"
 	    classrelation_ref 246018 // <dependency>
 	  b parent class_ref 228098 // BF_droite_stand_3_State
       end
@@ -24213,7 +25046,7 @@ ${inlines}
 	relation 246274 -_->
 	  stereotype "friend"
 	  a default
-	    cpp default "#include in source"
+	    cpp default "${type}"
 	    classrelation_ref 246274 // <dependency>
 	  b parent class_ref 228226 // chope_stand_3_State
       end
@@ -24222,9 +25055,208 @@ ${inlines}
 	relation 246530 -_->
 	  stereotype "friend"
 	  a default
-	    cpp default "#include in source"
+	    cpp default "${type}"
 	    classrelation_ref 246530 // <dependency>
 	  b parent class_ref 228354 // tempo_pour_coopr_State
+      end
+
+      classrelation 253186 // <dependency>
+	relation 253186 -_->
+	  stereotype "friend"
+	  a default
+	    cpp default "#include in source"
+	    classrelation_ref 253186 // <dependency>
+	  b parent class_ref 234882 // BF_droite_sur_le_verre_State
+      end
+
+      classrelation 253442 // <dependency>
+	relation 253442 -_->
+	  stereotype "friend"
+	  a default
+	    cpp default "#include in source"
+	    classrelation_ref 253442 // <dependency>
+	  b parent class_ref 235010 // chope_gobelet_State
+      end
+
+      classrelation 253698 // <dependency>
+	relation 253698 -_->
+	  stereotype "friend"
+	  a default
+	    cpp default "#include in source"
+	    classrelation_ref 253698 // <dependency>
+	  b parent class_ref 235138 // recule_des_stands_State
+      end
+
+      classrelation 253954 // <dependency>
+	relation 253954 -_->
+	  stereotype "friend"
+	  a default
+	    cpp default "#include in source"
+	    classrelation_ref 253954 // <dependency>
+	  b parent class_ref 235266 // BF_CAP_State
+      end
+
+      classrelation 254210 // <dependency>
+	relation 254210 -_->
+	  stereotype "friend"
+	  a default
+	    cpp default "#include in source"
+	    classrelation_ref 254210 // <dependency>
+	  b parent class_ref 235394 // recule_vers_la_zone_de_depart_State
+      end
+
+      classrelation 254466 // <dependency>
+	relation 254466 -_->
+	  stereotype "friend"
+	  a default
+	    cpp default "#include in source"
+	    classrelation_ref 254466 // <dependency>
+	  b parent class_ref 235522 // BF_droite_vers_les_stands_State
+      end
+
+      operation 352386 "pince_ouverte
+"
+	force_body_gen public explicit_return_type "bool"
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "${comment}${inline}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	
+	ncouples 1
+	key "STM generated" value ""
+	comment " the operation you call to signal the event pince_ouverte
+"
+      end
+
+      classrelation 254722 // <dependency>
+	relation 254722 -_->
+	  stereotype "friend"
+	  a default
+	    cpp default "#include in source"
+	    classrelation_ref 254722 // <dependency>
+	  b parent class_ref 235650 // ouvre_pince_State
+      end
+
+      classrelation 254978 // <dependency>
+	relation 254978 -_->
+	  stereotype "friend"
+	  a default
+	    cpp default "#include in source"
+	    classrelation_ref 254978 // <dependency>
+	  b parent class_ref 235778 // chope_stand_1_State
+      end
+
+      classrelation 255234 // <dependency>
+	relation 255234 -_->
+	  stereotype "friend"
+	  a default
+	    cpp default "#include in source"
+	    classrelation_ref 255234 // <dependency>
+	  b parent class_ref 235906 // re_ouvre_pince_State
+      end
+
+      classrelation 255490 // <dependency>
+	relation 255490 -_->
+	  stereotype "friend"
+	  a default
+	    cpp default "#include in source"
+	    classrelation_ref 255490 // <dependency>
+	  b parent class_ref 236034 // re_avance_State
+      end
+
+      classrelation 255746 // <dependency>
+	relation 255746 -_->
+	  stereotype "friend"
+	  a default
+	    cpp default "#include in source"
+	    classrelation_ref 255746 // <dependency>
+	  b parent class_ref 236162 // chope_stand_2_State
+      end
+
+      classrelation 256002 // <dependency>
+	relation 256002 -_->
+	  stereotype "friend"
+	  a default
+	    cpp default "#include in source"
+	    classrelation_ref 256002 // <dependency>
+	  b parent class_ref 236290 // recalage_State
+      end
+
+      classrelation 256258 // <dependency>
+	relation 256258 -_->
+	  stereotype "friend"
+	  a default
+	    cpp default "#include in source"
+	    classrelation_ref 256258 // <dependency>
+	  b parent class_ref 236418 // BF_CAP_pour_claps_State
+      end
+
+      classrelation 256514 // <dependency>
+	relation 256514 -_->
+	  stereotype "friend"
+	  a default
+	    cpp default "#include in source"
+	    classrelation_ref 256514 // <dependency>
+	  b parent class_ref 236546 // deboit_claps_coin_State
+      end
+
+      classrelation 256770 // <dependency>
+	relation 256770 -_->
+	  stereotype "friend"
+	  a default
+	    cpp default "#include in source"
+	    classrelation_ref 256770 // <dependency>
+	  b parent class_ref 236674 // set_X_CAP_State
+      end
+
+      classrelation 257026 // <dependency>
+	relation 257026 -_->
+	  stereotype "friend"
+	  a default
+	    cpp default "#include in source"
+	    classrelation_ref 257026 // <dependency>
+	  b parent class_ref 236802 // avance_claps_State
+      end
+
+      classrelation 257282 // <dependency>
+	relation 257282 -_->
+	  stereotype "friend"
+	  a default
+	    cpp default "#include in source"
+	    classrelation_ref 257282 // <dependency>
+	  b parent class_ref 236930 // BF_droite_sur_claps_estrade_State
+      end
+
+      classrelation 257538 // <dependency>
+	relation 257538 -_->
+	  stereotype "friend"
+	  a default
+	    cpp default "#include in source"
+	    classrelation_ref 257538 // <dependency>
+	  b parent class_ref 237058 // cap_to_mission_State
+      end
+
+      classrelation 257794 // <dependency>
+	relation 257794 -_->
+	  stereotype "friend"
+	  a default
+	    cpp default "#include in source"
+	    classrelation_ref 257794 // <dependency>
+	  b parent class_ref 237186 // BF_droite_to_mission_State
+      end
+
+      classrelation 258050 // <dependency>
+	relation 258050 -_->
+	  stereotype "friend"
+	  a default
+	    cpp default "#include in source"
+	    classrelation_ref 258050 // <dependency>
+	  b parent class_ref 237314 // cap_mission_State
       end
     end
   end

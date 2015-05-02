@@ -42,7 +42,7 @@ transitioncanvas 128898 transition_ref 331778 // <transition>
 end
 transitioncanvas 129154 transition_ref 331906 // <transition>
   
-  from ref 128770 z 2006 label "assFini" xyz 495 648.5 2006 to ref 129026
+  from ref 128770 z 2006 label "assFini" xyz 495 648 2006 to ref 129026
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 129410 transition_ref 332034 // <transition>

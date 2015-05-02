@@ -324,7 +324,7 @@ void Protocole_COM::executeinstr()
         if(s.find("BRAS_DROIT_FIN _MONTEE") != string::npos)
         {
             cout<<"[Master] etat bras droite, fin de montee"<<endl;
-            master->get_MAE_COOP_R()->fin_montee_bras();
+            master->get_gestionnaire_mission()->get_mae_murphy()->fin_montee_bras();
             //transistion sur mae... pince ouverte
         }
 

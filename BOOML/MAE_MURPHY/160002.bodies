@@ -7,9 +7,9 @@ class drop_gobelet_State
 #endif
 // drop si present
 master->set_time_out(200);
-if(master->get_gestionnaire_mission()->get_element_robot()->pop_corn_present())
+if(master->get_gestionnaire_mission()->get_element_robot()->gobelet_present())
 {
-	master->get_gestionnaire_mission()->get_element_robot()->pop_corn_decharge();
+	master->get_gestionnaire_mission()->get_element_robot()->gobelet_relache();
 	master->get_gestionnaire_mission()->get_mission_chiage()->drop_gobelet_done();
 	// drop gobelet
 	serialPrint(master->getPortSerie(),"P6 \n");

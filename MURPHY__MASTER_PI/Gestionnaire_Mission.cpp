@@ -11,7 +11,7 @@ Gestionnaire_Mission::Gestionnaire_Mission():
         mission_chiage_balle(true),
         mission_zone_centrale(true),
         mission_depot_tour_depart(true),
-        mission_depot_tour_estrade(false),
+        mission_depot_tour_estrade(true),
         mission_zone_ennemie(true),
         coord_reel(0,0,0),
         mae_murphy(),

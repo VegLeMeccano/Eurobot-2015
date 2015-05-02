@@ -190,3 +190,14 @@ return (_current_state != 0);
     _current_state->end_game(*this);
   }
   return (_current_state != 0);
+!!!352386.cpp!!!	pince_ouverte
+() : bool
+  if (_current_state != 0) {
+#ifdef VERBOSE_STATE_MACHINE
+    puts("DEBUG : fire trigger pince_ouverte
+");
+#endif
+    _current_state->pince_ouverte
+(*this);
+  }
+  return (_current_state != 0);
