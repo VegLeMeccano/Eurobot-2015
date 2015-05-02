@@ -1,28 +1,5 @@
 class mission_depot_de_tour_zone_depart_State
 !!!218626.cpp!!!	create(inout stm : MAE_MURPHY) : void
-
-  _doentry(stm);
-  {
-    stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_depot_de_tour_zone_depart_state._way_point_initial_state);
-#ifdef VERBOSE_STATE_MACHINE
-    puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission depot de tour zone depart.way point initial");
-#endif
-    stm._mae_murphy_state._jeu_state._mission_depot_de_tour_zone_depart_state._way_point_initial_state.create(st!!!220802.cpp!!!	_exit20(inout stm : MAE_MURPHY) : void
-Y) : void
-  {
-    stm._set_currentState(stm._mae_murphy_state._jeu_state._decision_state);
-#ifdef VERBOSE_STATE_MACHINE
-    puts("DEBUG : current state is now .MAE_MURPHY.Jeu.decision");
-#endif
-    stm._mae_murphy_state._jeu_state._decision_state.c!!!224130.cpp!!!	_doentry(inout stm : MAE_MURPHY) : void
-stm : MAE_MURPHY) : void
-#ifdef VERBOSE_STATE_MACHINE
-	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission depot de tour zone depart");
-#endif
-// depot de tour sur la zone de depart
-cout<<"MISS!!!224258.cpp!!!	_upper(inout stm : MAE_MURPHY) : MAE_MURPHY::AnyState
-: MAE_MURPHY::AnyState
-  return &stm._mae_m!!!218626.cpp!!!	create(inout stm : MAE_MURPHY) : void
   _doentry(stm);
   {
     stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_depot_de_tour_zone_depart_state._way_point_initial_state);
@@ -47,3 +24,9 @@ cout<<"MISS!!!224258.cpp!!!	_upper(inout stm : MAE_MURPHY) : MAE_MURPHY::AnyStat
 cout<<"MISSION DEPOT TOUR DEPART"<<endl;
 !!!224258.cpp!!!	_upper(inout stm : MAE_MURPHY) : MAE_MURPHY::AnyState
   return &stm._mae_murphy_state._jeu_state;
+!!!224130.cpp!!!	_doentry(inout stm : MAE_MURPHY) : void
+#ifdef VERBOSE_STATE_MACHINE
+	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission depot de tour zone depart");
+#endif
+// depot de tour sur la zone de depart
+cout<<"MISSION DEPOT TOUR DEPART"<<endl;

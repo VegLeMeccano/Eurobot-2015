@@ -1,56 +1,5 @@
 class rejoindre_le_point_de_depart_mission_State
 !!!182530.cpp!!!	create(inout stm : MAE_MURPHY) : void
-
-  _doentry(stm);
-  {
-    stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_pillage_distrib_state._rejoindre_le_point_de_depart_mission_state._orientation_vers_objectif_state);
-#ifdef VERBOSE_STATE_MACHINE
-    puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission pillage distrib.rejoindre le point de depart mission.orientation vers objectif");
-#endif
-    stm._mae_murphy_state._jeu_state._mission_pillage_distrib_state._rejoindre_le_point_de_depart_mission_state._orientation_vers_objectif_state.create(st!!!182658.cpp!!!	_exit7(inout stm : MAE_MURPHY) : void
-Y) : void
-  {
-    stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_pillage_distrib_state);
-#ifdef VERBOSE_STATE_MACHINE
-    puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission pillage distrib");
-#endif
-    if (master->get_gestionnaire_mission()->get_mission_distrib()->is_capture_gobelet_done()) {
-      stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_pillage_distrib_state._capture_stands_cote_escalier_state);
-#ifdef VERBOSE_STATE_MACHINE
-      puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission pillage distrib.capture stands cote escalier");
-#endif
-      stm._mae_murphy_state._jeu_state._mission_pillage_distrib_state._capture_stands_cote_escalier_state.create(stm);
-    }
-    else if (!master->get_gestionnaire_mission()->get_mission_distrib()->is_capture_gobelet_done() ) {
-      if (!master->get_gestionnaire_mission()->get_element_robot()->gobelet_present()) {
-        stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_pillage_distrib_state._capture_de_gobelet_escalier_state);
-#ifdef VERBOSE_STATE_MACHINE
-        puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission pillage distrib.capture de gobelet escalier");
-#endif
-        stm._mae_murphy_state._jeu_state._mission_pillage_distrib_state._capture_de_gobelet_escalier_state.create(stm);
-      }
-      else if (master->get_gestionnaire_mission()->get_element_robot()->gobelet_present()) {
-        if (!master->get_gestionnaire_mission()->get_mission_distrib()->is_netoyage_zone_done() ) {
-          stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_pillage_distrib_state._capture_stands_cote_escalier_state);
-#ifdef VERBOSE_STATE_MACHINE
-          puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission pillage distrib.capture stands cote escalier");
-#endif
-          stm._mae_murphy_state._jeu_state._mission_pillage_distrib_state._capture_stands_cote_escalier_state.create(stm);
-        }
-        else if (master->get_gestionnaire_mission()->get_mission_distrib()->is_netoyage_zone_done() ) {
-          stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_pillage_distrib_state._sortie_zone_state);
-#ifdef VERBOSE_STATE_MACHINE
-          puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission pillage distrib.sortie zone");
-#endif
-          stm._mae_murphy_state._jeu_state._mission_pillage_distrib_state._sortie_zone_sta!!!184322.cpp!!!	_doentry(inout stm : MAE_MURPHY) : void
-!!!184322.cpp!!!	_doentry(inout stm : MAE_MURPHY) : void
-#ifdef VERBOSE_STATE_MACHINE
-	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission pillage distrib.rejoindre le point de depart mission");
-#endif
-// devant la zone de depart
-//!!!184450.cpp!!!	_upper(inout stm : MAE_MURPHY) : MAE_MURPHY::AnyState
-	_upper(inout stm : MAE_MURPHY) : MAE_MURPHY::AnyState
-  return &stm._mae_!!!182530.cpp!!!	create(inout stm : MAE_MURPHY) : void
   _doentry(stm);
   {
     stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_pillage_distrib_state._rejoindre_le_point_de_depart_mission_state._orientation_vers_objectif_state);
@@ -106,3 +55,9 @@ Y) : void
 // on check ou on est puis BF cap vers le point, puis BF droite
 !!!184450.cpp!!!	_upper(inout stm : MAE_MURPHY) : MAE_MURPHY::AnyState
   return &stm._mae_murphy_state._jeu_state._mission_pillage_distrib_state;
+!!!184322.cpp!!!	_doentry(inout stm : MAE_MURPHY) : void
+#ifdef VERBOSE_STATE_MACHINE
+	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission pillage distrib.rejoindre le point de depart mission");
+#endif
+// devant la zone de depart
+// on check ou on est puis BF cap vers le point, puis BF droite

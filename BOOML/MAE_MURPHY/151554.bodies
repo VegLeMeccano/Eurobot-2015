@@ -1,14 +1,14 @@
 class claps_central_State
 !!!227202.cpp!!!	create(inout stm : MAE_MURPHY) : void
-
   _doentry(stm);
   {
     stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._claps_central_state._bf_droite_state);
 #ifdef VERBOSE_STATE_MACHINE
     puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission zone ennemie.claps central.BF droite");
 #endif
-    stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._claps_central_state._bf_droite_state.create(st!!!228866.cpp!!!	_exit22(inout stm : MAE_MURPHY) : void
-Y) : void
+    stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._claps_central_state._bf_droite_state.create(stm);
+  }
+!!!228866.cpp!!!	_exit22(inout stm : MAE_MURPHY) : void
   {
     stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state);
 #ifdef VERBOSE_STATE_MACHINE
@@ -34,9 +34,14 @@ Y) : void
 #ifdef VERBOSE_STATE_MACHINE
         puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission zone ennemie.depot gobelet");
 #endif
-        stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._depot_gobelet_s!!!229506.cpp!!!	_doentry(inout stm : MAE_MURPHY) : void
-cpp!!!	_doentry(inout stm : MAE_MURPHY) : void
+        stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._depot_gobelet_state.create(stm);
+      }
+    }
+  }
+!!!229506.cpp!!!	_doentry(inout stm : MAE_MURPHY) : void
 #ifdef VERBOSE_STATE_MACHINE
-	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission zone e!!!229634.cpp!!!	_upper(inout stm : MAE_MURPHY) : MAE_MURPHY::AnyState
-out stm : MAE_MURPHY) : MAE_MURPHY::AnyState
-  return &stm._mae_murphy_
+	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission zone ennemie.claps central");
+#endif
+// mission à 5pts
+!!!229634.cpp!!!	_upper(inout stm : MAE_MURPHY) : MAE_MURPHY::AnyState
+  return &stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state;

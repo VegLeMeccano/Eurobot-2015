@@ -115,7 +115,7 @@ transitioncanvas 133890 transition_ref 209410 // <transition>
 end
 transitioncanvas 134018 transition_ref 209538 // <transition>
   
-  from ref 130946 z 2006 label "mission_zone_ennemie" xyz 1301 401.5 2006 to ref 130178
+  from ref 130946 z 2006 label "mission_zone_ennemie" xyz 1301 401 2006 to ref 130178
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 134146 transition_ref 209666 // <transition>

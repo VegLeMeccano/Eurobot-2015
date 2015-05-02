@@ -1,36 +1,5 @@
 class Recalage_State
 !!!188290.cpp!!!	blocage(inout stm : MAE_MURPHY) : void
-
-  {
-    stm._mae_murphy_state._jeu_state._mission_attrap_balle_et_chiage_state._recalage_state._doexit(stm);
-    stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_attrap_balle_et_chiage_state._capture_de_balle_state);
-#ifdef VERBOSE_STATE_MACHINE
-    puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission attrap balle et chiage.capture de balle");
-#endif
-    stm._mae_murphy_state._jeu_state._mission_attrap_balle_et_chiage_state._capture_de_balle_state.create(st!!!188418.cpp!!!	create(inout stm : MAE_MURPHY) : void
-Y) : void
-	_doe!!!188546.cpp!!!	_doentry(inout stm : MAE_MURPHY) : void
-ntry(inout stm : MAE_MURPHY) : void
-#ifdef VERBOSE_STATE_MACHINE
-	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission attrap balle et chiage.Recalage");
-#endif
-// vers le centre de la table
-serialPrintf(master->get!!!188674.cpp!!!	_doexit(inout stm : MAE_MURPHY) : void
-p!!!	_doexit(inout stm : MAE_MURPHY) : void
-#ifdef VERBOSE_STATE_MACHINE
-	puts("DEBUG : execute exit behavior of .MAE_MURPHY.Jeu.mission attrap balle et chiage.Recalage");
-#endif
-if(master->is_Jaune()){
-	cout<<"SET X Y CAP ORIGIN, COULEUR JAUNE"<<endl;
-	// X = -1500 + 70 +96 = -1334
-	// terrain, bordure, robot (axe de rotation)
-	serialPrintf(master->getPortSerie(),"S0 -1334 996 0 \n");
-}
-if(master->is_Vert()){
-	cout<<"SET X Y CAP ORIGIN, COULEUR VERT"<<endl;
-	seria!!!188802.cpp!!!	_upper(inout stm : MAE_MURPHY) : MAE_MURPHY::AnyState
-AE_MURPHY) : MAE_MURPHY::AnyState
-  return &stm._mae_murphy_state._jeu_state._mis!!!188290.cpp!!!	blocage(inout stm : MAE_MURPHY) : void
   {
     stm._mae_murphy_state._jeu_state._mission_attrap_balle_et_chiage_state._recalage_state._doexit(stm);
     stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_attrap_balle_et_chiage_state._capture_de_balle_state);
@@ -65,3 +34,25 @@ if(master->is_Vert()){
 }
 !!!188802.cpp!!!	_upper(inout stm : MAE_MURPHY) : MAE_MURPHY::AnyState
   return &stm._mae_murphy_state._jeu_state._mission_attrap_balle_et_chiage_state;
+!!!188546.cpp!!!	_doentry(inout stm : MAE_MURPHY) : void
+#ifdef VERBOSE_STATE_MACHINE
+	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission attrap balle et chiage.Recalage");
+#endif
+// vers le centre de la table
+serialPrintf(master->getPortSerie(),"S2 \n");
+
+// set X, Y CAP??
+!!!188674.cpp!!!	_doexit(inout stm : MAE_MURPHY) : void
+#ifdef VERBOSE_STATE_MACHINE
+	puts("DEBUG : execute exit behavior of .MAE_MURPHY.Jeu.mission attrap balle et chiage.Recalage");
+#endif
+if(master->is_Jaune()){
+	cout<<"SET X Y CAP ORIGIN, COULEUR JAUNE"<<endl;
+	// X = -1500 + 70 +96 = -1334
+	// terrain, bordure, robot (axe de rotation)
+	serialPrintf(master->getPortSerie(),"S0 -1334 996 0 \n");
+}
+if(master->is_Vert()){
+	cout<<"SET X Y CAP ORIGIN, COULEUR VERT"<<endl;
+	serialPrintf(master->getPortSerie(),"S0 1334 996 180 \n");
+}
