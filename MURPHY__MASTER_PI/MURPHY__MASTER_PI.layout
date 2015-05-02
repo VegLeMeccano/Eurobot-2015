@@ -5,19 +5,29 @@
 		<Cursor position="0" topLine="0" />
 	</File>
 	<File name="Gestionnaire_Mission.cpp" open="1" top="0" tabpos="2">
+<<<<<<< HEAD
+		<Cursor position="5918" topLine="145" />
+	</File>
+	<File name="Gestionnaire_Mission.h" open="1" top="0" tabpos="4">
+		<Cursor position="2845" topLine="87" />
+=======
 		<Cursor position="7063" topLine="0" />
 	</File>
 	<File name="Gestionnaire_Mission.h" open="1" top="1" tabpos="4">
 		<Cursor position="3216" topLine="99" />
+>>>>>>> ebb02739be39520cde64e2fdac1f7f32fb1ae083
 	</File>
-	<File name="MAE_MURPHY.cpp" open="0" top="0" tabpos="5">
-		<Cursor position="309139" topLine="6770" />
+	<File name="MAE_MURPHY.cpp" open="1" top="1" tabpos="9">
+		<Cursor position="203473" topLine="4480" />
+	</File>
+	<File name="MAE_MURPHY.h" open="0" top="0" tabpos="0">
+		<Cursor position="3267" topLine="48" />
 	</File>
 	<File name="Master.cpp" open="1" top="0" tabpos="5">
 		<Cursor position="2399" topLine="0" />
 	</File>
-	<File name="Master.h" open="0" top="0" tabpos="7">
-		<Cursor position="1202" topLine="33" />
+	<File name="Master.h" open="1" top="0" tabpos="8">
+		<Cursor position="211" topLine="0" />
 	</File>
 	<File name="Mission.cpp" open="0" top="0" tabpos="0">
 		<Cursor position="338" topLine="0" />
@@ -32,7 +42,11 @@
 		<Cursor position="3347" topLine="123" />
 	</File>
 	<File name="Protocole_COM.h" open="1" top="0" tabpos="7">
+<<<<<<< HEAD
+		<Cursor position="110" topLine="0" />
+=======
 		<Cursor position="433" topLine="3" />
+>>>>>>> ebb02739be39520cde64e2fdac1f7f32fb1ae083
 	</File>
 	<File name="main.cpp" open="1" top="0" tabpos="6">
 		<Cursor position="294" topLine="6" />
