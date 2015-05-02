@@ -4,7 +4,7 @@
 #include "Element_Robot.h"
 #include "MAE_MURPHY.h"
 
-///#include "Period.h"
+#include "Period.h"
 
 #include "Mission_Claps.h"
 #include "Mission_Depot_Tour_Depart.h"
@@ -64,7 +64,7 @@ class Gestionnaire_Mission
 
         // couleur et temps restant
         int couleur;
-        ///Period period_jeu;
+        Period period_jeu;
         long temps_restant;
 
         // pour les trategies
@@ -101,7 +101,7 @@ class Gestionnaire_Mission
 
         float get_cap_to_mission();
         float get_x_mission();
-        float get_y_to_mission();
+        float get_y_mission();
         float get_cap_mission();
 
         MAE_MURPHY* get_mae_murphy();

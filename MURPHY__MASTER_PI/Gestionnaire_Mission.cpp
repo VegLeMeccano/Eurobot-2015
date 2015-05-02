@@ -166,7 +166,7 @@ float Gestionnaire_Mission::get_x_mission()
     return x_mission;
 }
 
-float Gestionnaire_Mission::get_y_to_mission()
+float Gestionnaire_Mission::get_y_mission()
 {
     return y_mission;
 }
@@ -556,6 +556,6 @@ void Gestionnaire_Mission::set_strategie_2(int strat_)
 
 MAE_MURPHY* Gestionnaire_Mission::get_mae_murphy()
 {
-    return &mae_murphy();
+    return &mae_murphy;
 }
 
