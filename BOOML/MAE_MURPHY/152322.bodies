@@ -15,10 +15,10 @@ class BF_droite_sur_le_cine_State
 #endif
 if(master->is_Jaune()){
 // BF droite sur le cine
-serialPrint(master->getPortSerie(),"S5 1255 531 0 \n");
+serialPrintf(master->getPortSerie(),"S5 1255 531 0 \n");
 }
 if(master->is_Vert()){
-serialPrint(master->getPortSerie(),"S5 -1255 531 180 \n");
+serialPrintf(master->getPortSerie(),"S5 -1255 531 180 \n");
 }
 !!!230402.cpp!!!	_upper(inout stm : MAE_MURPHY) : MAE_MURPHY::AnyState
   return &stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._depot_gobelet_state;

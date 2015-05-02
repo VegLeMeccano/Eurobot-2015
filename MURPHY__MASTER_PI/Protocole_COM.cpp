@@ -140,6 +140,7 @@ void Protocole_COM::executeinstr()
         {
             cout<<"[Master] start enleve"<<endl;
             master->get_gestionnaire_mission()->get_mae_murphy()->start_enleve();
+            master->get_gestionnaire_mission()->start_compteur_periode();
         }
 
         //fin des 90s

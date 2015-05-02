@@ -15,10 +15,10 @@ class ouverture_claps_State
 #endif
 if(master->is_Jaune()){
 // ouverture claps cote bordure (jaune gauche)
-serialPrint(master->getPortSerie(),"C2 \n");
+serialPrintf(master->getPortSerie(),"C2 \n");
 }
 if(master->is_Vert()){
-serialPrint(master->getPortSerie(),"C0 \n");
+serialPrintf(master->getPortSerie(),"C0 \n");
 }
 master->get_gestionnaire()->get_mission_zone_ennemie()->claps_done();
 !!!228226.cpp!!!	_upper(inout stm : MAE_MURPHY) : MAE_MURPHY::AnyState

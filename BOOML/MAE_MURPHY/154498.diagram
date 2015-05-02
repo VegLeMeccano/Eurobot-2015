@@ -44,14 +44,12 @@ end
 pseudostatecanvas 131970 pseudostate_ref 271490 // choice
    xyz 872 512 2005
 end
+pseudostatecanvas 132482 pseudostate_ref 271234 // exit_point
+   xyz 289 247 3005 label_xy 285 266
+end
 transitioncanvas 128898 transition_ref 192130 // <transition>
   
   from ref 128130 z 2006 to ref 128258
-  write_horizontally default show_definition default drawing_language default
-end
-transitioncanvas 129154 transition_ref 212482 // <transition>
-  
-  from ref 128258 z 2006 to ref 129026
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 129282 transition_ref 212610 // <transition>
@@ -66,7 +64,7 @@ transitioncanvas 130050 transition_ref 313218 // <transition>
 end
 transitioncanvas 130306 transition_ref 313474 // <transition>
   
-  from ref 129922 z 2006 label "[master->get_gestionnaire()->get_mission_zone_ennemie()->is_depot_gobelet_done()]" xyz 685 279.5 2006 to ref 128770
+  from ref 129922 z 2006 label "[master->get_gestionnaire()->get_mission_zone_ennemie()->is_depot_gobelet_done()]" xyz 685 279 2006 to ref 128770
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 131202 transition_ref 314754 // <transition>
@@ -86,7 +84,7 @@ transitioncanvas 131714 transition_ref 315010 // <transition>
 end
 transitioncanvas 132098 transition_ref 332930 // <transition>
   
-  from ref 131970 z 2006 label "[!master->get_gestionnaire()->get_element_robot()->gobelet_present()]" xyz 860 386.5 2006 to ref 128770
+  from ref 131970 z 2006 label "[!master->get_gestionnaire()->get_element_robot()->gobelet_present()]" xyz 860 386 2006 to ref 128770
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 132226 transition_ref 333058 // <transition>
@@ -97,6 +95,11 @@ end
 transitioncanvas 132354 transition_ref 333186 // <transition>
   
   from ref 129922 z 2006 label "[!master->get_gestionnaire()->get_mission_zone_ennemie()->is_depot_gobelet_done()]" xyz 574 421 2006 to ref 131970
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 132610 transition_ref 374914 // <transition>
+  
+  from ref 132482 z 3006 to ref 129026
   write_horizontally default show_definition default drawing_language default
 end
 end

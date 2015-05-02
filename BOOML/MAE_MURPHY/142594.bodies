@@ -20,7 +20,7 @@ if(master->get_gestionnaire_mission()->get_element_robot()->pop_corn_present())
 	master->get_gestionnaire_mission()->get_element_robot()->pop_corn_decharge();
 	master->get_gestionnaire_mission()->get_mission_chiage()->drop_pop_corn_done();
 	// ouverture du capot
-	serialPrint(master->getPortSerie(),"P2 \n");
+	serialPrintf(master->getPortSerie(),"P2 \n");
 	master->set_time_out(1200);
 }
 else
@@ -32,6 +32,6 @@ else
 	puts("DEBUG : execute exit behavior of .MAE_MURPHY.Jeu.mission attrap balle et chiage.drop pop corn");
 #endif
 // fermeture du capot
-serialPrint(master->getPortSerie(),"P3 \n");
+serialPrintf(master->getPortSerie(),"P3 \n");
 !!!190338.cpp!!!	_upper(inout stm : MAE_MURPHY) : MAE_MURPHY::AnyState
   return &stm._mae_murphy_state._jeu_state._mission_attrap_balle_et_chiage_state;

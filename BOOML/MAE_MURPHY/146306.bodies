@@ -17,11 +17,11 @@ class Claps_3_State
 // claps cote droit pour jaune
 if(master->is_Jaune()){
 // ouverture du claps
-serialPrint(master->getPortSerie(),"C0 \n");
+serialPrintf(master->getPortSerie(),"C0 \n");
 }
 if(master->is_Vert()){
 // BF droite sur le gobelet 
-serialPrint(master->getPortSerie(),"C2 \n");
+serialPrintf(master->getPortSerie(),"C2 \n");
 }
 !!!205698.cpp!!!	_doexit(inout stm : MAE_MURPHY) : void
 #ifdef VERBOSE_STATE_MACHINE

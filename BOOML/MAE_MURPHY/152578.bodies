@@ -13,7 +13,7 @@ class ouverture_capot_State
 #ifdef VERBOSE_STATE_MACHINE
 	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission zone ennemie.depot gobelet.ouverture capot");
 #endif
-serialPrint(master->getPortSerie(),"P6 \n");
+serialPrintf(master->getPortSerie(),"P6 \n");
 master->set_time_out(300);
 master->get_gestionnaire()->get_mission_zone_ennemie()->depot_gobelet_done();
 master->get_gestionnaire()->get_element_robot()->drop_gobelet_done();

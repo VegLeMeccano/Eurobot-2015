@@ -42,14 +42,12 @@ statecanvas 130562 state_ref 233474 // sortie
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
   xyzwh 396 1067 2005 483 89
 end
+pseudostatecanvas 131074 pseudostate_ref 237058 // exit_point
+   xyz 263 253 3005 label_xy 235 272
+end
 transitioncanvas 128514 transition_ref 209922 // <transition>
   
   from ref 128258 z 2006 to ref 128386
-  write_horizontally default show_definition default drawing_language default
-end
-transitioncanvas 129666 transition_ref 210178 // <transition>
-  
-  from ref 128386 z 2006 label "assFini" xyz 225 278 2006 to ref 128642
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 129922 transition_ref 210434 // <transition>
@@ -91,6 +89,11 @@ end
 transitioncanvas 130946 transition_ref 288130 // <transition>
   
   from ref 128898 z 2006 label "time_out" xyz 776 368 2006 to ref 129026
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 131202 transition_ref 374786 // <transition>
+  
+  from ref 131074 z 3006 to ref 128642
   write_horizontally default show_definition default drawing_language default
 end
 end

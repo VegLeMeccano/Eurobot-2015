@@ -14,7 +14,7 @@ class capture_State
 	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission pillage distrib.capture de gobelet escalier.capture");
 #endif
 // ferme le pince interne souleve
-serialPrint(master->getPortSerie(),"P5 \n");
+serialPrintf(master->getPortSerie(),"P5 \n");
 master->set_time_out(300);
 
 master->get_gestionnaire_mission()->get_mission_distrib()->capture_gobelet_done();

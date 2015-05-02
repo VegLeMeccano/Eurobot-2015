@@ -106,12 +106,12 @@ transitioncanvas 136450 transition_ref 351746 // <transition>
 end
 transitioncanvas 136578 transition_ref 351874 // <transition>
   
-  from ref 135682 z 2006 label "[master->get_gestionnaire_mission()->get_mission_claps()->is_is_clap_estrade_done()]" xyz 989 521 2006 to ref 129282
+  from ref 135682 z 2006 label "[master->get_gestionnaire_mission()->get_mission_claps()->is_clap_estrade_done()]" xyz 999 521 2006 to ref 129282
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 136706 transition_ref 352002 // <transition>
   
-  from ref 135682 z 2006 label "[!master->get_gestionnaire_mission()->get_mission_claps()->is_is_clap_estrade_done()]" xyz 908 641 2006 to ref 128770
+  from ref 135682 z 2006 label "[!master->get_gestionnaire_mission()->get_mission_claps()->is_clap_estrade_done()]" xyz 916 640 2006 to ref 128770
   write_horizontally default show_definition default drawing_language default
 end
 end

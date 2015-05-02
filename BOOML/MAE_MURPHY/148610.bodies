@@ -28,10 +28,10 @@ class chope_stand_2_State
 	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission rush zone centrale.chope stand 2");
 #endif
 if(master->is_Jaune()){
-serialPrint(master->getPortSerie(),"G1 \n");
+serialPrintf(master->getPortSerie(),"G1 \n");
 }
 if(master->is_Vert()){
-serialPrint(master->getPortSerie(),"D1 \n");
+serialPrintf(master->getPortSerie(),"D1 \n");
 }
 !!!215298.cpp!!!	_doexit(inout stm : MAE_MURPHY) : void
 #ifdef VERBOSE_STATE_MACHINE

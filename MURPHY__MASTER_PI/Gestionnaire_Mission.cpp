@@ -24,6 +24,12 @@ Gestionnaire_Mission::Gestionnaire_Mission():
 
 }
 
+void Gestionnaire_Mission::start_compteur_periode()
+{
+    period_jeu.reset();
+}
+
+
 bool Gestionnaire_Mission::commencement()
 {
     return premiere_entree_decision;
@@ -176,6 +182,46 @@ float Gestionnaire_Mission::get_cap_mission()
     return cap_mission;
 }
 
+
+string Gestionnaire_Mission::get_cap_to_mission_str()
+{
+    string result;
+    ostringstream convert;
+
+    convert << get_cap_to_mission();
+    result = convert.str();
+    return result;
+}
+
+string Gestionnaire_Mission::get_x_mission_str()
+{
+    string result;
+    ostringstream convert;
+
+    convert << get_x_mission;
+    result = convert.str();
+    return result;
+}
+
+string Gestionnaire_Mission::get_y_mission_str()
+{
+    string result;
+    ostringstream convert;
+
+    convert << get_y_mission();
+    result = convert.str();
+    return result;
+}
+
+string Gestionnaire_Mission::get_cap_mission_str()
+{
+    string result;
+    ostringstream convert;
+
+    convert << get_cap_mission();
+    result = convert.str();
+    return result;
+}
 
 void Gestionnaire_Mission::appel_trigger(int mission_indice_)
 {

@@ -82,7 +82,7 @@ transitioncanvas 129538 transition_ref 340866 // <transition>
 end
 transitioncanvas 130818 transition_ref 340994 // <transition>
   
-  from ref 129410 z 2006 label "assFini" xyz 362.5 825 2006 to ref 129666
+  from ref 129410 z 2006 label "assFini" xyz 362 825 2006 to ref 129666
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 131074 transition_ref 341250 // <transition>
@@ -92,7 +92,7 @@ transitioncanvas 131074 transition_ref 341250 // <transition>
 end
 transitioncanvas 131202 transition_ref 341378 // <transition>
   
-  from ref 129922 z 2006 label "assFini" xyz 1028.5 625 2006 to ref 130050
+  from ref 129922 z 2006 label "assFini" xyz 1028 625 2006 to ref 130050
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 131586 transition_ref 341762 // <transition>
@@ -102,7 +102,7 @@ transitioncanvas 131586 transition_ref 341762 // <transition>
 end
 transitioncanvas 132098 transition_ref 342018 // <transition>
   
-  from ref 130306 z 2006 label "pince_ouverte" xyz 1612.5 634 2006 to ref 130434
+  from ref 130306 z 2006 label "pince_ouverte" xyz 1612 634 2006 to ref 130434
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 132226 transition_ref 342146 // <transition>
@@ -127,7 +127,7 @@ transitioncanvas 133506 transition_ref 360450 // <transition>
 end
 transitioncanvas 133634 transition_ref 360578 // <transition>
   
-  from ref 133378 z 2006 label "[!master->get_gestionnaire_mission()->get_mission_zone_centrale()->is_stand_depart_catched()]" xyz 1076.5 635 2006 to ref 130178
+  from ref 133378 z 2006 label "[!master->get_gestionnaire_mission()->get_mission_zone_centrale()->is_stand_depart_catched()]" xyz 1076 635 2006 to ref 130178
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 133890 transition_ref 360834 // <transition>

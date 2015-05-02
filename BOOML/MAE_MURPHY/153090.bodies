@@ -15,10 +15,10 @@ class to_escalier_State
 #endif
 if(master->is_Jaune()){
 // BF droite sur le cine
-serialPrint(master->getPortSerie(),"S5 170 919 180 \n");
+serialPrintf(master->getPortSerie(),"S5 170 919 180 \n");
 }
 if(master->is_Vert()){
-serialPrint(master->getPortSerie(),"S5 -170 919 0 \n");
+serialPrintf(master->getPortSerie(),"S5 -170 919 0 \n");
 }
 !!!233474.cpp!!!	_upper(inout stm : MAE_MURPHY) : MAE_MURPHY::AnyState
   return &stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._faire_chier_en_zizagant_state;

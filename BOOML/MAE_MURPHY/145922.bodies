@@ -14,6 +14,6 @@ class avance_claps_State
 	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission claps.chope du coin.avance claps");
 #endif
 // de 100mm
-serialPrint(master->getPortSerie(),"S4 100 \n");
+serialPrintf(master->getPortSerie(),"S4 100 \n");
 !!!204290.cpp!!!	_upper(inout stm : MAE_MURPHY) : MAE_MURPHY::AnyState
   return &stm._mae_murphy_state._jeu_state._mission_claps_state._chope_du_coin_state;

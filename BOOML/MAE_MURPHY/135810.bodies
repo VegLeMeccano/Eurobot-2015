@@ -15,17 +15,17 @@ class depot_State
 #endif
 // preparation des piles a poser
 if(master->is_Jaune()){
-	serialPrint(master->getPortSerie(),"G5 \n"); // lache
+	serialPrintf(master->getPortSerie(),"G5 \n"); // lache
 	if(master->get_gestionnaire_mission()->get_mission_depot_tour_estrade()->is_depot_double())
 	{
-		serialPrint(master->getPortSerie(),"D5 \n");
+		serialPrintf(master->getPortSerie(),"D5 \n");
 	}
 }
 if(master->is_Vert()){
-	serialPrint(master->getPortSerie(),"D5 \n");
+	serialPrintf(master->getPortSerie(),"D5 \n");
 	if(master->get_gestionnaire_mission()->get_mission_depot_tour_estrade()->is_depot_double())
 	{
-		serialPrint(master->getPortSerie(),"G5 \n");
+		serialPrintf(master->getPortSerie(),"G5 \n");
 	}
 }
 !!!159746.cpp!!!	_upper(inout stm : MAE_MURPHY) : MAE_MURPHY::AnyState
