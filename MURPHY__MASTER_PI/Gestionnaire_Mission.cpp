@@ -198,7 +198,7 @@ string Gestionnaire_Mission::get_x_mission_str()
     string result;
     ostringstream convert;
 
-    convert << get_x_mission;
+    convert << get_x_mission();
     result = convert.str();
     return result;
 }
