@@ -18,5 +18,10 @@ class faire_des_maneuvre_State
 // BF cap 90 ou -90 ou 180
 // etat pipo d'evitement, le tout ce passe dans la decision dans le super etat Game
 // sinon un petit timer...
+// fermeture des pinces 
+// et capot
+serialPrintf(master->getPortSerie(),"P3 \n");
+serialPrintf(master->getPortSerie(),"D2 \n");
+serialPrintf(master->getPortSerie(),"G2 \n");
 !!!240642.cpp!!!	_upper(inout stm : MAE_MURPHY) : MAE_MURPHY::AnyState
   return &stm._mae_murphy_state._evitement_state;

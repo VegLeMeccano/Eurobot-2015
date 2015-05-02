@@ -6,6 +6,11 @@
 
 #include "Period.h"
 
+#include <iomanip>
+#include <locale>
+#include <sstream>
+#include <string>
+
 #include "Mission_Claps.h"
 #include "Mission_Depot_Tour_Depart.h"
 #include "Mission_Depot_Tour_Estrade.h"
@@ -76,6 +81,7 @@ class Gestionnaire_Mission
 
     public:
         Gestionnaire_Mission();
+        void start_compteur_periode();
         int strategie();
         void set_strategie_1(int strat_);
         void set_strategie_2(int strat_);
@@ -103,6 +109,12 @@ class Gestionnaire_Mission
         float get_x_mission();
         float get_y_mission();
         float get_cap_mission();
+
+        string get_cap_to_mission_str();
+        string get_x_mission_str();
+        string get_y_mission_str();
+        string get_cap_mission_str();
+
 
         MAE_MURPHY* get_mae_murphy();
 

@@ -48,7 +48,7 @@ transitioncanvas 128386 transition_ref 211330 // <transition>
 end
 transitioncanvas 130306 transition_ref 212354 // <transition>
   
-  from ref 128770 z 2006 label "pince_lache" xyz 514.5 699 2006 to ref 129666
+  from ref 128770 z 2006 label "pince_lache" xyz 514 699 2006 to ref 129666
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 130562 transition_ref 267522 // <transition>

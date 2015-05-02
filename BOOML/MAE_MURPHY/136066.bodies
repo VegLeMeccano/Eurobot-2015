@@ -15,21 +15,21 @@ class preparation_State
 #endif
 // preparation des piles a poser
 if(master->is_Jaune()){
-	serialPrint(master->getPortSerie(),"G8 \n"); // objectif de pose sur estrade
-	serialPrint(master->getPortSerie(),"G4 \n"); // preparation de la pose
+	serialPrintf(master->getPortSerie(),"G8 \n"); // objectif de pose sur estrade
+	serialPrintf(master->getPortSerie(),"G4 \n"); // preparation de la pose
 	if(master->get_gestionnaire_mission()->get_mission_depot_tour_estrade()->is_depot_double())
 	{
-		serialPrint(master->getPortSerie(),"D8 \n");
-		serialPrint(master->getPortSerie(),"D4 \n");
+		serialPrintf(master->getPortSerie(),"D8 \n");
+		serialPrintf(master->getPortSerie(),"D4 \n");
 	}
 }
 if(master->is_Vert()){
-	serialPrint(master->getPortSerie(),"D8 \n");
-	serialPrint(master->getPortSerie(),"D4 \n");
+	serialPrintf(master->getPortSerie(),"D8 \n");
+	serialPrintf(master->getPortSerie(),"D4 \n");
 	if(master->get_gestionnaire_mission()->get_mission_depot_tour_estrade()->is_depot_double())
 	{
-		serialPrint(master->getPortSerie(),"G8 \n");
-		serialPrint(master->getPortSerie(),"G4 \n");
+		serialPrintf(master->getPortSerie(),"G8 \n");
+		serialPrintf(master->getPortSerie(),"G4 \n");
 	}
 }
 !!!161154.cpp!!!	_upper(inout stm : MAE_MURPHY) : MAE_MURPHY::AnyState

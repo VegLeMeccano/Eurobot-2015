@@ -23,7 +23,7 @@ class capture_de_balle_State
 #endif
 if(!master->get_gestionnaire_mission()->get_mission_chiage()->is_catch_ball())
 {
-	serialPrint(master->getPortSerie(),"B2 \n");
+	serialPrintf(master->getPortSerie(),"B2 \n");
 	master->get_gestionnaire_mission()->get_mission_chiage()->catch_ball_done();
 	master->get_gestionnaire_mission()->get_element_robot()->balle_catch();
 }

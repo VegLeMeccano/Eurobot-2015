@@ -23,14 +23,14 @@ class waypoint_initial_State
     }
     else if (master->get_gestionnaire_mission()->get_mission_claps()->is_stand_depart_done()) {
       if (master->get_gestionnaire_mission()->get_mission_claps()->is_zone_coin_done()) {
-        if (master->get_gestionnaire_mission()->get_mission_claps()->is_is_clap_estrade_done()) {
+        if (master->get_gestionnaire_mission()->get_mission_claps()->is_clap_estrade_done()) {
           stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_claps_state._sortie_de_zone_state);
 #ifdef VERBOSE_STATE_MACHINE
           puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission claps.sortie de zone");
 #endif
           stm._mae_murphy_state._jeu_state._mission_claps_state._sortie_de_zone_state.create(stm);
         }
-        else if (!master->get_gestionnaire_mission()->get_mission_claps()->is_is_clap_estrade_done()) {
+        else if (!master->get_gestionnaire_mission()->get_mission_claps()->is_clap_estrade_done()) {
           stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_claps_state._claps_estrade_state);
 #ifdef VERBOSE_STATE_MACHINE
           puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission claps.claps estrade");

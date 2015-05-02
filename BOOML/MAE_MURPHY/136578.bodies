@@ -13,6 +13,6 @@ class BF_Cap_State
 #ifdef VERBOSE_STATE_MACHINE
 	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission depot tour estrade.BF Cap");
 #endif
-serialPrint(master->getPortSerie(),"S3 90 \n");
+serialPrintf(master->getPortSerie(),"S3 90 \n");
 !!!163842.cpp!!!	_upper(inout stm : MAE_MURPHY) : MAE_MURPHY::AnyState
   return &stm._mae_murphy_state._jeu_state._mission_depot_tour_estrade_state;

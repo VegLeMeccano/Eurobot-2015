@@ -16,11 +16,11 @@ class deboit_claps_coin_State
 #endif
 if(master->is_Jaune()){
 // BF droite sur le gobelet 
-serialPrint(master->getPortSerie(),"C0 \n");
+serialPrintf(master->getPortSerie(),"C0 \n");
 }
 if(master->is_Vert()){
 // BF droite sur le gobelet 
-serialPrint(master->getPortSerie(),"C2 \n");
+serialPrintf(master->getPortSerie(),"C2 \n");
 }
 !!!203138.cpp!!!	_doexit(inout stm : MAE_MURPHY) : void
 #ifdef VERBOSE_STATE_MACHINE

@@ -88,7 +88,7 @@ end
 transitioncanvas 132098 transition_ref 322818 // <transition>
   decenter_end 472
   
-  from ref 131714 z 3006 label "assFini" xyz 965.5 851 3006 to ref 128770
+  from ref 131714 z 3006 label "assFini" xyz 965 851 3006 to ref 128770
   write_horizontally default show_definition default drawing_language default
 end
 end
