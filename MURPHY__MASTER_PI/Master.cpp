@@ -99,9 +99,9 @@ void Master::set_time_out(int dt_)
 {
     t_over = millis() + dt_;
     time_out_on = true;
-    cout<<"time_out set "<< dt_<<endl;
-    cout<<"time in "<< millis()<<endl;
-    cout<<"time out "<< t_over<<endl;
+    //cout<<"time_out set "<< dt_<<endl;
+    //cout<<"time in "<< millis()<<endl;
+    //cout<<"time out "<< t_over<<endl;
 }
 
 // reset time out
@@ -116,7 +116,7 @@ bool Master::is_time_out()
    if (time_out_on && t_over < millis())
    {
      time_out_on = false;
-     cout<<"time in "<< millis()<<endl;
+     //cout<<"time in "<< millis()<<endl;
      return true;
    }
    return false;

@@ -98,6 +98,7 @@ void Protocole_COM::executeinstr()
 
     if(ordre_d == '#' || ordre_d == '*')
     {
+        /*
         cout<<"appel arduino found : ";
         if(ordre_d == '#')
         {
@@ -107,6 +108,7 @@ void Protocole_COM::executeinstr()
         {
             cout<<"ordre strat"<<endl;
         }
+        */
     }
     else
     {

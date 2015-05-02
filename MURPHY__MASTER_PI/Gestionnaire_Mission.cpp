@@ -164,7 +164,7 @@ void Gestionnaire_Mission::evitement_mission()
 
 float Gestionnaire_Mission::get_cap_to_mission()
 {
-    return cap_to_mission;
+    return cap_to_mission*180 / PI;
 }
 
 float Gestionnaire_Mission::get_x_mission()
@@ -179,7 +179,7 @@ float Gestionnaire_Mission::get_y_mission()
 
 float Gestionnaire_Mission::get_cap_mission()
 {
-    return cap_mission;
+    return cap_mission*180 / PI;
 }
 
 
