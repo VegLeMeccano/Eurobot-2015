@@ -9,12 +9,10 @@ Master::Master(int portSerie_):
     time_out_on(false),
     t_over(0),
     couleur(0),
-    tour_de_roue(0),
-    cycle_attente(0),
     portSerie(portSerie_),
     gestionnaire_mission()
 {
-    mae_murphy.create();
+    //mae_murphy.create();
     cout << "[MASTER_MURPHY] initialisation" << endl;
 }
 
@@ -45,9 +43,9 @@ bool Master::is_Jaune()
 }
 
 // retourne la MAE
-MAE_MURPHY* Master::get_MAE_MURPHY()()
+MAE_MURPHY* Master::get_MAE_MURPHY()
 {
-    return &mae_murphy;
+    return  get_gestionnaire()->get_mae_murphy();
 }
 
 
@@ -76,14 +74,14 @@ void Master::run()
             periode_run.reset();
 
             // execution des instructions
-            mae_coop_r.doActivity();
+            get_gestionnaire()->get_mae_murphy()->doActivity();
 
             // les transistions autre que time_out provienne du protocole de COM par ordre retour
 
             // check les time out
             if(is_time_out())
             {
-                mae_coop_r.time_out();
+                get_gestionnaire()->get_mae_murphy()->time_out();
             }
 
             /** appel du protocol de COM
@@ -124,10 +122,7 @@ bool Master::is_time_out()
    return false;
 }
 
-MAE_MURPHY* Master::get_MAE_MURPHY()
-{
-    return get_gestionnaire_mission()->get_mae_murphy();
-}
+
 
 Gestionnaire_Mission* Master::get_gestionnaire_mission()
 {

@@ -25,7 +25,7 @@ execution du script
 
 
 #include "Period.h"
-#include "util.h"
+//.#include "util.h"
 
 //#define VERBOSE_STATE_MACHINE 1
 

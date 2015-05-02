@@ -93,17 +93,17 @@ void Protocole_COM::executeinstr()
     std::string y;
     std::string cap;
     stream>>temp;
-    char ordre = s[0];
+    char ordre_d = s[0];
     cout<<"[arduino] "<<s<<endl;
 
-    if(ordre == '#' || ordre == '*')
+    if(ordre_d == '#' || ordre_d == '*')
     {
         cout<<"appel arduino found : ";
-        if(ordre == '#')
+        if(ordre_d == '#')
         {
             cout<<"ordre asserv/action"<<endl;
         }
-        if (ordre == '*')
+        if (ordre_d == '*')
         {
             cout<<"ordre strat"<<endl;
         }
@@ -118,7 +118,7 @@ void Protocole_COM::executeinstr()
     //int ind = ((int)temp[1]) - 48;      // pour avoir le numero de l'ordre
     //cout <<ordre<< "@" <<ind<< endl;
 
-    switch (ordre)
+    switch (ordre_d)
     {
 
     /** ordre de type adversaire et truc fini
@@ -172,7 +172,7 @@ void Protocole_COM::executeinstr()
         if(s.find("DISTRIB_DEBOITE") != string::npos)
         {
             cout<<"[Master] end of game"<<endl;
-            master->get_MAE_COOP_R()->distrib_deboite();
+            master->get_gestionnaire_mission()->get_mae_murphy()->distrib_deboite();
             master->get_gestionnaire_mission()->get_element_robot()->pop_corn_aspire();
         }
 
@@ -206,14 +206,14 @@ void Protocole_COM::executeinstr()
         if(s.find("SLAVE_ENNEMI_GAUCHE") != string::npos)
         {
             cout<<"[Master] etat asserv, ennemi gauche"<<endl;
-            master->get_gestionnaire_mission()->get_mae_murphy()->adversaire();
+            master->get_gestionnaire_mission()->get_mae_murphy()->evitement(); // adversaire();
         }
 
         // check si l'asserv est fini
         if(s.find("SLAVE_ENNEMI_DROITE") != string::npos)
         {
             cout<<"[Master] etat asserv, ennemi droite"<<endl;
-            master->get_gestionnaire_mission()->get_mae_murphy()->adversaire();//master->get_MAE_COOP_R()->assFini();
+            master->get_gestionnaire_mission()->get_mae_murphy()->evitement();//master->get_MAE_COOP_R()->assFini();
         }
 
 
@@ -356,7 +356,7 @@ void Protocole_COM::executeinstr()
         if(s.find("COORD") != string::npos)
         {
             stream>> ordre >> name >> x >> y >> cap;
-            master->get_gestionnaire_mission()->set_coord(atoi(x.c_str()),atoi(y.c_str()),atoi(cap.c_str()));
+            master->get_gestionnaire_mission()->set_coord( Coord( atoi(x.c_str()) , atoi(y.c_str()) , atoi(cap.c_str()) ) );
             // aller chercher les coordonnées dans la chaine
             // to do
             // et les mettre dans le master pour decision sur mission a venir
