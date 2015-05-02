@@ -24,7 +24,7 @@ statecanvas 129026 state_ref 150786 // capture stand bordure
 end
 statecanvas 129154 state_ref 150914 // vidage distributeur
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 1242.84 706.081 2005 259 89
+  xyzwh 1243.84 706.081 2005 267 89
 end
 statecanvas 129282 state_ref 172546 // rejoindre le point de depart mission
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
@@ -38,7 +38,7 @@ pseudostatecanvas 130690 pseudostate_ref 174850 // exit_point
 end
 statecanvas 130946 state_ref 172674 // sortie zone
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 665.494 666.267 2005 553 159
+  xyzwh 622.494 674.267 2005 553 159
 end
 pseudostatecanvas 131202 pseudostate_ref 174978 // choice
    xyz 809.284 434.618 2005
@@ -55,6 +55,9 @@ end
 pseudostatecanvas 134530 pseudostate_ref 209538 // exit_point
    xyz 1384.6 609.6 3005 label_xy 1344 624
 end
+pseudostatecanvas 135042 pseudostate_ref 209794 // exit_point
+   xyz 1272 785 3005 label_xy 1245 804
+end
 transitioncanvas 129410 transition_ref 200834 // <transition>
   
   from ref 128130 z 2011 to ref 129282
@@ -62,7 +65,7 @@ transitioncanvas 129410 transition_ref 200834 // <transition>
 end
 transitioncanvas 130306 transition_ref 201346 // <transition>
   
-  from ref 129922 z 2006 label "[master->get_gestionnaire_mission()->mission_distrib()->is_capture_gobelet_done()]" xyz 783 332 2006 to ref 128898
+  from ref 129922 z 2006 label "[master->get_gestionnaire_mission()->get_mission_distrib()->is_capture_gobelet_done()]" xyz 772 348 2006 to ref 128898
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 131330 transition_ref 201986 // <transition>
@@ -72,12 +75,7 @@ transitioncanvas 131330 transition_ref 201986 // <transition>
 end
 transitioncanvas 131458 transition_ref 202114 // <transition>
   
-  from ref 131202 z 2006 label "[!master->get_gestionnaire_mission()->mission_distrib()->is_netoyage_zone_done() ]" xyz 808 406 2006 to ref 128898
-  write_horizontally default show_definition default drawing_language default
-end
-transitioncanvas 131842 transition_ref 202370 // <transition>
-  
-  from ref 129154 z 2006 to ref 130946
+  from ref 131202 z 2006 label "[!master->get_gestionnaire_mission()->get_mission_distrib()->is_netoyage_zone_done() ]" xyz 781 408 2006 to ref 128898
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 131970 transition_ref 202498 // <transition>
@@ -100,7 +98,7 @@ transitioncanvas 132482 transition_ref 227586 // <transition>
 end
 transitioncanvas 133250 transition_ref 227970 // <transition>
   
-  from ref 131202 z 2006 label "[master->get_gestionnaire_mission()->mission_distrib()->is_netoyage_zone_done() ]" xyz 663 560 2006 to ref 130946
+  from ref 131202 z 2006 label "[master->get_gestionnaire_mission()->get_mission_distrib()->is_netoyage_zone_done() ]" xyz 636 564 2006 to ref 130946
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 134018 transition_ref 242434 // <transition>
@@ -121,6 +119,11 @@ end
 transitioncanvas 134658 transition_ref 258434 // <transition>
   
   from ref 134530 z 3006 to ref 129154
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 135170 transition_ref 381442 // <transition>
+  
+  from ref 135042 z 3006 to ref 130946
   write_horizontally default show_definition default drawing_language default
 end
 end

@@ -18,7 +18,7 @@ class drop_pop_corn_State
 if(master->get_gestionnaire_mission()->get_element_robot()->pop_corn_present())
 {
 	master->get_gestionnaire_mission()->get_element_robot()->pop_corn_decharge();
-	master->get_gestionnaire_mission()->get_mission_chiage()->drop_pop_corn_done();
+	master->get_gestionnaire_mission()->get_mission_chiage_balle()->drop_pop_corn_done();
 	// ouverture du capot
 	serialPrintf(master->getPortSerie(),"P2 \n");
 	master->set_time_out(1200);

@@ -18,7 +18,7 @@ master->set_time_out(200);
 if(master->get_gestionnaire_mission()->get_element_robot()->gobelet_present())
 {
 	master->get_gestionnaire_mission()->get_element_robot()->gobelet_relache();
-	master->get_gestionnaire_mission()->get_mission_chiage()->drop_gobelet_done();
+	master->get_gestionnaire_mission()->get_mission_chiage_balle()->drop_gobelet_done();
 	// drop gobelet
 	serialPrintf(master->getPortSerie(),"P6 \n");
 }

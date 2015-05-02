@@ -21,10 +21,10 @@ class capture_de_balle_State
 #ifdef VERBOSE_STATE_MACHINE
 	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission attrap balle et chiage.capture de balle");
 #endif
-if(!master->get_gestionnaire_mission()->get_mission_chiage()->is_catch_ball())
+if(!master->get_gestionnaire_mission()->get_mission_chiage_balle()->is_catch_ball())
 {
 	serialPrintf(master->getPortSerie(),"B2 \n");
-	master->get_gestionnaire_mission()->get_mission_chiage()->catch_ball_done();
+	master->get_gestionnaire_mission()->get_mission_chiage_balle()->catch_ball_done();
 	master->get_gestionnaire_mission()->get_element_robot()->balle_catch();
 }
 else

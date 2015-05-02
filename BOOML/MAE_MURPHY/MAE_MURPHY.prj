@@ -1,6 +1,6 @@
 format 76
 "MAE_MURPHY"
-  revision 62
+  revision 64
   modified_by 2 "Link"
   cpp_root_dir "D:/Club Robotique IRON MENAD 2/Eurobot 2015 Iron Menad/Eurobot-2015/MURPHY__MASTER_PI/"
 
@@ -320,7 +320,7 @@ master->get_gestionnaire_mission()->get_mission_depot_tour_estrade()->mission_re
 
 	  state 150018 "sortie de la zone de depart"
 	      cpp_on_entry "// avance de 400mm
-serialPrint(master->getPortSerie(),\"S4 400 \\n\");
+serialPrintf(master->getPortSerie(),\"S4 400 \\n\");
 "
 	    transition 157442 "<transition>"
 	      on state_ref 150146 // capture de gobelet escalier
@@ -659,14 +659,9 @@ serialPrintf(master->getPortSerie(),\"D1 \\n\");
 
 	  state 150914 "vidage distributeur"
 	      cpp_on_entry "// element_robot.aspire();
-mission_distrib.netoyage_zone_done(); 
+// mission_distrib.netoyage_zone_done(); 
 "
 	    associated_diagram statediagram_ref 181122 // vidange distributeur
-	    transition 202370 "<transition>"
-	      on state_ref 172674 // sortie zone
-	      external 
-	    end
-
 	    statediagram 181122 "vidange distributeur"
 	      package_name_in_tab yes show_context default auto_label_position yes write_trans_label_horizontally yes show_trans_definition yes draw_all_relations yes shadow yes
 	      show_activities yes region_horizontally yes drawing_language c++ show_stereotype_properties yes
@@ -757,6 +752,10 @@ serialPrintf(master->getPortSerie(),\"S0 1789 1050 90 \\n\");
 	    end
 
 	    pseudostate 209794 exit_point "sortie pompage"
+	      transition 381442 "<transition>"
+		on state_ref 172674 // sortie zone
+		external 
+	      end
 	    end
 
 	    state 217346 "orientation vers sortie de zone"
@@ -868,7 +867,7 @@ cout<<\"ORIENTATION VERS MISSION : \"<<ordre<<endl;"
 	  pseudostate 174722 choice 
 	    transition 201346 "<transition>"
 	      on state_ref 150658 // capture stands cote escalier
-		cpp_guard "master->get_gestionnaire_mission()->mission_distrib()->is_capture_gobelet_done()"
+		cpp_guard "master->get_gestionnaire_mission()->get_mission_distrib()->is_capture_gobelet_done()"
 	      external 
 	    end
 
@@ -904,13 +903,13 @@ if(master->get_gestionnaire_mission()->get_mission_distrib()->is_netoyage_zone_d
 	  pseudostate 174978 choice 
 	    transition 202114 "<transition>"
 	      on state_ref 150658 // capture stands cote escalier
-		cpp_guard "!master->get_gestionnaire_mission()->mission_distrib()->is_netoyage_zone_done() "
+		cpp_guard "!master->get_gestionnaire_mission()->get_mission_distrib()->is_netoyage_zone_done() "
 	      external 
 	    end
 
 	    transition 227970 "<transition>"
 	      on state_ref 172674 // sortie zone
-		cpp_guard "master->get_gestionnaire_mission()->mission_distrib()->is_netoyage_zone_done() "
+		cpp_guard "master->get_gestionnaire_mission()->get_mission_distrib()->is_netoyage_zone_done() "
 	      external 
 	    end
 	  end
@@ -1060,10 +1059,10 @@ if(master->is_Vert()){
 	  end
 
 	  state 179586 "capture de balle"
-	      cpp_on_entry "if(!master->get_gestionnaire_mission()->get_mission_chiage()->is_catch_ball())
+	      cpp_on_entry "if(!master->get_gestionnaire_mission()->get_mission_chiage_balle()->is_catch_ball())
 {
 	serialPrintf(master->getPortSerie(),\"B2 \\n\");
-	master->get_gestionnaire_mission()->get_mission_chiage()->catch_ball_done();
+	master->get_gestionnaire_mission()->get_mission_chiage_balle()->catch_ball_done();
 	master->get_gestionnaire_mission()->get_element_robot()->balle_catch();
 }
 else
@@ -1090,7 +1089,7 @@ else
 if(master->get_gestionnaire_mission()->get_element_robot()->pop_corn_present())
 {
 	master->get_gestionnaire_mission()->get_element_robot()->pop_corn_decharge();
-	master->get_gestionnaire_mission()->get_mission_chiage()->drop_pop_corn_done();
+	master->get_gestionnaire_mission()->get_mission_chiage_balle()->drop_pop_corn_done();
 	// ouverture du capot
 	serialPrintf(master->getPortSerie(),\"P2 \\n\");
 	master->set_time_out(1200);
@@ -1114,7 +1113,7 @@ master->set_time_out(200);
 if(master->get_gestionnaire_mission()->get_element_robot()->gobelet_present())
 {
 	master->get_gestionnaire_mission()->get_element_robot()->gobelet_relache();
-	master->get_gestionnaire_mission()->get_mission_chiage()->drop_gobelet_done();
+	master->get_gestionnaire_mission()->get_mission_chiage_balle()->drop_gobelet_done();
 	// drop gobelet
 	serialPrintf(master->getPortSerie(),\"P6 \\n\");
 }"
@@ -1136,7 +1135,7 @@ if(master->get_gestionnaire_mission()->get_element_robot()->gobelet_present())
 	      cpp_on_entry "// aller devant la zone de depart
 //BF avance de 400mm
 serialPrintf(master->getPortSerie(),\"S4 400 \\n\");
-//master->get_gestionnaire_mission()->get_mission_chiage()->mission_remplie();"
+//master->get_gestionnaire_mission()->get_mission_chiage_balle()->mission_remplie();"
 	    transition 287874 "<transition>"
 	      on state_ref 233474 // sortie
 		cpp_trigger "assFini"
@@ -1147,7 +1146,7 @@ serialPrintf(master->getPortSerie(),\"S4 400 \\n\");
 	  state 233474 "sortie"
 	      cpp_on_entry "// fermeture capot arriere
 serialPrintf(master->getPortSerie(),\"P3 \\n\");
-master->get_gestionnaire_mission()->get_mission_chiage()->mission_remplie();"
+master->get_gestionnaire_mission()->get_mission_chiage_balle()->mission_remplie();"
 	    transition 288002 "<transition>"
 	      on pseudostate_ref 181762 // exit_point
 	      external 
@@ -1642,7 +1641,7 @@ cout<<\"ORIENTATION VERS MISSION : \"<<ordre<<endl;"
 	    state 240514 "BF cap"
 		cpp_on_entry "if(	master->get_gestionnaire_mission()->get_mission_claps()->is_stand_depart_done()
 	&& master->get_gestionnaire_mission()->get_mission_claps()->is_zone_coin_done()
-	&& master->get_gestionnaire_mission()->get_mission_claps()->is_claps_estrade_done())
+	&& master->get_gestionnaire_mission()->get_mission_claps()->is_clap_estrade_done())
 {
 	master->get_gestionnaire_mission()->get_mission_claps()->mission_remplie();
 }"
@@ -2217,7 +2216,7 @@ if(master->is_Vert()){
 	    cpp_on_entry "// avance de 200mm (400mm avec le recalage)
 // attention si on laisse coop'r derrière ou devant
 serialPrintf(master->getPortSerie(),\"S4 200 \\n\");
-master->get_gestionnaire_mission()->commencement_fin();"
+master->get_gestionnaire_mission()->commencement_end();"
 	  transition 199810 "<transition>"
 	    on state_ref 172290 // decision
 	      cpp_trigger "assFini"
@@ -2458,7 +2457,7 @@ serialPrintf(master->getPortSerie(),\"S3 0 \\n\");
 		cpp_on_entry "serialPrintf(master->getPortSerie(),\"P6 \\n\");
 master->set_time_out(300);
 master->get_gestionnaire()->get_mission_zone_ennemie()->depot_gobelet_done();
-master->get_gestionnaire()->get_element_robot()->drop_gobelet_done();"
+master->get_gestionnaire()->get_element_robot()->gobelet_relache();"
 	      transition 332034 "<transition>"
 		on state_ref 263298 // avance
 		  cpp_trigger "time_out"
@@ -20045,23 +20044,6 @@ ${inlines}
 		    cpp default "${type}"
 		    classrelation_ref 144130 // <generalisation>
 		  b parent class_ref 134658 // AnyState
-	      end
-
-	      operation 177282 "_completion"
-		force_body_gen cpp_virtual public explicit_return_type "bool"
-		nparams 1
-		  param inout name "stm" type class_ref 134530 // MAE_MURPHY
-		cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
-"
-		cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
-  ${body}}
-"
-		
-		
-		
-		
-		ncouples 1
-		key "STM generated" value ""
 	      end
 
 	      operation 177410 "create"

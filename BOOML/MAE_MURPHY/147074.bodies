@@ -17,7 +17,7 @@ class BF_cap_State
 #endif
 if(	master->get_gestionnaire_mission()->get_mission_claps()->is_stand_depart_done()
 	&& master->get_gestionnaire_mission()->get_mission_claps()->is_zone_coin_done()
-	&& master->get_gestionnaire_mission()->get_mission_claps()->is_claps_estrade_done())
+	&& master->get_gestionnaire_mission()->get_mission_claps()->is_clap_estrade_done())
 {
 	master->get_gestionnaire_mission()->get_mission_claps()->mission_remplie();
 }

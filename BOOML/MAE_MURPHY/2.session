@@ -1,15 +1,9 @@
 window_sizes 1600 848 329 1265 739 35
-diagrams
-  statediagram_ref 128130 // Principal
-    1008 591 100 0 336 0
-  active  statediagram_ref 134658 // Jeu
-    1265 739 100 0 324 784
-end
 show_stereotypes
 selected 
   package_ref 129 // MAE_MURPHY
 open
-  state_ref 158850 // waypoint initial
+  state_ref 150914 // vidage distributeur
   deploymentview_ref 128130 // MAE_MURPHY
 end
 end

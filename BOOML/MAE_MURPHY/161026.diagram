@@ -21,26 +21,26 @@ statecanvas 128770 state_ref 179458 // Recalage
 end
 statecanvas 128898 state_ref 179586 // capture de balle
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 484.9 146.4 2005 513 215
+  xyzwh 484.9 146.4 2005 545 215
 end
 statecanvas 129026 state_ref 179714 // drop pop corn
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 545.1 395.6 2005 511 257
+  xyzwh 545.1 395.6 2005 543 257
 end
 statecanvas 129154 state_ref 179842 // drop gobelet
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 583.1 690.7 2005 501 187
+  xyzwh 583.1 690.7 2005 533 187
 end
 pseudostatecanvas 129282 pseudostate_ref 181762 // exit_point
    xyz 253.3 1099.4 3005 label_xy 216 1115
 end
 statecanvas 129410 state_ref 179970 // avance
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 596.1 912.3 2005 489 103
+  xyzwh 596.1 912.3 2005 521 103
 end
 statecanvas 130562 state_ref 233474 // sortie
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 396 1067 2005 483 89
+  xyzwh 396 1067 2005 515 89
 end
 pseudostatecanvas 131074 pseudostate_ref 237058 // exit_point
    xyz 263 253 3005 label_xy 235 272
@@ -57,28 +57,28 @@ transitioncanvas 129922 transition_ref 210434 // <transition>
 end
 transitioncanvas 130050 transition_ref 210562 // <transition>
   
-  from ref 128770 z 2006 label "blocage" xyz 488 420 2006 to ref 128898
+  from ref 128770 z 2006 label "blocage" xyz 495.5 420 2006 to ref 128898
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 130178 transition_ref 210690 // <transition>
   decenter_begin 449
   
-  from ref 128898 z 2006 label "fin_montee_bras" xyz 628 371 2006 to ref 129026
+  from ref 128898 z 2006 label "fin_montee_bras" xyz 642 371 2006 to ref 129026
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 130306 transition_ref 210818 // <transition>
   
-  from ref 129026 z 2006 label "time_out" xyz 831 665 2006 to ref 129154
+  from ref 129026 z 2006 label "time_out" xyz 847 665 2006 to ref 129154
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 130434 transition_ref 210946 // <transition>
   
-  from ref 129154 z 2006 label "time_out" xyz 848 883 2006 to ref 129410
+  from ref 129154 z 2006 label "time_out" xyz 864 883 2006 to ref 129410
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 130690 transition_ref 287874 // <transition>
   
-  from ref 129410 z 2006 label "assFini" xyz 713 1033 2006 to ref 130562
+  from ref 129410 z 2006 label "assFini" xyz 729 1033 2006 to ref 130562
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 130818 transition_ref 288002 // <transition>
@@ -88,7 +88,7 @@ transitioncanvas 130818 transition_ref 288002 // <transition>
 end
 transitioncanvas 130946 transition_ref 288130 // <transition>
   
-  from ref 128898 z 2006 label "time_out" xyz 776 368 2006 to ref 129026
+  from ref 128898 z 2006 label "time_out" xyz 792 368 2006 to ref 129026
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 131202 transition_ref 374786 // <transition>

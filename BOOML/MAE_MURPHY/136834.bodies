@@ -14,6 +14,6 @@ class sortie_de_la_zone_de_depart_State
 	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission pillage distrib.sortie de la zone de depart");
 #endif
 // avance de 400mm
-serialPrint(master->getPortSerie(),"S4 400 \n");
+serialPrintf(master->getPortSerie(),"S4 400 \n");
 !!!165122.cpp!!!	_upper(inout stm : MAE_MURPHY) : MAE_MURPHY::AnyState
   return &stm._mae_murphy_state._jeu_state._mission_pillage_distrib_state;
