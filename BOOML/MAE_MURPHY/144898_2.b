@@ -1,0 +1,29 @@
+class Recule_State
+!!!168706.cpp!!!	blocage(inout stm : MAE_MURPHY) : void
+  {
+    stm._set_currentState(stm._mae_murphy_state._recalage_initial_state._set_x_y_cap_state);
+#ifdef VERBOSE_STATE_MACHINE
+    puts("DEBUG : current state is now .MAE_MURPHY.Recalage Initial.set X Y CAP");
+#endif
+    stm._mae_murphy_state._recalage_initial_state._set_x_y_cap_state.create(stm);
+  }
+!!!168834.cpp!!!	create(inout stm : MAE_MURPHY) : void
+	_doentry(stm);
+!!!168962.cpp!!!	_doentry(inout stm : MAE_MURPHY) : void
+#ifdef VERBOSE_STATE_MACHINE
+	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Recalage Initial.Recule");
+#endif
+cout<<"RECULE"<<endl;
+// recule (recalage au cul)
+serialPrint(master->getPortSerie(),"S0 0 0 0 \n");
+serialPrint(master->getPortSerie(),"S2 \n");
+!!!169090.cpp!!!	_upper(inout stm : MAE_MURPHY) : MAE_MURPHY::AnyState
+  return &stm._mae_murphy_state._recalage_initial_state;
+!!!168962.cpp!!!	_doentry(inout stm : MAE_MURPHY) : void
+#ifdef VERBOSE_STATE_MACHINE
+	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Recalage Initial.Recule");
+#endif
+cout<<"RECULE"<<endl;
+// recule (recalage au cul)
+serialPrint(master->getPortSerie(),"S0 0 0 0 \n");
+serialPrint(master->getPortSerie(),"S2 \n");
