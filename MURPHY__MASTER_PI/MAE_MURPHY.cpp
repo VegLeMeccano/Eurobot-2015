@@ -1101,7 +1101,7 @@ void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_tour_estrade_State::
 #endif
   // depose une ou plusieurs pile sur l'estrade
   // normalement une seule sinon risque de faire tomber celle adverse
-  cout<<"MISSION DEPOT TOUR ESTRADE">>endl;
+  cout<<"MISSION DEPOT TOUR ESTRADE"<<endl;
 }
 
 // returns the state containing the current
@@ -2080,7 +2080,7 @@ void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::_doent
 #endif
   // claps ennemi
   // depot de goblets cinéma adverse
-  cout<<"MISSION ZONE ENNEMIE">>endl;
+  cout<<"MISSION ZONE ENNEMIE"<<endl;
 }
 
 // returns the state containing the current
@@ -2557,7 +2557,7 @@ void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_de_tour_zone_depart_
   	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission depot de tour zone depart");
 #endif
   // depot de tour sur la zone de depart
-  cout<<"MISSION DEPOT TOUR DEPART">>endl;
+  cout<<"MISSION DEPOT TOUR DEPART"<<endl;
 }
 
 // returns the state containing the current
@@ -3258,7 +3258,7 @@ void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_rush_zone_centrale_State::
   	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission rush zone centrale");
 #endif
   // on va rusher les trois stands centraux
-  cout<<"MISSION RUSH ZONE CENTRALE">>endl;
+  cout<<"MISSION RUSH ZONE CENTRALE"<<endl;
 }
 
 // returns the state containing the current
@@ -4572,7 +4572,7 @@ void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_claps_State::_doentry(MAE_
   	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission claps");
 #endif
   // part vers le bas en direction des claps
-  cout<<"MISSION CLAPS">>endl;
+  cout<<"MISSION CLAPS"<<endl;
 }
 
 // returns the state containing the current
@@ -5079,7 +5079,7 @@ void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_attrap_balle_et_chiage_Sta
   	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission attrap balle et chiage");
 #endif
   // de but : pres de zone de depart
-  cout<<"MISSION CHIAGE & BALL">>endl;
+  cout<<"MISSION CHIAGE & BALL"<<endl;
 }
 
 // returns the state containing the current
@@ -6552,7 +6552,7 @@ void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::_do
 #endif
   // pille le distrib et les pillier autour
   // mission quart haut, capture du gobelet pres de l'escalier
-  cout<<"MISSION PILLAGE DISTRIB">>endl;
+  cout<<"MISSION PILLAGE DISTRIB"<<endl;
 }
 
 // returns the state containing the current

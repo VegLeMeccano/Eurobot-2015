@@ -1,5 +1,15 @@
 class Game_Over_State
 !!!244354.cpp!!!	create(inout stm : MAE_MURPHY) : void
+
+	_doentry(stm)!!!244482.cpp!!!	_doentry(inout stm : MAE_MURPHY) : void
+HY) : void
+#ifdef VERBOSE_STATE_MACHINE
+	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Game Over");
+#endif
+cout<<"ETAT END OF GAME"<<endl;
+// arret de la base roul!!!244610.cpp!!!	_upper(inout stm : MAE_MURPHY) : MAE_MURPHY::AnyState
+AnyState
+  return &stm._mae_murp!!!244354.cpp!!!	create(inout stm : MAE_MURPHY) : void
 	_doentry(stm);
 !!!244482.cpp!!!	_doentry(inout stm : MAE_MURPHY) : void
 #ifdef VERBOSE_STATE_MACHINE
@@ -9,9 +19,3 @@ cout<<"ETAT END OF GAME"<<endl;
 // arret de la base roulante et tout...
 !!!244610.cpp!!!	_upper(inout stm : MAE_MURPHY) : MAE_MURPHY::AnyState
   return &stm._mae_murphy_state;
-!!!244482.cpp!!!	_doentry(inout stm : MAE_MURPHY) : void
-#ifdef VERBOSE_STATE_MACHINE
-	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Game Over");
-#endif
-cout<<"ETAT END OF GAME"<<endl;
-// arret de la base roulante et tout...
