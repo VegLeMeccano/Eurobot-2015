@@ -1,203 +1,27 @@
-class MAE_MURPHY
-!!!148226.cpp!!!	MAE_MURPHY()
-  _current_state = 0;
-!!!148482.cpp!!!	create() : bool
-if (_current_state == 0)
-(_current_state = &(*this)._mae_murphy_state)->create(*this);
-return (_current_state != 0);
-!!!149634.cpp!!!	evitement() : bool
-  if (_current_state != 0) {
+class SET_Y_CAP_State
+!!!179202.cpp!!!	_completion(inout stm : MAE_MURPHY) : bool
+  {
+    stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_pillage_distrib_state._vidage_distributeur_state._pompage_state);
 #ifdef VERBOSE_STATE_MACHINE
-    puts("DEBUG : fire trigger evitement");
+    puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission pillage distrib.vidage distributeur.pompage");
 #endif
-    _current_state->evitement(*this);
+    stm._mae_murphy_state._jeu_state._mission_pillage_distrib_state._vidage_distributeur_state._pompage_state.create(stm);
+    return (bool) 1;
   }
-  return (_current_state != 0);
-!!!156546.cpp!!!	assFini() : bool
-  if (_current_state != 0) {
+!!!179330.cpp!!!	create(inout stm : MAE_MURPHY) : void
+	_doentry(stm);
+	_completion(stm);
+!!!179458.cpp!!!	_doentry(inout stm : MAE_MURPHY) : void
 #ifdef VERBOSE_STATE_MACHINE
-    puts("DEBUG : fire trigger assFini");
+	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission pillage distrib.vidage distributeur.SET Y CAP");
 #endif
-    _current_state->assFini(*this);
-  }
-  return (_current_state != 0);
-!!!158338.cpp!!!	time_out() : bool
-  if (_current_state != 0) {
-#ifdef VERBOSE_STATE_MACHINE
-    puts("DEBUG : fire trigger time_out");
-#endif
-    _current_state->time_out(*this);
-  }
-  return (_current_state != 0);
-!!!168450.cpp!!!	blocage() : bool
-  if (_current_state != 0) {
-#ifdef VERBOSE_STATE_MACHINE
-    puts("DEBUG : fire trigger blocage");
-#endif
-    _current_state->blocage(*this);
-  }
-  return (_current_state != 0);
-!!!174594.cpp!!!	doActivity() : void
-  _current_state->_do(*this);
-!!!174722.cpp!!!	_set_currentState(inout st : MAE_MURPHY::AnyState) : void
-  _current_state = &st;
-!!!174850.cpp!!!	_final() : void
-  _current_state = 0;
-#ifdef VERBOSE_STATE_MACHINE
-  puts("DEBUG : final state reached");
-#endif
-!!!175106.cpp!!!	start_enleve() : bool
-  if (_current_state != 0) {
-#ifdef VERBOSE_STATE_MACHINE
-    puts("DEBUG : fire trigger start_enleve");
-#endif
-    _current_state->start_enleve(*this);
-  }
-  return (_current_state != 0);
-!!!194306.cpp!!!	mission_distrib() : bool
-  if (_current_state != 0) {
-#ifdef VERBOSE_STATE_MACHINE
-    puts("DEBUG : fire trigger mission_distrib");
-#endif
-    _current_state->mission_distrib(*this);
-  }
-  return (_current_state != 0);
-!!!195458.cpp!!!	mission_zone_ennemie() : bool
-  if (_current_state != 0) {
-#ifdef VERBOSE_STATE_MACHINE
-    puts("DEBUG : fire trigger mission_zone_ennemie");
-#endif
-    _current_state->mission_zone_ennemie(*this);
-  }
-  return (_current_state != 0);
-!!!196226.cpp!!!	mission_zone_centrale() : bool
-  if (_current_state != 0) {
-#ifdef VERBOSE_STATE_MACHINE
-    puts("DEBUG : fire trigger mission_zone_centrale");
-#endif
-    _current_state->mission_zone_centrale(*this);
-  }
-  return (_current_state != 0);
-!!!200578.cpp!!!	mission_claps() : bool
-  if (_current_state != 0) {
-#ifdef VERBOSE_STATE_MACHINE
-    puts("DEBUG : fire trigger mission_claps");
-#endif
-    _current_state->mission_claps(*this);
-  }
-  return (_current_state != 0);
-!!!224002.cpp!!!	pince_ouverte() : bool
-  if (_current_state != 0) {
-#ifdef VERBOSE_STATE_MACHINE
-    puts("DEBUG : fire trigger pince_ouverte");
-#endif
-    _current_state->pince_ouverte(*this);
-  }
-  return (_current_state != 0);
-!!!225282.cpp!!!	pince_stand_by() : bool
-  if (_current_state != 0) {
-#ifdef VERBOSE_STATE_MACHINE
-    puts("DEBUG : fire trigger pince_stand_by");
-#endif
-    _current_state->pince_stand_by(*this);
-  }
-  return (_current_state != 0);
-!!!233602.cpp!!!	distrib_deboite() : bool
-  if (_current_state != 0) {
-#ifdef VERBOSE_STATE_MACHINE
-    puts("DEBUG : fire trigger distrib_deboite");
-#endif
-    _current_state->distrib_deboite(*this);
-  }
-  return (_current_state != 0);
-!!!247426.cpp!!!	fin_montee_bras() : bool
-  if (_current_state != 0) {
-#ifdef VERBOSE_STATE_MACHINE
-    puts("DEBUG : fire trigger fin_montee_bras");
-#endif
-    _current_state->fin_montee_bras(*this);
-  }
-  return (_current_state != 0);
-!!!270466.cpp!!!	claps_replie() : bool
-  if (_current_state != 0) {
-#ifdef VERBOSE_STATE_MACHINE
-    puts("DEBUG : fire trigger claps_replie");
-#endif
-    _current_state->claps_replie(*this);
-  }
-  return (_current_state != 0);
-!!!287234.cpp!!!	mission_depot_tour_depart() : bool
-  if (_current_state != 0) {
-#ifdef VERBOSE_STATE_MACHINE
-    puts("DEBUG : fire trigger mission_depot_tour_depart");
-#endif
-    _current_state->mission_depot_tour_depart(*this);
-  }
-  return (_current_state != 0);
-!!!287618.cpp!!!	mission_chiage_balle() : bool
-  if (_current_state != 0) {
-#ifdef VERBOSE_STATE_MACHINE
-    puts("DEBUG : fire trigger mission_chiage_balle");
-#endif
-    _current_state->mission_chiage_balle(*this);
-  }
-  return (_current_state != 0);
-!!!288002.cpp!!!	mission_depot_tour_estrade() : bool
-  if (_current_state != 0) {
-#ifdef VERBOSE_STATE_MACHINE
-    puts("DEBUG : fire trigger mission_depot_tour_estrade");
-#endif
-    _current_state->mission_depot_tour_estrade(*this);
-  }
-  return (_current_state != 0);
-!!!299778.cpp!!!	start_mis() : bool
-  if (_current_state != 0) {
-#ifdef VERBOSE_STATE_MACHINE
-    puts("DEBUG : fire trigger start_mis");
-#endif
-    _current_state->start_mis(*this);
-  }
-  return (_current_state != 0);
-!!!302082.cpp!!!	pince_lache() : bool
-  if (_current_state != 0) {
-#ifdef VERBOSE_STATE_MACHINE
-    puts("DEBUG : fire trigger pince_lache");
-#endif
-    _current_state->pince_lache(*this);
-  }
-  return (_current_state != 0);
-!!!302978.cpp!!!	pince_ready_to_drop() : bool
-  if (_current_state != 0) {
-#ifdef VERBOSE_STATE_MACHINE
-    puts("DEBUG : fire trigger pince_ready_to_drop");
-#endif
-    _current_state->pince_ready_to_drop(*this);
-  }
-  return (_current_state != 0);
-!!!303746.cpp!!!	pince_range() : bool
-  if (_current_state != 0) {
-#ifdef VERBOSE_STATE_MACHINE
-    puts("DEBUG : fire trigger pince_range");
-#endif
-    _current_state->pince_range(*this);
-  }
-  return (_current_state != 0);
-!!!319362.cpp!!!	end_game() : bool
-  if (_current_state != 0) {
-#ifdef VERBOSE_STATE_MACHINE
-    puts("DEBUG : fire trigger end_game");
-#endif
-    _current_state->end_game(*this);
-  }
-  return (_current_state != 0);
-!!!352386.cpp!!!	pince_ouverte
-() : bool
-  if (_current_state != 0) {
-#ifdef VERBOSE_STATE_MACHINE
-    puts("DEBUG : fire trigger pince_ouverte
-");
-#endif
-    _current_state->pince_ouverte
-(*this);
-  }
-  return (_current_state != 0);
+if(master->is_Jaune()){
+// BF droite sur le gobelet 
+serialPrint(master->getPortSerie(),"S0 -1789 1050 90 \n");
+}
+if(master->is_Vert()){
+// BF droite sur le gobelet 
+serialPrint(master->getPortSerie(),"S0 1789 1050 90 \n");
+}
+!!!179586.cpp!!!	_upper(inout stm : MAE_MURPHY) : MAE_MURPHY::AnyState
+  return &stm._mae_murphy_state._jeu_state._mission_pillage_distrib_state._vidage_distributeur_state;

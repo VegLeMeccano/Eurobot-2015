@@ -1,45 +1,25 @@
-class faire_chier_en_zizagant_State
-!!!166914.cpp!!!	create(inout stm : MAE_MURPHY) : void
-  _doentry(stm);
+class BF_droite_vers_les_stands_State
+!!!197378.cpp!!!	assFini(inout stm : MAE_MURPHY) : void
   {
-    if (master->get_gestionnaire()->get_element_robot()->mode_chieur()==0) {
-      stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._faire_chier_en_zizagant_state._chieur_stop_state);
+    stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_claps_state._chope_du_coin_state._ouvre_pince_state);
 #ifdef VERBOSE_STATE_MACHINE
-      puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission zone ennemie.faire chier en zizagant.chieur stop");
+    puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission claps.chope du coin.ouvre pince");
 #endif
-      stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._faire_chier_en_zizagant_state._chieur_stop_state.create(stm);
-    }
-    else if (master->get_gestionnaire()->get_element_robot()->mode_chieur()==1) {
-      stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._faire_chier_en_zizagant_state._chieur_faible_state);
-#ifdef VERBOSE_STATE_MACHINE
-      puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission zone ennemie.faire chier en zizagant.chieur faible");
-#endif
-      stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._faire_chier_en_zizagant_state._chieur_faible_state.create(stm);
-    }
-    else if (master->get_gestionnaire()->get_element_robot()->mode_chieur()==2) {
-      stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._faire_chier_en_zizagant_state._chieur_plus_state);
-#ifdef VERBOSE_STATE_MACHINE
-      puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission zone ennemie.faire chier en zizagant.chieur plus");
-#endif
-      stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._faire_chier_en_zizagant_state._chieur_plus_state.create(stm);
-    }
+    stm._mae_murphy_state._jeu_state._mission_claps_state._chope_du_coin_state._ouvre_pince_state.create(stm);
   }
-!!!167042.cpp!!!	_doentry(inout stm : MAE_MURPHY) : void
+!!!197506.cpp!!!	create(inout stm : MAE_MURPHY) : void
+	_doentry(stm);
+!!!197634.cpp!!!	_doentry(inout stm : MAE_MURPHY) : void
 #ifdef VERBOSE_STATE_MACHINE
-	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission zone ennemie.faire chier en zizagant");
+	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission claps.chope du coin.BF droite vers les stands");
 #endif
-// mission qui n'a pas de prix
-// simplement rejoindre la sortie
-
-// mettre un choix de point chieur à atteindre
-master->get_gestionnaire()->get_mission_zone_ennemie()->mission_remplie();
-!!!167170.cpp!!!	_upper(inout stm : MAE_MURPHY) : MAE_MURPHY::AnyState
-  return &stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state;
-!!!339202.cpp!!!	_exit24(inout stm : MAE_MURPHY) : void
-  {
-    stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state);
-#ifdef VERBOSE_STATE_MACHINE
-    puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission zone ennemie");
-#endif
-    stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._exit25(stm);
-  }
+if(master->is_Jaune()){
+// BF droite sur le gobelet 
+serialPrint(master->getPortSerie(),"S5 -1180 474 -90 \n");
+}
+if(master->is_Vert()){
+// BF droite sur le gobelet 
+serialPrint(master->getPortSerie(),"S5 1180 474 -90 \n");
+}
+!!!197762.cpp!!!	_upper(inout stm : MAE_MURPHY) : MAE_MURPHY::AnyState
+  return &stm._mae_murphy_state._jeu_state._mission_claps_state._chope_du_coin_state;
