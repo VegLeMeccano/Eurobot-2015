@@ -5,7 +5,7 @@ class sortie_zone_State
 #ifdef VERBOSE_STATE_MACHINE
     puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission pillage distrib");
 #endif
-    stm._mae_murphy_state._jeu_state._mission_pillage_distrib_state._exit6(stm);
+    stm._mae_murphy_state._jeu_state._mission_pillage_distrib_state._exit8(stm);
     return (bool) 1;
   }
 !!!187394.cpp!!!	create(inout stm : MAE_MURPHY) : void

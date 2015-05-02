@@ -5,14 +5,6 @@ class MAE_MURPHY
 if (_current_state == 0)
 (_current_state = &(*this)._mae_murphy_state)->create(*this);
 return (_current_state != 0);
-!!!148866.cpp!!!	strat_mis() : bool
-  if (_current_state != 0) {
-#ifdef VERBOSE_STATE_MACHINE
-    puts("DEBUG : fire trigger strat_mis");
-#endif
-    _current_state->strat_mis(*this);
-  }
-  return (_current_state != 0);
 !!!149634.cpp!!!	evitement() : bool
   if (_current_state != 0) {
 #ifdef VERBOSE_STATE_MACHINE
@@ -156,5 +148,45 @@ return (_current_state != 0);
     puts("DEBUG : fire trigger mission_depot_tour_estrade");
 #endif
     _current_state->mission_depot_tour_estrade(*this);
+  }
+  return (_current_state != 0);
+!!!299778.cpp!!!	start_mis() : bool
+  if (_current_state != 0) {
+#ifdef VERBOSE_STATE_MACHINE
+    puts("DEBUG : fire trigger start_mis");
+#endif
+    _current_state->start_mis(*this);
+  }
+  return (_current_state != 0);
+!!!302082.cpp!!!	pince_lache() : bool
+  if (_current_state != 0) {
+#ifdef VERBOSE_STATE_MACHINE
+    puts("DEBUG : fire trigger pince_lache");
+#endif
+    _current_state->pince_lache(*this);
+  }
+  return (_current_state != 0);
+!!!302978.cpp!!!	pince_ready_to_drop() : bool
+  if (_current_state != 0) {
+#ifdef VERBOSE_STATE_MACHINE
+    puts("DEBUG : fire trigger pince_ready_to_drop");
+#endif
+    _current_state->pince_ready_to_drop(*this);
+  }
+  return (_current_state != 0);
+!!!303746.cpp!!!	pince_range() : bool
+  if (_current_state != 0) {
+#ifdef VERBOSE_STATE_MACHINE
+    puts("DEBUG : fire trigger pince_range");
+#endif
+    _current_state->pince_range(*this);
+  }
+  return (_current_state != 0);
+!!!319362.cpp!!!	end_game() : bool
+  if (_current_state != 0) {
+#ifdef VERBOSE_STATE_MACHINE
+    puts("DEBUG : fire trigger end_game");
+#endif
+    _current_state->end_game(*this);
   }
   return (_current_state != 0);

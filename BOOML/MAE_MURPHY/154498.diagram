@@ -2,44 +2,47 @@ format 76
 
 statecanvas 128002 state_ref 158722 // mission zone ennemie
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 110 69 2000 1075 739
+  xyzwh 83.1 73.2 2000 1536 856
 end
 pseudostatecanvas 128130 pseudostate_ref 154882 // initial
-   xyz 216 139 2005
+   xyz 184.3 143.2 2005
 end
 statecanvas 128258 state_ref 158850 // waypoint initial
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 214 194 2005 149 61
+  xyzwh 180.6 196.2 2005 149 61
 end
 statecanvas 128514 state_ref 158978 // claps central
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 206 608 2005 165 77
+  xyzwh 174.8 609.1 2005 165 77
 end
 statecanvas 128642 state_ref 159106 // depot gobelet
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 638 647 2005 167 69
+  xyzwh 984.1 710.4 2005 167 69
 end
 statecanvas 128770 state_ref 159234 // faire chier en zizagant
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 873 177 2005 275 125
+  xyzwh 1088.6 156.7 2005 479 123
 end
 pseudostatecanvas 129026 pseudostate_ref 182274 // choice
-   xyz 277 306 2005
+   xyz 244.2 308.2 2005
 end
 pseudostatecanvas 129794 pseudostate_ref 257282 // exit_point
-   xyz 1002 392 3005 label_xy 998 411
+   xyz 1407.2 478.5 3005 label_xy 1403 498
 end
 pseudostatecanvas 129922 pseudostate_ref 257410 // choice
-   xyz 708 305 2005
+   xyz 675.7 306.6 2005
 end
 pseudostatecanvas 130818 pseudostate_ref 257666 // exit_point
-   xyz 361 668 3005 label_xy 357 687
+   xyz 328.7 670.7 3005 label_xy 324 688
 end
 pseudostatecanvas 131074 pseudostate_ref 223746 // exit_point
-   xyz 795 657 3005 label_xy 791 676
+   xyz 1141.3 721 3005 label_xy 1137 740
 end
 pseudostatecanvas 131586 pseudostate_ref 223490 // exit_point
-   xyz 1082 292 3005 label_xy 1078 311
+   xyz 1298.7 268.1 3005 label_xy 1294 287
+end
+pseudostatecanvas 131970 pseudostate_ref 271490 // choice
+   xyz 872 512 2005
 end
 transitioncanvas 128898 transition_ref 192130 // <transition>
   
@@ -53,22 +56,17 @@ transitioncanvas 129154 transition_ref 212482 // <transition>
 end
 transitioncanvas 129282 transition_ref 212610 // <transition>
   
-  from ref 129026 z 2006 label "[!master->get_gestionnaire()->get_mission_zone_ennemie()->is_claps_done()]" xyz 150 455.5 3000 to ref 128514
+  from ref 129026 z 2006 label "[!master->get_gestionnaire()->get_mission_zone_ennemie()->is_claps_done()]" xyz 118 457 2006 to ref 128514
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 130050 transition_ref 313218 // <transition>
   
-  from ref 129026 z 2006 label "[master->get_gestionnaire()->get_mission_zone_ennemie()->is_claps_done()]" xyz 316.5 308.5 3000 to ref 129922
-  write_horizontally default show_definition default drawing_language default
-end
-transitioncanvas 130178 transition_ref 313346 // <transition>
-  
-  from ref 129922 z 2006 label "[master->get_gestionnaire()->get_element_robot()->gobelet_present()]" xyz 550 486 3000 to ref 128642
+  from ref 129026 z 2006 label "[master->get_gestionnaire()->get_mission_zone_ennemie()->is_claps_done()]" xyz 283 310 2006 to ref 129922
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 130306 transition_ref 313474 // <transition>
   
-  from ref 129922 z 2006 label "!master->get_gestionnaire()->get_element_robot()->gobelet_present()" xyz 522 265 3000 to ref 128770
+  from ref 129922 z 2006 label "[master->get_gestionnaire()->get_mission_zone_ennemie()->is_depot_gobelet_done()]" xyz 685 280.5 2006 to ref 128770
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 131202 transition_ref 314754 // <transition>
@@ -84,6 +82,21 @@ end
 transitioncanvas 131714 transition_ref 315010 // <transition>
   
   from ref 131586 z 3006 to ref 129794
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 132098 transition_ref 332930 // <transition>
+  
+  from ref 131970 z 2006 label "[!master->get_gestionnaire()->get_element_robot()->gobelet_present()]" xyz 859 387 2006 to ref 128770
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 132226 transition_ref 333058 // <transition>
+  
+  from ref 131970 z 2006 label "[master->get_gestionnaire()->get_element_robot()->gobelet_present()]" xyz 712 654 2006 to ref 128642
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 132354 transition_ref 333186 // <transition>
+  
+  from ref 129922 z 2006 label "[!master->get_gestionnaire()->get_mission_zone_ennemie()->is_depot_gobelet_done()]" xyz 574 421 2006 to ref 131970
   write_horizontally default show_definition default drawing_language default
 end
 end

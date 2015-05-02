@@ -15,18 +15,6 @@ void MAE_MURPHY::AnyState::_do(MAE_MURPHY &) {
 void MAE_MURPHY::AnyState::create(MAE_MURPHY &) {
 }
 
-// the current state doesn't manage the event strat_mis, give it to the upper state
-void MAE_MURPHY::AnyState::strat_mis(MAE_MURPHY & stm) {
-    AnyState * st = _upper(stm);
-  
-    if (st != 0)
-      st->strat_mis(stm);
-#ifdef VERBOSE_STATE_MACHINE
-    else
-      puts("DEBUG : transition strat_mis not expected");
-#endif
-}
-
 // the current state doesn't manage the event evitement, give it to the upper state
 void MAE_MURPHY::AnyState::evitement(MAE_MURPHY & stm) {
     AnyState * st = _upper(stm);
@@ -231,18 +219,67 @@ void MAE_MURPHY::AnyState::mission_depot_tour_estrade(MAE_MURPHY & stm) {
 #endif
 }
 
-MAE_MURPHY::MAE_MURPHY_State::Initialisation_State::~Initialisation_State() {
+// the current state doesn't manage the event start_mis, give it to the upper state
+void MAE_MURPHY::AnyState::start_mis(MAE_MURPHY & stm) {
+    AnyState * st = _upper(stm);
+  
+    if (st != 0)
+      st->start_mis(stm);
+#ifdef VERBOSE_STATE_MACHINE
+    else
+      puts("DEBUG : transition start_mis not expected");
+#endif
 }
 
-// to manage the event strat_mis
-void MAE_MURPHY::MAE_MURPHY_State::Initialisation_State::strat_mis(MAE_MURPHY & stm) {
-    {
-      stm._set_currentState(stm._mae_murphy_state._recalage_initial_state);
+// the current state doesn't manage the event pince_lache, give it to the upper state
+void MAE_MURPHY::AnyState::pince_lache(MAE_MURPHY & stm) {
+    AnyState * st = _upper(stm);
+  
+    if (st != 0)
+      st->pince_lache(stm);
 #ifdef VERBOSE_STATE_MACHINE
-      puts("DEBUG : current state is now .MAE_MURPHY.Recalage Initial");
+    else
+      puts("DEBUG : transition pince_lache not expected");
 #endif
-      stm._mae_murphy_state._recalage_initial_state.create(stm);
-    }
+}
+
+// the current state doesn't manage the event pince_ready_to_drop, give it to the upper state
+void MAE_MURPHY::AnyState::pince_ready_to_drop(MAE_MURPHY & stm) {
+    AnyState * st = _upper(stm);
+  
+    if (st != 0)
+      st->pince_ready_to_drop(stm);
+#ifdef VERBOSE_STATE_MACHINE
+    else
+      puts("DEBUG : transition pince_ready_to_drop not expected");
+#endif
+}
+
+// the current state doesn't manage the event pince_range, give it to the upper state
+void MAE_MURPHY::AnyState::pince_range(MAE_MURPHY & stm) {
+    AnyState * st = _upper(stm);
+  
+    if (st != 0)
+      st->pince_range(stm);
+#ifdef VERBOSE_STATE_MACHINE
+    else
+      puts("DEBUG : transition pince_range not expected");
+#endif
+}
+
+// the current state doesn't manage the event end_game, give it to the upper state
+void MAE_MURPHY::AnyState::end_game(MAE_MURPHY & stm) {
+    AnyState * st = _upper(stm);
+  
+    if (st != 0)
+      st->end_game(stm);
+#ifdef VERBOSE_STATE_MACHINE
+    else
+      puts("DEBUG : transition end_game not expected");
+#endif
+}
+
+MAE_MURPHY::MAE_MURPHY_State::Initialisation_State::~Initialisation_State() {
 }
 
 // to manage the event create
@@ -260,6 +297,39 @@ void MAE_MURPHY::MAE_MURPHY_State::Initialisation_State::_doentry(MAE_MURPHY & s
 
 // returns the state containing the current
 MAE_MURPHY::AnyState * MAE_MURPHY::MAE_MURPHY_State::Initialisation_State::_upper(MAE_MURPHY & stm) {
+    return &stm._mae_murphy_state;
+}
+
+// to manage the event start_mis
+void MAE_MURPHY::MAE_MURPHY_State::Initialisation_State::start_mis(MAE_MURPHY & stm) {
+    {
+      stm._set_currentState(stm._mae_murphy_state._recalage_initial_state);
+#ifdef VERBOSE_STATE_MACHINE
+      puts("DEBUG : current state is now .MAE_MURPHY.Recalage Initial");
+#endif
+      stm._mae_murphy_state._recalage_initial_state.create(stm);
+    }
+}
+
+MAE_MURPHY::MAE_MURPHY_State::Game_Over_State::~Game_Over_State() {
+}
+
+// to manage the event create
+void MAE_MURPHY::MAE_MURPHY_State::Game_Over_State::create(MAE_MURPHY & stm) {
+  	_doentry(stm);
+}
+
+// perform the 'entry behavior'
+void MAE_MURPHY::MAE_MURPHY_State::Game_Over_State::_doentry(MAE_MURPHY & stm) {
+#ifdef VERBOSE_STATE_MACHINE
+  	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Game Over");
+#endif
+  cout<<"ETAT END OF GAME"<<endl;
+  // arret de la base roulante et tout...
+}
+
+// returns the state containing the current
+MAE_MURPHY::AnyState * MAE_MURPHY::MAE_MURPHY_State::Game_Over_State::_upper(MAE_MURPHY & stm) {
     return &stm._mae_murphy_state;
 }
 
@@ -340,7 +410,7 @@ void MAE_MURPHY::MAE_MURPHY_State::Recalage_Initial_State::avance_State::assFini
 #ifdef VERBOSE_STATE_MACHINE
       puts("DEBUG : current state is now .MAE_MURPHY.Recalage Initial");
 #endif
-      stm._mae_murphy_state._recalage_initial_state._exit23(stm);
+      stm._mae_murphy_state._recalage_initial_state._exit27(stm);
     }
 }
 
@@ -476,7 +546,7 @@ MAE_MURPHY::AnyState * MAE_MURPHY::MAE_MURPHY_State::Recalage_Initial_State::_up
 }
 
 // to manage the exit point 'sortie recalage', defined because probably shared
-void MAE_MURPHY::MAE_MURPHY_State::Recalage_Initial_State::_exit23(MAE_MURPHY & stm) {
+void MAE_MURPHY::MAE_MURPHY_State::Recalage_Initial_State::_exit27(MAE_MURPHY & stm) {
     {
       stm._set_currentState(stm._mae_murphy_state._startin_block_state);
 #ifdef VERBOSE_STATE_MACHINE
@@ -495,7 +565,7 @@ bool MAE_MURPHY::MAE_MURPHY_State::Evitement_State::faire_des_maneuvre_State::_c
 #ifdef VERBOSE_STATE_MACHINE
       puts("DEBUG : current state is now .MAE_MURPHY.Evitement");
 #endif
-      stm._mae_murphy_state._evitement_state._exit22(stm);
+      stm._mae_murphy_state._evitement_state._exit26(stm);
       return (bool) 1;
     }
 }
@@ -549,7 +619,7 @@ void MAE_MURPHY::MAE_MURPHY_State::Evitement_State::_junction1(MAE_MURPHY & stm)
 }
 
 // to manage the exit point 'sortie evitement', defined because probably shared
-void MAE_MURPHY::MAE_MURPHY_State::Evitement_State::_exit22(MAE_MURPHY & stm) {
+void MAE_MURPHY::MAE_MURPHY_State::Evitement_State::_exit26(MAE_MURPHY & stm) {
     {
       stm._set_currentState(stm._mae_murphy_state._jeu_state);
 #ifdef VERBOSE_STATE_MACHINE
@@ -601,7 +671,7 @@ bool MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::sor
 #ifdef VERBOSE_STATE_MACHINE
       puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission pillage distrib");
 #endif
-      stm._mae_murphy_state._jeu_state._mission_pillage_distrib_state._exit6(stm);
+      stm._mae_murphy_state._jeu_state._mission_pillage_distrib_state._exit8(stm);
       return (bool) 1;
     }
 }
@@ -677,7 +747,7 @@ void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::rej
 #ifdef VERBOSE_STATE_MACHINE
       puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission pillage distrib.rejoindre le point de depart mission");
 #endif
-      stm._mae_murphy_state._jeu_state._mission_pillage_distrib_state._rejoindre_le_point_de_depart_mission_state._exit5(stm);
+      stm._mae_murphy_state._jeu_state._mission_pillage_distrib_state._rejoindre_le_point_de_depart_mission_state._exit7(stm);
     }
 }
 
@@ -777,7 +847,7 @@ MAE_MURPHY::AnyState * MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_pillage_
 }
 
 // to manage the exit point 'sortie', defined because probably shared
-void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::rejoindre_le_point_de_depart_mission_State::_exit5(MAE_MURPHY & stm) {
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::rejoindre_le_point_de_depart_mission_State::_exit7(MAE_MURPHY & stm) {
     {
       stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_pillage_distrib_state);
 #ifdef VERBOSE_STATE_MACHINE
@@ -806,7 +876,7 @@ void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::rej
 #endif
             stm._mae_murphy_state._jeu_state._mission_pillage_distrib_state._capture_stands_cote_escalier_state.create(stm);
           }
-          else if (mission_distrib.is_netoyage_zone_done() ) {
+          else if (master->get_gestionnaire_mission()->mission_distrib()->is_netoyage_zone_done() ) {
             stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_pillage_distrib_state._sortie_zone_state);
 #ifdef VERBOSE_STATE_MACHINE
             puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission pillage distrib.sortie zone");
@@ -865,7 +935,7 @@ void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::vid
 #ifdef VERBOSE_STATE_MACHINE
       puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission pillage distrib.vidage distributeur");
 #endif
-      stm._mae_murphy_state._jeu_state._mission_pillage_distrib_state._vidage_distributeur_state._exit4(stm);
+      stm._mae_murphy_state._jeu_state._mission_pillage_distrib_state._vidage_distributeur_state._exit6(stm);
     }
 }
 
@@ -881,11 +951,11 @@ void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::vid
 #endif
   if(master->is_Jaune()){
   // BF droite sur le gobelet 
-  serialPrint(master->getPortSerie(),"S5 -?? ?? 0 \n");
+  serialPrint(master->getPortSerie(),"S4 300 \n");
   }
   if(master->is_Vert()){
   // BF droite sur le gobelet 
-  serialPrint(master->getPortSerie(),"S5 ?? ?? 180 \n");
+  serialPrint(master->getPortSerie(),"S4 300 \n");
   }
 }
 
@@ -919,10 +989,10 @@ void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::vid
   	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission pillage distrib.vidage distributeur.orientation vers sortie de zone");
 #endif
   if(master->is_Jaune()){
-  serialPrint(master->getPortSerie(),"S3 -60 \n");
+  serialPrint(master->getPortSerie(),"S3 -45 \n");
   }
   if(master->is_Vert()){
-  serialPrint(master->getPortSerie(),"S3 240 \n");
+  serialPrint(master->getPortSerie(),"S3 360 225 \n");
   }
 }
 
@@ -955,7 +1025,7 @@ void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::vid
 #ifdef VERBOSE_STATE_MACHINE
   	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission pillage distrib.vidage distributeur.recule");
 #endif
-  serialPrint(master->getPortSerie(),"S4 -400 \n");
+  serialPrint(master->getPortSerie(),"S4 -300 \n");
 }
 
 // returns the state containing the current
@@ -996,7 +1066,7 @@ void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::vid
 #ifdef VERBOSE_STATE_MACHINE
   	puts("DEBUG : execute exit behavior of .MAE_MURPHY.Jeu.mission pillage distrib.vidage distributeur.pompage");
 #endif
-  master->get_gestionnaire_mission()->mission_distrib()->netoyage_zone_done();
+  master->get_gestionnaire_mission()->get_mission_distrib()->netoyage_zone_done();
 }
 
 // returns the state containing the current
@@ -1031,11 +1101,11 @@ void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::vid
 #endif
   if(master->is_Jaune()){
   // BF droite sur le gobelet 
-  serialPrint(master->getPortSerie(),"S1 -?? ?? 90 \n");
+  serialPrint(master->getPortSerie(),"S0 -1789 1050 90 \n");
   }
   if(master->is_Vert()){
   // BF droite sur le gobelet 
-  serialPrint(master->getPortSerie(),"S1 ?? ?? 90 \n");
+  serialPrint(master->getPortSerie(),"S0 1789 1050 90 \n");
   }
 }
 
@@ -1111,11 +1181,11 @@ void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::vid
 #endif
   if(master->is_Jaune()){
   // BF droite sur le gobelet 
-  serialPrint(master->getPortSerie(),"S5 -?? ?? 90 \n");
+  serialPrint(master->getPortSerie(),"S5 -1700 1050 90 \n");
   }
   if(master->is_Vert()){
   // BF droite sur le gobelet 
-  serialPrint(master->getPortSerie(),"S5 ?? ?? 90 \n");
+  serialPrint(master->getPortSerie(),"S5 1700 1050 90 \n");
   }
 }
 
@@ -1165,7 +1235,7 @@ void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::vid
 }
 
 // to manage the exit point 'sortie pompage', defined because probably shared
-void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::vidage_distributeur_State::_exit4(MAE_MURPHY & stm) {
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::vidage_distributeur_State::_exit6(MAE_MURPHY & stm) {
 }
 
 MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::capture_stand_bordure_State::BF_cap_vers_objectif_State::~BF_cap_vers_objectif_State() {
@@ -1215,7 +1285,7 @@ void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::cap
 #ifdef VERBOSE_STATE_MACHINE
       puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission pillage distrib.capture stand bordure");
 #endif
-      stm._mae_murphy_state._jeu_state._mission_pillage_distrib_state._capture_stand_bordure_state._exit3(stm);
+      stm._mae_murphy_state._jeu_state._mission_pillage_distrib_state._capture_stand_bordure_state._exit5(stm);
     }
 }
 
@@ -1229,7 +1299,7 @@ void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::cap
 #ifdef VERBOSE_STATE_MACHINE
   	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission pillage distrib.capture stand bordure.recule");
 #endif
-  serialPrint(master->getPortSerie(),"S4 -400 \n");
+  serialPrint(master->getPortSerie(),"S4 -300 \n");
 }
 
 // returns the state containing the current
@@ -1369,11 +1439,11 @@ void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::cap
 #endif
   if(master->is_Jaune()){
   // BF droite sur le gobelet 
-  serialPrint(master->getPortSerie(),"S5 -?? ?? 90 \n");
+  serialPrint(master->getPortSerie(),"S5 -1174 1544 90 \n");
   }
   if(master->is_Vert()){
   // BF droite sur le gobelet 
-  serialPrint(master->getPortSerie(),"S5 ?? ?? 90 \n");
+  serialPrint(master->getPortSerie(),"S5 1174 1544 90 \n");
   }
 }
 
@@ -1416,7 +1486,7 @@ void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::cap
 }
 
 // to manage the exit point 'sortie stand bordure', defined because probably shared
-void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::capture_stand_bordure_State::_exit3(MAE_MURPHY & stm) {
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::capture_stand_bordure_State::_exit5(MAE_MURPHY & stm) {
     {
       stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_pillage_distrib_state._vidage_distributeur_state);
 #ifdef VERBOSE_STATE_MACHINE
@@ -1473,7 +1543,7 @@ void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::cap
 #ifdef VERBOSE_STATE_MACHINE
       puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission pillage distrib.capture stands cote escalier");
 #endif
-      stm._mae_murphy_state._jeu_state._mission_pillage_distrib_state._capture_stands_cote_escalier_state._exit2(stm);
+      stm._mae_murphy_state._jeu_state._mission_pillage_distrib_state._capture_stands_cote_escalier_state._exit4(stm);
     }
 }
 
@@ -1487,7 +1557,7 @@ void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::cap
 #ifdef VERBOSE_STATE_MACHINE
   	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission pillage distrib.capture stands cote escalier.recule");
 #endif
-  serialPrint(master->getPortSerie(),"S4 -450 \n");
+  serialPrint(master->getPortSerie(),"S4 -400 \n");
 }
 
 // returns the state containing the current
@@ -1733,11 +1803,12 @@ void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::cap
 #endif
   if(master->is_Jaune()){
   // BF droite sur le gobelet 
-  serialPrint(master->getPortSerie(),"S5 -?? ?? 90 \n");
+  // y = 1664 -120
+  serialPrint(master->getPortSerie(),"S5 -848 1544 90 \n");
   }
   if(master->is_Vert()){
   // BF droite sur le gobelet 
-  serialPrint(master->getPortSerie(),"S5 ?? ?? 90 \n");
+  serialPrint(master->getPortSerie(),"S5 848 1544 90 \n");
   }
 }
 
@@ -1781,7 +1852,7 @@ void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::cap
 }
 
 // to manage the exit point 'sortie chope stands escalier', defined because probably shared
-void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::capture_stands_cote_escalier_State::_exit2(MAE_MURPHY & stm) {
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::capture_stands_cote_escalier_State::_exit4(MAE_MURPHY & stm) {
     {
       stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_pillage_distrib_state._capture_stand_bordure_state);
 #ifdef VERBOSE_STATE_MACHINE
@@ -1817,7 +1888,7 @@ void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::cap
 #endif
   if(master->is_Jaune()){
   // BF droite sur le gobelet 
-  serialPrint(master->getPortSerie(),"S5 -590 1198 135 \n");
+  serialPrint(master->getPortSerie(),"S5 -590 1198 145 \n");
   }
   if(master->is_Vert()){
   // BF droite sur le gobelet 
@@ -1872,7 +1943,7 @@ void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::cap
 #ifdef VERBOSE_STATE_MACHINE
       puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission pillage distrib.capture de gobelet escalier");
 #endif
-      stm._mae_murphy_state._jeu_state._mission_pillage_distrib_state._capture_de_gobelet_escalier_state._exit1(stm);
+      stm._mae_murphy_state._jeu_state._mission_pillage_distrib_state._capture_de_gobelet_escalier_state._exit3(stm);
     }
 }
 
@@ -1953,8 +2024,21 @@ void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::cap
     }
 }
 
+// returns the state containing the current
+MAE_MURPHY::AnyState * MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::capture_de_gobelet_escalier_State::_upper(MAE_MURPHY & stm) {
+    return &stm._mae_murphy_state._jeu_state._mission_pillage_distrib_state;
+}
+
+// perform the 'entry behavior'
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::capture_de_gobelet_escalier_State::_doentry(MAE_MURPHY & stm) {
+#ifdef VERBOSE_STATE_MACHINE
+  	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission pillage distrib.capture de gobelet escalier");
+#endif
+  // capture d gobelet pres de l'escalier
+}
+
 // to manage the exit point 'sortie capture gobelet', defined because probably shared
-void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::capture_de_gobelet_escalier_State::_exit1(MAE_MURPHY & stm) {
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::capture_de_gobelet_escalier_State::_exit3(MAE_MURPHY & stm) {
     {
       stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_pillage_distrib_state);
 #ifdef VERBOSE_STATE_MACHINE
@@ -1967,7 +2051,7 @@ void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::cap
 #endif
         stm._mae_murphy_state._jeu_state._mission_pillage_distrib_state._capture_stands_cote_escalier_state.create(stm);
       }
-      else if (mission_distrib.is_netoyage_zone_done() ) {
+      else if (master->get_gestionnaire_mission()->mission_distrib()->is_netoyage_zone_done() ) {
         stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_pillage_distrib_state._sortie_zone_state);
 #ifdef VERBOSE_STATE_MACHINE
         puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission pillage distrib.sortie zone");
@@ -1975,19 +2059,6 @@ void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::cap
         stm._mae_murphy_state._jeu_state._mission_pillage_distrib_state._sortie_zone_state.create(stm);
       }
     }
-}
-
-// returns the state containing the current
-MAE_MURPHY::AnyState * MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::capture_de_gobelet_escalier_State::_upper(MAE_MURPHY & stm) {
-    return &stm._mae_murphy_state._jeu_state._mission_pillage_distrib_state;
-}
-
-// perform the 'entry behavior'
-void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::capture_de_gobelet_escalier_State::_doentry(MAE_MURPHY & stm) {
-#ifdef VERBOSE_STATE_MACHINE
-  	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission pillage distrib.capture de gobelet escalier");
-#endif
-  // capture d gobelet pres de l'escalier
 }
 
 MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::~mission_pillage_distrib_State() {
@@ -2020,7 +2091,7 @@ MAE_MURPHY::AnyState * MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_pillage_
 }
 
 // to manage the exit point 'sortie pillage distrib', defined because probably shared
-void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::_exit6(MAE_MURPHY & stm) {
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::_exit8(MAE_MURPHY & stm) {
     {
       stm._set_currentState(stm._mae_murphy_state._jeu_state._decision_state);
 #ifdef VERBOSE_STATE_MACHINE
@@ -2028,188 +2099,6 @@ void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::_ex
 #endif
       stm._mae_murphy_state._jeu_state._decision_state.create(stm);
     }
-}
-
-MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_tour_estrade_State::waypoint_init_State::~waypoint_init_State() {
-}
-
-bool MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_tour_estrade_State::waypoint_init_State::_completion(MAE_MURPHY & stm) {
-    {
-      stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_depot_tour_estrade_state._preparation_state);
-#ifdef VERBOSE_STATE_MACHINE
-      puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission depot tour estrade.preparation");
-#endif
-      stm._mae_murphy_state._jeu_state._mission_depot_tour_estrade_state._preparation_state.create(stm);
-      return (bool) 1;
-    }
-}
-
-// to manage the event create
-void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_tour_estrade_State::waypoint_init_State::create(MAE_MURPHY & stm) {
-  	_doentry(stm);
-  	_completion(stm);
-}
-
-// returns the state containing the current
-MAE_MURPHY::AnyState * MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_tour_estrade_State::waypoint_init_State::_upper(MAE_MURPHY & stm) {
-    return &stm._mae_murphy_state._jeu_state._mission_depot_tour_estrade_state;
-}
-
-// perform the 'entry behavior'
-void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_tour_estrade_State::waypoint_init_State::_doentry(MAE_MURPHY & stm) {
-#ifdef VERBOSE_STATE_MACHINE
-  	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission depot tour estrade.waypoint init");
-#endif
-  // rejoindre un point initial
-}
-
-MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_tour_estrade_State::preparation_State::~preparation_State() {
-}
-
-bool MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_tour_estrade_State::preparation_State::_completion(MAE_MURPHY & stm) {
-    {
-      stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_depot_tour_estrade_state);
-#ifdef VERBOSE_STATE_MACHINE
-      puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission depot tour estrade");
-#endif
-      {
-        stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_depot_tour_estrade_state._depot_solo_state);
-#ifdef VERBOSE_STATE_MACHINE
-        puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission depot tour estrade.depot solo");
-#endif
-        stm._mae_murphy_state._jeu_state._mission_depot_tour_estrade_state._depot_solo_state.create(stm);
-      }
-      else {
-        stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_depot_tour_estrade_state._depot_double_state);
-#ifdef VERBOSE_STATE_MACHINE
-        puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission depot tour estrade.depot double");
-#endif
-        stm._mae_murphy_state._jeu_state._mission_depot_tour_estrade_state._depot_double_state.create(stm);
-      }
-      return (bool) 1;
-    }
-}
-
-// to manage the event create
-void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_tour_estrade_State::preparation_State::create(MAE_MURPHY & stm) {
-  	_completion(stm);
-}
-
-// returns the state containing the current
-MAE_MURPHY::AnyState * MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_tour_estrade_State::preparation_State::_upper(MAE_MURPHY & stm) {
-    return &stm._mae_murphy_state._jeu_state._mission_depot_tour_estrade_state;
-}
-
-MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_tour_estrade_State::sortie_douce_State::~sortie_douce_State() {
-}
-
-// returns the state containing the current
-MAE_MURPHY::AnyState * MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_tour_estrade_State::sortie_douce_State::_upper(MAE_MURPHY & stm) {
-    return &stm._mae_murphy_state._jeu_state._mission_depot_tour_estrade_state;
-}
-
-bool MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_tour_estrade_State::sortie_douce_State::_completion(MAE_MURPHY & stm) {
-    {
-      stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_depot_tour_estrade_state);
-#ifdef VERBOSE_STATE_MACHINE
-      puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission depot tour estrade");
-#endif
-      stm._mae_murphy_state._jeu_state._mission_depot_tour_estrade_state._exit21(stm);
-      return (bool) 1;
-    }
-}
-
-// to manage the event create
-void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_tour_estrade_State::sortie_douce_State::create(MAE_MURPHY & stm) {
-  	_completion(stm);
-}
-
-MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_tour_estrade_State::depot_double_State::~depot_double_State() {
-}
-
-bool MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_tour_estrade_State::depot_double_State::_completion(MAE_MURPHY & stm) {
-    {
-      stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_depot_tour_estrade_state._sortie_douce_state);
-#ifdef VERBOSE_STATE_MACHINE
-      puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission depot tour estrade.sortie douce");
-#endif
-      stm._mae_murphy_state._jeu_state._mission_depot_tour_estrade_state._sortie_douce_state.create(stm);
-      return (bool) 1;
-    }
-}
-
-// to manage the event create
-void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_tour_estrade_State::depot_double_State::create(MAE_MURPHY & stm) {
-  	_completion(stm);
-}
-
-// returns the state containing the current
-MAE_MURPHY::AnyState * MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_tour_estrade_State::depot_double_State::_upper(MAE_MURPHY & stm) {
-    return &stm._mae_murphy_state._jeu_state._mission_depot_tour_estrade_state;
-}
-
-MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_tour_estrade_State::depot_solo_State::~depot_solo_State() {
-}
-
-bool MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_tour_estrade_State::depot_solo_State::_completion(MAE_MURPHY & stm) {
-    {
-      stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_depot_tour_estrade_state._sortie_douce_state);
-#ifdef VERBOSE_STATE_MACHINE
-      puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission depot tour estrade.sortie douce");
-#endif
-      stm._mae_murphy_state._jeu_state._mission_depot_tour_estrade_state._sortie_douce_state.create(stm);
-      return (bool) 1;
-    }
-}
-
-// to manage the event create
-void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_tour_estrade_State::depot_solo_State::create(MAE_MURPHY & stm) {
-  	_completion(stm);
-}
-
-// returns the state containing the current
-MAE_MURPHY::AnyState * MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_tour_estrade_State::depot_solo_State::_upper(MAE_MURPHY & stm) {
-    return &stm._mae_murphy_state._jeu_state._mission_depot_tour_estrade_state;
-}
-
-MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_tour_estrade_State::~mission_depot_tour_estrade_State() {
-}
-
-// to manage the event create
-void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_tour_estrade_State::create(MAE_MURPHY & stm) {
-    _doentry(stm);
-    {
-      stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_depot_tour_estrade_state._waypoint_init_state);
-#ifdef VERBOSE_STATE_MACHINE
-      puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission depot tour estrade.waypoint init");
-#endif
-      stm._mae_murphy_state._jeu_state._mission_depot_tour_estrade_state._waypoint_init_state.create(stm);
-    }
-}
-
-// returns the state containing the current
-MAE_MURPHY::AnyState * MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_tour_estrade_State::_upper(MAE_MURPHY & stm) {
-    return &stm._mae_murphy_state._jeu_state;
-}
-
-// to manage the exit point 'sortie', defined because probably shared
-void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_tour_estrade_State::_exit21(MAE_MURPHY & stm) {
-    {
-      stm._set_currentState(stm._mae_murphy_state._jeu_state._decision_state);
-#ifdef VERBOSE_STATE_MACHINE
-      puts("DEBUG : current state is now .MAE_MURPHY.Jeu.decision");
-#endif
-      stm._mae_murphy_state._jeu_state._decision_state.create(stm);
-    }
-}
-
-// perform the 'entry behavior'
-void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_tour_estrade_State::_doentry(MAE_MURPHY & stm) {
-#ifdef VERBOSE_STATE_MACHINE
-  	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission depot tour estrade");
-#endif
-  // depose une ou plusieurs pile sur l'estrade
-  // normalement une seule sinon risque de faire tomber celle adverse
 }
 
 MAE_MURPHY::MAE_MURPHY_State::Jeu_State::decision_State::~decision_State() {
@@ -2315,13 +2204,135 @@ void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::decision_State::mission_depot_tour
     }
 }
 
+MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::waypoint_initial_State::cap_to_mission_State::~cap_to_mission_State() {
+}
+
+// to manage the event assFini
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::waypoint_initial_State::cap_to_mission_State::assFini(MAE_MURPHY & stm) {
+    {
+      stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._waypoint_initial_state._bf_droite_to_mission_state);
+#ifdef VERBOSE_STATE_MACHINE
+      puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission zone ennemie.waypoint initial.BF droite to mission");
+#endif
+      stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._waypoint_initial_state._bf_droite_to_mission_state.create(stm);
+    }
+}
+
+// to manage the event create
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::waypoint_initial_State::cap_to_mission_State::create(MAE_MURPHY & stm) {
+  	_doentry(stm);
+}
+
+// perform the 'entry behavior'
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::waypoint_initial_State::cap_to_mission_State::_doentry(MAE_MURPHY & stm) {
+#ifdef VERBOSE_STATE_MACHINE
+  	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission zone ennemie.waypoint initial.cap to mission");
+#endif
+  // BCAP
+  string ordre;
+  ordre = "S3 " + master->get_gestionnaire()->get_cap_to_mission() + " \n";
+  serialPrint(master->getPortSerie(),ordre);
+  cout<<"ORIENTATION VERS MISSION : "<<ordre<<endl;
+}
+
+// returns the state containing the current
+MAE_MURPHY::AnyState * MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::waypoint_initial_State::cap_to_mission_State::_upper(MAE_MURPHY & stm) {
+    return &stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._waypoint_initial_state;
+}
+
+MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::waypoint_initial_State::cap_mission_State::~cap_mission_State() {
+}
+
+// to manage the event assFini
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::waypoint_initial_State::cap_mission_State::assFini(MAE_MURPHY & stm) {
+    {
+      stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._waypoint_initial_state);
+#ifdef VERBOSE_STATE_MACHINE
+      puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission zone ennemie.waypoint initial");
+#endif
+      stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._waypoint_initial_state._exit21(stm);
+    }
+}
+
+// to manage the event create
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::waypoint_initial_State::cap_mission_State::create(MAE_MURPHY & stm) {
+  	_doentry(stm);
+}
+
+// perform the 'entry behavior'
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::waypoint_initial_State::cap_mission_State::_doentry(MAE_MURPHY & stm) {
+#ifdef VERBOSE_STATE_MACHINE
+  	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission zone ennemie.waypoint initial.cap mission");
+#endif
+  // BF Droite vers objectif
+  string ordre;
+  ordre = "S3 " 
+  	+ master->get_gestionnaire()->get_cap_mission() 
+  	+ " \n";
+  serialPrint(master->getPortSerie(),ordre); 
+  cout<<"ORIENTATION VERS MISSION : "<<ordre<<endl;
+}
+
+// returns the state containing the current
+MAE_MURPHY::AnyState * MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::waypoint_initial_State::cap_mission_State::_upper(MAE_MURPHY & stm) {
+    return &stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._waypoint_initial_state;
+}
+
+MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::waypoint_initial_State::BF_droite_to_mission_State::~BF_droite_to_mission_State() {
+}
+
+// to manage the event assFini
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::waypoint_initial_State::BF_droite_to_mission_State::assFini(MAE_MURPHY & stm) {
+    {
+      stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._waypoint_initial_state._cap_mission_state);
+#ifdef VERBOSE_STATE_MACHINE
+      puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission zone ennemie.waypoint initial.cap mission");
+#endif
+      stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._waypoint_initial_state._cap_mission_state.create(stm);
+    }
+}
+
+// to manage the event create
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::waypoint_initial_State::BF_droite_to_mission_State::create(MAE_MURPHY & stm) {
+  	_doentry(stm);
+}
+
+// perform the 'entry behavior'
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::waypoint_initial_State::BF_droite_to_mission_State::_doentry(MAE_MURPHY & stm) {
+#ifdef VERBOSE_STATE_MACHINE
+  	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission zone ennemie.waypoint initial.BF droite to mission");
+#endif
+  // BF Droite vers objectif
+  string ordre;
+  ordre = "S5 "
+  	+ master->get_gestionnaire()->get_x_mission() 
+  	+ " "
+  	+ master->get_gestionnaire()->get_y_mission() 
+  	+ " "
+  	+ master->get_gestionnaire()->get_cap_to_mission() 
+  	+ " \n";
+  serialPrint(master->getPortSerie(),ordre); 
+  cout<<"BF droite vers MISSION : "<<ordre<<endl;
+}
+
+// returns the state containing the current
+MAE_MURPHY::AnyState * MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::waypoint_initial_State::BF_droite_to_mission_State::_upper(MAE_MURPHY & stm) {
+    return &stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._waypoint_initial_state;
+}
+
 MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::waypoint_initial_State::~waypoint_initial_State() {
 }
 
 // to manage the event create
 void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::waypoint_initial_State::create(MAE_MURPHY & stm) {
-  	_doentry(stm);
-  	_completion(stm);
+    _doentry(stm);
+    {
+      stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._waypoint_initial_state._cap_to_mission_state);
+#ifdef VERBOSE_STATE_MACHINE
+      puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission zone ennemie.waypoint initial.cap to mission");
+#endif
+      stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._waypoint_initial_state._cap_to_mission_state.create(stm);
+    }
 }
 
 // perform the 'entry behavior'
@@ -2351,23 +2362,194 @@ bool MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::waypoi
         stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._claps_central_state.create(stm);
       }
       else if (master->get_gestionnaire()->get_mission_zone_ennemie()->is_claps_done()) {
-        if (master->get_gestionnaire()->get_element_robot()->gobelet_present()) {
-          stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._depot_gobelet_state);
-#ifdef VERBOSE_STATE_MACHINE
-          puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission zone ennemie.depot gobelet");
-#endif
-          stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._depot_gobelet_state.create(stm);
-        }
-        else {
+        if (master->get_gestionnaire()->get_mission_zone_ennemie()->is_depot_gobelet_done()) {
           stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._faire_chier_en_zizagant_state);
 #ifdef VERBOSE_STATE_MACHINE
           puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission zone ennemie.faire chier en zizagant");
 #endif
           stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._faire_chier_en_zizagant_state.create(stm);
         }
+        else if (!master->get_gestionnaire()->get_mission_zone_ennemie()->is_depot_gobelet_done()) {
+          if (!master->get_gestionnaire()->get_element_robot()->gobelet_present()) {
+            stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._faire_chier_en_zizagant_state);
+#ifdef VERBOSE_STATE_MACHINE
+            puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission zone ennemie.faire chier en zizagant");
+#endif
+            stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._faire_chier_en_zizagant_state.create(stm);
+          }
+          else if (master->get_gestionnaire()->get_element_robot()->gobelet_present()) {
+            stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._depot_gobelet_state);
+#ifdef VERBOSE_STATE_MACHINE
+            puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission zone ennemie.depot gobelet");
+#endif
+            stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._depot_gobelet_state.create(stm);
+          }
+        }
       }
       return (bool) 1;
     }
+}
+
+// to manage the exit point 'sortie', defined because probably shared
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::waypoint_initial_State::_exit21(MAE_MURPHY & stm) {
+}
+
+MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::faire_chier_en_zizagant_State::to_escalier_State::~to_escalier_State() {
+}
+
+// to manage the event assFini
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::faire_chier_en_zizagant_State::to_escalier_State::assFini(MAE_MURPHY & stm) {
+    {
+      stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._faire_chier_en_zizagant_state._to_estrade_state);
+#ifdef VERBOSE_STATE_MACHINE
+      puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission zone ennemie.faire chier en zizagant.to estrade");
+#endif
+      stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._faire_chier_en_zizagant_state._to_estrade_state.create(stm);
+    }
+}
+
+// to manage the event create
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::faire_chier_en_zizagant_State::to_escalier_State::create(MAE_MURPHY & stm) {
+  	_doentry(stm);
+}
+
+// perform the 'entry behavior'
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::faire_chier_en_zizagant_State::to_escalier_State::_doentry(MAE_MURPHY & stm) {
+#ifdef VERBOSE_STATE_MACHINE
+  	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission zone ennemie.faire chier en zizagant.to escalier");
+#endif
+  if(master->is_Jaune()){
+  // BF droite sur le cine
+  serialPrint(master->getPortSerie(),"S5 170 919 180 \n");
+  }
+  if(master->is_Vert()){
+  serialPrint(master->getPortSerie(),"S5 -170 919 0 \n");
+  }
+}
+
+// returns the state containing the current
+MAE_MURPHY::AnyState * MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::faire_chier_en_zizagant_State::to_escalier_State::_upper(MAE_MURPHY & stm) {
+    return &stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._faire_chier_en_zizagant_state;
+}
+
+MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::faire_chier_en_zizagant_State::chieur_plus_State::~chieur_plus_State() {
+}
+
+bool MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::faire_chier_en_zizagant_State::chieur_plus_State::_completion(MAE_MURPHY & stm) {
+    {
+      stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._faire_chier_en_zizagant_state._to_escalier_state);
+#ifdef VERBOSE_STATE_MACHINE
+      puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission zone ennemie.faire chier en zizagant.to escalier");
+#endif
+      stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._faire_chier_en_zizagant_state._to_escalier_state.create(stm);
+      return (bool) 1;
+    }
+}
+
+// to manage the event create
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::faire_chier_en_zizagant_State::chieur_plus_State::create(MAE_MURPHY & stm) {
+  	_completion(stm);
+}
+
+// returns the state containing the current
+MAE_MURPHY::AnyState * MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::faire_chier_en_zizagant_State::chieur_plus_State::_upper(MAE_MURPHY & stm) {
+    return &stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._faire_chier_en_zizagant_state;
+}
+
+MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::faire_chier_en_zizagant_State::chieur_faible_State::~chieur_faible_State() {
+}
+
+bool MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::faire_chier_en_zizagant_State::chieur_faible_State::_completion(MAE_MURPHY & stm) {
+    {
+      stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._faire_chier_en_zizagant_state._to_escalier_state);
+#ifdef VERBOSE_STATE_MACHINE
+      puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission zone ennemie.faire chier en zizagant.to escalier");
+#endif
+      stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._faire_chier_en_zizagant_state._to_escalier_state.create(stm);
+      return (bool) 1;
+    }
+}
+
+// to manage the event create
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::faire_chier_en_zizagant_State::chieur_faible_State::create(MAE_MURPHY & stm) {
+  	_completion(stm);
+}
+
+// returns the state containing the current
+MAE_MURPHY::AnyState * MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::faire_chier_en_zizagant_State::chieur_faible_State::_upper(MAE_MURPHY & stm) {
+    return &stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._faire_chier_en_zizagant_state;
+}
+
+MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::faire_chier_en_zizagant_State::chieur_stop_State::~chieur_stop_State() {
+}
+
+bool MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::faire_chier_en_zizagant_State::chieur_stop_State::_completion(MAE_MURPHY & stm) {
+    {
+      stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._faire_chier_en_zizagant_state._to_escalier_state);
+#ifdef VERBOSE_STATE_MACHINE
+      puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission zone ennemie.faire chier en zizagant.to escalier");
+#endif
+      stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._faire_chier_en_zizagant_state._to_escalier_state.create(stm);
+      return (bool) 1;
+    }
+}
+
+// to manage the event create
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::faire_chier_en_zizagant_State::chieur_stop_State::create(MAE_MURPHY & stm) {
+  	_completion(stm);
+}
+
+// returns the state containing the current
+MAE_MURPHY::AnyState * MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::faire_chier_en_zizagant_State::chieur_stop_State::_upper(MAE_MURPHY & stm) {
+    return &stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._faire_chier_en_zizagant_state;
+}
+
+MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::faire_chier_en_zizagant_State::deboit_les_cines_adverses_State::~deboit_les_cines_adverses_State() {
+}
+
+bool MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::faire_chier_en_zizagant_State::deboit_les_cines_adverses_State::_completion(MAE_MURPHY & stm) {
+    {
+      stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._faire_chier_en_zizagant_state);
+#ifdef VERBOSE_STATE_MACHINE
+      puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission zone ennemie.faire chier en zizagant");
+#endif
+      stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._faire_chier_en_zizagant_state._exit24(stm);
+      return (bool) 1;
+    }
+}
+
+// to manage the event create
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::faire_chier_en_zizagant_State::deboit_les_cines_adverses_State::create(MAE_MURPHY & stm) {
+  	_completion(stm);
+}
+
+// returns the state containing the current
+MAE_MURPHY::AnyState * MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::faire_chier_en_zizagant_State::deboit_les_cines_adverses_State::_upper(MAE_MURPHY & stm) {
+    return &stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._faire_chier_en_zizagant_state;
+}
+
+MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::faire_chier_en_zizagant_State::to_estrade_State::~to_estrade_State() {
+}
+
+bool MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::faire_chier_en_zizagant_State::to_estrade_State::_completion(MAE_MURPHY & stm) {
+    {
+      stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._faire_chier_en_zizagant_state._deboit_les_cines_adverses_state);
+#ifdef VERBOSE_STATE_MACHINE
+      puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission zone ennemie.faire chier en zizagant.deboit les cines adverses");
+#endif
+      stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._faire_chier_en_zizagant_state._deboit_les_cines_adverses_state.create(stm);
+      return (bool) 1;
+    }
+}
+
+// to manage the event create
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::faire_chier_en_zizagant_State::to_estrade_State::create(MAE_MURPHY & stm) {
+  	_completion(stm);
+}
+
+// returns the state containing the current
+MAE_MURPHY::AnyState * MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::faire_chier_en_zizagant_State::to_estrade_State::_upper(MAE_MURPHY & stm) {
+    return &stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._faire_chier_en_zizagant_state;
 }
 
 MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::faire_chier_en_zizagant_State::~faire_chier_en_zizagant_State() {
@@ -2377,7 +2559,27 @@ MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::faire_chier
 void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::faire_chier_en_zizagant_State::create(MAE_MURPHY & stm) {
     _doentry(stm);
     {
-      stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._faire_chier_en_zizagant_state._exit19(stm);
+      if (master->get_gestionnaire()->get_element_robot()->mode_chieur()==0) {
+        stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._faire_chier_en_zizagant_state._chieur_stop_state);
+#ifdef VERBOSE_STATE_MACHINE
+        puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission zone ennemie.faire chier en zizagant.chieur stop");
+#endif
+        stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._faire_chier_en_zizagant_state._chieur_stop_state.create(stm);
+      }
+      else if (master->get_gestionnaire()->get_element_robot()->mode_chieur()==1) {
+        stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._faire_chier_en_zizagant_state._chieur_faible_state);
+#ifdef VERBOSE_STATE_MACHINE
+        puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission zone ennemie.faire chier en zizagant.chieur faible");
+#endif
+        stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._faire_chier_en_zizagant_state._chieur_faible_state.create(stm);
+      }
+      else if (master->get_gestionnaire()->get_element_robot()->mode_chieur()==2) {
+        stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._faire_chier_en_zizagant_state._chieur_plus_state);
+#ifdef VERBOSE_STATE_MACHINE
+        puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission zone ennemie.faire chier en zizagant.chieur plus");
+#endif
+        stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._faire_chier_en_zizagant_state._chieur_plus_state.create(stm);
+      }
     }
 }
 
@@ -2388,6 +2590,9 @@ void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::faire_
 #endif
   // mission qui n'a pas de prix
   // simplement rejoindre la sortie
+  
+  // mettre un choix de point chieur à atteindre
+  master->get_gestionnaire()->get_mission_zone_ennemie()->mission_remplie();
 }
 
 // returns the state containing the current
@@ -2396,14 +2601,189 @@ MAE_MURPHY::AnyState * MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_enn
 }
 
 // to manage the exit point 'sortie', defined because probably shared
-void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::faire_chier_en_zizagant_State::_exit19(MAE_MURPHY & stm) {
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::faire_chier_en_zizagant_State::_exit24(MAE_MURPHY & stm) {
     {
       stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state);
 #ifdef VERBOSE_STATE_MACHINE
       puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission zone ennemie");
 #endif
-      stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._exit20(stm);
+      stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._exit25(stm);
     }
+}
+
+MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::depot_gobelet_State::BF_droite_sur_le_cine_State::~BF_droite_sur_le_cine_State() {
+}
+
+// to manage the event assFini
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::depot_gobelet_State::BF_droite_sur_le_cine_State::assFini(MAE_MURPHY & stm) {
+    {
+      stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._depot_gobelet_state._bf_cap_vers_centre_de_la_table_state);
+#ifdef VERBOSE_STATE_MACHINE
+      puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission zone ennemie.depot gobelet.BF CAP vers centre de la table");
+#endif
+      stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._depot_gobelet_state._bf_cap_vers_centre_de_la_table_state.create(stm);
+    }
+}
+
+// to manage the event create
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::depot_gobelet_State::BF_droite_sur_le_cine_State::create(MAE_MURPHY & stm) {
+  	_doentry(stm);
+}
+
+// perform the 'entry behavior'
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::depot_gobelet_State::BF_droite_sur_le_cine_State::_doentry(MAE_MURPHY & stm) {
+#ifdef VERBOSE_STATE_MACHINE
+  	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission zone ennemie.depot gobelet.BF droite sur le cine");
+#endif
+  if(master->is_Jaune()){
+  // BF droite sur le cine
+  serialPrint(master->getPortSerie(),"S5 1255 531 0 \n");
+  }
+  if(master->is_Vert()){
+  serialPrint(master->getPortSerie(),"S5 -1255 531 180 \n");
+  }
+}
+
+// returns the state containing the current
+MAE_MURPHY::AnyState * MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::depot_gobelet_State::BF_droite_sur_le_cine_State::_upper(MAE_MURPHY & stm) {
+    return &stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._depot_gobelet_state;
+}
+
+MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::depot_gobelet_State::fermeture_capot_State::~fermeture_capot_State() {
+}
+
+bool MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::depot_gobelet_State::fermeture_capot_State::_completion(MAE_MURPHY & stm) {
+    {
+      stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._depot_gobelet_state);
+#ifdef VERBOSE_STATE_MACHINE
+      puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission zone ennemie.depot gobelet");
+#endif
+      stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._depot_gobelet_state._exit23(stm);
+      return (bool) 1;
+    }
+}
+
+// to manage the event create
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::depot_gobelet_State::fermeture_capot_State::create(MAE_MURPHY & stm) {
+  	_doentry(stm);
+  	_completion(stm);
+}
+
+// perform the 'entry behavior'
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::depot_gobelet_State::fermeture_capot_State::_doentry(MAE_MURPHY & stm) {
+#ifdef VERBOSE_STATE_MACHINE
+  	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission zone ennemie.depot gobelet.fermeture capot");
+#endif
+  serialPrint(master->getPortSerie(),"P3 \n");
+}
+
+// returns the state containing the current
+MAE_MURPHY::AnyState * MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::depot_gobelet_State::fermeture_capot_State::_upper(MAE_MURPHY & stm) {
+    return &stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._depot_gobelet_state;
+}
+
+MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::depot_gobelet_State::avance_State::~avance_State() {
+}
+
+// to manage the event assFini
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::depot_gobelet_State::avance_State::assFini(MAE_MURPHY & stm) {
+    {
+      stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._depot_gobelet_state._fermeture_capot_state);
+#ifdef VERBOSE_STATE_MACHINE
+      puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission zone ennemie.depot gobelet.fermeture capot");
+#endif
+      stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._depot_gobelet_state._fermeture_capot_state.create(stm);
+    }
+}
+
+// to manage the event create
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::depot_gobelet_State::avance_State::create(MAE_MURPHY & stm) {
+  	_doentry(stm);
+}
+
+// perform the 'entry behavior'
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::depot_gobelet_State::avance_State::_doentry(MAE_MURPHY & stm) {
+#ifdef VERBOSE_STATE_MACHINE
+  	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission zone ennemie.depot gobelet.avance");
+#endif
+  serialPrint(master->getPortSerie(),"S4 250 \n");
+}
+
+// returns the state containing the current
+MAE_MURPHY::AnyState * MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::depot_gobelet_State::avance_State::_upper(MAE_MURPHY & stm) {
+    return &stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._depot_gobelet_state;
+}
+
+MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::depot_gobelet_State::ouverture_capot_State::~ouverture_capot_State() {
+}
+
+// to manage the event time_out
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::depot_gobelet_State::ouverture_capot_State::time_out(MAE_MURPHY & stm) {
+    {
+      stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._depot_gobelet_state._avance_state);
+#ifdef VERBOSE_STATE_MACHINE
+      puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission zone ennemie.depot gobelet.avance");
+#endif
+      stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._depot_gobelet_state._avance_state.create(stm);
+    }
+}
+
+// to manage the event create
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::depot_gobelet_State::ouverture_capot_State::create(MAE_MURPHY & stm) {
+  	_doentry(stm);
+}
+
+// perform the 'entry behavior'
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::depot_gobelet_State::ouverture_capot_State::_doentry(MAE_MURPHY & stm) {
+#ifdef VERBOSE_STATE_MACHINE
+  	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission zone ennemie.depot gobelet.ouverture capot");
+#endif
+  serialPrint(master->getPortSerie(),"P6 \n");
+  master->set_time_out(300);
+  master->get_gestionnaire()->get_mission_zone_ennemie()->depot_gobelet_done();
+}
+
+// returns the state containing the current
+MAE_MURPHY::AnyState * MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::depot_gobelet_State::ouverture_capot_State::_upper(MAE_MURPHY & stm) {
+    return &stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._depot_gobelet_state;
+}
+
+MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::depot_gobelet_State::BF_CAP_vers_centre_de_la_table_State::~BF_CAP_vers_centre_de_la_table_State() {
+}
+
+// to manage the event assFini
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::depot_gobelet_State::BF_CAP_vers_centre_de_la_table_State::assFini(MAE_MURPHY & stm) {
+    {
+      stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._depot_gobelet_state._ouverture_capot_state);
+#ifdef VERBOSE_STATE_MACHINE
+      puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission zone ennemie.depot gobelet.ouverture capot");
+#endif
+      stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._depot_gobelet_state._ouverture_capot_state.create(stm);
+    }
+}
+
+// to manage the event create
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::depot_gobelet_State::BF_CAP_vers_centre_de_la_table_State::create(MAE_MURPHY & stm) {
+  	_doentry(stm);
+}
+
+// perform the 'entry behavior'
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::depot_gobelet_State::BF_CAP_vers_centre_de_la_table_State::_doentry(MAE_MURPHY & stm) {
+#ifdef VERBOSE_STATE_MACHINE
+  	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission zone ennemie.depot gobelet.BF CAP vers centre de la table");
+#endif
+  if(master->is_Jaune()){
+  // BF cap centre
+  serialPrint(master->getPortSerie(),"S3 180 \n");
+  }
+  if(master->is_Vert()){
+  serialPrint(master->getPortSerie(),"S3 0 \n");
+  }
+}
+
+// returns the state containing the current
+MAE_MURPHY::AnyState * MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::depot_gobelet_State::BF_CAP_vers_centre_de_la_table_State::_upper(MAE_MURPHY & stm) {
+    return &stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._depot_gobelet_state;
 }
 
 MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::depot_gobelet_State::~depot_gobelet_State() {
@@ -2413,7 +2793,11 @@ MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::depot_gobel
 void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::depot_gobelet_State::create(MAE_MURPHY & stm) {
     _doentry(stm);
     {
-      stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._depot_gobelet_state._exit18(stm);
+      stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._depot_gobelet_state._bf_droite_sur_le_cine_state);
+#ifdef VERBOSE_STATE_MACHINE
+      puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission zone ennemie.depot gobelet.BF droite sur le cine");
+#endif
+      stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._depot_gobelet_state._bf_droite_sur_le_cine_state.create(stm);
     }
 }
 
@@ -2431,7 +2815,7 @@ MAE_MURPHY::AnyState * MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_enn
 }
 
 // to manage the exit point 'sortie', defined because probably shared
-void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::depot_gobelet_State::_exit18(MAE_MURPHY & stm) {
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::depot_gobelet_State::_exit23(MAE_MURPHY & stm) {
     {
       stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._faire_chier_en_zizagant_state);
 #ifdef VERBOSE_STATE_MACHINE
@@ -2444,20 +2828,9 @@ void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::depot_
 MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::claps_central_State::BF_droite_State::~BF_droite_State() {
 }
 
-bool MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::claps_central_State::BF_droite_State::_completion(MAE_MURPHY & stm) {
-    {
-      stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._claps_central_state._claps_state);
-#ifdef VERBOSE_STATE_MACHINE
-      puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission zone ennemie.claps central.claps");
-#endif
-      stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._claps_central_state._claps_state.create(stm);
-      return (bool) 1;
-    }
-}
-
 // to manage the event create
 void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::claps_central_State::BF_droite_State::create(MAE_MURPHY & stm) {
-  	_completion(stm);
+  	_doentry(stm);
 }
 
 // returns the state containing the current
@@ -2465,99 +2838,143 @@ MAE_MURPHY::AnyState * MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_enn
     return &stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._claps_central_state;
 }
 
-MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::claps_central_State::BF_cap_to_next_State::~BF_cap_to_next_State() {
+// to manage the event assFini
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::claps_central_State::BF_droite_State::assFini(MAE_MURPHY & stm) {
+    {
+      stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._claps_central_state._bf_cap_vers_estrade_state);
+#ifdef VERBOSE_STATE_MACHINE
+      puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission zone ennemie.claps central.BF cap vers estrade");
+#endif
+      stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._claps_central_state._bf_cap_vers_estrade_state.create(stm);
+    }
 }
 
-bool MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::claps_central_State::BF_cap_to_next_State::_completion(MAE_MURPHY & stm) {
+// perform the 'entry behavior'
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::claps_central_State::BF_droite_State::_doentry(MAE_MURPHY & stm) {
+#ifdef VERBOSE_STATE_MACHINE
+  	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission zone ennemie.claps central.BF droite");
+#endif
+  if(master->is_Jaune()){
+  // BF droite sur le claps
+  serialPrint(master->getPortSerie(),"S5 977 235 -90 \n");
+  }
+  if(master->is_Vert()){
+  serialPrint(master->getPortSerie(),"S5 -977 235 -90 \n");
+  }
+}
+
+MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::claps_central_State::BF_cap_vers_estrade_State::~BF_cap_vers_estrade_State() {
+}
+
+// to manage the event assFini
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::claps_central_State::BF_cap_vers_estrade_State::assFini(MAE_MURPHY & stm) {
+    {
+      stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._claps_central_state._ouverture_claps_state);
+#ifdef VERBOSE_STATE_MACHINE
+      puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission zone ennemie.claps central.ouverture claps");
+#endif
+      stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._claps_central_state._ouverture_claps_state.create(stm);
+    }
+}
+
+// to manage the event create
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::claps_central_State::BF_cap_vers_estrade_State::create(MAE_MURPHY & stm) {
+  	_doentry(stm);
+}
+
+// perform the 'entry behavior'
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::claps_central_State::BF_cap_vers_estrade_State::_doentry(MAE_MURPHY & stm) {
+#ifdef VERBOSE_STATE_MACHINE
+  	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission zone ennemie.claps central.BF cap vers estrade");
+#endif
+  if(master->is_Jaune()){
+  // BF droite sur le claps
+  serialPrint(master->getPortSerie(),"S3 180 \n");
+  }
+  if(master->is_Vert()){
+  serialPrint(master->getPortSerie(),"S3 0 \n");
+  }
+}
+
+// returns the state containing the current
+MAE_MURPHY::AnyState * MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::claps_central_State::BF_cap_vers_estrade_State::_upper(MAE_MURPHY & stm) {
+    return &stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._claps_central_state;
+}
+
+MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::claps_central_State::BF_cap_to_cine_State::~BF_cap_to_cine_State() {
+}
+
+// to manage the event assFini
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::claps_central_State::BF_cap_to_cine_State::assFini(MAE_MURPHY & stm) {
     {
       stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._claps_central_state);
 #ifdef VERBOSE_STATE_MACHINE
       puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission zone ennemie.claps central");
 #endif
-      stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._claps_central_state._exit17(stm);
-      return (bool) 1;
+      stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._claps_central_state._exit22(stm);
     }
 }
 
 // to manage the event create
-void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::claps_central_State::BF_cap_to_next_State::create(MAE_MURPHY & stm) {
-  	_completion(stm);
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::claps_central_State::BF_cap_to_cine_State::create(MAE_MURPHY & stm) {
+  	_doentry(stm);
+}
+
+// perform the 'entry behavior'
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::claps_central_State::BF_cap_to_cine_State::_doentry(MAE_MURPHY & stm) {
+#ifdef VERBOSE_STATE_MACHINE
+  	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission zone ennemie.claps central.BF cap to cine");
+#endif
+  if(master->is_Jaune()){
+  // BF cap sur le cine adverse
+  serialPrint(master->getPortSerie(),"S3 80 \n");
+  }
+  if(master->is_Vert()){
+  serialPrint(master->getPortSerie(),"S3 110 \n");
+  }
 }
 
 // returns the state containing the current
-MAE_MURPHY::AnyState * MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::claps_central_State::BF_cap_to_next_State::_upper(MAE_MURPHY & stm) {
+MAE_MURPHY::AnyState * MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::claps_central_State::BF_cap_to_cine_State::_upper(MAE_MURPHY & stm) {
     return &stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._claps_central_state;
 }
 
-MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::claps_central_State::BF_droite_to_mission_origin_State::~BF_droite_to_mission_origin_State() {
+MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::claps_central_State::ouverture_claps_State::~ouverture_claps_State() {
 }
 
-bool MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::claps_central_State::BF_droite_to_mission_origin_State::_completion(MAE_MURPHY & stm) {
+// to manage the event claps_replie
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::claps_central_State::ouverture_claps_State::claps_replie(MAE_MURPHY & stm) {
     {
-      stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._claps_central_state._bf_cap_to_next_state);
+      stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._claps_central_state._bf_cap_to_cine_state);
 #ifdef VERBOSE_STATE_MACHINE
-      puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission zone ennemie.claps central.BF cap to next");
+      puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission zone ennemie.claps central.BF cap to cine");
 #endif
-      stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._claps_central_state._bf_cap_to_next_state.create(stm);
-      return (bool) 1;
+      stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._claps_central_state._bf_cap_to_cine_state.create(stm);
     }
 }
 
 // to manage the event create
-void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::claps_central_State::BF_droite_to_mission_origin_State::create(MAE_MURPHY & stm) {
-  	_completion(stm);
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::claps_central_State::ouverture_claps_State::create(MAE_MURPHY & stm) {
+  	_doentry(stm);
 }
 
-// returns the state containing the current
-MAE_MURPHY::AnyState * MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::claps_central_State::BF_droite_to_mission_origin_State::_upper(MAE_MURPHY & stm) {
-    return &stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._claps_central_state;
-}
-
-MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::claps_central_State::BF_cap_to_point_mission_State::~BF_cap_to_point_mission_State() {
-}
-
-bool MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::claps_central_State::BF_cap_to_point_mission_State::_completion(MAE_MURPHY & stm) {
-    {
-      stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._claps_central_state._bf_droite_to_mission_origin_state);
+// perform the 'entry behavior'
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::claps_central_State::ouverture_claps_State::_doentry(MAE_MURPHY & stm) {
 #ifdef VERBOSE_STATE_MACHINE
-      puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission zone ennemie.claps central.BF droite to mission origin");
+  	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission zone ennemie.claps central.ouverture claps");
 #endif
-      stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._claps_central_state._bf_droite_to_mission_origin_state.create(stm);
-      return (bool) 1;
-    }
-}
-
-// to manage the event create
-void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::claps_central_State::BF_cap_to_point_mission_State::create(MAE_MURPHY & stm) {
-  	_completion(stm);
+  if(master->is_Jaune()){
+  // ouverture claps cote bordure (jaune gauche)
+  serialPrint(master->getPortSerie(),"C2 \n");
+  }
+  if(master->is_Vert()){
+  serialPrint(master->getPortSerie(),"C0 \n");
+  }
+  master->get_gestionnaire()->get_mission_zone_ennemie()->claps_done();
 }
 
 // returns the state containing the current
-MAE_MURPHY::AnyState * MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::claps_central_State::BF_cap_to_point_mission_State::_upper(MAE_MURPHY & stm) {
-    return &stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._claps_central_state;
-}
-
-MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::claps_central_State::claps_State::~claps_State() {
-}
-
-bool MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::claps_central_State::claps_State::_completion(MAE_MURPHY & stm) {
-    {
-      stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._claps_central_state._bf_cap_to_point_mission_state);
-#ifdef VERBOSE_STATE_MACHINE
-      puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission zone ennemie.claps central.BF cap to point mission");
-#endif
-      stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._claps_central_state._bf_cap_to_point_mission_state.create(stm);
-      return (bool) 1;
-    }
-}
-
-// to manage the event create
-void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::claps_central_State::claps_State::create(MAE_MURPHY & stm) {
-  	_completion(stm);
-}
-
-// returns the state containing the current
-MAE_MURPHY::AnyState * MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::claps_central_State::claps_State::_upper(MAE_MURPHY & stm) {
+MAE_MURPHY::AnyState * MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::claps_central_State::ouverture_claps_State::_upper(MAE_MURPHY & stm) {
     return &stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._claps_central_state;
 }
 
@@ -2590,25 +3007,34 @@ MAE_MURPHY::AnyState * MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_enn
 }
 
 // to manage the exit point 'sortie', defined because probably shared
-void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::claps_central_State::_exit17(MAE_MURPHY & stm) {
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::claps_central_State::_exit22(MAE_MURPHY & stm) {
     {
       stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state);
 #ifdef VERBOSE_STATE_MACHINE
       puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission zone ennemie");
 #endif
-      if (master->get_gestionnaire()->get_element_robot()->gobelet_present()) {
-        stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._depot_gobelet_state);
-#ifdef VERBOSE_STATE_MACHINE
-        puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission zone ennemie.depot gobelet");
-#endif
-        stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._depot_gobelet_state.create(stm);
-      }
-      else {
+      if (master->get_gestionnaire()->get_mission_zone_ennemie()->is_depot_gobelet_done()) {
         stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._faire_chier_en_zizagant_state);
 #ifdef VERBOSE_STATE_MACHINE
         puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission zone ennemie.faire chier en zizagant");
 #endif
         stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._faire_chier_en_zizagant_state.create(stm);
+      }
+      else if (!master->get_gestionnaire()->get_mission_zone_ennemie()->is_depot_gobelet_done()) {
+        if (!master->get_gestionnaire()->get_element_robot()->gobelet_present()) {
+          stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._faire_chier_en_zizagant_state);
+#ifdef VERBOSE_STATE_MACHINE
+          puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission zone ennemie.faire chier en zizagant");
+#endif
+          stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._faire_chier_en_zizagant_state.create(stm);
+        }
+        else if (master->get_gestionnaire()->get_element_robot()->gobelet_present()) {
+          stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._depot_gobelet_state);
+#ifdef VERBOSE_STATE_MACHINE
+          puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission zone ennemie.depot gobelet");
+#endif
+          stm._mae_murphy_state._jeu_state._mission_zone_ennemie_state._depot_gobelet_state.create(stm);
+        }
       }
     }
 }
@@ -2643,7 +3069,7 @@ void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::_doent
 }
 
 // to manage the exit point 'sortie', defined because probably shared
-void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::_exit20(MAE_MURPHY & stm) {
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::_exit25(MAE_MURPHY & stm) {
 }
 
 MAE_MURPHY::MAE_MURPHY_State::Jeu_State::sortie_de_zone_de_depart_State::~sortie_de_zone_de_depart_State() {
@@ -2681,23 +3107,146 @@ MAE_MURPHY::AnyState * MAE_MURPHY::MAE_MURPHY_State::Jeu_State::sortie_de_zone_d
     return &stm._mae_murphy_state._jeu_state;
 }
 
-MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_de_tour_zone_depart_State::way_point_initial_State::~way_point_initial_State() {
+MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_de_tour_zone_depart_State::way_point_initial_State::cap_to_mission_State::~cap_to_mission_State() {
 }
 
-bool MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_de_tour_zone_depart_State::way_point_initial_State::_completion(MAE_MURPHY & stm) {
+// to manage the event assFini
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_de_tour_zone_depart_State::way_point_initial_State::cap_to_mission_State::assFini(MAE_MURPHY & stm) {
     {
-      stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_depot_de_tour_zone_depart_state._avance_state);
+      stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_depot_de_tour_zone_depart_state._way_point_initial_state._bf_droite_to_mission_state);
 #ifdef VERBOSE_STATE_MACHINE
-      puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission depot de tour zone depart.avance");
+      puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission depot de tour zone depart.way point initial.BF droite to mission");
 #endif
-      stm._mae_murphy_state._jeu_state._mission_depot_de_tour_zone_depart_state._avance_state.create(stm);
-      return (bool) 1;
+      stm._mae_murphy_state._jeu_state._mission_depot_de_tour_zone_depart_state._way_point_initial_state._bf_droite_to_mission_state.create(stm);
     }
 }
 
 // to manage the event create
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_de_tour_zone_depart_State::way_point_initial_State::cap_to_mission_State::create(MAE_MURPHY & stm) {
+  	_doentry(stm);
+}
+
+// perform the 'entry behavior'
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_de_tour_zone_depart_State::way_point_initial_State::cap_to_mission_State::_doentry(MAE_MURPHY & stm) {
+#ifdef VERBOSE_STATE_MACHINE
+  	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission depot de tour zone depart.way point initial.cap to mission");
+#endif
+  // BCAP
+  string ordre;
+  ordre = "S3 " + master->get_gestionnaire()->get_cap_to_mission() + " \n";
+  serialPrint(master->getPortSerie(),ordre);
+  cout<<"ORIENTATION VERS MISSION : "<<ordre<<endl;
+}
+
+// returns the state containing the current
+MAE_MURPHY::AnyState * MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_de_tour_zone_depart_State::way_point_initial_State::cap_to_mission_State::_upper(MAE_MURPHY & stm) {
+    return &stm._mae_murphy_state._jeu_state._mission_depot_de_tour_zone_depart_state._way_point_initial_state;
+}
+
+MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_de_tour_zone_depart_State::way_point_initial_State::cap_mission_State::~cap_mission_State() {
+}
+
+// to manage the event assFini
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_de_tour_zone_depart_State::way_point_initial_State::cap_mission_State::assFini(MAE_MURPHY & stm) {
+    {
+      stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_depot_de_tour_zone_depart_state._way_point_initial_state._bf_droite_to_mission_state);
+#ifdef VERBOSE_STATE_MACHINE
+      puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission depot de tour zone depart.way point initial.BF droite to mission");
+#endif
+      stm._mae_murphy_state._jeu_state._mission_depot_de_tour_zone_depart_state._way_point_initial_state._bf_droite_to_mission_state._exit19(stm);
+    }
+}
+
+// to manage the event create
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_de_tour_zone_depart_State::way_point_initial_State::cap_mission_State::create(MAE_MURPHY & stm) {
+  	_doentry(stm);
+}
+
+// perform the 'entry behavior'
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_de_tour_zone_depart_State::way_point_initial_State::cap_mission_State::_doentry(MAE_MURPHY & stm) {
+#ifdef VERBOSE_STATE_MACHINE
+  	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission depot de tour zone depart.way point initial.cap mission");
+#endif
+  // BF Droite vers objectif
+  string ordre;
+  ordre = "S3 " 
+  	+ master->get_gestionnaire()->get_cap_mission() 
+  	+ " \n";
+  serialPrint(master->getPortSerie(),ordre); 
+  cout<<"ORIENTATION VERS MISSION : "<<ordre<<endl;
+}
+
+// returns the state containing the current
+MAE_MURPHY::AnyState * MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_de_tour_zone_depart_State::way_point_initial_State::cap_mission_State::_upper(MAE_MURPHY & stm) {
+    return &stm._mae_murphy_state._jeu_state._mission_depot_de_tour_zone_depart_state._way_point_initial_state;
+}
+
+MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_de_tour_zone_depart_State::way_point_initial_State::BF_droite_to_mission_State::~BF_droite_to_mission_State() {
+}
+
+// to manage the event assFini
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_de_tour_zone_depart_State::way_point_initial_State::BF_droite_to_mission_State::assFini(MAE_MURPHY & stm) {
+    {
+      stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_depot_de_tour_zone_depart_state._way_point_initial_state._cap_mission_state);
+#ifdef VERBOSE_STATE_MACHINE
+      puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission depot de tour zone depart.way point initial.cap mission");
+#endif
+      stm._mae_murphy_state._jeu_state._mission_depot_de_tour_zone_depart_state._way_point_initial_state._cap_mission_state.create(stm);
+    }
+}
+
+// to manage the event create
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_de_tour_zone_depart_State::way_point_initial_State::BF_droite_to_mission_State::create(MAE_MURPHY & stm) {
+  	_doentry(stm);
+}
+
+// perform the 'entry behavior'
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_de_tour_zone_depart_State::way_point_initial_State::BF_droite_to_mission_State::_doentry(MAE_MURPHY & stm) {
+#ifdef VERBOSE_STATE_MACHINE
+  	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission depot de tour zone depart.way point initial.BF droite to mission");
+#endif
+  // BF Droite vers objectif
+  string ordre;
+  ordre = "S5 "
+  	+ master->get_gestionnaire()->get_x_mission() 
+  	+ " "
+  	+ master->get_gestionnaire()->get_y_mission() 
+  	+ " "
+  	+ master->get_gestionnaire()->get_cap_to_mission() 
+  	+ " \n";
+  serialPrint(master->getPortSerie(),ordre); 
+  cout<<"BF droite vers MISSION : "<<ordre<<endl;
+}
+
+// returns the state containing the current
+MAE_MURPHY::AnyState * MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_de_tour_zone_depart_State::way_point_initial_State::BF_droite_to_mission_State::_upper(MAE_MURPHY & stm) {
+    return &stm._mae_murphy_state._jeu_state._mission_depot_de_tour_zone_depart_state._way_point_initial_state;
+}
+
+// to manage the exit point 'sortie', defined because probably shared
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_de_tour_zone_depart_State::way_point_initial_State::BF_droite_to_mission_State::_exit19(MAE_MURPHY & stm) {
+    {
+      stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_depot_de_tour_zone_depart_state._prepare_la_pose_state);
+#ifdef VERBOSE_STATE_MACHINE
+      puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission depot de tour zone depart.prepare la pose");
+#endif
+      stm._mae_murphy_state._jeu_state._mission_depot_de_tour_zone_depart_state._prepare_la_pose_state.create(stm);
+    }
+}
+
+MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_de_tour_zone_depart_State::way_point_initial_State::~way_point_initial_State() {
+}
+
+// to manage the event create
 void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_de_tour_zone_depart_State::way_point_initial_State::create(MAE_MURPHY & stm) {
-  	_completion(stm);
+    _doentry(stm);
+    {
+      stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_depot_de_tour_zone_depart_state._way_point_initial_state._cap_to_mission_state);
+#ifdef VERBOSE_STATE_MACHINE
+      puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission depot de tour zone depart.way point initial.cap to mission");
+#endif
+      stm._mae_murphy_state._jeu_state._mission_depot_de_tour_zone_depart_state._way_point_initial_state._cap_to_mission_state.create(stm);
+    }
 }
 
 // returns the state containing the current
@@ -2705,56 +3254,150 @@ MAE_MURPHY::AnyState * MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_de
     return &stm._mae_murphy_state._jeu_state._mission_depot_de_tour_zone_depart_state;
 }
 
-MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_de_tour_zone_depart_State::sortie_State::~sortie_State() {
+// perform the 'entry behavior'
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_de_tour_zone_depart_State::way_point_initial_State::_doentry(MAE_MURPHY & stm) {
+#ifdef VERBOSE_STATE_MACHINE
+  	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission depot de tour zone depart.way point initial");
+#endif
+  // rejoindre le point initial de mission
 }
 
-bool MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_de_tour_zone_depart_State::sortie_State::_completion(MAE_MURPHY & stm) {
+MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_de_tour_zone_depart_State::BF_cap_vers_la_zone_adverse_State::~BF_cap_vers_la_zone_adverse_State() {
+}
+
+// to manage the event assFini
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_de_tour_zone_depart_State::BF_cap_vers_la_zone_adverse_State::assFini(MAE_MURPHY & stm) {
     {
       stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_depot_de_tour_zone_depart_state);
 #ifdef VERBOSE_STATE_MACHINE
       puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission depot de tour zone depart");
 #endif
-      stm._mae_murphy_state._jeu_state._mission_depot_de_tour_zone_depart_state._exit16(stm);
-      return (bool) 1;
+      stm._mae_murphy_state._jeu_state._mission_depot_de_tour_zone_depart_state._exit20(stm);
     }
 }
 
 // to manage the event create
-void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_de_tour_zone_depart_State::sortie_State::create(MAE_MURPHY & stm) {
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_de_tour_zone_depart_State::BF_cap_vers_la_zone_adverse_State::create(MAE_MURPHY & stm) {
   	_doentry(stm);
-  	_completion(stm);
-}
-
-// returns the state containing the current
-MAE_MURPHY::AnyState * MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_de_tour_zone_depart_State::sortie_State::_upper(MAE_MURPHY & stm) {
-    return &stm._mae_murphy_state._jeu_state._mission_depot_de_tour_zone_depart_state;
 }
 
 // perform the 'entry behavior'
-void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_de_tour_zone_depart_State::sortie_State::_doentry(MAE_MURPHY & stm) {
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_de_tour_zone_depart_State::BF_cap_vers_la_zone_adverse_State::_doentry(MAE_MURPHY & stm) {
 #ifdef VERBOSE_STATE_MACHINE
-  	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission depot de tour zone depart.sortie");
+  	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission depot de tour zone depart.BF cap vers la zone adverse");
 #endif
-  BF cap
+  // demi-tour
+  if(master->is_Jaune()){
+  	serialPrint(master->getPortSerie(),"S3 0 \n"); 
+  }
+  if(master->is_Vert()){
+  	serialPrint(master->getPortSerie(),"S3 180 \n"); 
+  }
+}
+
+// returns the state containing the current
+MAE_MURPHY::AnyState * MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_de_tour_zone_depart_State::BF_cap_vers_la_zone_adverse_State::_upper(MAE_MURPHY & stm) {
+    return &stm._mae_murphy_state._jeu_state._mission_depot_de_tour_zone_depart_state;
+}
+
+MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_de_tour_zone_depart_State::rembale_les_pinces_State::~rembale_les_pinces_State() {
+}
+
+// to manage the event pince_range
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_de_tour_zone_depart_State::rembale_les_pinces_State::pince_range(MAE_MURPHY & stm) {
+    {
+      stm._mae_murphy_state._jeu_state._mission_depot_de_tour_zone_depart_state._rembale_les_pinces_state._doexit(stm);
+      stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_depot_de_tour_zone_depart_state._bf_cap_vers_la_zone_adverse_state);
+#ifdef VERBOSE_STATE_MACHINE
+      puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission depot de tour zone depart.BF cap vers la zone adverse");
+#endif
+      stm._mae_murphy_state._jeu_state._mission_depot_de_tour_zone_depart_state._bf_cap_vers_la_zone_adverse_state.create(stm);
+    }
+}
+
+// to manage the event create
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_de_tour_zone_depart_State::rembale_les_pinces_State::create(MAE_MURPHY & stm) {
+  	_doentry(stm);
+}
+
+// perform the 'entry behavior'
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_de_tour_zone_depart_State::rembale_les_pinces_State::_doentry(MAE_MURPHY & stm) {
+#ifdef VERBOSE_STATE_MACHINE
+  	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission depot de tour zone depart.rembale les pinces");
+#endif
+  serialPrint(master->getPortSerie(),"G6 \n");
+  serialPrint(master->getPortSerie(),"D6 \n");
+}
+
+// returns the state containing the current
+MAE_MURPHY::AnyState * MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_de_tour_zone_depart_State::rembale_les_pinces_State::_upper(MAE_MURPHY & stm) {
+    return &stm._mae_murphy_state._jeu_state._mission_depot_de_tour_zone_depart_state;
+}
+
+// perform the 'exit behavior'
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_de_tour_zone_depart_State::rembale_les_pinces_State::_doexit(MAE_MURPHY & stm) {
+#ifdef VERBOSE_STATE_MACHINE
+  	puts("DEBUG : execute exit behavior of .MAE_MURPHY.Jeu.mission depot de tour zone depart.rembale les pinces");
+#endif
+  master->get_gestionnaire_mission()->get_mission_depot_tour_depart()->mission_remplie();
+}
+
+MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_de_tour_zone_depart_State::prepare_la_pose_State::~prepare_la_pose_State() {
+}
+
+// to manage the event pince_ready_to_drop
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_de_tour_zone_depart_State::prepare_la_pose_State::pince_ready_to_drop(MAE_MURPHY & stm) {
+    {
+      stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_depot_de_tour_zone_depart_state._avance_state);
+#ifdef VERBOSE_STATE_MACHINE
+      puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission depot de tour zone depart.avance");
+#endif
+      stm._mae_murphy_state._jeu_state._mission_depot_de_tour_zone_depart_state._avance_state.create(stm);
+    }
+}
+
+// to manage the event create
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_de_tour_zone_depart_State::prepare_la_pose_State::create(MAE_MURPHY & stm) {
+  	_doentry(stm);
+}
+
+// perform the 'entry behavior'
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_de_tour_zone_depart_State::prepare_la_pose_State::_doentry(MAE_MURPHY & stm) {
+#ifdef VERBOSE_STATE_MACHINE
+  	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission depot de tour zone depart.prepare la pose");
+#endif
+  // preparation des piles a poser
+  if(master->is_Jaune()){
+  	serialPrint(master->getPortSerie(),"D9 \n"); // objectif de pose sur estrade
+  	serialPrint(master->getPortSerie(),"D4 \n"); // preparation de la pose
+  	if(master->get_gestionnaire_mission()->get_mission_depot_tour_depart()->is_depot_double())
+  	{
+  		serialPrint(master->getPortSerie(),"G9 \n");
+  		serialPrint(master->getPortSerie(),"G4 \n");
+  	}
+  }
+  if(master->is_Vert()){
+  	serialPrint(master->getPortSerie(),"G9 \n");
+  	serialPrint(master->getPortSerie(),"G4 \n");
+  	if(master->get_gestionnaire_mission()->get_mission_depot_tour_depart()->is_depot_double())
+  	{
+  		serialPrint(master->getPortSerie(),"D9 \n");
+  		serialPrint(master->getPortSerie(),"D4 \n");
+  	}
+  }
+}
+
+// returns the state containing the current
+MAE_MURPHY::AnyState * MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_de_tour_zone_depart_State::prepare_la_pose_State::_upper(MAE_MURPHY & stm) {
+    return &stm._mae_murphy_state._jeu_state._mission_depot_de_tour_zone_depart_state;
 }
 
 MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_de_tour_zone_depart_State::recule_State::~recule_State() {
 }
 
-bool MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_de_tour_zone_depart_State::recule_State::_completion(MAE_MURPHY & stm) {
-    {
-      stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_depot_de_tour_zone_depart_state._sortie_state);
-#ifdef VERBOSE_STATE_MACHINE
-      puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission depot de tour zone depart.sortie");
-#endif
-      stm._mae_murphy_state._jeu_state._mission_depot_de_tour_zone_depart_state._sortie_state.create(stm);
-      return (bool) 1;
-    }
-}
-
 // to manage the event create
 void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_de_tour_zone_depart_State::recule_State::create(MAE_MURPHY & stm) {
-  	_completion(stm);
+  	_doentry(stm);
 }
 
 // returns the state containing the current
@@ -2762,23 +3405,32 @@ MAE_MURPHY::AnyState * MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_de
     return &stm._mae_murphy_state._jeu_state._mission_depot_de_tour_zone_depart_state;
 }
 
-MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_de_tour_zone_depart_State::avance_State::~avance_State() {
+// to manage the event assFini
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_de_tour_zone_depart_State::recule_State::assFini(MAE_MURPHY & stm) {
+    {
+      stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_depot_de_tour_zone_depart_state._rembale_les_pinces_state);
+#ifdef VERBOSE_STATE_MACHINE
+      puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission depot de tour zone depart.rembale les pinces");
+#endif
+      stm._mae_murphy_state._jeu_state._mission_depot_de_tour_zone_depart_state._rembale_les_pinces_state.create(stm);
+    }
 }
 
-bool MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_de_tour_zone_depart_State::avance_State::_completion(MAE_MURPHY & stm) {
-    {
-      stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_depot_de_tour_zone_depart_state._depot_une_tour_state);
+// perform the 'entry behavior'
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_de_tour_zone_depart_State::recule_State::_doentry(MAE_MURPHY & stm) {
 #ifdef VERBOSE_STATE_MACHINE
-      puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission depot de tour zone depart.depot une tour");
+  	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission depot de tour zone depart.recule");
 #endif
-      stm._mae_murphy_state._jeu_state._mission_depot_de_tour_zone_depart_state._depot_une_tour_state.create(stm);
-      return (bool) 1;
-    }
+  serialPrint(master->getPortSerie(),"S4 -250 \n"); 
+  	
+}
+
+MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_de_tour_zone_depart_State::avance_State::~avance_State() {
 }
 
 // to manage the event create
 void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_de_tour_zone_depart_State::avance_State::create(MAE_MURPHY & stm) {
-  	_completion(stm);
+  	_doentry(stm);
 }
 
 // returns the state containing the current
@@ -2786,24 +3438,32 @@ MAE_MURPHY::AnyState * MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_de
     return &stm._mae_murphy_state._jeu_state._mission_depot_de_tour_zone_depart_state;
 }
 
-MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_de_tour_zone_depart_State::depot_une_tour_State::~depot_une_tour_State() {
+// to manage the event assFini
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_de_tour_zone_depart_State::avance_State::assFini(MAE_MURPHY & stm) {
+    {
+      stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_depot_de_tour_zone_depart_state._depot_une_tour_state);
+#ifdef VERBOSE_STATE_MACHINE
+      puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission depot de tour zone depart.depot une tour");
+#endif
+      stm._mae_murphy_state._jeu_state._mission_depot_de_tour_zone_depart_state._depot_une_tour_state.create(stm);
+    }
 }
 
-bool MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_de_tour_zone_depart_State::depot_une_tour_State::_completion(MAE_MURPHY & stm) {
-    {
-      stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_depot_de_tour_zone_depart_state._recule_state);
+// perform the 'entry behavior'
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_de_tour_zone_depart_State::avance_State::_doentry(MAE_MURPHY & stm) {
 #ifdef VERBOSE_STATE_MACHINE
-      puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission depot de tour zone depart.recule");
+  	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission depot de tour zone depart.avance");
 #endif
-      stm._mae_murphy_state._jeu_state._mission_depot_de_tour_zone_depart_state._recule_state.create(stm);
-      return (bool) 1;
-    }
+  serialPrint(master->getPortSerie(),"S4 120 \n"); 
+  	
+}
+
+MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_de_tour_zone_depart_State::depot_une_tour_State::~depot_une_tour_State() {
 }
 
 // to manage the event create
 void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_de_tour_zone_depart_State::depot_une_tour_State::create(MAE_MURPHY & stm) {
   	_doentry(stm);
-  	_completion(stm);
 }
 
 // returns the state containing the current
@@ -2816,9 +3476,34 @@ void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_de_tour_zone_depart_
 #ifdef VERBOSE_STATE_MACHINE
   	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission depot de tour zone depart.depot une tour");
 #endif
-  // si depot double on depose les deux tours
-  // sinon la pile cote claps
-  // depot de gobelet si pas posé avant
+  // preparation des piles a poser
+  if(master->is_Jaune()){
+  	serialPrint(master->getPortSerie(),"D5 \n"); // lache
+  	if(master->get_gestionnaire_mission()->get_mission_depot_tour_depart()->is_depot_double())
+  	{
+  		serialPrint(master->getPortSerie(),"G5 \n");
+  	}
+  }
+  if(master->is_Vert()){
+  	serialPrint(master->getPortSerie(),"G5 \n");
+  	if(master->get_gestionnaire_mission()->get_mission_depot_tour_depart()->is_depot_double())
+  	{
+  		serialPrint(master->getPortSerie(),"D5 \n");
+  	}
+  }
+  
+  // depot de gobelet ?
+}
+
+// to manage the event pince_lache
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_de_tour_zone_depart_State::depot_une_tour_State::pince_lache(MAE_MURPHY & stm) {
+    {
+      stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_depot_de_tour_zone_depart_state._recule_state);
+#ifdef VERBOSE_STATE_MACHINE
+      puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission depot de tour zone depart.recule");
+#endif
+      stm._mae_murphy_state._jeu_state._mission_depot_de_tour_zone_depart_state._recule_state.create(stm);
+    }
 }
 
 MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_de_tour_zone_depart_State::~mission_depot_de_tour_zone_depart_State() {
@@ -2826,6 +3511,7 @@ MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_de_tour_zone_depart_State
 
 // to manage the event create
 void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_de_tour_zone_depart_State::create(MAE_MURPHY & stm) {
+    _doentry(stm);
     {
       stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_depot_de_tour_zone_depart_state._way_point_initial_state);
 #ifdef VERBOSE_STATE_MACHINE
@@ -2840,8 +3526,16 @@ MAE_MURPHY::AnyState * MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_de
     return &stm._mae_murphy_state._jeu_state;
 }
 
+// perform the 'entry behavior'
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_de_tour_zone_depart_State::_doentry(MAE_MURPHY & stm) {
+#ifdef VERBOSE_STATE_MACHINE
+  	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission depot de tour zone depart");
+#endif
+  // depot de tour sur la zone de depart
+}
+
 // to manage the exit point 'sortie ', defined because probably shared
-void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_de_tour_zone_depart_State::_exit16(MAE_MURPHY & stm) {
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_de_tour_zone_depart_State::_exit20(MAE_MURPHY & stm) {
     {
       stm._set_currentState(stm._mae_murphy_state._jeu_state._decision_state);
 #ifdef VERBOSE_STATE_MACHINE
@@ -2849,6 +3543,555 @@ void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_de_tour_zone_depart_
 #endif
       stm._mae_murphy_state._jeu_state._decision_state.create(stm);
     }
+}
+
+MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_rush_zone_centrale_State::waypoint_init_State::cap_to_mission_State::~cap_to_mission_State() {
+}
+
+// to manage the event assFini
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_rush_zone_centrale_State::waypoint_init_State::cap_to_mission_State::assFini(MAE_MURPHY & stm) {
+    {
+      stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_rush_zone_centrale_state._waypoint_init_state._bf_droite_to_mission_state);
+#ifdef VERBOSE_STATE_MACHINE
+      puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission rush zone centrale.waypoint init.BF droite to mission");
+#endif
+      stm._mae_murphy_state._jeu_state._mission_rush_zone_centrale_state._waypoint_init_state._bf_droite_to_mission_state.create(stm);
+    }
+}
+
+// to manage the event create
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_rush_zone_centrale_State::waypoint_init_State::cap_to_mission_State::create(MAE_MURPHY & stm) {
+  	_doentry(stm);
+}
+
+// perform the 'entry behavior'
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_rush_zone_centrale_State::waypoint_init_State::cap_to_mission_State::_doentry(MAE_MURPHY & stm) {
+#ifdef VERBOSE_STATE_MACHINE
+  	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission rush zone centrale.waypoint init.cap to mission");
+#endif
+  // BCAP
+  string ordre;
+  ordre = "S3 " + master->get_gestionnaire()->get_cap_to_mission() + " \n";
+  serialPrint(master->getPortSerie(),ordre);
+  cout<<"ORIENTATION VERS MISSION : "<<ordre<<endl;
+}
+
+// returns the state containing the current
+MAE_MURPHY::AnyState * MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_rush_zone_centrale_State::waypoint_init_State::cap_to_mission_State::_upper(MAE_MURPHY & stm) {
+    return &stm._mae_murphy_state._jeu_state._mission_rush_zone_centrale_state._waypoint_init_state;
+}
+
+MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_rush_zone_centrale_State::waypoint_init_State::cap_mission_State::~cap_mission_State() {
+}
+
+// to manage the event assFini
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_rush_zone_centrale_State::waypoint_init_State::cap_mission_State::assFini(MAE_MURPHY & stm) {
+    {
+      stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_rush_zone_centrale_state._waypoint_init_state);
+#ifdef VERBOSE_STATE_MACHINE
+      puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission rush zone centrale.waypoint init");
+#endif
+      stm._mae_murphy_state._jeu_state._mission_rush_zone_centrale_state._waypoint_init_state._exit18(stm);
+    }
+}
+
+// to manage the event create
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_rush_zone_centrale_State::waypoint_init_State::cap_mission_State::create(MAE_MURPHY & stm) {
+  	_doentry(stm);
+}
+
+// perform the 'entry behavior'
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_rush_zone_centrale_State::waypoint_init_State::cap_mission_State::_doentry(MAE_MURPHY & stm) {
+#ifdef VERBOSE_STATE_MACHINE
+  	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission rush zone centrale.waypoint init.cap mission");
+#endif
+  // BF Droite vers objectif
+  string ordre;
+  ordre = "S3 " 
+  	+ master->get_gestionnaire()->get_cap_mission() 
+  	+ " \n";
+  serialPrint(master->getPortSerie(),ordre); 
+  cout<<"ORIENTATION VERS MISSION : "<<ordre<<endl;
+}
+
+// returns the state containing the current
+MAE_MURPHY::AnyState * MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_rush_zone_centrale_State::waypoint_init_State::cap_mission_State::_upper(MAE_MURPHY & stm) {
+    return &stm._mae_murphy_state._jeu_state._mission_rush_zone_centrale_state._waypoint_init_state;
+}
+
+MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_rush_zone_centrale_State::waypoint_init_State::BF_droite_to_mission_State::~BF_droite_to_mission_State() {
+}
+
+// to manage the event assFini
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_rush_zone_centrale_State::waypoint_init_State::BF_droite_to_mission_State::assFini(MAE_MURPHY & stm) {
+    {
+      stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_rush_zone_centrale_state._waypoint_init_state._cap_mission_state);
+#ifdef VERBOSE_STATE_MACHINE
+      puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission rush zone centrale.waypoint init.cap mission");
+#endif
+      stm._mae_murphy_state._jeu_state._mission_rush_zone_centrale_state._waypoint_init_state._cap_mission_state.create(stm);
+    }
+}
+
+// to manage the event create
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_rush_zone_centrale_State::waypoint_init_State::BF_droite_to_mission_State::create(MAE_MURPHY & stm) {
+  	_doentry(stm);
+}
+
+// perform the 'entry behavior'
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_rush_zone_centrale_State::waypoint_init_State::BF_droite_to_mission_State::_doentry(MAE_MURPHY & stm) {
+#ifdef VERBOSE_STATE_MACHINE
+  	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission rush zone centrale.waypoint init.BF droite to mission");
+#endif
+  // BF Droite vers objectif
+  string ordre;
+  ordre = "S5 "
+  	+ master->get_gestionnaire()->get_x_mission() 
+  	+ " "
+  	+ master->get_gestionnaire()->get_y_mission() 
+  	+ " "
+  	+ master->get_gestionnaire()->get_cap_to_mission() 
+  	+ " \n";
+  serialPrint(master->getPortSerie(),ordre); 
+  cout<<"BF droite vers MISSION : "<<ordre<<endl;
+}
+
+// returns the state containing the current
+MAE_MURPHY::AnyState * MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_rush_zone_centrale_State::waypoint_init_State::BF_droite_to_mission_State::_upper(MAE_MURPHY & stm) {
+    return &stm._mae_murphy_state._jeu_state._mission_rush_zone_centrale_state._waypoint_init_state;
+}
+
+MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_rush_zone_centrale_State::waypoint_init_State::~waypoint_init_State() {
+}
+
+// to manage the event create
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_rush_zone_centrale_State::waypoint_init_State::create(MAE_MURPHY & stm) {
+    {
+      stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_rush_zone_centrale_state._waypoint_init_state._cap_to_mission_state);
+#ifdef VERBOSE_STATE_MACHINE
+      puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission rush zone centrale.waypoint init.cap to mission");
+#endif
+      stm._mae_murphy_state._jeu_state._mission_rush_zone_centrale_state._waypoint_init_state._cap_to_mission_state.create(stm);
+    }
+}
+
+// to manage the exit point 'sortie', defined because probably shared
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_rush_zone_centrale_State::waypoint_init_State::_exit18(MAE_MURPHY & stm) {
+    {
+      stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_rush_zone_centrale_state._ouverture_pince_state);
+#ifdef VERBOSE_STATE_MACHINE
+      puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission rush zone centrale.ouverture pince");
+#endif
+      stm._mae_murphy_state._jeu_state._mission_rush_zone_centrale_state._ouverture_pince_state.create(stm);
+    }
+}
+
+// returns the state containing the current
+MAE_MURPHY::AnyState * MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_rush_zone_centrale_State::waypoint_init_State::_upper(MAE_MURPHY & stm) {
+    return &stm._mae_murphy_state._jeu_state._mission_rush_zone_centrale_state;
+}
+
+MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_rush_zone_centrale_State::tempo_pour_coopr_State::~tempo_pour_coopr_State() {
+}
+
+// to manage the event time_out
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_rush_zone_centrale_State::tempo_pour_coopr_State::time_out(MAE_MURPHY & stm) {
+    {
+      stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_rush_zone_centrale_state);
+#ifdef VERBOSE_STATE_MACHINE
+      puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission rush zone centrale");
+#endif
+      stm._mae_murphy_state._jeu_state._mission_rush_zone_centrale_state._exit17(stm);
+    }
+}
+
+// to manage the event create
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_rush_zone_centrale_State::tempo_pour_coopr_State::create(MAE_MURPHY & stm) {
+  	_doentry(stm);
+}
+
+// perform the 'entry behavior'
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_rush_zone_centrale_State::tempo_pour_coopr_State::_doentry(MAE_MURPHY & stm) {
+#ifdef VERBOSE_STATE_MACHINE
+  	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission rush zone centrale.tempo pour coop'r?");
+#endif
+  master->set_time_out(300);
+}
+
+// returns the state containing the current
+MAE_MURPHY::AnyState * MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_rush_zone_centrale_State::tempo_pour_coopr_State::_upper(MAE_MURPHY & stm) {
+    return &stm._mae_murphy_state._jeu_state._mission_rush_zone_centrale_state;
+}
+
+MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_rush_zone_centrale_State::chope_stand_3_State::~chope_stand_3_State() {
+}
+
+// to manage the event pince_stand_by
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_rush_zone_centrale_State::chope_stand_3_State::pince_stand_by(MAE_MURPHY & stm) {
+    {
+      stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_rush_zone_centrale_state._tempo_pour_coopr_state);
+#ifdef VERBOSE_STATE_MACHINE
+      puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission rush zone centrale.tempo pour coop'r?");
+#endif
+      stm._mae_murphy_state._jeu_state._mission_rush_zone_centrale_state._tempo_pour_coopr_state.create(stm);
+    }
+}
+
+// to manage the event create
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_rush_zone_centrale_State::chope_stand_3_State::create(MAE_MURPHY & stm) {
+  	_doentry(stm);
+}
+
+// perform the 'entry behavior'
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_rush_zone_centrale_State::chope_stand_3_State::_doentry(MAE_MURPHY & stm) {
+#ifdef VERBOSE_STATE_MACHINE
+  	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission rush zone centrale.chope stand 3");
+#endif
+  if(master->is_Jaune()){
+  serialPrint(master->getPortSerie(),"G1 \n");
+  }
+  if(master->is_Vert()){
+  serialPrint(master->getPortSerie(),"D1 \n");
+  }
+}
+
+// returns the state containing the current
+MAE_MURPHY::AnyState * MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_rush_zone_centrale_State::chope_stand_3_State::_upper(MAE_MURPHY & stm) {
+    return &stm._mae_murphy_state._jeu_state._mission_rush_zone_centrale_state;
+}
+
+MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_rush_zone_centrale_State::BF_droite_stand_3_State::~BF_droite_stand_3_State() {
+}
+
+// to manage the event assFini
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_rush_zone_centrale_State::BF_droite_stand_3_State::assFini(MAE_MURPHY & stm) {
+    {
+      stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_rush_zone_centrale_state._chope_stand_3_state);
+#ifdef VERBOSE_STATE_MACHINE
+      puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission rush zone centrale.chope stand 3");
+#endif
+      stm._mae_murphy_state._jeu_state._mission_rush_zone_centrale_state._chope_stand_3_state.create(stm);
+    }
+}
+
+// to manage the event create
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_rush_zone_centrale_State::BF_droite_stand_3_State::create(MAE_MURPHY & stm) {
+  	_doentry(stm);
+}
+
+// perform the 'entry behavior'
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_rush_zone_centrale_State::BF_droite_stand_3_State::_doentry(MAE_MURPHY & stm) {
+#ifdef VERBOSE_STATE_MACHINE
+  	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission rush zone centrale.BF droite stand 3");
+#endif
+  if(master->is_Jaune()){
+  serialPrint(master->getPortSerie(),"S5 -509 587 110 \n");
+  }
+  if(master->is_Vert()){
+  serialPrint(master->getPortSerie(),"S5 509 587 70 \n");
+  }
+}
+
+// returns the state containing the current
+MAE_MURPHY::AnyState * MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_rush_zone_centrale_State::BF_droite_stand_3_State::_upper(MAE_MURPHY & stm) {
+    return &stm._mae_murphy_state._jeu_state._mission_rush_zone_centrale_state;
+}
+
+MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_rush_zone_centrale_State::re_re_ouverture_pince_State::~re_re_ouverture_pince_State() {
+}
+
+// to manage the event pince_ouverte
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_rush_zone_centrale_State::re_re_ouverture_pince_State::pince_ouverte(MAE_MURPHY & stm) {
+    {
+      stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_rush_zone_centrale_state._bf_droite_stand_3_state);
+#ifdef VERBOSE_STATE_MACHINE
+      puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission rush zone centrale.BF droite stand 3");
+#endif
+      stm._mae_murphy_state._jeu_state._mission_rush_zone_centrale_state._bf_droite_stand_3_state.create(stm);
+    }
+}
+
+// to manage the event create
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_rush_zone_centrale_State::re_re_ouverture_pince_State::create(MAE_MURPHY & stm) {
+  	_doentry(stm);
+}
+
+// perform the 'entry behavior'
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_rush_zone_centrale_State::re_re_ouverture_pince_State::_doentry(MAE_MURPHY & stm) {
+#ifdef VERBOSE_STATE_MACHINE
+  	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission rush zone centrale.re re ouverture pince");
+#endif
+  if(master->is_Jaune()){
+  serialPrint(master->getPortSerie(),"G0 \n");
+  }
+  if(master->is_Vert()){
+  serialPrint(master->getPortSerie(),"D0 \n");
+  }
+}
+
+// returns the state containing the current
+MAE_MURPHY::AnyState * MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_rush_zone_centrale_State::re_re_ouverture_pince_State::_upper(MAE_MURPHY & stm) {
+    return &stm._mae_murphy_state._jeu_state._mission_rush_zone_centrale_state;
+}
+
+MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_rush_zone_centrale_State::BF_cap_sur_stand_3_State::~BF_cap_sur_stand_3_State() {
+}
+
+// to manage the event assFini
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_rush_zone_centrale_State::BF_cap_sur_stand_3_State::assFini(MAE_MURPHY & stm) {
+    {
+      stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_rush_zone_centrale_state._re_re_ouverture_pince_state);
+#ifdef VERBOSE_STATE_MACHINE
+      puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission rush zone centrale.re re ouverture pince");
+#endif
+      stm._mae_murphy_state._jeu_state._mission_rush_zone_centrale_state._re_re_ouverture_pince_state.create(stm);
+    }
+}
+
+// to manage the event create
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_rush_zone_centrale_State::BF_cap_sur_stand_3_State::create(MAE_MURPHY & stm) {
+  	_doentry(stm);
+}
+
+// perform the 'entry behavior'
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_rush_zone_centrale_State::BF_cap_sur_stand_3_State::_doentry(MAE_MURPHY & stm) {
+#ifdef VERBOSE_STATE_MACHINE
+  	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission rush zone centrale.BF cap sur stand 3");
+#endif
+  if(master->is_Jaune()){
+  serialPrint(master->getPortSerie(),"S3 110 \n");
+  }
+  if(master->is_Vert()){
+  serialPrint(master->getPortSerie(),"S3 70 \n");
+  }
+}
+
+// returns the state containing the current
+MAE_MURPHY::AnyState * MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_rush_zone_centrale_State::BF_cap_sur_stand_3_State::_upper(MAE_MURPHY & stm) {
+    return &stm._mae_murphy_state._jeu_state._mission_rush_zone_centrale_state;
+}
+
+MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_rush_zone_centrale_State::chope_stand_2_State::~chope_stand_2_State() {
+}
+
+// to manage the event pince_stand_by
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_rush_zone_centrale_State::chope_stand_2_State::pince_stand_by(MAE_MURPHY & stm) {
+    {
+      stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_rush_zone_centrale_state._bf_cap_sur_stand_3_state);
+#ifdef VERBOSE_STATE_MACHINE
+      puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission rush zone centrale.BF cap sur stand 3");
+#endif
+      stm._mae_murphy_state._jeu_state._mission_rush_zone_centrale_state._bf_cap_sur_stand_3_state.create(stm);
+    }
+}
+
+// to manage the event create
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_rush_zone_centrale_State::chope_stand_2_State::create(MAE_MURPHY & stm) {
+  	_doentry(stm);
+}
+
+// perform the 'entry behavior'
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_rush_zone_centrale_State::chope_stand_2_State::_doentry(MAE_MURPHY & stm) {
+#ifdef VERBOSE_STATE_MACHINE
+  	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission rush zone centrale.chope stand 2");
+#endif
+  if(master->is_Jaune()){
+  serialPrint(master->getPortSerie(),"G1 \n");
+  }
+  if(master->is_Vert()){
+  serialPrint(master->getPortSerie(),"D1 \n");
+  }
+}
+
+// returns the state containing the current
+MAE_MURPHY::AnyState * MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_rush_zone_centrale_State::chope_stand_2_State::_upper(MAE_MURPHY & stm) {
+    return &stm._mae_murphy_state._jeu_state._mission_rush_zone_centrale_state;
+}
+
+MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_rush_zone_centrale_State::BF_droite_stand_2_State::~BF_droite_stand_2_State() {
+}
+
+// to manage the event assFini
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_rush_zone_centrale_State::BF_droite_stand_2_State::assFini(MAE_MURPHY & stm) {
+    {
+      stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_rush_zone_centrale_state._chope_stand_2_state);
+#ifdef VERBOSE_STATE_MACHINE
+      puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission rush zone centrale.chope stand 2");
+#endif
+      stm._mae_murphy_state._jeu_state._mission_rush_zone_centrale_state._chope_stand_2_state.create(stm);
+    }
+}
+
+// to manage the event create
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_rush_zone_centrale_State::BF_droite_stand_2_State::create(MAE_MURPHY & stm) {
+  	_doentry(stm);
+}
+
+// perform the 'entry behavior'
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_rush_zone_centrale_State::BF_droite_stand_2_State::_doentry(MAE_MURPHY & stm) {
+#ifdef VERBOSE_STATE_MACHINE
+  	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission rush zone centrale.BF droite stand 2");
+#endif
+  if(master->is_Jaune()){
+  serialPrint(master->getPortSerie(),"S5 -423 357 -122 \n");
+  }
+  if(master->is_Vert()){
+  serialPrint(master->getPortSerie(),"S5 423 357 302 \n");
+  }
+}
+
+// returns the state containing the current
+MAE_MURPHY::AnyState * MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_rush_zone_centrale_State::BF_droite_stand_2_State::_upper(MAE_MURPHY & stm) {
+    return &stm._mae_murphy_state._jeu_state._mission_rush_zone_centrale_state;
+}
+
+MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_rush_zone_centrale_State::re_ouverture_pince_State::~re_ouverture_pince_State() {
+}
+
+// to manage the event pince_ouverte
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_rush_zone_centrale_State::re_ouverture_pince_State::pince_ouverte(MAE_MURPHY & stm) {
+    {
+      stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_rush_zone_centrale_state._bf_droite_stand_2_state);
+#ifdef VERBOSE_STATE_MACHINE
+      puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission rush zone centrale.BF droite stand 2");
+#endif
+      stm._mae_murphy_state._jeu_state._mission_rush_zone_centrale_state._bf_droite_stand_2_state.create(stm);
+    }
+}
+
+// to manage the event create
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_rush_zone_centrale_State::re_ouverture_pince_State::create(MAE_MURPHY & stm) {
+  	_doentry(stm);
+}
+
+// perform the 'entry behavior'
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_rush_zone_centrale_State::re_ouverture_pince_State::_doentry(MAE_MURPHY & stm) {
+#ifdef VERBOSE_STATE_MACHINE
+  	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission rush zone centrale.re ouverture pince");
+#endif
+  if(master->is_Jaune()){
+  serialPrint(master->getPortSerie(),"G0 \n");
+  }
+  if(master->is_Vert()){
+  serialPrint(master->getPortSerie(),"D0 \n");
+  }
+}
+
+// returns the state containing the current
+MAE_MURPHY::AnyState * MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_rush_zone_centrale_State::re_ouverture_pince_State::_upper(MAE_MURPHY & stm) {
+    return &stm._mae_murphy_state._jeu_state._mission_rush_zone_centrale_state;
+}
+
+MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_rush_zone_centrale_State::chope_stand_1_State::~chope_stand_1_State() {
+}
+
+// to manage the event pince_stand_by
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_rush_zone_centrale_State::chope_stand_1_State::pince_stand_by(MAE_MURPHY & stm) {
+    {
+      stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_rush_zone_centrale_state._re_ouverture_pince_state);
+#ifdef VERBOSE_STATE_MACHINE
+      puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission rush zone centrale.re ouverture pince");
+#endif
+      stm._mae_murphy_state._jeu_state._mission_rush_zone_centrale_state._re_ouverture_pince_state.create(stm);
+    }
+}
+
+// to manage the event create
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_rush_zone_centrale_State::chope_stand_1_State::create(MAE_MURPHY & stm) {
+  	_doentry(stm);
+}
+
+// perform the 'entry behavior'
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_rush_zone_centrale_State::chope_stand_1_State::_doentry(MAE_MURPHY & stm) {
+#ifdef VERBOSE_STATE_MACHINE
+  	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission rush zone centrale.chope stand 1");
+#endif
+  if(master->is_Jaune()){
+  serialPrint(master->getPortSerie(),"G1 \n");
+  }
+  if(master->is_Vert()){
+  serialPrint(master->getPortSerie(),"D1 \n");
+  }
+}
+
+// returns the state containing the current
+MAE_MURPHY::AnyState * MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_rush_zone_centrale_State::chope_stand_1_State::_upper(MAE_MURPHY & stm) {
+    return &stm._mae_murphy_state._jeu_state._mission_rush_zone_centrale_state;
+}
+
+MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_rush_zone_centrale_State::BF_droite_stand_1_State::~BF_droite_stand_1_State() {
+}
+
+// to manage the event assFini
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_rush_zone_centrale_State::BF_droite_stand_1_State::assFini(MAE_MURPHY & stm) {
+    {
+      stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_rush_zone_centrale_state._chope_stand_1_state);
+#ifdef VERBOSE_STATE_MACHINE
+      puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission rush zone centrale.chope stand 1");
+#endif
+      stm._mae_murphy_state._jeu_state._mission_rush_zone_centrale_state._chope_stand_1_state.create(stm);
+    }
+}
+
+// to manage the event create
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_rush_zone_centrale_State::BF_droite_stand_1_State::create(MAE_MURPHY & stm) {
+  	_doentry(stm);
+}
+
+// perform the 'entry behavior'
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_rush_zone_centrale_State::BF_droite_stand_1_State::_doentry(MAE_MURPHY & stm) {
+#ifdef VERBOSE_STATE_MACHINE
+  	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission rush zone centrale.BF droite stand 1");
+#endif
+  if(master->is_Jaune()){
+  serialPrint(master->getPortSerie(),"S5 -263 703 -100 \n");
+  }
+  if(master->is_Vert()){
+  serialPrint(master->getPortSerie(),"S5 263 703 280 \n");
+  }
+}
+
+// returns the state containing the current
+MAE_MURPHY::AnyState * MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_rush_zone_centrale_State::BF_droite_stand_1_State::_upper(MAE_MURPHY & stm) {
+    return &stm._mae_murphy_state._jeu_state._mission_rush_zone_centrale_state;
+}
+
+MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_rush_zone_centrale_State::ouverture_pince_State::~ouverture_pince_State() {
+}
+
+// to manage the event pince_ouverte
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_rush_zone_centrale_State::ouverture_pince_State::pince_ouverte(MAE_MURPHY & stm) {
+    {
+      stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_rush_zone_centrale_state._bf_droite_stand_1_state);
+#ifdef VERBOSE_STATE_MACHINE
+      puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission rush zone centrale.BF droite stand 1");
+#endif
+      stm._mae_murphy_state._jeu_state._mission_rush_zone_centrale_state._bf_droite_stand_1_state.create(stm);
+    }
+}
+
+// to manage the event create
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_rush_zone_centrale_State::ouverture_pince_State::create(MAE_MURPHY & stm) {
+  	_doentry(stm);
+}
+
+// perform the 'entry behavior'
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_rush_zone_centrale_State::ouverture_pince_State::_doentry(MAE_MURPHY & stm) {
+#ifdef VERBOSE_STATE_MACHINE
+  	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission rush zone centrale.ouverture pince");
+#endif
+  // pince cote escalier
+  if(master->is_Jaune()){
+  serialPrint(master->getPortSerie(),"G0 \n");
+  }
+  if(master->is_Vert()){
+  serialPrint(master->getPortSerie(),"D0 \n");
+  }
+}
+
+// returns the state containing the current
+MAE_MURPHY::AnyState * MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_rush_zone_centrale_State::ouverture_pince_State::_upper(MAE_MURPHY & stm) {
+    return &stm._mae_murphy_state._jeu_state._mission_rush_zone_centrale_state;
 }
 
 MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_rush_zone_centrale_State::~mission_rush_zone_centrale_State() {
@@ -2863,7 +4106,11 @@ MAE_MURPHY::AnyState * MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_rush_zon
 void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_rush_zone_centrale_State::create(MAE_MURPHY & stm) {
     _doentry(stm);
     {
-      stm._mae_murphy_state._jeu_state._mission_rush_zone_centrale_state._exit15(stm);
+      stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_rush_zone_centrale_state._waypoint_init_state);
+#ifdef VERBOSE_STATE_MACHINE
+      puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission rush zone centrale.waypoint init");
+#endif
+      stm._mae_murphy_state._jeu_state._mission_rush_zone_centrale_state._waypoint_init_state.create(stm);
     }
 }
 
@@ -2876,7 +4123,7 @@ void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_rush_zone_centrale_State::
 }
 
 // to manage the exit point 'sortie zone centrale', defined because probably shared
-void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_rush_zone_centrale_State::_exit15(MAE_MURPHY & stm) {
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_rush_zone_centrale_State::_exit17(MAE_MURPHY & stm) {
     {
       stm._set_currentState(stm._mae_murphy_state._jeu_state._decision_state);
 #ifdef VERBOSE_STATE_MACHINE
@@ -2919,7 +4166,7 @@ bool MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_claps_State::chope_du_stan
 #ifdef VERBOSE_STATE_MACHINE
       puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission claps.chope du stand sur la route");
 #endif
-      stm._mae_murphy_state._jeu_state._mission_claps_state._chope_du_stand_sur_la_route_state._exit9(stm);
+      stm._mae_murphy_state._jeu_state._mission_claps_state._chope_du_stand_sur_la_route_state._exit11(stm);
       return (bool) 1;
     }
 }
@@ -3107,8 +4354,16 @@ MAE_MURPHY::AnyState * MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_claps_St
     return &stm._mae_murphy_state._jeu_state._mission_claps_state;
 }
 
+// perform the 'entry behavior'
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_claps_State::chope_du_stand_sur_la_route_State::_doentry(MAE_MURPHY & stm) {
+#ifdef VERBOSE_STATE_MACHINE
+  	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission claps.chope du stand sur la route");
+#endif
+  // chope le stand devant la zone de depart
+}
+
 // to manage the exit point 'sortie stand', defined because probably shared
-void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_claps_State::chope_du_stand_sur_la_route_State::_exit9(MAE_MURPHY & stm) {
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_claps_State::chope_du_stand_sur_la_route_State::_exit11(MAE_MURPHY & stm) {
     {
       stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_claps_state._chope_du_coin_state);
 #ifdef VERBOSE_STATE_MACHINE
@@ -3116,14 +4371,6 @@ void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_claps_State::chope_du_stan
 #endif
       stm._mae_murphy_state._jeu_state._mission_claps_state._chope_du_coin_state.create(stm);
     }
-}
-
-// perform the 'entry behavior'
-void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_claps_State::chope_du_stand_sur_la_route_State::_doentry(MAE_MURPHY & stm) {
-#ifdef VERBOSE_STATE_MACHINE
-  	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission claps.chope du stand sur la route");
-#endif
-  // chope le stand devant la zone de depart
 }
 
 MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_claps_State::sortie_de_zone_State::BF_cap_State::~BF_cap_State() {
@@ -3159,7 +4406,7 @@ bool MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_claps_State::sortie_de_zon
 #ifdef VERBOSE_STATE_MACHINE
       puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission claps.sortie de zone");
 #endif
-      stm._mae_murphy_state._jeu_state._mission_claps_state._sortie_de_zone_state._exit13(stm);
+      stm._mae_murphy_state._jeu_state._mission_claps_state._sortie_de_zone_state._exit15(stm);
       return (bool) 1;
     }
 }
@@ -3188,20 +4435,20 @@ void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_claps_State::sortie_de_zon
     }
 }
 
+// returns the state containing the current
+MAE_MURPHY::AnyState * MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_claps_State::sortie_de_zone_State::_upper(MAE_MURPHY & stm) {
+    return &stm._mae_murphy_state._jeu_state._mission_claps_state;
+}
+
 // to manage the exit point 'sortie', defined because probably shared
-void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_claps_State::sortie_de_zone_State::_exit13(MAE_MURPHY & stm) {
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_claps_State::sortie_de_zone_State::_exit15(MAE_MURPHY & stm) {
     {
       stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_claps_state);
 #ifdef VERBOSE_STATE_MACHINE
       puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission claps");
 #endif
-      stm._mae_murphy_state._jeu_state._mission_claps_state._exit14(stm);
+      stm._mae_murphy_state._jeu_state._mission_claps_state._exit16(stm);
     }
-}
-
-// returns the state containing the current
-MAE_MURPHY::AnyState * MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_claps_State::sortie_de_zone_State::_upper(MAE_MURPHY & stm) {
-    return &stm._mae_murphy_state._jeu_state._mission_claps_state;
 }
 
 MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_claps_State::waypoint_initial_State::~waypoint_initial_State() {
@@ -3270,7 +4517,7 @@ bool MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_claps_State::chope_stand_p
 #ifdef VERBOSE_STATE_MACHINE
       puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission claps.chope stand pres estrade");
 #endif
-      stm._mae_murphy_state._jeu_state._mission_claps_state._chope_stand_pres_estrade_state._exit12(stm);
+      stm._mae_murphy_state._jeu_state._mission_claps_state._chope_stand_pres_estrade_state._exit14(stm);
       return (bool) 1;
     }
 }
@@ -3353,8 +4600,16 @@ MAE_MURPHY::AnyState * MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_claps_St
     return &stm._mae_murphy_state._jeu_state._mission_claps_state;
 }
 
+// perform the 'entry behavior'
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_claps_State::chope_stand_pres_estrade_State::_doentry(MAE_MURPHY & stm) {
+#ifdef VERBOSE_STATE_MACHINE
+  	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission claps.chope stand pres estrade");
+#endif
+  // chope le stand pres de l'estrade
+}
+
 // to manage the exit point 'sortie stand estrade', defined because probably shared
-void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_claps_State::chope_stand_pres_estrade_State::_exit12(MAE_MURPHY & stm) {
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_claps_State::chope_stand_pres_estrade_State::_exit14(MAE_MURPHY & stm) {
     {
       stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_claps_state._sortie_de_zone_state);
 #ifdef VERBOSE_STATE_MACHINE
@@ -3362,14 +4617,6 @@ void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_claps_State::chope_stand_p
 #endif
       stm._mae_murphy_state._jeu_state._mission_claps_state._sortie_de_zone_state.create(stm);
     }
-}
-
-// perform the 'entry behavior'
-void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_claps_State::chope_stand_pres_estrade_State::_doentry(MAE_MURPHY & stm) {
-#ifdef VERBOSE_STATE_MACHINE
-  	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission claps.chope stand pres estrade");
-#endif
-  // chope le stand pres de l'estrade
 }
 
 MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_claps_State::claps_estrade_State::BF_cap_State::~BF_cap_State() {
@@ -3405,7 +4652,7 @@ bool MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_claps_State::claps_estrade
 #ifdef VERBOSE_STATE_MACHINE
       puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission claps.claps estrade");
 #endif
-      stm._mae_murphy_state._jeu_state._mission_claps_state._claps_estrade_state._exit11(stm);
+      stm._mae_murphy_state._jeu_state._mission_claps_state._claps_estrade_state._exit13(stm);
       return (bool) 1;
     }
 }
@@ -3459,8 +4706,21 @@ void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_claps_State::claps_estrade
     }
 }
 
+// perform the 'entry behavior'
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_claps_State::claps_estrade_State::_doentry(MAE_MURPHY & stm) {
+#ifdef VERBOSE_STATE_MACHINE
+  	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission claps.claps estrade");
+#endif
+  // deboit le claps vers l'estrade
+}
+
+// returns the state containing the current
+MAE_MURPHY::AnyState * MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_claps_State::claps_estrade_State::_upper(MAE_MURPHY & stm) {
+    return &stm._mae_murphy_state._jeu_state._mission_claps_state;
+}
+
 // to manage the exit point 'sortie claps', defined because probably shared
-void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_claps_State::claps_estrade_State::_exit11(MAE_MURPHY & stm) {
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_claps_State::claps_estrade_State::_exit13(MAE_MURPHY & stm) {
     {
       stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_claps_state);
 #ifdef VERBOSE_STATE_MACHINE
@@ -3481,19 +4741,6 @@ void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_claps_State::claps_estrade
         stm._mae_murphy_state._jeu_state._mission_claps_state._chope_stand_pres_estrade_state.create(stm);
       }
     }
-}
-
-// perform the 'entry behavior'
-void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_claps_State::claps_estrade_State::_doentry(MAE_MURPHY & stm) {
-#ifdef VERBOSE_STATE_MACHINE
-  	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission claps.claps estrade");
-#endif
-  // deboit le claps vers l'estrade
-}
-
-// returns the state containing the current
-MAE_MURPHY::AnyState * MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_claps_State::claps_estrade_State::_upper(MAE_MURPHY & stm) {
-    return &stm._mae_murphy_state._jeu_state._mission_claps_state;
 }
 
 MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_claps_State::chope_du_coin_State::ouverture_de_pince_State::~ouverture_de_pince_State() {
@@ -3524,7 +4771,7 @@ void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_claps_State::chope_du_coin
 #ifdef VERBOSE_STATE_MACHINE
       puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission claps.chope du coin");
 #endif
-      stm._mae_murphy_state._jeu_state._mission_claps_state._chope_du_coin_state._exit10(stm);
+      stm._mae_murphy_state._jeu_state._mission_claps_state._chope_du_coin_state._exit12(stm);
     }
 }
 
@@ -3655,17 +4902,6 @@ void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_claps_State::chope_du_coin
     }
 }
 
-// to manage the exit point 'sortie coin', defined because probably shared
-void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_claps_State::chope_du_coin_State::_exit10(MAE_MURPHY & stm) {
-    {
-      stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_claps_state._claps_estrade_state);
-#ifdef VERBOSE_STATE_MACHINE
-      puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission claps.claps estrade");
-#endif
-      stm._mae_murphy_state._jeu_state._mission_claps_state._claps_estrade_state.create(stm);
-    }
-}
-
 // perform the 'entry behavior'
 void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_claps_State::chope_du_coin_State::_doentry(MAE_MURPHY & stm) {
 #ifdef VERBOSE_STATE_MACHINE
@@ -3679,6 +4915,17 @@ void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_claps_State::chope_du_coin
 // returns the state containing the current
 MAE_MURPHY::AnyState * MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_claps_State::chope_du_coin_State::_upper(MAE_MURPHY & stm) {
     return &stm._mae_murphy_state._jeu_state._mission_claps_state;
+}
+
+// to manage the exit point 'sortie coin', defined because probably shared
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_claps_State::chope_du_coin_State::_exit12(MAE_MURPHY & stm) {
+    {
+      stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_claps_state._claps_estrade_state);
+#ifdef VERBOSE_STATE_MACHINE
+      puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission claps.claps estrade");
+#endif
+      stm._mae_murphy_state._jeu_state._mission_claps_state._claps_estrade_state.create(stm);
+    }
 }
 
 MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_claps_State::~mission_claps_State() {
@@ -3710,7 +4957,7 @@ MAE_MURPHY::AnyState * MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_claps_St
 }
 
 // to manage the exit point 'fin claps', defined because probably shared
-void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_claps_State::_exit14(MAE_MURPHY & stm) {
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_claps_State::_exit16(MAE_MURPHY & stm) {
     {
       stm._set_currentState(stm._mae_murphy_state._jeu_state._decision_state);
 #ifdef VERBOSE_STATE_MACHINE
@@ -3766,7 +5013,7 @@ void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_attrap_balle_et_chiage_Sta
 #ifdef VERBOSE_STATE_MACHINE
       puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission attrap balle et chiage.point de depart");
 #endif
-      stm._mae_murphy_state._jeu_state._mission_attrap_balle_et_chiage_state._point_de_depart_state._exit7(stm);
+      stm._mae_murphy_state._jeu_state._mission_attrap_balle_et_chiage_state._point_de_depart_state._exit9(stm);
     }
 }
 
@@ -3877,7 +5124,7 @@ void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_attrap_balle_et_chiage_Sta
 }
 
 // to manage the exit point 'sortie waypoint', defined because probably shared
-void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_attrap_balle_et_chiage_State::point_de_depart_State::_exit7(MAE_MURPHY & stm) {
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_attrap_balle_et_chiage_State::point_de_depart_State::_exit9(MAE_MURPHY & stm) {
 }
 
 MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_attrap_balle_et_chiage_State::sortie_State::~sortie_State() {
@@ -3889,7 +5136,7 @@ bool MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_attrap_balle_et_chiage_Sta
 #ifdef VERBOSE_STATE_MACHINE
       puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission attrap balle et chiage");
 #endif
-      stm._mae_murphy_state._jeu_state._mission_attrap_balle_et_chiage_state._exit8(stm);
+      stm._mae_murphy_state._jeu_state._mission_attrap_balle_et_chiage_state._exit10(stm);
       return (bool) 1;
     }
 }
@@ -4217,7 +5464,474 @@ MAE_MURPHY::AnyState * MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_attrap_b
 }
 
 // to manage the exit point 'sortie mission drop', defined because probably shared
-void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_attrap_balle_et_chiage_State::_exit8(MAE_MURPHY & stm) {
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_attrap_balle_et_chiage_State::_exit10(MAE_MURPHY & stm) {
+    {
+      stm._set_currentState(stm._mae_murphy_state._jeu_state._decision_state);
+#ifdef VERBOSE_STATE_MACHINE
+      puts("DEBUG : current state is now .MAE_MURPHY.Jeu.decision");
+#endif
+      stm._mae_murphy_state._jeu_state._decision_state.create(stm);
+    }
+}
+
+MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_tour_estrade_State::waypoint_init_State::BF_cap_to_mission_State::~BF_cap_to_mission_State() {
+}
+
+// to manage the event assFini
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_tour_estrade_State::waypoint_init_State::BF_cap_to_mission_State::assFini(MAE_MURPHY & stm) {
+    {
+      stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_depot_tour_estrade_state._waypoint_init_state._bf_droite_to_mission_state);
+#ifdef VERBOSE_STATE_MACHINE
+      puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission depot tour estrade.waypoint init.BF droite to mission");
+#endif
+      stm._mae_murphy_state._jeu_state._mission_depot_tour_estrade_state._waypoint_init_state._bf_droite_to_mission_state.create(stm);
+    }
+}
+
+// to manage the event create
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_tour_estrade_State::waypoint_init_State::BF_cap_to_mission_State::create(MAE_MURPHY & stm) {
+  	_doentry(stm);
+}
+
+// perform the 'entry behavior'
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_tour_estrade_State::waypoint_init_State::BF_cap_to_mission_State::_doentry(MAE_MURPHY & stm) {
+#ifdef VERBOSE_STATE_MACHINE
+  	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission depot tour estrade.waypoint init.BF cap to mission");
+#endif
+  // BCAP
+  string ordre;
+  ordre = "S3 " + master->get_gestionnaire()->get_cap_to_mission() + " \n";
+  serialPrint(master->getPortSerie(),ordre);
+  cout<<"ORIENTATION VERS MISSION : "<<ordre<<endl;
+}
+
+// returns the state containing the current
+MAE_MURPHY::AnyState * MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_tour_estrade_State::waypoint_init_State::BF_cap_to_mission_State::_upper(MAE_MURPHY & stm) {
+    return &stm._mae_murphy_state._jeu_state._mission_depot_tour_estrade_state._waypoint_init_state;
+}
+
+MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_tour_estrade_State::waypoint_init_State::BF_cap_mission_State::~BF_cap_mission_State() {
+}
+
+// to manage the event assFini
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_tour_estrade_State::waypoint_init_State::BF_cap_mission_State::assFini(MAE_MURPHY & stm) {
+    {
+      stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_depot_tour_estrade_state._waypoint_init_state);
+#ifdef VERBOSE_STATE_MACHINE
+      puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission depot tour estrade.waypoint init");
+#endif
+      stm._mae_murphy_state._jeu_state._mission_depot_tour_estrade_state._waypoint_init_state._exit1(stm);
+    }
+}
+
+// to manage the event create
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_tour_estrade_State::waypoint_init_State::BF_cap_mission_State::create(MAE_MURPHY & stm) {
+  	_doentry(stm);
+}
+
+// perform the 'entry behavior'
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_tour_estrade_State::waypoint_init_State::BF_cap_mission_State::_doentry(MAE_MURPHY & stm) {
+#ifdef VERBOSE_STATE_MACHINE
+  	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission depot tour estrade.waypoint init.BF cap mission");
+#endif
+  // BF Droite vers objectif
+  string ordre;
+  ordre = "S3 " 
+  	+ master->get_gestionnaire()->get_cap_mission() 
+  	+ " \n";
+  serialPrint(master->getPortSerie(),ordre); 
+  cout<<"ORIENTATION VERS MISSION : "<<ordre<<endl;
+}
+
+// returns the state containing the current
+MAE_MURPHY::AnyState * MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_tour_estrade_State::waypoint_init_State::BF_cap_mission_State::_upper(MAE_MURPHY & stm) {
+    return &stm._mae_murphy_state._jeu_state._mission_depot_tour_estrade_state._waypoint_init_state;
+}
+
+MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_tour_estrade_State::waypoint_init_State::BF_droite_to_mission_State::~BF_droite_to_mission_State() {
+}
+
+// to manage the event assFini
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_tour_estrade_State::waypoint_init_State::BF_droite_to_mission_State::assFini(MAE_MURPHY & stm) {
+    {
+      stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_depot_tour_estrade_state._waypoint_init_state._bf_cap_mission_state);
+#ifdef VERBOSE_STATE_MACHINE
+      puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission depot tour estrade.waypoint init.BF cap mission");
+#endif
+      stm._mae_murphy_state._jeu_state._mission_depot_tour_estrade_state._waypoint_init_state._bf_cap_mission_state.create(stm);
+    }
+}
+
+// to manage the event create
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_tour_estrade_State::waypoint_init_State::BF_droite_to_mission_State::create(MAE_MURPHY & stm) {
+  	_doentry(stm);
+}
+
+// perform the 'entry behavior'
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_tour_estrade_State::waypoint_init_State::BF_droite_to_mission_State::_doentry(MAE_MURPHY & stm) {
+#ifdef VERBOSE_STATE_MACHINE
+  	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission depot tour estrade.waypoint init.BF droite to mission");
+#endif
+  // BF Droite vers objectif
+  string ordre;
+  ordre = "S5 "
+  	+ master->get_gestionnaire()->get_x_mission() 
+  	+ " "
+  	+ master->get_gestionnaire()->get_y_mission() 
+  	+ " "
+  	+ master->get_gestionnaire()->get_cap_to_mission() 
+  	+ " \n";
+  serialPrint(master->getPortSerie(),ordre); 
+  cout<<"BF droite vers MISSION : "<<ordre<<endl;
+}
+
+// returns the state containing the current
+MAE_MURPHY::AnyState * MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_tour_estrade_State::waypoint_init_State::BF_droite_to_mission_State::_upper(MAE_MURPHY & stm) {
+    return &stm._mae_murphy_state._jeu_state._mission_depot_tour_estrade_state._waypoint_init_state;
+}
+
+MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_tour_estrade_State::waypoint_init_State::~waypoint_init_State() {
+}
+
+// to manage the event create
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_tour_estrade_State::waypoint_init_State::create(MAE_MURPHY & stm) {
+    _doentry(stm);
+    {
+      stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_depot_tour_estrade_state._waypoint_init_state._bf_cap_to_mission_state);
+#ifdef VERBOSE_STATE_MACHINE
+      puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission depot tour estrade.waypoint init.BF cap to mission");
+#endif
+      stm._mae_murphy_state._jeu_state._mission_depot_tour_estrade_state._waypoint_init_state._bf_cap_to_mission_state.create(stm);
+    }
+}
+
+// returns the state containing the current
+MAE_MURPHY::AnyState * MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_tour_estrade_State::waypoint_init_State::_upper(MAE_MURPHY & stm) {
+    return &stm._mae_murphy_state._jeu_state._mission_depot_tour_estrade_state;
+}
+
+// perform the 'entry behavior'
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_tour_estrade_State::waypoint_init_State::_doentry(MAE_MURPHY & stm) {
+#ifdef VERBOSE_STATE_MACHINE
+  	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission depot tour estrade.waypoint init");
+#endif
+  // rejoindre un point initial
+}
+
+// to manage the exit point 'sortie', defined because probably shared
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_tour_estrade_State::waypoint_init_State::_exit1(MAE_MURPHY & stm) {
+    {
+      stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_depot_tour_estrade_state._preparation_state);
+#ifdef VERBOSE_STATE_MACHINE
+      puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission depot tour estrade.preparation");
+#endif
+      stm._mae_murphy_state._jeu_state._mission_depot_tour_estrade_state._preparation_state.create(stm);
+    }
+}
+
+MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_tour_estrade_State::BF_Cap_State::~BF_Cap_State() {
+}
+
+// to manage the event assFini
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_tour_estrade_State::BF_Cap_State::assFini(MAE_MURPHY & stm) {
+    {
+      stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_depot_tour_estrade_state);
+#ifdef VERBOSE_STATE_MACHINE
+      puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission depot tour estrade");
+#endif
+      stm._mae_murphy_state._jeu_state._mission_depot_tour_estrade_state._exit2(stm);
+    }
+}
+
+// to manage the event create
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_tour_estrade_State::BF_Cap_State::create(MAE_MURPHY & stm) {
+  	_doentry(stm);
+}
+
+// perform the 'entry behavior'
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_tour_estrade_State::BF_Cap_State::_doentry(MAE_MURPHY & stm) {
+#ifdef VERBOSE_STATE_MACHINE
+  	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission depot tour estrade.BF Cap");
+#endif
+  serialPrint(master->getPortSerie(),"S3 90 \n");
+}
+
+// returns the state containing the current
+MAE_MURPHY::AnyState * MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_tour_estrade_State::BF_Cap_State::_upper(MAE_MURPHY & stm) {
+    return &stm._mae_murphy_state._jeu_state._mission_depot_tour_estrade_state;
+}
+
+MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_tour_estrade_State::replis_des_pinces_State::~replis_des_pinces_State() {
+}
+
+// to manage the event pince_range
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_tour_estrade_State::replis_des_pinces_State::pince_range(MAE_MURPHY & stm) {
+    {
+      stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_depot_tour_estrade_state._bf_cap_state);
+#ifdef VERBOSE_STATE_MACHINE
+      puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission depot tour estrade.BF Cap");
+#endif
+      stm._mae_murphy_state._jeu_state._mission_depot_tour_estrade_state._bf_cap_state.create(stm);
+    }
+}
+
+// to manage the event create
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_tour_estrade_State::replis_des_pinces_State::create(MAE_MURPHY & stm) {
+  	_doentry(stm);
+}
+
+// perform the 'entry behavior'
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_tour_estrade_State::replis_des_pinces_State::_doentry(MAE_MURPHY & stm) {
+#ifdef VERBOSE_STATE_MACHINE
+  	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission depot tour estrade.replis des pinces");
+#endif
+  // replis des pinces
+  serialPrint(master->getPortSerie(),"G6 \n");
+  serialPrint(master->getPortSerie(),"D6 \n");
+  master->get_gestionnaire_mission()->get_mission_depot_tour_estrade()->mission_remplie();
+}
+
+// returns the state containing the current
+MAE_MURPHY::AnyState * MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_tour_estrade_State::replis_des_pinces_State::_upper(MAE_MURPHY & stm) {
+    return &stm._mae_murphy_state._jeu_state._mission_depot_tour_estrade_state;
+}
+
+MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_tour_estrade_State::set_Y_CAP_State::~set_Y_CAP_State() {
+}
+
+bool MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_tour_estrade_State::set_Y_CAP_State::_completion(MAE_MURPHY & stm) {
+    {
+      stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_depot_tour_estrade_state._depot_state);
+#ifdef VERBOSE_STATE_MACHINE
+      puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission depot tour estrade.depot");
+#endif
+      stm._mae_murphy_state._jeu_state._mission_depot_tour_estrade_state._depot_state.create(stm);
+      return (bool) 1;
+    }
+}
+
+// to manage the event create
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_tour_estrade_State::set_Y_CAP_State::create(MAE_MURPHY & stm) {
+  	_doentry(stm);
+  	_completion(stm);
+}
+
+// perform the 'entry behavior'
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_tour_estrade_State::set_Y_CAP_State::_doentry(MAE_MURPHY & stm) {
+#ifdef VERBOSE_STATE_MACHINE
+  	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission depot tour estrade.set Y CAP");
+#endif
+  // recup les coords du master avec le S1 (pour le x)
+  serialPrint(master->getPortSerie(),"S0 ?? ?? -90 \n");
+}
+
+// returns the state containing the current
+MAE_MURPHY::AnyState * MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_tour_estrade_State::set_Y_CAP_State::_upper(MAE_MURPHY & stm) {
+    return &stm._mae_murphy_state._jeu_state._mission_depot_tour_estrade_state;
+}
+
+MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_tour_estrade_State::avance_State::~avance_State() {
+}
+
+// to manage the event blocage
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_tour_estrade_State::avance_State::blocage(MAE_MURPHY & stm) {
+    {
+      stm._mae_murphy_state._jeu_state._mission_depot_tour_estrade_state._avance_state._doexit(stm);
+      stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_depot_tour_estrade_state._set_y_cap_state);
+#ifdef VERBOSE_STATE_MACHINE
+      puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission depot tour estrade.set Y CAP");
+#endif
+      stm._mae_murphy_state._jeu_state._mission_depot_tour_estrade_state._set_y_cap_state.create(stm);
+    }
+}
+
+// to manage the event create
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_tour_estrade_State::avance_State::create(MAE_MURPHY & stm) {
+  	_doentry(stm);
+}
+
+// perform the 'entry behavior'
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_tour_estrade_State::avance_State::_doentry(MAE_MURPHY & stm) {
+#ifdef VERBOSE_STATE_MACHINE
+  	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission depot tour estrade.avance");
+#endif
+  // jusqu'au blocage
+  serialPrint(master->getPortSerie(),"S4 350 \n");
+}
+
+// perform the 'exit behavior'
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_tour_estrade_State::avance_State::_doexit(MAE_MURPHY & stm) {
+#ifdef VERBOSE_STATE_MACHINE
+  	puts("DEBUG : execute exit behavior of .MAE_MURPHY.Jeu.mission depot tour estrade.avance");
+#endif
+  serialPrint(master->getPortSerie(),"S1 \n");
+}
+
+// returns the state containing the current
+MAE_MURPHY::AnyState * MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_tour_estrade_State::avance_State::_upper(MAE_MURPHY & stm) {
+    return &stm._mae_murphy_state._jeu_state._mission_depot_tour_estrade_state;
+}
+
+MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_tour_estrade_State::preparation_State::~preparation_State() {
+}
+
+// to manage the event create
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_tour_estrade_State::preparation_State::create(MAE_MURPHY & stm) {
+  	_doentry(stm);
+}
+
+// returns the state containing the current
+MAE_MURPHY::AnyState * MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_tour_estrade_State::preparation_State::_upper(MAE_MURPHY & stm) {
+    return &stm._mae_murphy_state._jeu_state._mission_depot_tour_estrade_state;
+}
+
+// to manage the event pince_ready_to_drop
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_tour_estrade_State::preparation_State::pince_ready_to_drop(MAE_MURPHY & stm) {
+    {
+      stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_depot_tour_estrade_state._avance_state);
+#ifdef VERBOSE_STATE_MACHINE
+      puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission depot tour estrade.avance");
+#endif
+      stm._mae_murphy_state._jeu_state._mission_depot_tour_estrade_state._avance_state.create(stm);
+    }
+}
+
+// perform the 'entry behavior'
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_tour_estrade_State::preparation_State::_doentry(MAE_MURPHY & stm) {
+#ifdef VERBOSE_STATE_MACHINE
+  	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission depot tour estrade.preparation");
+#endif
+  // preparation des piles a poser
+  if(master->is_Jaune()){
+  	serialPrint(master->getPortSerie(),"G8 \n"); // objectif de pose sur estrade
+  	serialPrint(master->getPortSerie(),"G4 \n"); // preparation de la pose
+  	if(master->get_gestionnaire_mission()->get_mission_depot_tour_estrade()->is_depot_double())
+  	{
+  		serialPrint(master->getPortSerie(),"D8 \n");
+  		serialPrint(master->getPortSerie(),"D4 \n");
+  	}
+  }
+  if(master->is_Vert()){
+  	serialPrint(master->getPortSerie(),"D8 \n");
+  	serialPrint(master->getPortSerie(),"D4 \n");
+  	if(master->get_gestionnaire_mission()->get_mission_depot_tour_estrade()->is_depot_double())
+  	{
+  		serialPrint(master->getPortSerie(),"G8 \n");
+  		serialPrint(master->getPortSerie(),"G4 \n");
+  	}
+  }
+}
+
+MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_tour_estrade_State::recule_doucement_State::~recule_doucement_State() {
+}
+
+// to manage the event assFini
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_tour_estrade_State::recule_doucement_State::assFini(MAE_MURPHY & stm) {
+    {
+      stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_depot_tour_estrade_state._replis_des_pinces_state);
+#ifdef VERBOSE_STATE_MACHINE
+      puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission depot tour estrade.replis des pinces");
+#endif
+      stm._mae_murphy_state._jeu_state._mission_depot_tour_estrade_state._replis_des_pinces_state.create(stm);
+    }
+}
+
+// to manage the event create
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_tour_estrade_State::recule_doucement_State::create(MAE_MURPHY & stm) {
+  	_doentry(stm);
+}
+
+// perform the 'entry behavior'
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_tour_estrade_State::recule_doucement_State::_doentry(MAE_MURPHY & stm) {
+#ifdef VERBOSE_STATE_MACHINE
+  	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission depot tour estrade.recule doucement");
+#endif
+  serialPrint(master->getPortSerie(),"S4 -250 \n");
+  
+}
+
+// returns the state containing the current
+MAE_MURPHY::AnyState * MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_tour_estrade_State::recule_doucement_State::_upper(MAE_MURPHY & stm) {
+    return &stm._mae_murphy_state._jeu_state._mission_depot_tour_estrade_state;
+}
+
+MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_tour_estrade_State::depot_State::~depot_State() {
+}
+
+// to manage the event pince_lache
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_tour_estrade_State::depot_State::pince_lache(MAE_MURPHY & stm) {
+    {
+      stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_depot_tour_estrade_state._recule_doucement_state);
+#ifdef VERBOSE_STATE_MACHINE
+      puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission depot tour estrade.recule doucement");
+#endif
+      stm._mae_murphy_state._jeu_state._mission_depot_tour_estrade_state._recule_doucement_state.create(stm);
+    }
+}
+
+// to manage the event create
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_tour_estrade_State::depot_State::create(MAE_MURPHY & stm) {
+  	_doentry(stm);
+}
+
+// perform the 'entry behavior'
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_tour_estrade_State::depot_State::_doentry(MAE_MURPHY & stm) {
+#ifdef VERBOSE_STATE_MACHINE
+  	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission depot tour estrade.depot");
+#endif
+  // preparation des piles a poser
+  if(master->is_Jaune()){
+  	serialPrint(master->getPortSerie(),"G5 \n"); // lache
+  	if(master->get_gestionnaire_mission()->get_mission_depot_tour_estrade()->is_depot_double())
+  	{
+  		serialPrint(master->getPortSerie(),"D5 \n");
+  	}
+  }
+  if(master->is_Vert()){
+  	serialPrint(master->getPortSerie(),"D5 \n");
+  	if(master->get_gestionnaire_mission()->get_mission_depot_tour_estrade()->is_depot_double())
+  	{
+  		serialPrint(master->getPortSerie(),"G5 \n");
+  	}
+  }
+}
+
+// returns the state containing the current
+MAE_MURPHY::AnyState * MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_tour_estrade_State::depot_State::_upper(MAE_MURPHY & stm) {
+    return &stm._mae_murphy_state._jeu_state._mission_depot_tour_estrade_state;
+}
+
+MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_tour_estrade_State::~mission_depot_tour_estrade_State() {
+}
+
+// to manage the event create
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_tour_estrade_State::create(MAE_MURPHY & stm) {
+    _doentry(stm);
+    {
+      stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_depot_tour_estrade_state._waypoint_init_state);
+#ifdef VERBOSE_STATE_MACHINE
+      puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission depot tour estrade.waypoint init");
+#endif
+      stm._mae_murphy_state._jeu_state._mission_depot_tour_estrade_state._waypoint_init_state.create(stm);
+    }
+}
+
+// returns the state containing the current
+MAE_MURPHY::AnyState * MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_tour_estrade_State::_upper(MAE_MURPHY & stm) {
+    return &stm._mae_murphy_state._jeu_state;
+}
+
+// perform the 'entry behavior'
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_tour_estrade_State::_doentry(MAE_MURPHY & stm) {
+#ifdef VERBOSE_STATE_MACHINE
+  	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission depot tour estrade");
+#endif
+  // depose une ou plusieurs pile sur l'estrade
+  // normalement une seule sinon risque de faire tomber celle adverse
+}
+
+// to manage the exit point 'sortie', defined because probably shared
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_tour_estrade_State::_exit2(MAE_MURPHY & stm) {
     {
       stm._set_currentState(stm._mae_murphy_state._jeu_state._decision_state);
 #ifdef VERBOSE_STATE_MACHINE
@@ -4276,6 +5990,17 @@ MAE_MURPHY::AnyState * MAE_MURPHY::MAE_MURPHY_State::Jeu_State::_upper(MAE_MURPH
     return &stm._mae_murphy_state;
 }
 
+// to manage the event end_game
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::end_game(MAE_MURPHY & stm) {
+    {
+      stm._set_currentState(stm._mae_murphy_state._game_over_state);
+#ifdef VERBOSE_STATE_MACHINE
+      puts("DEBUG : current state is now .MAE_MURPHY.Game Over");
+#endif
+      stm._mae_murphy_state._game_over_state.create(stm);
+    }
+}
+
 MAE_MURPHY::MAE_MURPHY_State::~MAE_MURPHY_State() {
 }
 
@@ -4307,17 +6032,6 @@ bool MAE_MURPHY::create() {
   if (_current_state == 0)
   (_current_state = &(*this)._mae_murphy_state)->create(*this);
   return (_current_state != 0);
-}
-
-// the operation you call to signal the event strat_mis
-bool MAE_MURPHY::strat_mis() {
-    if (_current_state != 0) {
-#ifdef VERBOSE_STATE_MACHINE
-      puts("DEBUG : fire trigger strat_mis");
-#endif
-      _current_state->strat_mis(*this);
-    }
-    return (_current_state != 0);
 }
 
 // the operation you call to signal the event evitement
@@ -4516,6 +6230,61 @@ bool MAE_MURPHY::mission_depot_tour_estrade() {
       puts("DEBUG : fire trigger mission_depot_tour_estrade");
 #endif
       _current_state->mission_depot_tour_estrade(*this);
+    }
+    return (_current_state != 0);
+}
+
+// the operation you call to signal the event start_mis
+bool MAE_MURPHY::start_mis() {
+    if (_current_state != 0) {
+#ifdef VERBOSE_STATE_MACHINE
+      puts("DEBUG : fire trigger start_mis");
+#endif
+      _current_state->start_mis(*this);
+    }
+    return (_current_state != 0);
+}
+
+// the operation you call to signal the event pince_lache
+bool MAE_MURPHY::pince_lache() {
+    if (_current_state != 0) {
+#ifdef VERBOSE_STATE_MACHINE
+      puts("DEBUG : fire trigger pince_lache");
+#endif
+      _current_state->pince_lache(*this);
+    }
+    return (_current_state != 0);
+}
+
+// the operation you call to signal the event pince_ready_to_drop
+bool MAE_MURPHY::pince_ready_to_drop() {
+    if (_current_state != 0) {
+#ifdef VERBOSE_STATE_MACHINE
+      puts("DEBUG : fire trigger pince_ready_to_drop");
+#endif
+      _current_state->pince_ready_to_drop(*this);
+    }
+    return (_current_state != 0);
+}
+
+// the operation you call to signal the event pince_range
+bool MAE_MURPHY::pince_range() {
+    if (_current_state != 0) {
+#ifdef VERBOSE_STATE_MACHINE
+      puts("DEBUG : fire trigger pince_range");
+#endif
+      _current_state->pince_range(*this);
+    }
+    return (_current_state != 0);
+}
+
+// the operation you call to signal the event end_game
+bool MAE_MURPHY::end_game() {
+    if (_current_state != 0) {
+#ifdef VERBOSE_STATE_MACHINE
+      puts("DEBUG : fire trigger end_game");
+#endif
+      _current_state->end_game(*this);
     }
     return (_current_state != 0);
 }

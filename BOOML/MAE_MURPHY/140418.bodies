@@ -1,13 +1,4 @@
 class AnyState
-!!!148994.cpp!!!	strat_mis(inout stm : MAE_MURPHY) : void
-  AnyState * st = _upper(stm);
-
-  if (st != 0)
-    st->strat_mis(stm);
-#ifdef VERBOSE_STATE_MACHINE
-  else
-    puts("DEBUG : transition strat_mis not expected");
-#endif
 !!!149762.cpp!!!	evitement(inout stm : MAE_MURPHY) : void
   AnyState * st = _upper(stm);
 
@@ -160,4 +151,49 @@ class AnyState
 #ifdef VERBOSE_STATE_MACHINE
   else
     puts("DEBUG : transition mission_depot_tour_estrade not expected");
+#endif
+!!!299906.cpp!!!	start_mis(inout stm : MAE_MURPHY) : void
+  AnyState * st = _upper(stm);
+
+  if (st != 0)
+    st->start_mis(stm);
+#ifdef VERBOSE_STATE_MACHINE
+  else
+    puts("DEBUG : transition start_mis not expected");
+#endif
+!!!302210.cpp!!!	pince_lache(inout stm : MAE_MURPHY) : void
+  AnyState * st = _upper(stm);
+
+  if (st != 0)
+    st->pince_lache(stm);
+#ifdef VERBOSE_STATE_MACHINE
+  else
+    puts("DEBUG : transition pince_lache not expected");
+#endif
+!!!303106.cpp!!!	pince_ready_to_drop(inout stm : MAE_MURPHY) : void
+  AnyState * st = _upper(stm);
+
+  if (st != 0)
+    st->pince_ready_to_drop(stm);
+#ifdef VERBOSE_STATE_MACHINE
+  else
+    puts("DEBUG : transition pince_ready_to_drop not expected");
+#endif
+!!!303874.cpp!!!	pince_range(inout stm : MAE_MURPHY) : void
+  AnyState * st = _upper(stm);
+
+  if (st != 0)
+    st->pince_range(stm);
+#ifdef VERBOSE_STATE_MACHINE
+  else
+    puts("DEBUG : transition pince_range not expected");
+#endif
+!!!319490.cpp!!!	end_game(inout stm : MAE_MURPHY) : void
+  AnyState * st = _upper(stm);
+
+  if (st != 0)
+    st->end_game(stm);
+#ifdef VERBOSE_STATE_MACHINE
+  else
+    puts("DEBUG : transition end_game not expected");
 #endif

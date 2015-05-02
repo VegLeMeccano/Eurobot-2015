@@ -1,16 +1,20 @@
-window_sizes 1600 848 329 1265 769 35
+window_sizes 1600 848 329 1265 739 35
 diagrams
   statediagram_ref 128130 // Principal
-    1265 739 100 0 0 0
+    1265 739 100 0 108 0
   active  statediagram_ref 134658 // Jeu
-    1265 739 100 0 225 466
+    1265 739 70 0 0 100
+  statediagram_ref 147714 // mission pillage
+    1008 591 100 0 0 0
+  statediagram_ref 147842 // capture de gobelet escalier
+    1008 591 100 0 0 0
+  statediagram_ref 180994 // capture stans bordure
+    1008 591 100 0 144 0
 end
 show_stereotypes
-selected 
-  package_ref 129 // MAE_MURPHY
+selected state_ref 215938 // ouverture pince cote bordure
 open
-  state_ref 180226 // way point initial
-  state_ref 181506 // preparation
+  state_ref 150786 // capture stand bordure
   deploymentview_ref 128130 // MAE_MURPHY
 end
 end

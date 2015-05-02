@@ -5,7 +5,7 @@ class avance_State
 #ifdef VERBOSE_STATE_MACHINE
     puts("DEBUG : current state is now .MAE_MURPHY.Recalage Initial");
 #endif
-    stm._mae_murphy_state._recalage_initial_state._exit23(stm);
+    stm._mae_murphy_state._recalage_initial_state._exit27(stm);
   }
 !!!171522.cpp!!!	create(inout stm : MAE_MURPHY) : void
 	_doentry(stm);

@@ -9,10 +9,10 @@ pseudostatecanvas 128130 pseudostate_ref 147970 // initial
 end
 statecanvas 128514 state_ref 150146 // capture de gobelet escalier
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 192.547 563.874 2005 281 75
+  xyzwh -12.453 587.874 2005 281 75
 end
 pseudostatecanvas 128770 pseudostate_ref 148226 // exit_point
-   xyz 462.264 587.878 3005 label_xy 419 607
+   xyz 252.264 648.878 3005 label_xy 209 668
 end
 statecanvas 128898 state_ref 150658 // capture stands cote escalier
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
@@ -95,12 +95,12 @@ end
 transitioncanvas 132482 transition_ref 227586 // <transition>
   decenter_begin 458
   
-  from ref 132098 z 2006 label "[!master->get_gestionnaire_mission()->get_element_robot()->gobelet_present()]" xyz 169 488 2006 to ref 128514
+  from ref 132098 z 2006 label "[!master->get_gestionnaire_mission()->get_element_robot()->gobelet_present()]" xyz 83 500 2006 to ref 128514
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 133250 transition_ref 227970 // <transition>
   
-  from ref 131202 z 2006 label "[mission_distrib.is_netoyage_zone_done() ]" xyz 791 590 2006 to ref 130946
+  from ref 131202 z 2006 label "[master->get_gestionnaire_mission()->mission_distrib()->is_netoyage_zone_done() ]" xyz 646 560 2006 to ref 130946
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 134018 transition_ref 242434 // <transition>

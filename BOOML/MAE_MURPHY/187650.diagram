@@ -2,62 +2,53 @@ format 76
 
 statecanvas 128002 state_ref 158978 // claps central
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 225 80 2000 557 411
+  xyzwh 226 80 2000 1005 831
 end
 pseudostatecanvas 128130 pseudostate_ref 257538 // initial
    xyz 318 169 2005
 end
 statecanvas 128258 state_ref 247170 // BF droite
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 314 248 2005 69 33
+  xyzwh 284 288 2005 343 145
 end
-statecanvas 128386 state_ref 247298 // claps
+statecanvas 128386 state_ref 247298 // ouverture claps
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 361 317 2005 49 33
+  xyzwh 386 717 2005 447 159
 end
-statecanvas 128514 state_ref 247426 // BF cap to point mission
+statecanvas 128514 state_ref 247426 // BF cap to cine
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 456 196 2005 149 33
-end
-statecanvas 128642 state_ref 247554 // BF droite to mission origin
-  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 476 281 2005 167 33
-end
-statecanvas 128770 state_ref 247682 // BF cap to next
-  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 554 395 2005 97 33
+  xyzwh 803 276 2005 293 145
 end
 pseudostatecanvas 128898 pseudostate_ref 257666 // exit_point
-   xyz 710 422 3005 label_xy 706 441
+   xyz 982 574 3005 label_xy 978 593
+end
+statecanvas 129794 state_ref 262786 // BF cap vers estrade
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  xyzwh 319 507 2011 293 145
 end
 transitioncanvas 129026 transition_ref 313858 // <transition>
   
   from ref 128130 z 2006 to ref 128258
   write_horizontally default show_definition default drawing_language default
 end
-transitioncanvas 129154 transition_ref 313986 // <transition>
-  
-  from ref 128258 z 2006 to ref 128386
-  write_horizontally default show_definition default drawing_language default
-end
 transitioncanvas 129282 transition_ref 314114 // <transition>
   
-  from ref 128386 z 2006 to ref 128514
+  from ref 128386 z 2006 label "claps_replie" xyz 748.5 560.5 2006 to ref 128514
   write_horizontally default show_definition default drawing_language default
 end
-transitioncanvas 129410 transition_ref 314242 // <transition>
+transitioncanvas 129922 transition_ref 331266 // <transition>
   
-  from ref 128514 z 2006 to ref 128642
+  from ref 128258 z 2012 label "assFini" xyz 442 462 2012 to ref 129794
   write_horizontally default show_definition default drawing_language default
 end
-transitioncanvas 129538 transition_ref 314370 // <transition>
+transitioncanvas 130050 transition_ref 331394 // <transition>
   
-  from ref 128642 z 2006 to ref 128770
+  from ref 129794 z 2012 label "assFini" xyz 516.5 676.5 2012 to ref 128386
   write_horizontally default show_definition default drawing_language default
 end
-transitioncanvas 129666 transition_ref 314498 // <transition>
+transitioncanvas 130178 transition_ref 331522 // <transition>
   
-  from ref 128770 z 3006 to ref 128898
+  from ref 128514 z 3006 label "assFini" xyz 958 489 3006 to ref 128898
   write_horizontally default show_definition default drawing_language default
 end
 end

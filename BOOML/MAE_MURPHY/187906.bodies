@@ -5,7 +5,7 @@ class Claps_3_State
 #ifdef VERBOSE_STATE_MACHINE
     puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission claps.claps estrade");
 #endif
-    stm._mae_murphy_state._jeu_state._mission_claps_state._claps_estrade_state._exit11(stm);
+    stm._mae_murphy_state._jeu_state._mission_claps_state._claps_estrade_state._exit13(stm);
     return (bool) 1;
   }
 !!!272386.cpp!!!	create(inout stm : MAE_MURPHY) : void

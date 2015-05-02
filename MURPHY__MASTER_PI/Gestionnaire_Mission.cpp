@@ -14,13 +14,13 @@ Gestionnaire_Mission::Gestionnaire_Mission():
         mission_depot_tour_estrade(false),
         mission_zone_ennemie(true),
         coord_reel(0,0,0),
-        //, mae_murphy(),
-        /// period_jeu(PERIODE_JEU),
+        mae_murphy(),
+        period_jeu(PERIODE_JEU),
         cap_to_mission(0),
         alignement_to_mission(false),
         premiere_entree_decision(true)
 {
-    //mae_murphy.create();
+    mae_murphy.create();
 
 }
 
@@ -277,7 +277,7 @@ void Gestionnaire_Mission::appel_trigger(int mission_indice_)
 void Gestionnaire_Mission::actualisation_Priorite()
 {
     // temps restant pour decision des truc important
-    ///temps_restant = (period_jeu.time_elapsed()- PERIODE_JEU)/1000; // en s
+    temps_restant = (period_jeu.time_elapsed()- PERIODE_JEU)/1000; // en s
 
     if(sortie_evitement == true)
     {
@@ -539,9 +539,9 @@ void Gestionnaire_Mission::set_strategie_2(int strat_)
     strategie_2 = strat_;
 }
 
-/*
+
 MAE_MURPHY* Gestionnaire_Mission::get_mae_murphy()
 {
     return &mae_murphy();
 }
-*/
+

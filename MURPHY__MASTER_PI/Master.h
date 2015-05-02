@@ -52,6 +52,7 @@ class Master
 
         MAE_MURPHY* get_MAE_MURPHY();       // retourne la MAE, util? je sais pas, si pour la com
         Gestionnaire_Mission* get_gestionnaire_mission();
+        Gestionnaire_Mission* get_gestionnaire();
 
         int get_Couleur();                  // couleur pour la strat
         bool is_Vert();                     // couleur pour la strat

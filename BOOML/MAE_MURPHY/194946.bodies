@@ -5,7 +5,7 @@ class BF_cap_mission_State
 #ifdef VERBOSE_STATE_MACHINE
     puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission attrap balle et chiage.point de depart");
 #endif
-    stm._mae_murphy_state._jeu_state._mission_attrap_balle_et_chiage_state._point_de_depart_state._exit7(stm);
+    stm._mae_murphy_state._jeu_state._mission_attrap_balle_et_chiage_state._point_de_depart_state._exit9(stm);
   }
 !!!256770.cpp!!!	create(inout stm : MAE_MURPHY) : void
 	_doentry(stm);

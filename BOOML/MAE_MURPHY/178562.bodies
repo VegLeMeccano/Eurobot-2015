@@ -14,10 +14,10 @@ class orientation_vers_sortie_de_zone_State
 	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission pillage distrib.vidage distributeur.orientation vers sortie de zone");
 #endif
 if(master->is_Jaune()){
-serialPrint(master->getPortSerie(),"S3 -60 \n");
+serialPrint(master->getPortSerie(),"S3 -45 \n");
 }
 if(master->is_Vert()){
-serialPrint(master->getPortSerie(),"S3 240 \n");
+serialPrint(master->getPortSerie(),"S3 360 225 \n");
 }
 !!!235522.cpp!!!	_upper(inout stm : MAE_MURPHY) : MAE_MURPHY::AnyState
   return &stm._mae_murphy_state._jeu_state._mission_pillage_distrib_state._vidage_distributeur_state;

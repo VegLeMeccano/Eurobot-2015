@@ -59,13 +59,13 @@ transitioncanvas 129922 transition_ref 210434 // <transition>
 end
 transitioncanvas 130050 transition_ref 210562 // <transition>
   
-  from ref 128770 z 2006 label "blocage" xyz 487.5 420 2006 to ref 128898
+  from ref 128770 z 2006 label "blocage" xyz 487 420 2006 to ref 128898
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 130178 transition_ref 210690 // <transition>
   decenter_begin 449
   
-  from ref 128898 z 2006 label "fin_montee_bras" xyz 628.5 371 2006 to ref 129026
+  from ref 128898 z 2006 label "fin_montee_bras" xyz 628 371 2006 to ref 129026
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 130306 transition_ref 210818 // <transition>
@@ -75,12 +75,12 @@ transitioncanvas 130306 transition_ref 210818 // <transition>
 end
 transitioncanvas 130434 transition_ref 210946 // <transition>
   
-  from ref 129154 z 2006 label "time_out" xyz 848.5 883.5 2006 to ref 129410
+  from ref 129154 z 2006 label "time_out" xyz 848 883 2006 to ref 129410
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 130690 transition_ref 287874 // <transition>
   
-  from ref 129410 z 2006 label "assFini" xyz 713 1033 3000 to ref 130562
+  from ref 129410 z 2006 label "assFini" xyz 713 1033 2006 to ref 130562
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 130818 transition_ref 288002 // <transition>
@@ -90,7 +90,7 @@ transitioncanvas 130818 transition_ref 288002 // <transition>
 end
 transitioncanvas 130946 transition_ref 288130 // <transition>
   
-  from ref 128898 z 2006 label "time_out" xyz 776 368 3000 to ref 129026
+  from ref 128898 z 2006 label "time_out" xyz 776 368 2006 to ref 129026
   write_horizontally default show_definition default drawing_language default
 end
 end

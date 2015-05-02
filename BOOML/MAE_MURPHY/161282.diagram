@@ -82,7 +82,7 @@ transitioncanvas 131842 transition_ref 322562 // <transition>
 end
 transitioncanvas 131970 transition_ref 322690 // <transition>
   
-  from ref 131586 z 2006 label "pince_range" xyz 1045 728 2006 to ref 131714
+  from ref 131586 z 2006 label "pince_range" xyz 1050 728 2006 to ref 131714
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 132098 transition_ref 322818 // <transition>

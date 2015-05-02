@@ -20,7 +20,7 @@ class capture_stand_bordure_State
 
 // Vert : pile droite +1
 // element_robot.pile_droite_incr();
-!!!228226.cpp!!!	_exit3(inout stm : MAE_MURPHY) : void
+!!!329218.cpp!!!	_exit5(inout stm : MAE_MURPHY) : void
   {
     stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_pillage_distrib_state._vidage_distributeur_state);
 #ifdef VERBOSE_STATE_MACHINE

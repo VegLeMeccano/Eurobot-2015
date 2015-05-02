@@ -126,10 +126,15 @@ bool Master::is_time_out()
 
 MAE_MURPHY* Master::get_MAE_MURPHY()
 {
-    return get_gestionnaire_mission()->get_mae_murhy();
+    return get_gestionnaire_mission()->get_mae_murphy();
 }
 
 Gestionnaire_Mission* Master::get_gestionnaire_mission()
+{
+    return &gestionnaire_mission;
+}
+
+Gestionnaire_Mission* Master::get_gestionnaire()
 {
     return &gestionnaire_mission;
 }

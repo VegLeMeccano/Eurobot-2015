@@ -132,20 +132,21 @@ void Protocole_COM::executeinstr()
         if(s.find("START_IN") != string::npos)
         {
             cout<<"[Master] start mis"<<endl;
+            master->get_gestionnaire_mission()->get_mae_murphy()->start_mis();
         }
 
         //start retiré
         if(s.find("START_OUT") != string::npos)
         {
             cout<<"[Master] start enleve"<<endl;
-            master->get_MAE_COOP_R()->stratEnleve();
+            master->get_gestionnaire_mission()->get_mae_murphy()->start_enleve();
         }
 
         //fin des 90s
         if(s.find("END_GAME") != string::npos)
         {
             cout<<"[Master] end of game"<<endl;
-            //master->get_MAE_COOP_R()->stratEnleve();
+            master->get_gestionnaire_mission()->get_mae_murphy()->end_game();
         }
 
 
@@ -156,14 +157,14 @@ void Protocole_COM::executeinstr()
         if(s.find("CLAPS_DROITE_REPLIS") != string::npos)
         {
             cout<<"[Master] CLAPS_DROITE_REPLIS DD"<<endl;
-            master->get_MAE_COOP_R()->claps_replie();
+            master->get_gestionnaire_mission()->get_mae_murphy()->claps_replie();
         }
 
         //start retiré
         if(s.find("CLAPS_GAUCHE_REPLIS") != string::npos)
         {
             cout<<"[Master]claps replie GG"<<endl;
-            master->get_MAE_COOP_R()->claps_replie();
+            master->get_gestionnaire_mission()->get_mae_murphy()->claps_replie();
         }
 
         //fin des 90s
@@ -182,14 +183,14 @@ void Protocole_COM::executeinstr()
         if(s.find("SLAVE_NEAR") != string::npos)
         {
             cout<<"[Master] etat asserv, proche"<<endl;
-            //master->get_MAE_COOP_R()->adversaire();
+            //master->get_gestionnaire_mission()->get_mae_murphy()->near();
         }
 
         // check si l'asserv est fini
         if(s.find("SLAVE_AFINI") != string::npos)
         {
             cout<<"[Master] etat asserv, fini"<<endl;
-            //master->get_MAE_COOP_R()->assFini();
+            master->get_gestionnaire_mission()->get_mae_murphy()->assFini();
 
         }
 
@@ -197,21 +198,21 @@ void Protocole_COM::executeinstr()
         if(s.find("SLAVE_BLOCAGE") != string::npos)
         {
             cout<<"[Master] etat asserv, blocage"<<endl;
-            //master->get_MAE_COOP_R()->assFini();
+            master->get_gestionnaire_mission()->get_mae_murphy()->blocage();
         }
 
         // check si l'asserv est fini
         if(s.find("SLAVE_ENNEMI_GAUCHE") != string::npos)
         {
             cout<<"[Master] etat asserv, ennemi gauche"<<endl;
-            //master->get_MAE_COOP_R()->assFini();
+            master->get_gestionnaire_mission()->get_mae_murphy()->adversaire();
         }
 
         // check si l'asserv est fini
         if(s.find("SLAVE_ENNEMI_DROITE") != string::npos)
         {
             cout<<"[Master] etat asserv, ennemi droite"<<endl;
-            //master->get_MAE_COOP_R()->assFini();
+            master->get_gestionnaire_mission()->get_mae_murphy()->adversaire();//master->get_MAE_COOP_R()->assFini();
         }
 
 
@@ -244,7 +245,7 @@ void Protocole_COM::executeinstr()
         if(s.find("ASC_DROITE_PRET_DEPOT") != string::npos)
         {
             cout<<"[Master] etat ascenseur droite, pret à poser !"<<endl;
-            //pince_ready_to_drop();
+            master->get_gestionnaire_mission()->get_mae_murphy()->pince_ready_to_drop();
         }
 
           // check si la pile est prete a etre deposé
@@ -252,14 +253,14 @@ void Protocole_COM::executeinstr()
         {
             cout<<"[Master] etat ascenseur droite, pile lachée !"<<endl;
             master->get_gestionnaire_mission()->get_element_robot()->pile_droite_reset();
-            //pince_lache();
+            master->get_gestionnaire_mission()->get_mae_murphy()->pince_lache();
         }
 
           // check si la pile est prete a etre deposé
         if(s.find("ASC_DROITE_REPLIEE") != string::npos)
         {
             cout<<"[Master] etat ascenseur droite, replie !"<<endl;
-            // pince_range();
+            master->get_gestionnaire_mission()->get_mae_murphy()->pince_range();
         }
 
 
@@ -295,6 +296,7 @@ void Protocole_COM::executeinstr()
         if(s.find("ASC_GAUCHE_PRET DEPOT") != string::npos)
         {
             cout<<"[Master] etat ascenseur gauche, pret à poser !"<<endl;
+            master->get_gestionnaire_mission()->get_mae_murphy()->pince_ready_to_drop();
             //
         }
 
@@ -303,6 +305,7 @@ void Protocole_COM::executeinstr()
         {
             cout<<"[Master] etat ascenseur gauche, pile lachée !"<<endl;
             master->get_gestionnaire_mission()->get_element_robot()->pile_gauche_reset();
+            master->get_gestionnaire_mission()->get_mae_murphy()->pince_lache();
             //
         }
 
@@ -310,7 +313,7 @@ void Protocole_COM::executeinstr()
         if(s.find("ASC_GAUCHE_REPLIEE") != string::npos)
         {
             cout<<"[Master] etat ascenseur gauche, replie !"<<endl;
-            //
+            master->get_gestionnaire_mission()->get_mae_murphy()->pince_range();
         }
 
 

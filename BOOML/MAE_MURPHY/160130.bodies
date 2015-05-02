@@ -5,7 +5,7 @@ class sortie_State
 #ifdef VERBOSE_STATE_MACHINE
     puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission attrap balle et chiage");
 #endif
-    stm._mae_murphy_state._jeu_state._mission_attrap_balle_et_chiage_state._exit8(stm);
+    stm._mae_murphy_state._jeu_state._mission_attrap_balle_et_chiage_state._exit10(stm);
     return (bool) 1;
   }
 !!!190722.cpp!!!	create(inout stm : MAE_MURPHY) : void

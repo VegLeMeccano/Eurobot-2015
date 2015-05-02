@@ -10,7 +10,12 @@ class chope_stand_pres_estrade_State
   }
 !!!162818.cpp!!!	_upper(inout stm : MAE_MURPHY) : MAE_MURPHY::AnyState
   return &stm._mae_murphy_state._jeu_state._mission_claps_state;
-!!!273026.cpp!!!	_exit12(inout stm : MAE_MURPHY) : void
+!!!274690.cpp!!!	_doentry(inout stm : MAE_MURPHY) : void
+#ifdef VERBOSE_STATE_MACHINE
+	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission claps.chope stand pres estrade");
+#endif
+// chope le stand pres de l'estrade
+!!!330370.cpp!!!	_exit14(inout stm : MAE_MURPHY) : void
   {
     stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_claps_state._sortie_de_zone_state);
 #ifdef VERBOSE_STATE_MACHINE
@@ -18,8 +23,3 @@ class chope_stand_pres_estrade_State
 #endif
     stm._mae_murphy_state._jeu_state._mission_claps_state._sortie_de_zone_state.create(stm);
   }
-!!!274690.cpp!!!	_doentry(inout stm : MAE_MURPHY) : void
-#ifdef VERBOSE_STATE_MACHINE
-	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission claps.chope stand pres estrade");
-#endif
-// chope le stand pres de l'estrade
