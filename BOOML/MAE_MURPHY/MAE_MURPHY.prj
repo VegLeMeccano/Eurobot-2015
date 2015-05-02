@@ -3134,26 +3134,6 @@ ${inlines}
 	  comment " the current state doesn't manage the event fin_montee_bras, give it to the upper state"
 	end
 
-	operation 198018 "pince_ouverte
-"
-	  force_body_gen cpp_virtual public explicit_return_type "void"
-	  nparams 1
-	    param inout name "stm" type class_ref 134530 // MAE_MURPHY
-	  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
-"
-	  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
-  ${body}}
-"
-	  
-	  
-	  
-	  
-	  ncouples 1
-	  key "STM generated" value ""
-	  comment " the current state doesn't manage the event pince_ouverte
-, give it to the upper state"
-	end
-
 	operation 202626 "claps_replie"
 	  force_body_gen cpp_virtual public explicit_return_type "void"
 	  nparams 1
@@ -15603,26 +15583,6 @@ ${inlines}
 		    b parent class_ref 134658 // AnyState
 		end
 
-		operation 198146 "pince_ouverte
-"
-		  force_body_gen cpp_virtual public explicit_return_type "void"
-		  nparams 1
-		    param inout name "stm" type class_ref 134530 // MAE_MURPHY
-		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
-"
-		  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
-  ${body}}
-"
-		  
-		  
-		  
-		  
-		  ncouples 1
-		  key "STM generated" value ""
-		  comment " to manage the event pince_ouverte
-"
-		end
-
 		operation 198274 "create"
 		  force_body_gen cpp_virtual public explicit_return_type "void"
 		  nparams 1
@@ -15675,6 +15635,24 @@ ${inlines}
 		  ncouples 1
 		  key "STM generated" value ""
 		  comment " returns the state containing the current"
+		end
+
+		operation 245250 "pince_ouverte"
+		  force_body_gen cpp_virtual public explicit_return_type "void"
+		  nparams 1
+		    param inout name "stm" type class_ref 134530 // MAE_MURPHY
+		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+		  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+		  
+		  
+		  
+		  
+		  ncouples 1
+		  key "STM generated" value ""
+		  comment " to manage the event pince_ouverte"
 		end
 	      end
 
@@ -24356,25 +24334,6 @@ ${inlines}
 	    cpp default "#include in source"
 	    classrelation_ref 153602 // <dependency>
 	  b parent class_ref 144514 // BF_droite_vers_les_stands_State
-      end
-
-      operation 197890 "pince_ouverte
-"
-	force_body_gen public explicit_return_type "bool"
-	nparams 0
-	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
-"
-	cpp_def "${comment}${inline}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
-  ${body}}
-"
-	
-	
-	
-	
-	ncouples 1
-	key "STM generated" value ""
-	comment " the operation you call to signal the event pince_ouverte
-"
       end
 
       classrelation 153858 // <dependency>

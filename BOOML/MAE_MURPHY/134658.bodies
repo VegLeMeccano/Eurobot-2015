@@ -107,18 +107,6 @@ class AnyState
   else
     puts("DEBUG : transition fin_montee_bras not expected");
 #endif
-!!!198018.cpp!!!	pince_ouverte
-(inout stm : MAE_MURPHY) : void
-  AnyState * st = _upper(stm);
-
-  if (st != 0)
-    st->pince_ouverte
-(stm);
-#ifdef VERBOSE_STATE_MACHINE
-  else
-    puts("DEBUG : transition pince_ouverte
- not expected");
-#endif
 !!!202626.cpp!!!	claps_replie(inout stm : MAE_MURPHY) : void
   AnyState * st = _upper(stm);
 

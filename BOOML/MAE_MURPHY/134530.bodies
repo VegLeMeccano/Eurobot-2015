@@ -101,17 +101,6 @@ return (_current_state != 0);
     _current_state->fin_montee_bras(*this);
   }
   return (_current_state != 0);
-!!!197890.cpp!!!	pince_ouverte
-() : bool
-  if (_current_state != 0) {
-#ifdef VERBOSE_STATE_MACHINE
-    puts("DEBUG : fire trigger pince_ouverte
-");
-#endif
-    _current_state->pince_ouverte
-(*this);
-  }
-  return (_current_state != 0);
 !!!202498.cpp!!!	claps_replie() : bool
   if (_current_state != 0) {
 #ifdef VERBOSE_STATE_MACHINE
