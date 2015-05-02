@@ -30,7 +30,7 @@ statecanvas 129794 state_ref 157442 // sortie de zone de depart
 end
 statecanvas 130178 state_ref 158722 // mission zone ennemie
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 1542.01 406.393 2005 256 89
+  xyzwh 1542.01 405.393 2005 256 89
 end
 pseudostatecanvas 130562 pseudostate_ref 161410 // exit_point
    xyz 1211.14 834.203 3005 label_xy 1201 854
@@ -65,7 +65,7 @@ pseudostatecanvas 135426 pseudostate_ref 182530 // exit_point
    xyz 1430.6 562.934 3016 label_xy 1426 583
 end
 pseudostatecanvas 135682 pseudostate_ref 257282 // exit_point
-   xyz 1534 460 3005 label_xy 1530 479
+   xyz 1534 459 3005 label_xy 1530 478
 end
 transitioncanvas 131714 transition_ref 199426 // <transition>
   
@@ -115,7 +115,7 @@ transitioncanvas 133890 transition_ref 209410 // <transition>
 end
 transitioncanvas 134018 transition_ref 209538 // <transition>
   
-  from ref 130946 z 2006 label "mission_zone_ennemie" xyz 1301 402 2006 to ref 130178
+  from ref 130946 z 2006 label "mission_zone_ennemie" xyz 1301 401.5 2006 to ref 130178
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 134146 transition_ref 209666 // <transition>
@@ -136,7 +136,7 @@ transitioncanvas 134530 transition_ref 211074 // <transition>
 end
 transitioncanvas 134786 transition_ref 211202 // <transition>
   
-  from ref 130946 z 3012 label "mission_depot_tour_estrade" xyz 1295.5 474 3012 to ref 134658
+  from ref 130946 z 3012 label "mission_depot_tour_estrade" xyz 1295 474 3012 to ref 134658
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 135042 transition_ref 280834 // <transition>

@@ -1,5 +1,26 @@
 class chope_stand_2_State
 !!!200834.cpp!!!	pince_stand_by(inout stm : MAE_MURPHY) : void
+
+  {
+    stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_claps_state._chope_du_coin_state._bf_cap_pour_claps_state);
+#ifdef VERBOSE_STATE_MACHINE
+    puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission claps.chope du coin.BF CAP pour claps");
+#endif
+    stm._mae_murphy_state._jeu_state._mission_claps_state._chope_du_coin_state._bf_cap_pour_claps_state.create(stm!!!200962.cpp!!!	create(inout stm : MAE_MURPHY) : void
+) : void
+	_doen!!!201090.cpp!!!	_doentry(inout stm : MAE_MURPHY) : void
+tm : MAE_MURPHY) : void
+#ifdef VERBOSE_STATE_MACHINE
+	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission claps.chope du coin.chope stand 2");
+#endif
+if(master->is_Jaune()){
+// ouverture de pince
+serialPrintf(master->getPortSerie(),"D1 \n");
+}
+if(master->is_Vert()){
+serialPrintf(ma!!!201218.cpp!!!	_upper(inout stm : MAE_MURPHY) : MAE_MURPHY::AnyState
+ MAE_MURPHY::AnyState
+  return &stm._mae_murphy_state._jeu_state._mission_claps_state!!!200834.cpp!!!	pince_stand_by(inout stm : MAE_MURPHY) : void
   {
     stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_claps_state._chope_du_coin_state._bf_cap_pour_claps_state);
 #ifdef VERBOSE_STATE_MACHINE
@@ -22,14 +43,3 @@ serialPrintf(master->getPortSerie(),"G1 \n");
 }
 !!!201218.cpp!!!	_upper(inout stm : MAE_MURPHY) : MAE_MURPHY::AnyState
   return &stm._mae_murphy_state._jeu_state._mission_claps_state._chope_du_coin_state;
-!!!201090.cpp!!!	_doentry(inout stm : MAE_MURPHY) : void
-#ifdef VERBOSE_STATE_MACHINE
-	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission claps.chope du coin.chope stand 2");
-#endif
-if(master->is_Jaune()){
-// ouverture de pince
-serialPrintf(master->getPortSerie(),"D1 \n");
-}
-if(master->is_Vert()){
-serialPrintf(master->getPortSerie(),"G1 \n");
-}
