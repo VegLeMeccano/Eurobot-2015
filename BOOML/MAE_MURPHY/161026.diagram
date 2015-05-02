@@ -17,7 +17,7 @@ statecanvas 128642 state_ref 179330 // orientation avant reculage
 end
 statecanvas 128770 state_ref 179458 // Recalage
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 91.8 496.7 2005 343 243
+  xyzwh 91.8 496.7 2005 347 243
 end
 statecanvas 128898 state_ref 179586 // capture de balle
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
@@ -59,7 +59,7 @@ transitioncanvas 129922 transition_ref 210434 // <transition>
 end
 transitioncanvas 130050 transition_ref 210562 // <transition>
   
-  from ref 128770 z 2006 label "blocage" xyz 487 420 2006 to ref 128898
+  from ref 128770 z 2006 label "blocage" xyz 488 420 2006 to ref 128898
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 130178 transition_ref 210690 // <transition>

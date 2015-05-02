@@ -12,7 +12,7 @@ pseudostatecanvas 128258 pseudostate_ref 223746 // exit_point
 end
 statecanvas 128514 state_ref 262914 // BF droite sur le cine
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 303 256 2005 345 145
+  xyzwh 303 256 2005 349 145
 end
 statecanvas 128770 state_ref 263042 // BF CAP vers centre de la table
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
@@ -24,11 +24,11 @@ statecanvas 129026 state_ref 263170 // ouverture capot
 end
 statecanvas 129282 state_ref 263298 // avance
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 966 326 2005 331 75
+  xyzwh 966 326 2005 335 75
 end
 statecanvas 129538 state_ref 263426 // fermeture capot
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 980 591 2005 309 61
+  xyzwh 980 591 2005 313 61
 end
 transitioncanvas 128642 transition_ref 331650 // <transition>
   
@@ -37,7 +37,7 @@ transitioncanvas 128642 transition_ref 331650 // <transition>
 end
 transitioncanvas 128898 transition_ref 331778 // <transition>
   
-  from ref 128514 z 2006 label "assFini" xyz 461 421 2006 to ref 128770
+  from ref 128514 z 2006 label "assFini" xyz 462 421 2006 to ref 128770
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 129154 transition_ref 331906 // <transition>
@@ -54,7 +54,7 @@ transitioncanvas 129410 transition_ref 332034 // <transition>
 end
 transitioncanvas 129666 transition_ref 332162 // <transition>
   
-  from ref 129282 z 2006 label "assFini" xyz 1115 488 2006 to ref 129538
+  from ref 129282 z 2006 label "assFini" xyz 1117 488 2006 to ref 129538
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 129794 transition_ref 332290 // <transition>

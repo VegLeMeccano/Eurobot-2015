@@ -2,17 +2,17 @@ format 76
 
 statecanvas 128002 state_ref 128514 // Evitement
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 117 65 2000 543 355
+  xyzwh 118 66 2000 567 403
 end
 pseudostatecanvas 128130 pseudostate_ref 189186 // junction
    xyz 224 158 2005
 end
 pseudostatecanvas 128258 pseudostate_ref 189314 // exit_point
-   xyz 507 332 3005 label_xy 479 351
+   xyz 544 386 3005 label_xy 516 405
 end
 statecanvas 128386 state_ref 188034 // faire des maneuvre
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 146 209 2005 487 89
+  xyzwh 141 192 2005 487 173
 end
 transitioncanvas 128514 transition_ref 220546 // <transition>
   

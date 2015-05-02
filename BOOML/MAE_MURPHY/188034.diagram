@@ -5,7 +5,7 @@ statecanvas 128002 state_ref 159234 // faire chier en zizagant
   xyzwh 100 82 2000 1057 805
 end
 pseudostatecanvas 128130 pseudostate_ref 223362 // initial
-   xyz 580 159 2005
+   xyz 580 194 2005
 end
 pseudostatecanvas 128258 pseudostate_ref 223490 // exit_point
    xyz 810 645 3005 label_xy 806 664
@@ -59,17 +59,17 @@ transitioncanvas 129538 transition_ref 333314 // <transition>
 end
 transitioncanvas 130178 transition_ref 333442 // <transition>
   
-  from ref 129410 z 2006 label "[master->get_gestionnaire()->get_element_robot()->mode_chieur()==0]" xyz 191 251 2006 to ref 129666
+  from ref 129410 z 2006 label "[master->get_gestionnaire()->get_mission_zone_ennemie()->mode_chieur()==0]" xyz 132 258 2006 to ref 129666
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 130306 transition_ref 333570 // <transition>
   
-  from ref 129410 z 2006 label "[master->get_gestionnaire()->get_element_robot()->mode_chieur()==1]" xyz 405 305 2006 to ref 129794
+  from ref 129410 z 2006 label "[master->get_gestionnaire()->get_mission_zone_ennemie()->mode_chieur()==1]" xyz 396 307 2006 to ref 129794
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 130434 transition_ref 333698 // <transition>
   
-  from ref 129410 z 2012 label "[master->get_gestionnaire()->get_element_robot()->mode_chieur()==2]" xyz 659 257 2012 to ref 129922
+  from ref 129410 z 2012 label "[master->get_gestionnaire()->get_mission_zone_ennemie()->mode_chieur()==2]" xyz 649 244 2012 to ref 129922
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 130562 transition_ref 333826 // <transition>

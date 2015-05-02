@@ -1,13 +1,12 @@
 window_sizes 1600 848 329 1265 739 35
 diagrams
-  statediagram_ref 134658 // Jeu
-    1265 739 70 0 0 195
-  active  statediagram_ref 188162 // mission rush zone central
-    1008 591 100 0 288 956
+  active  statediagram_ref 128130 // Principal
+    1008 591 100 0 0 0
 end
 show_stereotypes
+selected state_ref 128130 // MAE_MURPHY
 open
-  classview_ref 128130 // MAE_MURPHY
+  state_ref 158722 // mission zone ennemie
   deploymentview_ref 128130 // MAE_MURPHY
 end
 end

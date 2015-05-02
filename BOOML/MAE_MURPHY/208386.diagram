@@ -12,7 +12,7 @@ pseudostatecanvas 128258 pseudostate_ref 264450 // initial
    xyz 309 123 2005
 end
 pseudostatecanvas 128514 pseudostate_ref 264578 // exit_point
-   xyz 512 606 3005 label_xy 508 625
+   xyz 512 532 3005 label_xy 508 551
 end
 statecanvas 128642 state_ref 255234 // BF droite to mission
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
@@ -29,17 +29,17 @@ transitioncanvas 128386 transition_ref 322946 // <transition>
 end
 transitioncanvas 128898 transition_ref 323074 // <transition>
   
-  from ref 128130 z 2006 label "assFini" xyz 373.5 310.5 3000 to ref 128642
+  from ref 128130 z 2006 label "assFini" xyz 373 310 2006 to ref 128642
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 129026 transition_ref 323202 // <transition>
   
-  from ref 128642 z 2006 label "assFini" xyz 572 413 3000 to ref 128770
+  from ref 128642 z 2006 label "assFini" xyz 572 413 2006 to ref 128770
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 129154 transition_ref 323330 // <transition>
   
-  from ref 128770 z 3006 label "assFini" xyz 593.5 518 3000 to ref 128514
+  from ref 128770 z 3006 label "assFini" xyz 570.5 476.5 3006 to ref 128514
   write_horizontally default show_definition default drawing_language default
 end
 end

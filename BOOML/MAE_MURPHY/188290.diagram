@@ -6,7 +6,7 @@ statecanvas 128002 state_ref 157570 // chope du stand sur la route
 end
 statecanvas 128258 state_ref 224258 // BF droite
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 200 390 2005 337 159
+  xyzwh 200 390 2005 341 159
 end
 statecanvas 128386 state_ref 224386 // ouverture de pince
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
@@ -24,12 +24,12 @@ pseudostatecanvas 129282 pseudostate_ref 243586 // exit_point
 end
 transitioncanvas 129666 transition_ref 294914 // <transition>
   
-  from ref 128386 z 2006 label "pince_ouverte" xyz 295 362 2006 to ref 128258
+  from ref 128386 z 2006 label "pince_ouverte" xyz 295.5 362 2006 to ref 128258
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 129794 transition_ref 295042 // <transition>
   
-  from ref 128258 z 2006 label "assFini" xyz 514 593 2006 to ref 128514
+  from ref 128258 z 2006 label "assFini" xyz 515 593 2006 to ref 128514
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 130818 transition_ref 350466 // <transition>

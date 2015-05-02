@@ -9,7 +9,7 @@ pseudostatecanvas 128130 pseudostate_ref 216706 // initial
 end
 statecanvas 128258 state_ref 226178 // BF droite sur claps estrade
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 164 269 2005 335 159
+  xyzwh 164 269 2005 339 159
 end
 statecanvas 128514 state_ref 226434 // Claps 3
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
@@ -30,7 +30,7 @@ transitioncanvas 129666 transition_ref 298498 // <transition>
 end
 transitioncanvas 129794 transition_ref 350338 // <transition>
   
-  from ref 128258 z 2006 label "assFini" xyz 518 432 2006 to ref 128514
+  from ref 128258 z 2006 label "assFini" xyz 520.5 432.5 2006 to ref 128514
   write_horizontally default show_definition default drawing_language default
 end
 end

@@ -21,7 +21,7 @@ statecanvas 128642 state_ref 159106 // depot gobelet
 end
 statecanvas 128770 state_ref 159234 // faire chier en zizagant
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 1088.6 156.7 2005 479 123
+  xyzwh 1088.6 155.7 2005 479 123
 end
 pseudostatecanvas 129026 pseudostate_ref 182274 // choice
    xyz 244.2 308.2 2005
@@ -39,7 +39,7 @@ pseudostatecanvas 131074 pseudostate_ref 223746 // exit_point
    xyz 1141.3 721 3005 label_xy 1137 740
 end
 pseudostatecanvas 131586 pseudostate_ref 223490 // exit_point
-   xyz 1298.7 268.1 3005 label_xy 1294 287
+   xyz 1298.7 267.1 3005 label_xy 1294 286
 end
 pseudostatecanvas 131970 pseudostate_ref 271490 // choice
    xyz 872 512 2005
@@ -66,7 +66,7 @@ transitioncanvas 130050 transition_ref 313218 // <transition>
 end
 transitioncanvas 130306 transition_ref 313474 // <transition>
   
-  from ref 129922 z 2006 label "[master->get_gestionnaire()->get_mission_zone_ennemie()->is_depot_gobelet_done()]" xyz 685 280 2006 to ref 128770
+  from ref 129922 z 2006 label "[master->get_gestionnaire()->get_mission_zone_ennemie()->is_depot_gobelet_done()]" xyz 685 279.5 2006 to ref 128770
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 131202 transition_ref 314754 // <transition>
@@ -86,7 +86,7 @@ transitioncanvas 131714 transition_ref 315010 // <transition>
 end
 transitioncanvas 132098 transition_ref 332930 // <transition>
   
-  from ref 131970 z 2006 label "[!master->get_gestionnaire()->get_element_robot()->gobelet_present()]" xyz 859 387 2006 to ref 128770
+  from ref 131970 z 2006 label "[!master->get_gestionnaire()->get_element_robot()->gobelet_present()]" xyz 860 386.5 2006 to ref 128770
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 132226 transition_ref 333058 // <transition>
