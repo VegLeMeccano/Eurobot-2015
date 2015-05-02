@@ -27,7 +27,7 @@ execution du script
 #include "Period.h"
 #include "util.h"
 
-#define VERBOSE_STATE_MACHINE 1
+//#define VERBOSE_STATE_MACHINE 1
 
 using namespace std;
 

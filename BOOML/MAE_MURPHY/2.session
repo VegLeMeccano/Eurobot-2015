@@ -4,7 +4,8 @@ diagrams
     1265 739 70 0 0 195
 end
 show_stereotypes
-selected state_ref 128130 // MAE_MURPHY
+selected 
+  package_ref 129 // MAE_MURPHY
 open
   state_ref 150018 // sortie de la zone de depart
   state_ref 150146 // capture de gobelet escalier
