@@ -5,7 +5,7 @@ statecanvas 128002 state_ref 150658 // capture stands cote escalier
   xyzwh 80 82 2000 1079 1243
 end
 pseudostatecanvas 128130 pseudostate_ref 209154 // initial
-   xyz 222 222 2005
+   xyz 222 236 2005
 end
 statecanvas 128258 state_ref 214530 // BF cap initial 35deg
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
@@ -68,12 +68,12 @@ transitioncanvas 129794 transition_ref 256514 // <transition>
 end
 transitioncanvas 129922 transition_ref 256642 // <transition>
   
-  from ref 128642 z 2006 label "assFini" xyz 296.5 946 2006 to ref 128770
+  from ref 128642 z 2006 label "assFini" xyz 296 946 2006 to ref 128770
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 130050 transition_ref 256770 // <transition>
   
-  from ref 128770 z 2006 label "pince_stand_by" xyz 485.5 878 2006 to ref 128898
+  from ref 128770 z 2006 label "pince_stand_by" xyz 485 878 2006 to ref 128898
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 130178 transition_ref 256898 // <transition>
@@ -93,7 +93,7 @@ transitioncanvas 130562 transition_ref 257154 // <transition>
 end
 transitioncanvas 130818 transition_ref 257282 // <transition>
   
-  from ref 130434 z 3006 label "assFini" xyz 934.5 1219 3006 to ref 130690
+  from ref 130434 z 3006 label "assFini" xyz 934 1219 3006 to ref 130690
   write_horizontally default show_definition default drawing_language default
 end
 end

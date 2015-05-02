@@ -1,0 +1,15 @@
+# depslib dependency file v1.0
+1430602314 source:d:\club robotique iron menad 2\eurobot 2015 iron menad\eurobot-2015\test\test.cpp
+	"test.h"
+
+1430602104 d:\club robotique iron menad 2\eurobot 2015 iron menad\eurobot-2015\test\test.h
+	<iostream>
+
+1430602276 source:d:\club robotique iron menad 2\eurobot 2015 iron menad\eurobot-2015\test\main.cpp
+	<iterator>
+	<string>
+	<iostream>
+	<sstream>
+	<stdlib.h>
+	"test.h"
+

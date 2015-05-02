@@ -1,6 +1,6 @@
 format 76
 "MAE_MURPHY"
-  revision 65
+  revision 67
   modified_by 2 "Link"
   cpp_root_dir "D:/Club Robotique IRON MENAD 2/Eurobot 2015 Iron Menad/Eurobot-2015/MURPHY__MASTER_PI/"
 
@@ -290,12 +290,6 @@ master->get_gestionnaire_mission()->get_mission_depot_tour_estrade()->mission_re
 	  end
 	end
 
-	transition 128386 "<transition>"
-	  on state_ref 128514 // Evitement
-	    cpp_trigger "evitement"
-	  external 
-	end
-
 	statediagram 134658 "Jeu"
 	  package_name_in_tab yes show_context default auto_label_position yes write_trans_label_horizontally yes show_trans_definition yes draw_all_relations no shadow yes
 	  show_activities yes region_horizontally yes drawing_language c++ show_stereotype_properties yes
@@ -332,7 +326,8 @@ serialPrintf(master->getPortSerie(),\"S4 400 \\n\");
 	  end
 
 	  state 150146 "capture de gobelet escalier"
-	      cpp_on_entry "// capture d gobelet pres de l'escalier"
+	      cpp_on_entry "// capture d gobelet pres de l'escalier
+cout<<\"capture de gobelet\"<<endl;"
 	    associated_diagram statediagram_ref 147842 // capture de gobelet escalier
 	    statediagram 147842 "capture de gobelet escalier"
 	      package_name_in_tab yes show_context default auto_label_position yes write_trans_label_horizontally yes show_trans_definition yes draw_all_relations yes shadow yes
@@ -417,7 +412,8 @@ serialPrintf(master->getPortSerie(),\"S3 48 \\n\");
 
 /// Vert : pile gauche +2
 // element_robot.pile_gauche_incr();
-// element_robot.pile_gauche_incr();"
+// element_robot.pile_gauche_incr();
+cout<<\"capture de stand escalier\"<<endl;"
 	    associated_diagram statediagram_ref 180866 // capture stands escalier
 	    statediagram 180866 "capture stands escalier"
 	      package_name_in_tab yes show_context default auto_label_position yes write_trans_label_horizontally yes show_trans_definition yes draw_all_relations yes shadow yes
@@ -560,7 +556,8 @@ serialPrintf(master->getPortSerie(),\"G1 \\n\");
 
 
 // Vert : pile droite +1
-// element_robot.pile_droite_incr();"
+// element_robot.pile_droite_incr();
+cout<<\"capture de stand bordure\"<<endl;"
 	    associated_diagram statediagram_ref 180994 // capture stans bordure
 	    statediagram 180994 "capture stans bordure"
 	      package_name_in_tab yes show_context default auto_label_position yes write_trans_label_horizontally yes show_trans_definition yes draw_all_relations yes shadow yes
@@ -662,7 +659,7 @@ serialPrintf(master->getPortSerie(),\"D1 \\n\");
 	  state 150914 "vidage distributeur"
 	      cpp_on_entry "// element_robot.aspire();
 // mission_distrib.netoyage_zone_done(); 
-"
+cout<<\"vidage distributeur\"<<endl;"
 	    associated_diagram statediagram_ref 181122 // vidange distributeur
 	    statediagram 181122 "vidange distributeur"
 	      package_name_in_tab yes show_context default auto_label_position yes write_trans_label_horizontally yes show_trans_definition yes draw_all_relations yes shadow yes
@@ -895,7 +892,8 @@ if(master->get_gestionnaire_mission()->get_mission_distrib()->is_netoyage_zone_d
 	&& master->get_gestionnaire_mission()->get_mission_distrib()->is_capture_gobelet_done())
 {
 	master->get_gestionnaire_mission()->get_mission_distrib()->mission_remplie();
-}"
+}
+cout<<\"sortie de zone\"<<endl;"
 	    transition 202498 "<transition>"
 	      on pseudostate_ref 174850 // exit_point
 	      external 
@@ -2718,6 +2716,12 @@ master->get_gestionnaire_mission()->decision_mission();
 	    cpp_trigger "end_game"
 	  external 
 	end
+
+	transition 387970 "<transition>"
+	  on state_ref 128514 // Evitement
+	    cpp_trigger "evitement"
+	  external 
+	end
       end
 
       state 128514 "Evitement"
@@ -2752,9 +2756,11 @@ master->get_gestionnaire_mission()->decision_mission();
 serialPrintf(master->getPortSerie(),\"P3 \\n\");
 serialPrintf(master->getPortSerie(),\"D2 \\n\");
 serialPrintf(master->getPortSerie(),\"G2 \\n\");
-"
+master->set_time_out(500);
+cout<<\"on evite\"<<endl;"
 	  transition 220674 "<transition>"
 	    on pseudostate_ref 189314 // exit_point
+	      cpp_trigger "time_out"
 	    external 
 	  end
 	end
