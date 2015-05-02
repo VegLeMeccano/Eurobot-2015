@@ -5,10 +5,10 @@ using namespace std;
 
 int main()
 {
-    float x(0.03);
-    string to_string(11);
-    cout << "x = " << s<< endl;
-
+    string s = " ginal 0.03";
+    const char * c = s.c_str();
+    cout << "string :  " << s << endl;
+    cout << "char* :  " << c << endl;
 
     return 0;
 }

@@ -3,7 +3,7 @@ diagrams
   statediagram_ref 128130 // Principal
     1008 591 100 0 336 0
   active  statediagram_ref 134658 // Jeu
-    1265 739 100 0 297 601
+    1265 739 100 0 324 784
 end
 show_stereotypes
 selected 

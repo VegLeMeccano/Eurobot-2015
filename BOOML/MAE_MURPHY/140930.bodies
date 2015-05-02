@@ -52,6 +52,6 @@ class rejoindre_le_point_de_depart_mission_State
 	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission pillage distrib.rejoindre le point de depart mission");
 #endif
 // devant la zone de depart
- on check ou on est puis BF cap vers le point, puis BF droite
+// on check ou on est puis BF cap vers le point, puis BF droite
 !!!184450.cpp!!!	_upper(inout stm : MAE_MURPHY) : MAE_MURPHY::AnyState
   return &stm._mae_murphy_state._jeu_state._mission_pillage_distrib_state;

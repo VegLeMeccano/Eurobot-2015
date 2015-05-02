@@ -38,7 +38,7 @@ pseudostatecanvas 130690 pseudostate_ref 174850 // exit_point
 end
 statecanvas 130946 state_ref 172674 // sortie zone
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 665.494 666.267 2005 463 145
+  xyzwh 665.494 666.267 2005 553 159
 end
 pseudostatecanvas 131202 pseudostate_ref 174978 // choice
    xyz 809.284 434.618 2005
@@ -100,7 +100,7 @@ transitioncanvas 132482 transition_ref 227586 // <transition>
 end
 transitioncanvas 133250 transition_ref 227970 // <transition>
   
-  from ref 131202 z 2006 label "[master->get_gestionnaire_mission()->mission_distrib()->is_netoyage_zone_done() ]" xyz 646 560 2006 to ref 130946
+  from ref 131202 z 2006 label "[master->get_gestionnaire_mission()->mission_distrib()->is_netoyage_zone_done() ]" xyz 663 560 2006 to ref 130946
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 134018 transition_ref 242434 // <transition>
