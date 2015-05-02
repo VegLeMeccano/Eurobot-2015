@@ -1,4 +1,5 @@
 #include "Protocole_COM.h"
+#include "MAE_MURPHY.h"
 
 //int portSerie;
 
@@ -209,6 +210,7 @@ void Protocole_COM::executeinstr()
         {
             cout<<"[Master] etat asserv, ennemi gauche"<<endl;
             master->get_gestionnaire_mission()->get_mae_murphy()->evitement(); // adversaire();
+            ///master->get_gestionnaire_mission()->get_mae_murphy()->_set_currentState(MAE_MURPHY_State(Evitement_State));
         }
 
         // check si l'asserv est fini
