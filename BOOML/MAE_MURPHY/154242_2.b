@@ -28,3 +28,8 @@ cout<<"ETAT RECALAGE INITIAL"<<endl;
 	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Recalage Initial");
 #endif
 cout<<"ETAT RECALAGE INITIAL"<<endl;
+!!!243330.cpp!!!	_doentry(inout stm : MAE_MURPHY) : void
+#ifdef VERBOSE_STATE_MACHINE
+	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Recalage Initial");
+#endif
+cout<<"ETAT RECALAGE INITIAL"<<endl;

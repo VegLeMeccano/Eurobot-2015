@@ -39,3 +39,16 @@ if(master->is_Vert()){
 serialPrintf(master->getPortSerie(),"C0 \n");
 }
 //master->set_time_out(2000);
+!!!242562.cpp!!!	_doentry(inout stm : MAE_MURPHY) : void
+#ifdef VERBOSE_STATE_MACHINE
+	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Recalage Initial.coup de patte cote escalier pour confirmer le sens");
+#endif
+if(master->is_Jaune()){
+// coup de patte cote gauche
+serialPrintf(master->getPortSerie(),"C2 \n");
+}
+if(master->is_Vert()){
+// coup de patte cote droit
+serialPrintf(master->getPortSerie(),"C0 \n");
+}
+//master->set_time_out(2000);

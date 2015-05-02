@@ -47,3 +47,9 @@ cout<<"ETAT JEU"<<endl;
 #endif
 cout<<"ETAT JEU"<<endl;
 // toute la strat est la
+!!!239746.cpp!!!	_doentry(inout stm : MAE_MURPHY) : void
+#ifdef VERBOSE_STATE_MACHINE
+	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu");
+#endif
+cout<<"ETAT JEU"<<endl;
+// toute la strat est la

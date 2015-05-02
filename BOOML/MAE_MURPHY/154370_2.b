@@ -27,3 +27,11 @@ cout<<"RECULE"<<endl;
 // recule (recalage au cul)
 serialPrintf(master->getPortSerie(),"S0 0 0 0 \n");
 serialPrintf(master->getPortSerie(),"S2 \n");
+!!!241410.cpp!!!	_doentry(inout stm : MAE_MURPHY) : void
+#ifdef VERBOSE_STATE_MACHINE
+	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Recalage Initial.Recule");
+#endif
+cout<<"RECULE"<<endl;
+// recule (recalage au cul)
+serialPrintf(master->getPortSerie(),"S0 0 0 0 \n");
+serialPrintf(master->getPortSerie(),"S2 \n");

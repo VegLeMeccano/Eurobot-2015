@@ -27,3 +27,8 @@ cout<<"ETAT EVITEMENT"<<endl;
 	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Evitement");
 #endif
 cout<<"ETAT EVITEMENT"<<endl;
+!!!240770.cpp!!!	_doentry(inout stm : MAE_MURPHY) : void
+#ifdef VERBOSE_STATE_MACHINE
+	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Evitement");
+#endif
+cout<<"ETAT EVITEMENT"<<endl;

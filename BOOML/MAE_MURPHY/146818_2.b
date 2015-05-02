@@ -33,3 +33,26 @@ ordre = "S3 "
 	+ " \n";
 serialPrintf(master->getPortSerie(),ordre); 
 cout<<"ORIENTATION VERS MISSION : "<<ordre<<endl;
+!!!207618.cpp!!!	assFini(inout stm : MAE_MURPHY) : void
+  {
+    stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_claps_state._waypoint_initial_state);
+#ifdef VERBOSE_STATE_MACHINE
+    puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission claps.waypoint initial");
+#endif
+    stm._mae_murphy_state._jeu_state._mission_claps_state._waypoint_initial_state._exit14(stm);
+  }
+!!!207746.cpp!!!	create(inout stm : MAE_MURPHY) : void
+	_doentry(stm);
+!!!207874.cpp!!!	_doentry(inout stm : MAE_MURPHY) : void
+#ifdef VERBOSE_STATE_MACHINE
+	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission claps.waypoint initial.cap mission");
+#endif
+// BF Droite vers objectif
+string ordre;
+ordre = "S3 " 
+	+ master->get_gestionnaire()->get_cap_mission() 
+	+ " \n";
+serialPrintf(master->getPortSerie(),ordre); 
+cout<<"ORIENTATION VERS MISSION : "<<ordre<<endl;
+!!!208002.cpp!!!	_upper(inout stm : MAE_MURPHY) : MAE_MURPHY::AnyState
+  return &stm._mae_murphy_state._jeu_state._mission_claps_state._waypoint_initial_state;

@@ -25,3 +25,10 @@ serialPrint(master->getPortSerie(),"S4 200 \n");
 // pour laisser de la place à coop'r
 cout<<"avance de 200 mm "<<endl;
 serialPrintf(master->getPortSerie(),"S4 200 \n");
+!!!243074.cpp!!!	_doentry(inout stm : MAE_MURPHY) : void
+#ifdef VERBOSE_STATE_MACHINE
+	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Recalage Initial.avance");
+#endif
+// pour laisser de la place à coop'r
+cout<<"avance de 200 mm "<<endl;
+serialPrintf(master->getPortSerie(),"S4 200 \n");

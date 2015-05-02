@@ -41,3 +41,18 @@ if(master->is_Vert()){
 	serialPrintf(master->getPortSerie(),"S0 1334 996 180 \n");
 }
 master->set_time_out(300);
+!!!241922.cpp!!!	_doentry(inout stm : MAE_MURPHY) : void
+#ifdef VERBOSE_STATE_MACHINE
+	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Recalage Initial.set X Y CAP");
+#endif
+if(master->is_Jaune()){
+	cout<<"SET X Y CAP ORIGIN, COULEUR JAUNE"<<endl;
+	// X = -1500 + 70 +96 = -1334
+	// terrain, bordure, robot (axe de rotation)
+	serialPrintf(master->getPortSerie(),"S0 -1334 996 0 \n");
+}
+if(master->is_Vert()){
+	cout<<"SET X Y CAP ORIGIN, COULEUR VERT"<<endl;
+	serialPrintf(master->getPortSerie(),"S0 1334 996 180 \n");
+}
+master->set_time_out(300);

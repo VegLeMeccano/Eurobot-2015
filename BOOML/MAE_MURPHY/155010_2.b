@@ -15,3 +15,9 @@ cout<<"ETAT END OF GAME"<<endl;
 #endif
 cout<<"ETAT END OF GAME"<<endl;
 // arret de la base roulante et tout...
+!!!244482.cpp!!!	_doentry(inout stm : MAE_MURPHY) : void
+#ifdef VERBOSE_STATE_MACHINE
+	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Game Over");
+#endif
+cout<<"ETAT END OF GAME"<<endl;
+// arret de la base roulante et tout...

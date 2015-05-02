@@ -21,3 +21,8 @@ cout<<"MURPHY IS READY, PULL THE TRIGGER !"<<endl;
 	puts("DEBUG : execute entry behavior of .MAE_MURPHY.startin' block");
 #endif
 cout<<"MURPHY IS READY, PULL THE TRIGGER !"<<endl;
+!!!244098.cpp!!!	_doentry(inout stm : MAE_MURPHY) : void
+#ifdef VERBOSE_STATE_MACHINE
+	puts("DEBUG : execute entry behavior of .MAE_MURPHY.startin' block");
+#endif
+cout<<"MURPHY IS READY, PULL THE TRIGGER !"<<endl;
