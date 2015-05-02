@@ -1,17 +1,13 @@
 window_sizes 1600 848 329 1265 739 35
 diagrams
-  active  statediagram_ref 134658 // Jeu
+  statediagram_ref 134658 // Jeu
     1265 739 70 0 0 195
+  active  statediagram_ref 188162 // mission rush zone central
+    1008 591 100 0 288 956
 end
 show_stereotypes
-selected 
-  package_ref 129 // MAE_MURPHY
 open
-  state_ref 150018 // sortie de la zone de depart
-  state_ref 150146 // capture de gobelet escalier
-  state_ref 150786 // capture stand bordure
-  state_ref 158466 // sortie de zone
-  state_ref 143234 // mission rush zone centrale
+  classview_ref 128130 // MAE_MURPHY
   deploymentview_ref 128130 // MAE_MURPHY
 end
 end

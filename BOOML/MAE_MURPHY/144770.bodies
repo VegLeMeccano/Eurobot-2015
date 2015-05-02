@@ -1,25 +1,18 @@
-class Recalage_Initial_State
-!!!168322.cpp!!!	create(inout stm : MAE_MURPHY) : void
-  _doentry(stm);
+class avance_State
+!!!198786.cpp!!!	assFini(inout stm : MAE_MURPHY) : void
   {
-    stm._set_currentState(stm._mae_murphy_state._recalage_initial_state._recule_state);
+    stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_claps_state._chope_du_coin_state._chope_stand_1_state);
 #ifdef VERBOSE_STATE_MACHINE
-    puts("DEBUG : current state is now .MAE_MURPHY.Recalage Initial.Recule");
+    puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission claps.chope du coin.chope stand 1");
 #endif
-    stm._mae_murphy_state._recalage_initial_state._recule_state.create(stm);
+    stm._mae_murphy_state._jeu_state._mission_claps_state._chope_du_coin_state._chope_stand_1_state.create(stm);
   }
-!!!174210.cpp!!!	_doentry(inout stm : MAE_MURPHY) : void
+!!!198914.cpp!!!	create(inout stm : MAE_MURPHY) : void
+	_doentry(stm);
+!!!199042.cpp!!!	_doentry(inout stm : MAE_MURPHY) : void
 #ifdef VERBOSE_STATE_MACHINE
-	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Recalage Initial");
+	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission claps.chope du coin.avance");
 #endif
-cout<<"ETAT RECALAGE INITIAL"<<endl;
-!!!174338.cpp!!!	_upper(inout stm : MAE_MURPHY) : MAE_MURPHY::AnyState
-  return &stm._mae_murphy_state;
-!!!339586.cpp!!!	_exit27(inout stm : MAE_MURPHY) : void
-  {
-    stm._set_currentState(stm._mae_murphy_state._startin_block_state);
-#ifdef VERBOSE_STATE_MACHINE
-    puts("DEBUG : current state is now .MAE_MURPHY.startin' block");
-#endif
-    stm._mae_murphy_state._startin_block_state.create(stm);
-  }
+serialPrint(master->getPortSerie(),"S4 100 \n");
+!!!199170.cpp!!!	_upper(inout stm : MAE_MURPHY) : MAE_MURPHY::AnyState
+  return &stm._mae_murphy_state._jeu_state._mission_claps_state._chope_du_coin_state;

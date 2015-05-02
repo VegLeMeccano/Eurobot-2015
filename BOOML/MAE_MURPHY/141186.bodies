@@ -1,38 +1,28 @@
-class capture_de_gobelet_escalier_State
-!!!157314.cpp!!!	create(inout stm : MAE_MURPHY) : void
-  _doentry(stm);
+class BF_droite_vers_lobjectif_State
+!!!183298.cpp!!!	assFini(inout stm : MAE_MURPHY) : void
   {
-    stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_pillage_distrib_state._capture_de_gobelet_escalier_state._deplacement_cible_state);
+    stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_pillage_distrib_state._rejoindre_le_point_de_depart_mission_state._orientation_cap_mission_state);
 #ifdef VERBOSE_STATE_MACHINE
-    puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission pillage distrib.capture de gobelet escalier.deplacement cible");
+    puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission pillage distrib.rejoindre le point de depart mission.orientation cap mission");
 #endif
-    stm._mae_murphy_state._jeu_state._mission_pillage_distrib_state._capture_de_gobelet_escalier_state._deplacement_cible_state.create(stm);
+    stm._mae_murphy_state._jeu_state._mission_pillage_distrib_state._rejoindre_le_point_de_depart_mission_state._orientation_cap_mission_state.create(stm);
   }
-!!!159746.cpp!!!	_upper(inout stm : MAE_MURPHY) : MAE_MURPHY::AnyState
-  return &stm._mae_murphy_state._jeu_state._mission_pillage_distrib_state;
-!!!185090.cpp!!!	_doentry(inout stm : MAE_MURPHY) : void
+!!!183426.cpp!!!	create(inout stm : MAE_MURPHY) : void
+	_doentry(stm);
+!!!183554.cpp!!!	_doentry(inout stm : MAE_MURPHY) : void
 #ifdef VERBOSE_STATE_MACHINE
-	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission pillage distrib.capture de gobelet escalier");
+	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission pillage distrib.rejoindre le point de depart mission.BF droite vers l'objectif");
 #endif
-// capture d gobelet pres de l'escalier
-!!!328962.cpp!!!	_exit3(inout stm : MAE_MURPHY) : void
-  {
-    stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_pillage_distrib_state);
-#ifdef VERBOSE_STATE_MACHINE
-    puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission pillage distrib");
-#endif
-    if (!master->get_gestionnaire_mission()->mission_distrib()->is_netoyage_zone_done() ) {
-      stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_pillage_distrib_state._capture_stands_cote_escalier_state);
-#ifdef VERBOSE_STATE_MACHINE
-      puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission pillage distrib.capture stands cote escalier");
-#endif
-      stm._mae_murphy_state._jeu_state._mission_pillage_distrib_state._capture_stands_cote_escalier_state.create(stm);
-    }
-    else if (master->get_gestionnaire_mission()->mission_distrib()->is_netoyage_zone_done() ) {
-      stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_pillage_distrib_state._sortie_zone_state);
-#ifdef VERBOSE_STATE_MACHINE
-      puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission pillage distrib.sortie zone");
-#endif
-      stm._mae_murphy_state._jeu_state._mission_pillage_distrib_state._sortie_zone_state.create(stm);
-    }
-  }
+// BF Droite vers objectif
+string ordre;
+ordre = "S5 "
+	+ master->get_gestionnaire()->get_x_mission() 
+	+ " "
+	+ master->get_gestionnaire()->get_y_mission() 
+	+ " "
+	+ master->get_gestionnaire()->get_cap_to_mission() 
+	+ " \n";
+serialPrint(master->getPortSerie(),ordre); 
+cout<<"BF droite vers MISSION : "<<ordre<<endl;
+!!!183682.cpp!!!	_upper(inout stm : MAE_MURPHY) : MAE_MURPHY::AnyState
+  return &stm._mae_murphy_state._jeu_state._mission_pillage_distrib_state._rejoindre_le_point_de_depart_mission_state;
