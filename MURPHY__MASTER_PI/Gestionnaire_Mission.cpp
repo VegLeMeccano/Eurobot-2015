@@ -195,6 +195,8 @@ void Gestionnaire_Mission::appel_trigger(int mission_indice_)
             y_mission = mission_claps.get_coord_debut_mission().get_y();
             cap_mission = mission_claps.get_coord_debut_mission().get_cap();
             cout << "cap vers objectif : " << int(cap_to_mission*180 / PI) << endl;
+
+            get_mae_murphy()->mission_claps();
             break;
 
         case MISSION_DISTRIB:
@@ -207,6 +209,8 @@ void Gestionnaire_Mission::appel_trigger(int mission_indice_)
             y_mission = mission_distrib.get_coord_debut_mission().get_y();
             cap_mission = mission_distrib.get_coord_debut_mission().get_cap();
             cout << "cap vers objectif : " << int(cap_to_mission*180 / PI) << endl;
+
+            get_mae_murphy()->mission_distrib();
             break;
 
         case MISSION_CHIAGE_BALLE:
@@ -219,6 +223,8 @@ void Gestionnaire_Mission::appel_trigger(int mission_indice_)
             y_mission = mission_chiage_balle.get_coord_debut_mission().get_y();
             cap_mission = mission_chiage_balle.get_coord_debut_mission().get_cap();
             cout << "cap vers objectif : " << int(cap_to_mission*180 / PI) << endl;
+
+            get_mae_murphy()->mission_chiage_balle();
             break;
 
         case MISSION_ZONE_CENTRALE:
@@ -231,6 +237,8 @@ void Gestionnaire_Mission::appel_trigger(int mission_indice_)
             cap_mission = mission_zone_centrale.get_coord_debut_mission().get_cap();
             cout << "cap vers objectif : " << int(cap_to_mission*180 / PI) << endl;
             mission_sortie_evitement = MISSION_ZONE_CENTRALE;
+
+            get_mae_murphy()->mission_zone_centrale();
             break;
 
         case MISSION_TOUR_DEPART:
@@ -243,6 +251,8 @@ void Gestionnaire_Mission::appel_trigger(int mission_indice_)
             y_mission = mission_depot_tour_depart.get_coord_debut_mission().get_y();
             cap_mission = mission_depot_tour_depart.get_coord_debut_mission().get_cap();
             cout << "cap vers objectif : " << int(cap_to_mission*180 / PI)<< endl;
+
+            get_mae_murphy()->mission_depot_tour_depart();
             break;
 
         case MISSION_TOUR_ESTRADE:
@@ -255,6 +265,8 @@ void Gestionnaire_Mission::appel_trigger(int mission_indice_)
             y_mission = mission_depot_tour_estrade.get_coord_debut_mission().get_y();
             cap_mission = mission_depot_tour_estrade.get_coord_debut_mission().get_cap();
             cout << "cap vers objectif : " << int(cap_to_mission*180 / PI) << endl;
+
+            get_mae_murphy()->mission_depot_tour_estrade();
             break;
 
         case MISSION_ZONE_ENNEMIE:
@@ -267,6 +279,8 @@ void Gestionnaire_Mission::appel_trigger(int mission_indice_)
             y_mission = mission_zone_ennemie.get_coord_debut_mission().get_y();
             cap_mission = mission_zone_ennemie.get_coord_debut_mission().get_cap();
             cout << "cap vers objectif : " << int(cap_to_mission*180 / PI) << endl;
+
+            get_mae_murphy()->mission_zone_ennemie();
             break;
     }
     cout<<endl;

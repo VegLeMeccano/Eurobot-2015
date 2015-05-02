@@ -21,4 +21,10 @@ master->set_time_out(300);
 #ifdef VERBOSE_STATE_MACHINE
 	puts("DEBUG : execute exit behavior of .MAE_MURPHY.Jeu.mission rush zone centrale.tempo pour coop'r?");
 #endif
-master->get_gestionnaire_mission()->get_mission_zone_centrale()->mission_remplie();
+if(	master->get_gestionnaire_mission()->get_mission_zone_centrale()->is_stand_central_catched()
+	&& master->get_gestionnaire_mission()->get_mission_zone_centrale()->is_stand_estrade_catched()
+	&& master->get_gestionnaire_mission()->get_mission_zone_centrale()->is_stand_depart_catched() )
+
+{
+	master->get_gestionnaire_mission()->get_mission_zone_centrale()->mission_remplie();
+}

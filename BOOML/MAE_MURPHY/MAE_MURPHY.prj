@@ -1,6 +1,6 @@
 format 76
 "MAE_MURPHY"
-  revision 54
+  revision 56
   modified_by 2 "Link"
   cpp_root_dir "D:/Club Robotique IRON MENAD 2/Eurobot 2015 Iron Menad/Eurobot-2015/MURPHY__MASTER_PI/"
 
@@ -1210,7 +1210,8 @@ serialPrint(master->getPortSerie(),\"G1 \\n\");
 }
 if(master->is_Vert()){
 serialPrint(master->getPortSerie(),\"D1 \\n\");
-}
+}"
+		cpp_on_exit "master->get_gestionnaire_mission()->get_mission_zone_centrale()->catch_stand_depart();
 master->get_gestionnaire_mission()->get_mission_claps()->stand_depart_done();"
 	      transition 350594 "<transition>"
 		on pseudostate_ref 243586 // exit_point
@@ -1745,8 +1746,8 @@ cout<<\"ORIENTATION VERS MISSION : \"<<ordre<<endl;"
 	    end
 
 	    pseudostate 278274 exit_point "sortie"
-	      transition 343042 "<transition>"
-		on state_ref 270850 // ouverture pince
+	      transition 360962 "<transition>"
+		on pseudostate_ref 292098 // choice
 		external 
 	      end
 	    end
@@ -1835,8 +1836,9 @@ serialPrint(master->getPortSerie(),\"G1 \\n\");
 if(master->is_Vert()){
 serialPrint(master->getPortSerie(),\"D1 \\n\");
 }"
-	    transition 341122 "<transition>"
-	      on state_ref 271234 // re ouverture pince
+	      cpp_on_exit "master->get_gestionnaire_mission()->get_mission_zone_centrale()->catch_stand_central();"
+	    transition 361346 "<transition>"
+	      on pseudostate_ref 292226 // choice
 		cpp_trigger "pince_stand_by"
 	      external 
 	    end
@@ -1877,8 +1879,9 @@ serialPrint(master->getPortSerie(),\"G1 \\n\");
 if(master->is_Vert()){
 serialPrint(master->getPortSerie(),\"D1 \\n\");
 }"
-	    transition 341506 "<transition>"
-	      on state_ref 271618 // BF cap sur stand 3
+	      cpp_on_exit "master->get_gestionnaire_mission()->get_mission_zone_centrale()->catch_stand_estrade();"
+	    transition 360834 "<transition>"
+	      on pseudostate_ref 291970 // choice
 		cpp_trigger "pince_stand_by"
 	      external 
 	    end
@@ -1933,6 +1936,8 @@ serialPrint(master->getPortSerie(),\"G1 \\n\");
 if(master->is_Vert()){
 serialPrint(master->getPortSerie(),\"D1 \\n\");
 }"
+	      cpp_on_exit "master->get_gestionnaire_mission()->get_mission_zone_centrale()->catch_stand_depart();
+master->get_gestionnaire_mission()->get_mission_claps()->stand_depart_done();"
 	    transition 342274 "<transition>"
 	      on state_ref 272130 // tempo pour coop'r?
 		cpp_trigger "pince_stand_by"
@@ -1942,10 +1947,58 @@ serialPrint(master->getPortSerie(),\"D1 \\n\");
 
 	  state 272130 "tempo pour coop'r?"
 	      cpp_on_entry "master->set_time_out(300);"
-	      cpp_on_exit "master->get_gestionnaire_mission()->get_mission_zone_centrale()->mission_remplie();"
+	      cpp_on_exit "if(	master->get_gestionnaire_mission()->get_mission_zone_centrale()->is_stand_central_catched()
+	&& master->get_gestionnaire_mission()->get_mission_zone_centrale()->is_stand_estrade_catched()
+	&& master->get_gestionnaire_mission()->get_mission_zone_centrale()->is_stand_depart_catched() )
+
+{
+	master->get_gestionnaire_mission()->get_mission_zone_centrale()->mission_remplie();
+}"
 	    transition 342402 "<transition>"
 	      on pseudostate_ref 230402 // exit_point
 		cpp_trigger "time_out"
+	      external 
+	    end
+	  end
+
+	  pseudostate 291970 choice 
+	    transition 360450 "<transition>"
+	      on state_ref 272130 // tempo pour coop'r?
+		cpp_guard "master->get_gestionnaire_mission()->get_mission_zone_centrale()->is_stand_depart_catched()"
+	      external 
+	    end
+
+	    transition 360578 "<transition>"
+	      on state_ref 271618 // BF cap sur stand 3
+		cpp_guard "!master->get_gestionnaire_mission()->get_mission_zone_centrale()->is_stand_depart_catched()"
+	      external 
+	    end
+	  end
+
+	  pseudostate 292098 choice 
+	    transition 361090 "<transition>"
+	      on state_ref 270850 // ouverture pince
+		cpp_guard "!master->get_gestionnaire_mission()->get_mission_zone_centrale()->is_stand_central_catched()"
+	      external 
+	    end
+
+	    transition 361730 "<transition>"
+	      on pseudostate_ref 292226 // choice
+		cpp_guard "master->get_gestionnaire_mission()->get_mission_zone_centrale()->is_stand_central_catched()"
+	      external 
+	    end
+	  end
+
+	  pseudostate 292226 choice 
+	    transition 361474 "<transition>"
+	      on state_ref 271234 // re ouverture pince
+		cpp_guard "!master->get_gestionnaire_mission()->get_mission_zone_centrale()->is_stand_estrade_catched()"
+	      external 
+	    end
+
+	    transition 361602 "<transition>"
+	      on pseudostate_ref 291970 // choice
+		cpp_guard "master->get_gestionnaire_mission()->get_mission_zone_centrale()->is_stand_estrade_catched()"
 	      external 
 	    end
 	  end
@@ -14485,6 +14538,24 @@ ${inlines}
 		key "STM generated" value ""
 		comment " returns the state containing the current"
 	      end
+
+	      operation 367874 "_doexit"
+		force_body_gen public explicit_return_type "void"
+		nparams 1
+		  param inout name "stm" type class_ref 140290 // MAE_MURPHY
+		cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+		cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+		
+		
+		
+		
+		ncouples 1
+		key "STM generated" value ""
+		comment " perform the 'exit behavior'"
+	      end
 	    end
 
 	    class 228098 "BF_droite_stand_3_State"
@@ -14933,6 +15004,24 @@ ${inlines}
 		key "STM generated" value ""
 		comment " returns the state containing the current"
 	      end
+
+	      operation 367746 "_doexit"
+		force_body_gen public explicit_return_type "void"
+		nparams 1
+		  param inout name "stm" type class_ref 140290 // MAE_MURPHY
+		cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+		cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+		
+		
+		
+		
+		ncouples 1
+		key "STM generated" value ""
+		comment " perform the 'exit behavior'"
+	      end
 	    end
 
 	    class 227586 "BF_droite_stand_2_State"
@@ -15268,6 +15357,24 @@ ${inlines}
 		ncouples 1
 		key "STM generated" value ""
 		comment " returns the state containing the current"
+	      end
+
+	      operation 367618 "_doexit"
+		force_body_gen public explicit_return_type "void"
+		nparams 1
+		  param inout name "stm" type class_ref 140290 // MAE_MURPHY
+		cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+		cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+		
+		
+		
+		
+		ncouples 1
+		key "STM generated" value ""
+		comment " perform the 'exit behavior'"
 	      end
 	    end
 
@@ -15887,6 +15994,24 @@ ${inlines}
 		  ncouples 1
 		  key "STM generated" value ""
 		  comment " perform the 'entry behavior'"
+		end
+
+		operation 367490 "_doexit"
+		  force_body_gen public explicit_return_type "void"
+		  nparams 1
+		    param inout name "stm" type class_ref 140290 // MAE_MURPHY
+		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+		  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+		  
+		  
+		  
+		  
+		  ncouples 1
+		  key "STM generated" value ""
+		  comment " perform the 'exit behavior'"
 		end
 	      end
 
@@ -25064,7 +25189,7 @@ ${inlines}
 	relation 253186 -_->
 	  stereotype "friend"
 	  a default
-	    cpp default "#include in source"
+	    cpp default "${type}"
 	    classrelation_ref 253186 // <dependency>
 	  b parent class_ref 234882 // BF_droite_sur_le_verre_State
       end
@@ -25073,7 +25198,7 @@ ${inlines}
 	relation 253442 -_->
 	  stereotype "friend"
 	  a default
-	    cpp default "#include in source"
+	    cpp default "${type}"
 	    classrelation_ref 253442 // <dependency>
 	  b parent class_ref 235010 // chope_gobelet_State
       end
@@ -25082,7 +25207,7 @@ ${inlines}
 	relation 253698 -_->
 	  stereotype "friend"
 	  a default
-	    cpp default "#include in source"
+	    cpp default "${type}"
 	    classrelation_ref 253698 // <dependency>
 	  b parent class_ref 235138 // recule_des_stands_State
       end
@@ -25091,7 +25216,7 @@ ${inlines}
 	relation 253954 -_->
 	  stereotype "friend"
 	  a default
-	    cpp default "#include in source"
+	    cpp default "${type}"
 	    classrelation_ref 253954 // <dependency>
 	  b parent class_ref 235266 // BF_CAP_State
       end
@@ -25100,7 +25225,7 @@ ${inlines}
 	relation 254210 -_->
 	  stereotype "friend"
 	  a default
-	    cpp default "#include in source"
+	    cpp default "${type}"
 	    classrelation_ref 254210 // <dependency>
 	  b parent class_ref 235394 // recule_vers_la_zone_de_depart_State
       end
@@ -25109,7 +25234,7 @@ ${inlines}
 	relation 254466 -_->
 	  stereotype "friend"
 	  a default
-	    cpp default "#include in source"
+	    cpp default "${type}"
 	    classrelation_ref 254466 // <dependency>
 	  b parent class_ref 235522 // BF_droite_vers_les_stands_State
       end
@@ -25137,7 +25262,7 @@ ${inlines}
 	relation 254722 -_->
 	  stereotype "friend"
 	  a default
-	    cpp default "#include in source"
+	    cpp default "${type}"
 	    classrelation_ref 254722 // <dependency>
 	  b parent class_ref 235650 // ouvre_pince_State
       end
@@ -25146,7 +25271,7 @@ ${inlines}
 	relation 254978 -_->
 	  stereotype "friend"
 	  a default
-	    cpp default "#include in source"
+	    cpp default "${type}"
 	    classrelation_ref 254978 // <dependency>
 	  b parent class_ref 235778 // chope_stand_1_State
       end
@@ -25155,7 +25280,7 @@ ${inlines}
 	relation 255234 -_->
 	  stereotype "friend"
 	  a default
-	    cpp default "#include in source"
+	    cpp default "${type}"
 	    classrelation_ref 255234 // <dependency>
 	  b parent class_ref 235906 // re_ouvre_pince_State
       end
@@ -25164,7 +25289,7 @@ ${inlines}
 	relation 255490 -_->
 	  stereotype "friend"
 	  a default
-	    cpp default "#include in source"
+	    cpp default "${type}"
 	    classrelation_ref 255490 // <dependency>
 	  b parent class_ref 236034 // re_avance_State
       end
@@ -25173,7 +25298,7 @@ ${inlines}
 	relation 255746 -_->
 	  stereotype "friend"
 	  a default
-	    cpp default "#include in source"
+	    cpp default "${type}"
 	    classrelation_ref 255746 // <dependency>
 	  b parent class_ref 236162 // chope_stand_2_State
       end
@@ -25182,7 +25307,7 @@ ${inlines}
 	relation 256002 -_->
 	  stereotype "friend"
 	  a default
-	    cpp default "#include in source"
+	    cpp default "${type}"
 	    classrelation_ref 256002 // <dependency>
 	  b parent class_ref 236290 // recalage_State
       end
@@ -25191,7 +25316,7 @@ ${inlines}
 	relation 256258 -_->
 	  stereotype "friend"
 	  a default
-	    cpp default "#include in source"
+	    cpp default "${type}"
 	    classrelation_ref 256258 // <dependency>
 	  b parent class_ref 236418 // BF_CAP_pour_claps_State
       end
@@ -25200,7 +25325,7 @@ ${inlines}
 	relation 256514 -_->
 	  stereotype "friend"
 	  a default
-	    cpp default "#include in source"
+	    cpp default "${type}"
 	    classrelation_ref 256514 // <dependency>
 	  b parent class_ref 236546 // deboit_claps_coin_State
       end
@@ -25209,7 +25334,7 @@ ${inlines}
 	relation 256770 -_->
 	  stereotype "friend"
 	  a default
-	    cpp default "#include in source"
+	    cpp default "${type}"
 	    classrelation_ref 256770 // <dependency>
 	  b parent class_ref 236674 // set_X_CAP_State
       end
@@ -25218,7 +25343,7 @@ ${inlines}
 	relation 257026 -_->
 	  stereotype "friend"
 	  a default
-	    cpp default "#include in source"
+	    cpp default "${type}"
 	    classrelation_ref 257026 // <dependency>
 	  b parent class_ref 236802 // avance_claps_State
       end
@@ -25227,7 +25352,7 @@ ${inlines}
 	relation 257282 -_->
 	  stereotype "friend"
 	  a default
-	    cpp default "#include in source"
+	    cpp default "${type}"
 	    classrelation_ref 257282 // <dependency>
 	  b parent class_ref 236930 // BF_droite_sur_claps_estrade_State
       end
@@ -25236,7 +25361,7 @@ ${inlines}
 	relation 257538 -_->
 	  stereotype "friend"
 	  a default
-	    cpp default "#include in source"
+	    cpp default "${type}"
 	    classrelation_ref 257538 // <dependency>
 	  b parent class_ref 237058 // cap_to_mission_State
       end
@@ -25245,7 +25370,7 @@ ${inlines}
 	relation 257794 -_->
 	  stereotype "friend"
 	  a default
-	    cpp default "#include in source"
+	    cpp default "${type}"
 	    classrelation_ref 257794 // <dependency>
 	  b parent class_ref 237186 // BF_droite_to_mission_State
       end
@@ -25254,7 +25379,7 @@ ${inlines}
 	relation 258050 -_->
 	  stereotype "friend"
 	  a default
-	    cpp default "#include in source"
+	    cpp default "${type}"
 	    classrelation_ref 258050 // <dependency>
 	  b parent class_ref 237314 // cap_mission_State
       end
@@ -25286,6 +25411,10 @@ ${includes}
 #include \"Master.h\"
 #include <wiringPi.h>
 #include <wiringSerial.h>
+#include <iostream>
+#include <string>
+
+using namespace std;
 
 ${namespace_start}
 ${members}
