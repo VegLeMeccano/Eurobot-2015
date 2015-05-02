@@ -1,6 +1,6 @@
 format 76
 "MAE_MURPHY"
-  revision 64
+  revision 65
   modified_by 2 "Link"
   cpp_root_dir "D:/Club Robotique IRON MENAD 2/Eurobot 2015 Iron Menad/Eurobot-2015/MURPHY__MASTER_PI/"
 
@@ -89,7 +89,8 @@ format 76
 "
 	state 180098 "mission depot tour estrade"
 	    cpp_on_entry "// depose une ou plusieurs pile sur l'estrade
-// normalement une seule sinon risque de faire tomber celle adverse"
+// normalement une seule sinon risque de faire tomber celle adverse
+cout<<\"MISSION DEPOT TOUR ESTRADE\">>endl;"
 	  associated_diagram statediagram_ref 161282 // mission depot tour estrade
 	  statediagram 161282 "mission depot tour estrade"
 	    package_name_in_tab yes show_context default auto_label_position yes write_trans_label_horizontally yes show_trans_definition yes draw_all_relations yes shadow yes
@@ -303,7 +304,8 @@ master->get_gestionnaire_mission()->get_mission_depot_tour_estrade()->mission_re
 
 	state 142850 "mission pillage distrib"
 	    cpp_on_entry "// pille le distrib et les pillier autour
-// mission quart haut, capture du gobelet pres de l'escalier"
+// mission quart haut, capture du gobelet pres de l'escalier
+cout<<\"MISSION PILLAGE DISTRIB\">>endl;"
 	  associated_diagram statediagram_ref 147714 // mission pillage
 	  statediagram 147714 "mission pillage"
 	    package_name_in_tab yes show_context default auto_label_position yes write_trans_label_horizontally yes show_trans_definition yes draw_all_relations yes shadow yes
@@ -931,6 +933,7 @@ if(master->get_gestionnaire_mission()->get_mission_distrib()->is_netoyage_zone_d
 
 	state 142978 "mission attrap balle et chiage"
 	    cpp_on_entry "// de but : pres de zone de depart
+cout<<\"MISSION CHIAGE & BALL\">>endl;
 "
 	  associated_diagram statediagram_ref 161026 // mission attrap balle
 	  statediagram 161026 "mission attrap balle"
@@ -1155,7 +1158,8 @@ master->get_gestionnaire_mission()->get_mission_chiage_balle()->mission_remplie(
 	end
 
 	state 143106 "mission claps"
-	    cpp_on_entry "// part vers le bas en direction des claps"
+	    cpp_on_entry "// part vers le bas en direction des claps
+cout<<\"MISSION CLAPS\">>endl;"
 	  associated_diagram statediagram_ref 154370 // mission claps
 	  statediagram 154370 "mission claps"
 	    package_name_in_tab yes show_context default auto_label_position yes write_trans_label_horizontally yes show_trans_definition yes draw_all_relations yes shadow yes
@@ -1717,7 +1721,8 @@ cout<<\"ORIENTATION VERS MISSION : \"<<ordre<<endl;"
 	end
 
 	state 143234 "mission rush zone centrale"
-	    cpp_on_entry "// on va rusher les trois stands centraux"
+	    cpp_on_entry "// on va rusher les trois stands centraux
+cout<<\"MISSION RUSH ZONE CENTRALE\">>endl;"
 	  associated_diagram statediagram_ref 188162 // mission rush zone central
 	  statediagram 188162 "mission rush zone central"
 	    package_name_in_tab yes show_context default auto_label_position yes write_trans_label_horizontally yes show_trans_definition yes draw_all_relations yes shadow yes
@@ -2017,7 +2022,8 @@ master->get_gestionnaire_mission()->get_mission_claps()->stand_depart_done();"
 	end
 
 	state 143490 "mission depot de tour zone depart"
-	    cpp_on_entry "// depot de tour sur la zone de depart"
+	    cpp_on_entry "// depot de tour sur la zone de depart
+cout<<\"MISSION DEPOT TOUR DEPART\">>endl;"
 	  associated_diagram statediagram_ref 161154 // mission depot tour zone depart
 	  statediagram 161154 "mission depot tour zone depart"
 	    package_name_in_tab yes show_context default auto_label_position yes write_trans_label_horizontally yes show_trans_definition yes draw_all_relations yes shadow yes
@@ -2226,7 +2232,8 @@ master->get_gestionnaire_mission()->commencement_end();"
 
 	state 158722 "mission zone ennemie"
 	    cpp_on_entry "// claps ennemi
-// depot de goblets cinéma adverse"
+// depot de goblets cinéma adverse
+cout<<\"MISSION ZONE ENNEMIE\">>endl;"
 	  associated_diagram statediagram_ref 154498 // mission zone ennemie
 	  statediagram 154498 "mission zone ennemie"
 	    package_name_in_tab yes show_context default auto_label_position yes write_trans_label_horizontally yes show_trans_definition yes draw_all_relations yes shadow yes
