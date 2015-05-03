@@ -87,6 +87,7 @@ class Gestionnaire_Mission
         void set_strategie_2(int strat_);
 
         void set_coord(Coord coord_reel_);
+        Coord get_coord();
 
         void set_couleur(int couleur_);
         void decision_mission();            // appel de triger sur la mission a realiser

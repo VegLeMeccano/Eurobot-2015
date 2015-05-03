@@ -390,12 +390,17 @@ void Protocole_COM::executeinstr()
          //si reception de coordonnées
         if(s.find("COORD") != string::npos)
         {
-            stream>> ordre >> name >> x >> y >> cap;
+            //stream>> ordre >> name >> x >> y >> cap;
+            stream>> name >> x >> y >> cap;
             master->get_gestionnaire_mission()->set_coord( Coord( atoi(x.c_str()) , atoi(y.c_str()) , atoi(cap.c_str()) ) );
             // aller chercher les coordonnées dans la chaine
             // to do
             // et les mettre dans le master pour decision sur mission a venir
-            cout<<"[Master] REAL COORD : "<<endl;
+            cout<<"[Master] REAL COORD : ";
+            cout<<master->get_gestionnaire_mission()->get_coord().get_x()<<" ";
+            cout<<master->get_gestionnaire_mission()->get_coord().get_y()<<" ";
+            cout<<master->get_gestionnaire_mission()->get_coord().get_cap()<<endl;
+
             //master->set_couleur(COULEUR_VERT);
         }
 

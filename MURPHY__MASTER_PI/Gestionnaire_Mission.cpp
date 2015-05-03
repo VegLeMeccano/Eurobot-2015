@@ -46,7 +46,10 @@ void Gestionnaire_Mission::set_coord(Coord coord_reel_)
     coord_reel = coord_reel_;
 }
 
-
+Coord Gestionnaire_Mission::get_coord()
+{
+    return coord_reel;
+}
 
 
 void Gestionnaire_Mission::decision_mission()
@@ -181,7 +184,7 @@ float Gestionnaire_Mission::get_y_mission()
 
 float Gestionnaire_Mission::get_cap_mission()
 {
-    return cap_mission*180 / PI;
+    return cap_mission; //*180 / PI;
 }
 
 
@@ -190,7 +193,7 @@ string Gestionnaire_Mission::get_cap_to_mission_str()
     string result;
     ostringstream convert;
 
-    convert << get_cap_to_mission();
+    convert << (int)get_cap_to_mission();
     result = convert.str();
     return result;
 }
@@ -220,7 +223,7 @@ string Gestionnaire_Mission::get_cap_mission_str()
     string result;
     ostringstream convert;
 
-    convert << get_cap_mission();
+    convert << (int)get_cap_mission();
     result = convert.str();
     return result;
 }
