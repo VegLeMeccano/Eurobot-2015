@@ -210,6 +210,7 @@ void Protocole_COM::executeinstr()
         {
             cout<<"[Master] etat asserv, ennemi gauche"<<endl;
             master->get_gestionnaire_mission()->get_mae_murphy()->evitement(); // adversaire();
+            master->get_gestionnaire_mission()->evitement_mission();
             ///master->get_gestionnaire_mission()->get_mae_murphy()->_set_currentState(MAE_MURPHY_State(Evitement_State));
         }
 
@@ -218,6 +219,7 @@ void Protocole_COM::executeinstr()
         {
             cout<<"[Master] etat asserv, ennemi droite"<<endl;
             master->get_gestionnaire_mission()->get_mae_murphy()->evitement();//master->get_MAE_COOP_R()->assFini();
+            master->get_gestionnaire_mission()->evitement_mission();
         }
 
 
