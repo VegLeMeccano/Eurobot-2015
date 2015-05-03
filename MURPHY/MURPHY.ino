@@ -156,36 +156,39 @@ void loop(){
         state = STARTMIS;
         Serial.println("# START_IN");
     }
-
-    // debut de jeu quand le start est releve
-    if (state == STARTMIS && bumper_START.is_off())
-    {
-        state = GAME ;
-        Serial.println("# START_OUT");
-        slave->turn_on_evit();
-        timer = millis();
-        //Serial.println(timer);
-
-    }
-
-    // fin de partie si t>90s
-    if ( (state == END) || (state == GAME && ((millis()-timer) > TEMPS_PARTIE ) ) )
-    {
-
-        Serial.println("# END_GAME");
-        state = END;
-        slave->stop();
-        //io->stop();
-
-        }
     else
+    {
+            // debut de jeu quand le start est releve
+        if (state == STARTMIS && bumper_START.is_off())
         {
-            //Serial.println(millis()-timer);
-            com->run();
-            slave->run();
-            io->run();
-        }
+            state = GAME ;
+            Serial.println("# START_OUT");
+            slave->turn_on_evit();
+            timer = millis();
+            //Serial.println(timer);
 
+        }
+        else
+        {
+            // fin de partie si t>90s
+            if ( (state == END) || (state == GAME && ((millis()-timer) > TEMPS_PARTIE ) ) )
+            {
+
+                Serial.println("# END_GAME");
+                state = END;
+                slave->stop();
+                //io->stop();
+
+            }
+            else
+            {
+                    //Serial.println(millis()-timer);
+                    com->run();
+                    slave->run();
+                    io->run();
+            }
+        }
+    }
 
 
 /**

@@ -69,11 +69,11 @@ void OrdersRaspberry::executeinstr()
     std::string temp;
     stream>>temp;
     char ordre = temp[0];
-    Serial.print("ordre ind = ");
+    ///Serial.print("ordre ind = ");
     int ind = ((int)temp[1]) - 48;
-    Serial.print(ordre);
-    Serial.print("@");
-    Serial.println(ind);
+    ///Serial.print(ordre);
+    ///Serial.print("@");
+    ///Serial.println(ind);
     std::string temp2;
     std::string cap;
     std::string x;
@@ -564,6 +564,7 @@ void OrdersRaspberry::executeinstr()
             slave->stop();
             break;
         }
+        break;
 
 
 
@@ -615,7 +616,10 @@ void OrdersRaspberry::executeinstr()
             slave->bavardeur_sonar_off(); //get_control()->bavardeur_sonar_off();
             break;
         }
+    break;
     }
+
+
     return;
 
 
