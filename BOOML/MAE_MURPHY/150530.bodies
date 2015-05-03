@@ -14,6 +14,7 @@ class rembale_les_pinces_State
 #ifdef VERBOSE_STATE_MACHINE
 	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission depot de tour zone depart.rembale les pinces");
 #endif
+cout<<"depot depart : replis des pinces"<<endl;
 serialPrintf(master->getPortSerie(),"G6 \n");
 serialPrintf(master->getPortSerie(),"D6 \n");
 !!!223362.cpp!!!	_doexit(inout stm : MAE_MURPHY) : void

@@ -18,7 +18,9 @@ Gestionnaire_Mission::Gestionnaire_Mission():
         period_jeu(PERIODE_JEU),
         cap_to_mission(0),
         alignement_to_mission(false),
-        premiere_entree_decision(true)
+        premiere_entree_decision(true),
+        strategie_1(0),
+        strategie_2(0)
 {
     mae_murphy.create();
 

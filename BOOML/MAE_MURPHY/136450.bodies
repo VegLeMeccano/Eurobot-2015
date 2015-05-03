@@ -13,6 +13,7 @@ class replis_des_pinces_State
 #ifdef VERBOSE_STATE_MACHINE
 	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission depot tour estrade.replis des pinces");
 #endif
+cout<<"depot estrade : replis des pinces"<<endl;
 // replis des pinces
 serialPrintf(master->getPortSerie(),"G6 \n");
 serialPrintf(master->getPortSerie(),"D6 \n");

@@ -13,6 +13,7 @@ class BF_droite_sur_le_cine_State
 #ifdef VERBOSE_STATE_MACHINE
 	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission zone ennemie.depot gobelet.BF droite sur le cine");
 #endif
+cout<<"gobelet : BF droite sur le cine"<<endl;
 if(master->is_Jaune()){
 // BF droite sur le cine
 serialPrintf(master->getPortSerie(),"S5 1255 531 0 \n");

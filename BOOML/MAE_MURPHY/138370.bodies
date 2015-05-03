@@ -13,6 +13,7 @@ class ouverture_pince_cote_escalier_seconde_State
 #ifdef VERBOSE_STATE_MACHINE
 	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission pillage distrib.capture stands cote escalier.ouverture pince cote escalier seconde");
 #endif
+cout<<"stands escalier : re-ouverture de pince"<<endl;
 if(master->is_Jaune()){
 serialPrintf(master->getPortSerie(),"D0 \n");
 }

@@ -18,7 +18,9 @@ int main()
     mae.evitement();
     mae.trans_etat();
 
-    //mae._set_currentState();
+
+    //mae.
+    //mae.create test_State.Evitement_State;
 
 
 

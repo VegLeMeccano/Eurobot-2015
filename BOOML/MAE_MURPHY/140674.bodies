@@ -13,6 +13,7 @@ class orientation_vers_sortie_de_zone_State
 #ifdef VERBOSE_STATE_MACHINE
 	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission pillage distrib.vidage distributeur.orientation vers sortie de zone");
 #endif
+cout<<"distrib : orientation vers sortie"<<endl;
 if(master->is_Jaune()){
 serialPrintf(master->getPortSerie(),"S3 -45 \n");
 }

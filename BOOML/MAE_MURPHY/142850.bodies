@@ -13,6 +13,7 @@ class avance_State
 #ifdef VERBOSE_STATE_MACHINE
 	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission attrap balle et chiage.avance");
 #endif
+cout<<"chiage : avance/degagement"<<endl;
 // aller devant la zone de depart
 //BF avance de 400mm
 serialPrintf(master->getPortSerie(),"S4 400 \n");

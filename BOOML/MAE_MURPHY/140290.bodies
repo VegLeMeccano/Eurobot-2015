@@ -15,6 +15,7 @@ class SET_Y_CAP_State
 #ifdef VERBOSE_STATE_MACHINE
 	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission pillage distrib.vidage distributeur.SET Y CAP");
 #endif
+cout<<"distrib : set Y CAP"<<endl;
 if(master->is_Jaune()){
 // BF droite sur le gobelet 
 serialPrintf(master->getPortSerie(),"S0 -1789 1050 90 \n");

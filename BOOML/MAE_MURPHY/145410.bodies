@@ -14,6 +14,7 @@ class recalage_State
 #ifdef VERBOSE_STATE_MACHINE
 	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission claps.chope du coin.recalage");
 #endif
+cout<<"coin : recalage coin"<<endl;
 serialPrintf(master->getPortSerie(),"S2 \n");
 !!!201730.cpp!!!	_doexit(inout stm : MAE_MURPHY) : void
 #ifdef VERBOSE_STATE_MACHINE

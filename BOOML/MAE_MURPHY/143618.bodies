@@ -14,6 +14,7 @@ class chope_State
 #ifdef VERBOSE_STATE_MACHINE
 	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission claps.chope du stand sur la route.chope");
 #endif
+cout<<"stand depart : chope stand"<<endl;
 if(master->is_Jaune()){
 // ouvre pince gauche
 serialPrintf(master->getPortSerie(),"G1 \n");

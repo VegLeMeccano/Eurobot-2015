@@ -13,6 +13,7 @@ class sortie_de_zone_de_depart_State
 #ifdef VERBOSE_STATE_MACHINE
 	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.sortie de zone de depart");
 #endif
+cout<<"sortie de la zone de depart"<<endl;
 // avance de 200mm (400mm avec le recalage)
 // attention si on laisse coop'r derrière ou devant
 serialPrintf(master->getPortSerie(),"S4 200 \n");

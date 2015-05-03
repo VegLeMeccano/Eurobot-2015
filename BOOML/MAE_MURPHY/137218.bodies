@@ -13,6 +13,7 @@ class capture_State
 #ifdef VERBOSE_STATE_MACHINE
 	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission pillage distrib.capture de gobelet escalier.capture");
 #endif
+cout<<"gobelet : capture"<<endl;
 // ferme le pince interne souleve
 serialPrintf(master->getPortSerie(),"P5 \n");
 master->set_time_out(300);

@@ -22,5 +22,6 @@ class vidage_distributeur_State
 #endif
 // element_robot.aspire();
 // mission_distrib.netoyage_zone_done(); 
+cout<<"vidage distributeur"<<endl;
 !!!182402.cpp!!!	_upper(inout stm : MAE_MURPHY) : MAE_MURPHY::AnyState
   return &stm._mae_murphy_state._jeu_state._mission_pillage_distrib_state;

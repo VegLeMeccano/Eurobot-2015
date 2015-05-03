@@ -13,6 +13,7 @@ class BF_Cap_objectif_State
 #ifdef VERBOSE_STATE_MACHINE
 	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission pillage distrib.vidage distributeur.BF Cap objectif");
 #endif
+cout<<"distrib : cap sur cible"<<endl;
 if(master->is_Jaune()){
 serialPrintf(master->getPortSerie(),"S3 80 \n");
 }

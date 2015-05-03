@@ -15,6 +15,7 @@ class sortie_State
 #ifdef VERBOSE_STATE_MACHINE
 	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission attrap balle et chiage.sortie");
 #endif
+cout<<"chiage : sortie de zone"<<endl;
 // fermeture capot arriere
 serialPrintf(master->getPortSerie(),"P3 \n");
 master->get_gestionnaire_mission()->get_mission_chiage_balle()->mission_remplie();

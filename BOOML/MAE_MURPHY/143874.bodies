@@ -13,6 +13,7 @@ class BF_droite_sur_le_verre_State
 #ifdef VERBOSE_STATE_MACHINE
 	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission claps.chope du coin.BF droite sur le verre");
 #endif
+cout<<"coin : BF droite sur verre"<<endl;
 if(master->is_Jaune()){
 // BF droite sur le gobelet 
 serialPrintf(master->getPortSerie(),"S5 -1224 247 180 \n");

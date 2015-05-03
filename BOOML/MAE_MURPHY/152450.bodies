@@ -13,6 +13,7 @@ class BF_CAP_vers_centre_de_la_table_State
 #ifdef VERBOSE_STATE_MACHINE
 	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission zone ennemie.depot gobelet.BF CAP vers centre de la table");
 #endif
+cout<<"claps central : demi tour pour sortie"<<endl;
 if(master->is_Jaune()){
 // BF cap centre
 serialPrintf(master->getPortSerie(),"S3 180 \n");

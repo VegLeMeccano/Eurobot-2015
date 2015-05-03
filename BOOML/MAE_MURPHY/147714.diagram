@@ -75,7 +75,7 @@ transitioncanvas 131330 transition_ref 201986 // <transition>
 end
 transitioncanvas 131458 transition_ref 202114 // <transition>
   
-  from ref 131202 z 2006 label "[!master->get_gestionnaire_mission()->get_mission_distrib()->is_netoyage_zone_done() ]" xyz 781 411.5 2006 to ref 128898
+  from ref 131202 z 2006 label "[!master->get_gestionnaire_mission()->get_mission_distrib()->is_netoyage_zone_done() ]" xyz 781 411 2006 to ref 128898
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 131970 transition_ref 202498 // <transition>

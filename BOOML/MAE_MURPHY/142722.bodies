@@ -13,6 +13,7 @@ class drop_gobelet_State
 #ifdef VERBOSE_STATE_MACHINE
 	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission attrap balle et chiage.drop gobelet");
 #endif
+cout<<"chiage : drop gobelet"<<endl;
 // drop si present
 master->set_time_out(200);
 if(master->get_gestionnaire_mission()->get_element_robot()->gobelet_present())

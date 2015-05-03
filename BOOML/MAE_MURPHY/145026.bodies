@@ -13,6 +13,7 @@ class re_ouvre_pince_State
 #ifdef VERBOSE_STATE_MACHINE
 	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission claps.chope du coin.re ouvre pince");
 #endif
+cout<<"coin : ouverture pince 2nd stand"<<endl;
 if(master->is_Jaune()){
 // ouverture de pince
 serialPrintf(master->getPortSerie(),"D0 \n");

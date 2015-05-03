@@ -15,6 +15,7 @@ class BF_cap_State
 #ifdef VERBOSE_STATE_MACHINE
 	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission claps.sortie de zone.BF cap");
 #endif
+cout<<"sortie de zone"<<endl;
 if(	master->get_gestionnaire_mission()->get_mission_claps()->is_stand_depart_done()
 	&& master->get_gestionnaire_mission()->get_mission_claps()->is_zone_coin_done()
 	&& master->get_gestionnaire_mission()->get_mission_claps()->is_clap_estrade_done())

@@ -13,6 +13,7 @@ class BF_cap_to_cine_State
 #ifdef VERBOSE_STATE_MACHINE
 	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission zone ennemie.claps central.BF cap to cine");
 #endif
+cout<<"claps central : BF cap pour avoir le claps au dos"<<endl;
 if(master->is_Jaune()){
 // BF cap sur le cine adverse
 serialPrintf(master->getPortSerie(),"S3 80 \n");

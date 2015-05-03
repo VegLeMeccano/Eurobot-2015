@@ -23,5 +23,6 @@ if(master->get_gestionnaire_mission()->get_mission_distrib()->is_netoyage_zone_d
 {
 	master->get_gestionnaire_mission()->get_mission_distrib()->mission_remplie();
 }
+cout<<"sortie de zone"<<endl;
 !!!185090.cpp!!!	_upper(inout stm : MAE_MURPHY) : MAE_MURPHY::AnyState
   return &stm._mae_murphy_state._jeu_state._mission_pillage_distrib_state;

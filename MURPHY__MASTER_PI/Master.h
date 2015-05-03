@@ -31,6 +31,7 @@ class Master
         int cycle_attente;
         int portSerie;
 
+
         Gestionnaire_Mission gestionnaire_mission;
 
 

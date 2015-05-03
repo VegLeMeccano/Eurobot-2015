@@ -13,6 +13,7 @@ class BF_cap_vers_estrade_State
 #ifdef VERBOSE_STATE_MACHINE
 	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission zone ennemie.claps central.BF cap vers estrade");
 #endif
+cout<<"claps central : BF cap/rotation sur claps"<<endl;
 if(master->is_Jaune()){
 // BF droite sur le claps
 serialPrintf(master->getPortSerie(),"S3 180 \n");

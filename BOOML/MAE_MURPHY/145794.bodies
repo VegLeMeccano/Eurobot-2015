@@ -13,6 +13,7 @@ class set_X_CAP_State
 #ifdef VERBOSE_STATE_MACHINE
 	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission claps.chope du coin.set X CAP");
 #endif
+cout<<"coin : set X CAP"<<endl;
 if(master->is_Jaune()){
 // BF droite sur le gobelet 
 serialPrintf(master->getPortSerie(),"S0 -1404 247 0\n"); // mettre le Y du S

@@ -27,6 +27,7 @@ class chope_stand_2_State
 #ifdef VERBOSE_STATE_MACHINE
 	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission rush zone centrale.chope stand 2");
 #endif
+cout<<"stand estrade : chope stand"<<endl;
 if(master->is_Jaune()){
 serialPrintf(master->getPortSerie(),"G1 \n");
 }

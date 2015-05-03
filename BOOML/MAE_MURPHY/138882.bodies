@@ -26,5 +26,6 @@ class capture_stand_bordure_State
 
 // Vert : pile droite +1
 // element_robot.pile_droite_incr();
+cout<<"capture de stand bordure"<<endl;
 !!!177154.cpp!!!	_upper(inout stm : MAE_MURPHY) : MAE_MURPHY::AnyState
   return &stm._mae_murphy_state._jeu_state._mission_pillage_distrib_state;

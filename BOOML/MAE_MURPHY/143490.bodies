@@ -13,6 +13,7 @@ class ouverture_de_pince_State
 #ifdef VERBOSE_STATE_MACHINE
 	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission claps.chope du stand sur la route.ouverture de pince");
 #endif
+cout<<"stand depart : ouverture pince"<<endl;
 if(master->is_Jaune()){
 // ouvre pince gauche
 serialPrintf(master->getPortSerie(),"G0 \n");

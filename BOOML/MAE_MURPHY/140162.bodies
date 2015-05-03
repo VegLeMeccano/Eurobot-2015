@@ -14,6 +14,7 @@ class BF_avance_jusquau_blocage_State
 #ifdef VERBOSE_STATE_MACHINE
 	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission pillage distrib.vidage distributeur.BF avance jusquau blocage");
 #endif
+cout<<"distrib : avance jusqu'au blocage"<<endl;
 serialPrintf(master->getPortSerie(),"S4 200 \n");
 !!!178946.cpp!!!	_do(inout stm : MAE_MURPHY) : void
 #ifdef VERBOSE_STATE_MACHINE

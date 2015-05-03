@@ -9,7 +9,7 @@ pseudostatecanvas 128130 pseudostate_ref 250626 // initial
 end
 statecanvas 128258 state_ref 240514 // BF cap
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 234 248 2005 555 131
+  xyzwh 234 247 2005 555 145
 end
 statecanvas 128386 state_ref 240642 // avance
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
