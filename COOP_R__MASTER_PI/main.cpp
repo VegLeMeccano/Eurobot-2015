@@ -48,6 +48,8 @@ int main()
     if(portSerie >-1)
     {
         cout << "[SERIAL] Connection success -> "<<portSerie << endl;
+        serialFlush(portSerie);
+        cout << "[SERIAL] flush(netoyage) -> "<<portSerie << endl;
     }
     else{
         cout << "[SERIAL] Connection failed -> "<<portSerie << endl;
