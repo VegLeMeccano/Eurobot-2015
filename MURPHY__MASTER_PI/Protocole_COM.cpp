@@ -362,28 +362,28 @@ void Protocole_COM::executeinstr()
         // si jaune
         if(s.find("STRAT 1 : 0") != string::npos)
         {
-            cout<<"[Master] strategie 1 : 0 (JAUNE)"<<endl;
+            cout<<"[Master] strategie 1 : 0 "<<endl;
             master->get_gestionnaire_mission()->set_strategie_1(0);
         }
 
         //si vert
         if(s.find("STRAT 1 : 1") != string::npos)
         {
-            cout<<"[Master] strategie 1 : 1 (VERT)"<<endl;
+            cout<<"[Master] strategie 1 : 1 "<<endl;
             master->get_gestionnaire_mission()->set_strategie_1(1);
         }
 
         // si jaune
         if(s.find("STRAT 2 : 0") != string::npos)
         {
-            cout<<"[Master] strategie 1 : 0 (JAUNE)"<<endl;
+            cout<<"[Master] strategie 1 : 0 "<<endl;
             master->get_gestionnaire_mission()->set_strategie_2(0);
         }
 
         //si vert
         if(s.find("STRAT 2 : 1") != string::npos)
         {
-            cout<<"[Master] strategie 1 : 1 (VERT)"<<endl;
+            cout<<"[Master] strategie 1 : 1 "<<endl;
             master->get_gestionnaire_mission()->set_strategie_2(1);
         }
 
