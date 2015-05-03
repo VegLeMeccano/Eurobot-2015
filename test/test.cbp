@@ -7,20 +7,17 @@
 		<Option compiler="gcc" />
 		<Build>
 			<Target title="Debug">
-				<Option output="bin/Debug/test" prefix_auto="1" extension_auto="1" />
-				<Option object_output="obj/Debug/" />
+				<Option output="bin\Debug\test" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj\Debug\" />
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
 				</Compiler>
-				<Linker>
-					<Add library="../../../../../usr/lib/libwiringPi.so" />
-				</Linker>
 			</Target>
 			<Target title="Release">
-				<Option output="bin/Release/test" prefix_auto="1" extension_auto="1" />
-				<Option object_output="obj/Release/" />
+				<Option output="bin\Release\test" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj\Release\" />
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
@@ -35,9 +32,9 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
-		<Unit filename="../MURPHY__MASTER_PI/Period.cpp" />
-		<Unit filename="../MURPHY__MASTER_PI/Period.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="test.cpp" />
+		<Unit filename="test.h" />
 		<Extensions>
 			<code_completion />
 			<debugger />

@@ -2,88 +2,116 @@ format 76
 
 statecanvas 128002 state_ref 143106 // mission claps
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 115 68 2000 941 565
+  xyzwh 120 73 2000 1490 881
 end
 pseudostatecanvas 128130 pseudostate_ref 154754 // initial
-   xyz 273 176 2005
+   xyz 190.6 154.2 2005
 end
 statecanvas 128258 state_ref 157570 // chope du stand sur la route
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 194 240 2005 173 55
+  xyzwh 145.4 333.8 2005 303 61
 end
-statecanvas 128514 state_ref 157698 // chope du gobelet et des stands
+statecanvas 128514 state_ref 157698 // chope du coin
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 182 343 2005 195 37
+  xyzwh 573 702.2 2005 295 103
 end
-statecanvas 128642 state_ref 157826 // claps 1
+statecanvas 128770 state_ref 157954 // claps estrade
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 539 196 2005 59 33
+  xyzwh 1123 716.4 2005 243 61
 end
-statecanvas 128770 state_ref 157954 // claps 2
+statecanvas 129026 state_ref 158210 // waypoint initial
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 543 260 2005 59 33
+  xyzwh 291.2 146.4 2005 245 61
 end
-statecanvas 128898 state_ref 158082 // chope stand pres estrade
+statecanvas 129282 state_ref 158466 // sortie de zone
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 491 352 2005 163 33
-end
-statecanvas 129026 state_ref 158210 // decision
-  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 405 198 2005 67 33
-end
-statecanvas 129154 state_ref 158338 // pose pile
-  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 697 426 2005 71 33
-end
-statecanvas 129282 state_ref 158466 // chope stand milieu
-  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 694 321 2005 125 33
-end
-statecanvas 130178 state_ref 158594 // pose seconde pile? zone de depart
-  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 821 403 2005 215 33
+  xyzwh 1371.2 444.6 2005 154 60
 end
 pseudostatecanvas 130306 pseudostate_ref 161410 // exit_point
-   xyz 912 241 3005 label_xy 901 260
+   xyz 1552.6 465.6 3005 label_xy 1541 484
 end
-transitioncanvas 128386 transition_ref 164866 // <transition>
+pseudostatecanvas 131970 pseudostate_ref 243586 // exit_point
+   xyz 239.2 377.4 3005 label_xy 220 396
+end
+pseudostatecanvas 132226 pseudostate_ref 243714 // exit_point
+   xyz 808.8 694.8 3005 label_xy 793 713
+end
+pseudostatecanvas 133250 pseudostate_ref 216834 // exit_point
+   xyz 1342.6 711.6 3005 label_xy 1324 730
+end
+pseudostatecanvas 134018 pseudostate_ref 250754 // exit_point
+   xyz 1515 470.6 3005 label_xy 1511 488
+end
+pseudostatecanvas 134274 pseudostate_ref 284930 // exit_point
+   xyz 396 197.4 3005 label_xy 386 216
+end
+pseudostatecanvas 134786 pseudostate_ref 285186 // choice
+   xyz 477.6 249.8 2005
+end
+pseudostatecanvas 135298 pseudostate_ref 285314 // choice
+   xyz 738.8 439 2005
+end
+pseudostatecanvas 135682 pseudostate_ref 285442 // choice
+   xyz 1014.4 553.2 2005
+end
+transitioncanvas 130562 transition_ref 266498 // <transition>
   
-  from ref 128130 z 2006 to ref 128258
+  from ref 128130 z 2006 to ref 129026
   write_horizontally default show_definition default drawing_language default
 end
-transitioncanvas 129410 transition_ref 164994 // <transition>
+transitioncanvas 134146 transition_ref 306306 // <transition>
   
-  from ref 128258 z 2006 to ref 128514
+  from ref 134018 z 3006 to ref 130306
   write_horizontally default show_definition default drawing_language default
 end
-transitioncanvas 129538 transition_ref 165122 // <transition>
+transitioncanvas 134530 transition_ref 350210 // <transition>
   
-  from ref 128514 z 2006 to ref 128642
+  from ref 133250 z 3006 to ref 129282
   write_horizontally default show_definition default drawing_language default
 end
-transitioncanvas 129666 transition_ref 165250 // <transition>
+transitioncanvas 135042 transition_ref 350850 // <transition>
   
-  from ref 128642 z 2006 to ref 128770
+  from ref 134274 z 3006 to ref 134786
   write_horizontally default show_definition default drawing_language default
 end
-transitioncanvas 129794 transition_ref 165378 // <transition>
+transitioncanvas 135170 transition_ref 350978 // <transition>
   
-  from ref 128770 z 2006 to ref 128898
+  from ref 134786 z 2006 label "[!master->get_gestionnaire_mission()->get_mission_claps()->is_stand_depart_done()]" xyz 207 295 2006 to ref 128258
   write_horizontally default show_definition default drawing_language default
 end
-transitioncanvas 129922 transition_ref 165506 // <transition>
+transitioncanvas 135426 transition_ref 351106 // <transition>
   
-  from ref 128898 z 2006 to ref 129154
+  from ref 134786 z 2006 label "[master->get_gestionnaire_mission()->get_mission_claps()->is_stand_depart_done()]" xyz 412 355 2006 to ref 135298
   write_horizontally default show_definition default drawing_language default
 end
-transitioncanvas 130050 transition_ref 165634 // <transition>
+transitioncanvas 135554 transition_ref 351234 // <transition>
   
-  from ref 129154 z 2006 to ref 129282
+  from ref 131970 z 3006 to ref 135298
   write_horizontally default show_definition default drawing_language default
 end
-transitioncanvas 130434 transition_ref 172546 // <transition>
+transitioncanvas 135810 transition_ref 351362 // <transition>
   
-  from ref 129282 z 3006 to ref 130306
+  from ref 135298 z 2006 label "[master->get_gestionnaire_mission()->get_mission_claps()->is_zone_coin_done()]" xyz 685 500 2006 to ref 135682
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 136322 transition_ref 351618 // <transition>
+  
+  from ref 135298 z 2006 label "[!master->get_gestionnaire_mission()->get_mission_claps()->is_zone_coin_done()]" xyz 397 580 2006 to ref 128514
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 136450 transition_ref 351746 // <transition>
+  
+  from ref 132226 z 3006 to ref 135682
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 136578 transition_ref 351874 // <transition>
+  
+  from ref 135682 z 2006 label "[master->get_gestionnaire_mission()->get_mission_claps()->is_clap_estrade_done()]" xyz 999 521 2006 to ref 129282
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 136706 transition_ref 352002 // <transition>
+  
+  from ref 135682 z 2006 label "[!master->get_gestionnaire_mission()->get_mission_claps()->is_clap_estrade_done()]" xyz 916 640 2006 to ref 128770
   write_horizontally default show_definition default drawing_language default
 end
 end

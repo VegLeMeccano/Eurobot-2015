@@ -25,9 +25,9 @@ execution du script
 
 
 #include "Period.h"
-#include "util.h"
+//.#include "util.h"
 
-#define VERBOSE_STATE_MACHINE 1
+//#define VERBOSE_STATE_MACHINE 1
 
 using namespace std;
 
@@ -65,7 +65,7 @@ int main()
     cout << "[MASTER_MURPHY] INITIALISATION DU MASTER" << endl;
     protocole_com = new Protocole_COM(master);
 
-
+    master->get_gestionnaire_mission()->commencement();
 
     cout<<"________________________________________"<<endl;
     cout << "[MASTER_MURPHY] boucle de jeu" << endl;

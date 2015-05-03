@@ -3,13 +3,27 @@
 #include <iostream>     // std::cout
 #include <sstream>
 #include <stdlib.h>
-#include "../MURPHY__MASTER_PI/Period.h"
+//#include "../MURPHY__MASTER_PI/Period.h"
+
+#include "test.h"
 
 // mettre ../../../../../usr/lib/libwiringPi.so;
 using namespace std;
 
 int main()
 {
+    test mae;
+    mae.create();
+    mae.stratEnleve();
+    mae.evitement();
+    mae.trans_etat();
+
+    //mae._set_currentState();
+
+
+
+
+    /*
     Period period(90000);
 
     while(!period.is_over())
@@ -30,7 +44,7 @@ int main()
     {
         cout<<"founded"<<endl;
     }
-*/
+
     string s;
     s = "# COORD -10 -41 08";
     string ordre;
@@ -52,7 +66,7 @@ int main()
     cout<<"y = " << atoi(y.c_str()) <<endl;
     cout<<"cap = " << atoi(cap.c_str()) <<endl;
     //stream>>s;
-
+*/
 
 
     return 0;

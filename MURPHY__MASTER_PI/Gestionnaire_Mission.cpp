@@ -11,16 +11,32 @@ Gestionnaire_Mission::Gestionnaire_Mission():
         mission_chiage_balle(true),
         mission_zone_centrale(true),
         mission_depot_tour_depart(true),
-        mission_depot_tour_estrade(false),
+        mission_depot_tour_estrade(true),
         mission_zone_ennemie(true),
         coord_reel(0,0,0),
-        //, mae_murphy(),
-        /// period_jeu(PERIODE_JEU),
+        mae_murphy(),
+        period_jeu(PERIODE_JEU),
         cap_to_mission(0),
-        alignement_to_mission(false)
+        alignement_to_mission(false),
+        premiere_entree_decision(true)
 {
-    //mae_murphy.create();
+    mae_murphy.create();
 
+}
+
+void Gestionnaire_Mission::start_compteur_periode()
+{
+    period_jeu.reset();
+}
+
+
+bool Gestionnaire_Mission::commencement()
+{
+    return premiere_entree_decision;
+}
+void Gestionnaire_Mission::commencement_end()
+{
+    premiere_entree_decision = false;
 }
 
 void Gestionnaire_Mission::set_coord(Coord coord_reel_)
@@ -148,7 +164,7 @@ void Gestionnaire_Mission::evitement_mission()
 
 float Gestionnaire_Mission::get_cap_to_mission()
 {
-    return cap_to_mission;
+    return cap_to_mission*180 / PI;
 }
 
 float Gestionnaire_Mission::get_x_mission()
@@ -156,16 +172,56 @@ float Gestionnaire_Mission::get_x_mission()
     return x_mission;
 }
 
-float Gestionnaire_Mission::get_y_to_mission()
+float Gestionnaire_Mission::get_y_mission()
 {
     return y_mission;
 }
 
 float Gestionnaire_Mission::get_cap_mission()
 {
-    return cap_mission;
+    return cap_mission*180 / PI;
 }
 
+
+string Gestionnaire_Mission::get_cap_to_mission_str()
+{
+    string result;
+    ostringstream convert;
+
+    convert << get_cap_to_mission();
+    result = convert.str();
+    return result;
+}
+
+string Gestionnaire_Mission::get_x_mission_str()
+{
+    string result;
+    ostringstream convert;
+
+    convert << get_x_mission();
+    result = convert.str();
+    return result;
+}
+
+string Gestionnaire_Mission::get_y_mission_str()
+{
+    string result;
+    ostringstream convert;
+
+    convert << get_y_mission();
+    result = convert.str();
+    return result;
+}
+
+string Gestionnaire_Mission::get_cap_mission_str()
+{
+    string result;
+    ostringstream convert;
+
+    convert << get_cap_mission();
+    result = convert.str();
+    return result;
+}
 
 void Gestionnaire_Mission::appel_trigger(int mission_indice_)
 {
@@ -185,6 +241,8 @@ void Gestionnaire_Mission::appel_trigger(int mission_indice_)
             y_mission = mission_claps.get_coord_debut_mission().get_y();
             cap_mission = mission_claps.get_coord_debut_mission().get_cap();
             cout << "cap vers objectif : " << int(cap_to_mission*180 / PI) << endl;
+
+            get_mae_murphy()->mission_claps();
             break;
 
         case MISSION_DISTRIB:
@@ -197,6 +255,8 @@ void Gestionnaire_Mission::appel_trigger(int mission_indice_)
             y_mission = mission_distrib.get_coord_debut_mission().get_y();
             cap_mission = mission_distrib.get_coord_debut_mission().get_cap();
             cout << "cap vers objectif : " << int(cap_to_mission*180 / PI) << endl;
+
+            get_mae_murphy()->mission_distrib();
             break;
 
         case MISSION_CHIAGE_BALLE:
@@ -209,6 +269,8 @@ void Gestionnaire_Mission::appel_trigger(int mission_indice_)
             y_mission = mission_chiage_balle.get_coord_debut_mission().get_y();
             cap_mission = mission_chiage_balle.get_coord_debut_mission().get_cap();
             cout << "cap vers objectif : " << int(cap_to_mission*180 / PI) << endl;
+
+            get_mae_murphy()->mission_chiage_balle();
             break;
 
         case MISSION_ZONE_CENTRALE:
@@ -221,6 +283,8 @@ void Gestionnaire_Mission::appel_trigger(int mission_indice_)
             cap_mission = mission_zone_centrale.get_coord_debut_mission().get_cap();
             cout << "cap vers objectif : " << int(cap_to_mission*180 / PI) << endl;
             mission_sortie_evitement = MISSION_ZONE_CENTRALE;
+
+            get_mae_murphy()->mission_zone_centrale();
             break;
 
         case MISSION_TOUR_DEPART:
@@ -233,6 +297,8 @@ void Gestionnaire_Mission::appel_trigger(int mission_indice_)
             y_mission = mission_depot_tour_depart.get_coord_debut_mission().get_y();
             cap_mission = mission_depot_tour_depart.get_coord_debut_mission().get_cap();
             cout << "cap vers objectif : " << int(cap_to_mission*180 / PI)<< endl;
+
+            get_mae_murphy()->mission_depot_tour_depart();
             break;
 
         case MISSION_TOUR_ESTRADE:
@@ -245,6 +311,8 @@ void Gestionnaire_Mission::appel_trigger(int mission_indice_)
             y_mission = mission_depot_tour_estrade.get_coord_debut_mission().get_y();
             cap_mission = mission_depot_tour_estrade.get_coord_debut_mission().get_cap();
             cout << "cap vers objectif : " << int(cap_to_mission*180 / PI) << endl;
+
+            get_mae_murphy()->mission_depot_tour_estrade();
             break;
 
         case MISSION_ZONE_ENNEMIE:
@@ -257,6 +325,8 @@ void Gestionnaire_Mission::appel_trigger(int mission_indice_)
             y_mission = mission_zone_ennemie.get_coord_debut_mission().get_y();
             cap_mission = mission_zone_ennemie.get_coord_debut_mission().get_cap();
             cout << "cap vers objectif : " << int(cap_to_mission*180 / PI) << endl;
+
+            get_mae_murphy()->mission_zone_ennemie();
             break;
     }
     cout<<endl;
@@ -267,7 +337,7 @@ void Gestionnaire_Mission::appel_trigger(int mission_indice_)
 void Gestionnaire_Mission::actualisation_Priorite()
 {
     // temps restant pour decision des truc important
-    ///temps_restant = (period_jeu.time_elapsed()- PERIODE_JEU)/1000; // en s
+    temps_restant = (period_jeu.time_elapsed()- PERIODE_JEU)/1000; // en s
 
     if(sortie_evitement == true)
     {
@@ -529,9 +599,9 @@ void Gestionnaire_Mission::set_strategie_2(int strat_)
     strategie_2 = strat_;
 }
 
-/*
+
 MAE_MURPHY* Gestionnaire_Mission::get_mae_murphy()
 {
-    return &mae_murphy();
+    return &mae_murphy;
 }
-*/
+

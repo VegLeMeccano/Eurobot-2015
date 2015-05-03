@@ -1,24 +1,27 @@
-class capture_State
-!!!158594.cpp!!!	time_out(inout stm : MAE_MURPHY) : void
+class sortie_zone_State
+!!!184706.cpp!!!	_completion(inout stm : MAE_MURPHY) : bool
   {
-    stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_pillage_distrib_state._capture_de_gobelet_escalier_state._bf_cap_vers_la_zone_de_distrib_state);
+    stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_pillage_distrib_state);
 #ifdef VERBOSE_STATE_MACHINE
-    puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission pillage distrib.capture de gobelet escalier.BF cap vers la zone de distrib");
+    puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission pillage distrib");
 #endif
-    stm._mae_murphy_state._jeu_state._mission_pillage_distrib_state._capture_de_gobelet_escalier_state._bf_cap_vers_la_zone_de_distrib_state.create(stm);
+    stm._mae_murphy_state._jeu_state._mission_pillage_distrib_state._exit8(stm);
+    return (bool) 1;
   }
-!!!158722.cpp!!!	create(inout stm : MAE_MURPHY) : void
+!!!184834.cpp!!!	create(inout stm : MAE_MURPHY) : void
 	_doentry(stm);
-!!!158850.cpp!!!	_doentry(inout stm : MAE_MURPHY) : void
+	_completion(stm);
+!!!184962.cpp!!!	_doentry(inout stm : MAE_MURPHY) : void
 #ifdef VERBOSE_STATE_MACHINE
-	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission pillage distrib.capture de gobelet escalier.capture");
+	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission pillage distrib.sortie zone");
 #endif
-// ferme le pince interne souleve
-serialPrint(master->getPortSerie(),"??? \n");
-master->set_time_out(300);
+// on se remet devant la zone de depart
+// BF droite vers la zone enemie
 
-//mettre une varible sur le master pour dire qu'on a capturé un gobelet
-mission_distrib.capture_gobelet_done();
-element_robot.gobelet_saisie();
-!!!158978.cpp!!!	_upper(inout stm : MAE_MURPHY) : MAE_MURPHY::AnyState
-  return &stm._mae_murphy_state._jeu_state._mission_pillage_distrib_state._capture_de_gobelet_escalier_state;
+if(master->get_gestionnaire_mission()->get_mission_distrib()->is_netoyage_zone_done() 
+	&& master->get_gestionnaire_mission()->get_mission_distrib()->is_capture_gobelet_done())
+{
+	master->get_gestionnaire_mission()->get_mission_distrib()->mission_remplie();
+}
+!!!185090.cpp!!!	_upper(inout stm : MAE_MURPHY) : MAE_MURPHY::AnyState
+  return &stm._mae_murphy_state._jeu_state._mission_pillage_distrib_state;

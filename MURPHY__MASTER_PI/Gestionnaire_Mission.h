@@ -2,9 +2,14 @@
 #define GESTIONNAIRE_MISSION_H
 
 #include "Element_Robot.h"
-//#include "MAE_MURPHY.h"
+#include "MAE_MURPHY.h"
 
-///#include "Period.h"
+#include "Period.h"
+
+#include <iomanip>
+#include <locale>
+#include <sstream>
+#include <string>
 
 #include "Mission_Claps.h"
 #include "Mission_Depot_Tour_Depart.h"
@@ -60,11 +65,11 @@ class Gestionnaire_Mission
         float cap_mission;
         bool alignement_to_mission;
 
-        //MAE_MURPHY mae_murphy;
+        MAE_MURPHY mae_murphy;
 
         // couleur et temps restant
         int couleur;
-        ///Period period_jeu;
+        Period period_jeu;
         long temps_restant;
 
         // pour les trategies
@@ -72,9 +77,11 @@ class Gestionnaire_Mission
         int strategie_2;
         int mission_sortie_evitement;
         bool sortie_evitement;
+        bool premiere_entree_decision;
 
     public:
         Gestionnaire_Mission();
+        void start_compteur_periode();
         int strategie();
         void set_strategie_1(int strat_);
         void set_strategie_2(int strat_);
@@ -84,6 +91,9 @@ class Gestionnaire_Mission
         void set_couleur(int couleur_);
         void decision_mission();            // appel de triger sur la mission a realiser
         void affiche_mission_active();
+
+        bool commencement();
+        void commencement_end();
 
         Mission_Claps*                  get_mission_claps();
         Mission_Distrib*                get_mission_distrib();
@@ -97,10 +107,16 @@ class Gestionnaire_Mission
 
         float get_cap_to_mission();
         float get_x_mission();
-        float get_y_to_mission();
+        float get_y_mission();
         float get_cap_mission();
 
-        //MAE_MURPHY* get_mae_murphy();
+        string get_cap_to_mission_str();
+        string get_x_mission_str();
+        string get_y_mission_str();
+        string get_cap_mission_str();
+
+
+        MAE_MURPHY* get_mae_murphy();
 
         void actualisation_Priorite();
         void actualisation_temps_restant();
