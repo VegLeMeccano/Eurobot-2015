@@ -1204,13 +1204,13 @@ void Aspiration_Bras::in_state_func()
             break;
 
          case ETAT_ASPIRATION_TAPE_GAUCHE  :
-            set_time_out(1000);
+            set_time_out(500);
             clap_gauche.ouverture();
             Serial.println("ETAT_ASPIRATION_TAPE_GAUCHE ");
             break;
 
           case ETAT_ASPIRATION_TAPE_DROITE  :
-            set_time_out(1000);
+            set_time_out(500);
             clap_droite.ouverture();
             Serial.println("ETAT_ASPIRATION_TAPE_DROITE ");
             break;
