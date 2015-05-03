@@ -93,7 +93,7 @@ void Protocole_COM::executeinstr()
     std::string x;
     std::string y;
     std::string cap;
-    stream>>temp;
+    //stream>>temp;
     char ordre_d = s[0];
     cout<<"[arduino] "<<s<<endl;
 
@@ -390,16 +390,22 @@ void Protocole_COM::executeinstr()
          //si reception de coordonnées
         if(s.find("COORD") != string::npos)
         {
-            //stream>> ordre >> name >> x >> y >> cap;
-            stream>> name >> x >> y >> cap;
-            master->get_gestionnaire_mission()->set_coord( Coord( atoi(x.c_str()) , atoi(y.c_str()) , atoi(cap.c_str()) ) );
+            stream.str(s);
+            stream>> ordre >> name >> x >> y >> cap;
+            //stream>> name >> x >> y >> cap;
+            cout<<"compris : ";
+            cout<< "x : "<<atoi(x.c_str());
+            cout<< " y : "<<atoi(y.c_str());
+            cout<< " cap : "<<atoi(cap.c_str())<<endl;
+
+            master->get_gestionnaire_mission()->set_coord( Coord( atoi(x.c_str()) , atoi(y.c_str()) , 3.1423/180*atoi(cap.c_str()) ) );
             // aller chercher les coordonnées dans la chaine
             // to do
             // et les mettre dans le master pour decision sur mission a venir
             cout<<"[Master] REAL COORD : ";
             cout<<master->get_gestionnaire_mission()->get_coord().get_x()<<" ";
             cout<<master->get_gestionnaire_mission()->get_coord().get_y()<<" ";
-            cout<<master->get_gestionnaire_mission()->get_coord().get_cap()<<endl;
+            cout<<(int)(master->get_gestionnaire_mission()->get_coord().get_cap()*180/3.1416)<<endl;
 
             //master->set_couleur(COULEUR_VERT);
         }
