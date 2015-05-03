@@ -13,6 +13,7 @@ class BF_droite_vers_objectif_State
 #ifdef VERBOSE_STATE_MACHINE
 	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission pillage distrib.capture stand bordure.BF droite vers objectif");
 #endif
+cout<<"stands bordure : BF droite sur cible"<<endl;
 if(master->is_Jaune()){
 // BF droite sur le gobelet 
 serialPrintf(master->getPortSerie(),"S5 -1174 1544 90 \n");

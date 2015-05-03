@@ -14,6 +14,7 @@ class tempo_pour_coopr_State
 #ifdef VERBOSE_STATE_MACHINE
 	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission rush zone centrale.tempo pour coop'r?");
 #endif
+cout<<"sortie de zone"<<endl;
 master->set_time_out(300);
 !!!218114.cpp!!!	_doexit(inout stm : MAE_MURPHY) : void
 #ifdef VERBOSE_STATE_MACHINE

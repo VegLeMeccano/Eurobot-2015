@@ -83,14 +83,14 @@ class test {
             // to manage the event create
             virtual void create(test & stm);
 
-            // to manage the exit point 'sortie evit', defined because probably shared
-            void _exit1(test & stm);
-
             // perform the 'entry behavior'
             void _doentry(test & stm);
 
             // returns the state containing the current
             virtual AnyState * _upper(test & stm);
+
+            // to manage the exit point 'sortie evit', defined because probably shared
+            void _exit2(test & stm);
 
         };
         
@@ -100,10 +100,41 @@ class test {
             // implement the state etat 1
             class etat_1_State : public AnyState {
               public:
-                virtual ~etat_1_State();
+                // implement the state bitt
+                class bitt_State : public AnyState {
+                  public:
+                    virtual ~bitt_State();
 
-                // to manage the event trans_etat
-                virtual void trans_etat(test & stm);
+                    // to manage the event trans_etat
+                    virtual void trans_etat(test & stm);
+
+                    // to manage the event create
+                    virtual void create(test & stm);
+
+                    // perform the 'entry behavior'
+                    void _doentry(test & stm);
+
+                    // returns the state containing the current
+                    virtual AnyState * _upper(test & stm);
+
+                };
+                
+                // implement the state yop
+                class yop_State : public AnyState {
+                  public:
+                    virtual ~yop_State();
+
+                    virtual bool _completion(test & stm);
+
+                    // to manage the event create
+                    virtual void create(test & stm);
+
+                    // returns the state containing the current
+                    virtual AnyState * _upper(test & stm);
+
+                };
+                
+                virtual ~etat_1_State();
 
                 // to manage the event create
                 virtual void create(test & stm);
@@ -113,6 +144,15 @@ class test {
 
                 // returns the state containing the current
                 virtual AnyState * _upper(test & stm);
+
+                // memorize the instance of the state bitt, internal
+                bitt_State _bitt_state;
+
+                // memorize the instance of the state yop, internal
+                yop_State _yop_state;
+
+                // to manage the exit point 'sortie', defined because probably shared
+                void _exit1(test & stm);
 
             };
             
@@ -219,6 +259,8 @@ class test {
     // contains the current state, internal
     AnyState * _current_state;
 
+  friend class test_State::Jeu_State::etat_1_State::bitt_State;
+  friend class test_State::Jeu_State::etat_1_State::yop_State;
 };
 // change the current state, internal
 inline void test::_set_currentState(test::AnyState & st) {

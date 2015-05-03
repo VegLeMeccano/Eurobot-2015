@@ -13,6 +13,7 @@ class depot_State
 #ifdef VERBOSE_STATE_MACHINE
 	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission depot tour estrade.depot");
 #endif
+cout<<"depot estrade : pose de pile"<<endl;
 // preparation des piles a poser
 if(master->is_Jaune()){
 	serialPrintf(master->getPortSerie(),"G5 \n"); // lache

@@ -13,6 +13,7 @@ class to_escalier_State
 #ifdef VERBOSE_STATE_MACHINE
 	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission zone ennemie.faire chier en zizagant.to escalier");
 #endif
+cout<<"chieur : to escalier"<<endl;
 if(master->is_Jaune()){
 // BF droite sur le cine
 serialPrintf(master->getPortSerie(),"S5 170 919 180 \n");

@@ -356,6 +356,35 @@ void Protocole_COM::executeinstr()
             master->set_couleur(COULEUR_VERT);
         }
 
+
+        // si jaune
+        if(s.find("STRAT 1 : 0") != string::npos)
+        {
+            cout<<"[Master] strategie 1 : 0 (JAUNE)"<<endl;
+            master->get_gestionnaire_mission()->set_strategie_1(0);
+        }
+
+        //si vert
+        if(s.find("STRAT 1 : 1") != string::npos)
+        {
+            cout<<"[Master] strategie 1 : 1 (VERT)"<<endl;
+            master->get_gestionnaire_mission()->set_strategie_1(1);
+        }
+
+        // si jaune
+        if(s.find("STRAT 2 : 0") != string::npos)
+        {
+            cout<<"[Master] strategie 1 : 0 (JAUNE)"<<endl;
+            master->get_gestionnaire_mission()->set_strategie_2(0);
+        }
+
+        //si vert
+        if(s.find("STRAT 2 : 1") != string::npos)
+        {
+            cout<<"[Master] strategie 1 : 1 (VERT)"<<endl;
+            master->get_gestionnaire_mission()->set_strategie_2(1);
+        }
+
          //si reception de coordonnées
         if(s.find("COORD") != string::npos)
         {

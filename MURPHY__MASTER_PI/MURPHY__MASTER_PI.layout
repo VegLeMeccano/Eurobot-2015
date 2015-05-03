@@ -1,26 +1,31 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Debug" />
-	<File name="Coord.cpp" open="0" top="0" tabpos="1">
-		<Cursor position="87" topLine="0" />
+	<File name="Coord.cpp" open="1" top="0" tabpos="1">
+		<Cursor position="0" topLine="0" />
 	</File>
-	<File name="Gestionnaire_Mission.cpp" open="1" top="0" tabpos="1">
-		<Cursor position="6780" topLine="216" />
+	<File name="Gestionnaire_Mission.cpp" open="1" top="1" tabpos="2">
+		<Cursor position="21496" topLine="565" />
 	</File>
-	<File name="Gestionnaire_Mission.h" open="1" top="0" tabpos="3">
-		<Cursor position="1005" topLine="39" />
+	<File name="Gestionnaire_Mission.h" open="1" top="0" tabpos="4">
+		<Cursor position="2108" topLine="72" />
 	</File>
+<<<<<<< HEAD
 	<File name="MAE_MURPHY.cpp" open="1" top="1" tabpos="8">
 		<Cursor position="41145" topLine="1074" />
+=======
+	<File name="MAE_MURPHY.cpp" open="1" top="0" tabpos="9">
+		<Cursor position="303598" topLine="6343" />
+>>>>>>> 791847dccaf87fbf6c98ff629f57f48c6566cc52
 	</File>
 	<File name="MAE_MURPHY.h" open="0" top="0" tabpos="0">
-		<Cursor position="3916" topLine="39" />
+		<Cursor position="3267" topLine="48" />
 	</File>
-	<File name="Master.cpp" open="1" top="0" tabpos="4">
-		<Cursor position="2081" topLine="101" />
+	<File name="Master.cpp" open="1" top="0" tabpos="5">
+		<Cursor position="2314" topLine="106" />
 	</File>
-	<File name="Master.h" open="1" top="0" tabpos="7">
-		<Cursor position="211" topLine="0" />
+	<File name="Master.h" open="1" top="0" tabpos="8">
+		<Cursor position="532" topLine="21" />
 	</File>
 	<File name="Mission.cpp" open="0" top="0" tabpos="0">
 		<Cursor position="338" topLine="0" />
@@ -31,13 +36,13 @@
 	<File name="Mission_Depot_Tour_Estrade.cpp" open="0" top="0" tabpos="8">
 		<Cursor position="1048" topLine="0" />
 	</File>
-	<File name="Protocole_COM.cpp" open="1" top="0" tabpos="2">
-		<Cursor position="5557" topLine="198" />
+	<File name="Protocole_COM.cpp" open="1" top="0" tabpos="3">
+		<Cursor position="11889" topLine="351" />
 	</File>
-	<File name="Protocole_COM.h" open="1" top="0" tabpos="6">
+	<File name="Protocole_COM.h" open="1" top="0" tabpos="7">
 		<Cursor position="433" topLine="1" />
 	</File>
-	<File name="main.cpp" open="1" top="0" tabpos="5">
+	<File name="main.cpp" open="1" top="0" tabpos="6">
 		<Cursor position="449" topLine="13" />
 	</File>
 </CodeBlocks_layout_file>

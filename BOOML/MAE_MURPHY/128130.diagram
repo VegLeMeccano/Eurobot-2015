@@ -13,11 +13,11 @@ statecanvas 128258 state_ref 128258 // Initialisation
 end
 statecanvas 128386 state_ref 128386 // Jeu
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 124.968 509.125 2005 263 89
+  xyzwh 132.968 495.125 2005 299 127
 end
 statecanvas 128514 state_ref 128514 // Evitement
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 519.959 515.625 2005 251 61
+  xyzwh 535.959 516.625 2005 255 93
 end
 statecanvas 130050 state_ref 135042 // Recalage Initial
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
@@ -31,7 +31,7 @@ statecanvas 130946 state_ref 165762 // startin' block
   xyzwh 139.121 387.362 2005 367 61
 end
 pseudostatecanvas 131330 pseudostate_ref 189314 // exit_point
-   xyz 511.011 516.249 3005 label_xy 446 505
+   xyz 526.011 517.249 3005 label_xy 461 506
 end
 statecanvas 131586 state_ref 262274 // Game Over
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
@@ -54,7 +54,7 @@ transitioncanvas 131074 transition_ref 192386 // <transition>
 end
 transitioncanvas 131202 transition_ref 192514 // <transition>
   
-  from ref 130946 z 2006 label "start_enleve" xyz 228 456 2006 to ref 128386
+  from ref 130946 z 2006 label "start_enleve" xyz 242 449 2006 to ref 128386
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 131458 transition_ref 220802 // <transition>
@@ -64,12 +64,12 @@ transitioncanvas 131458 transition_ref 220802 // <transition>
 end
 transitioncanvas 131714 transition_ref 330626 // <transition>
   
-  from ref 128386 z 2006 label "end_game" xyz 352 638 2006 to ref 131586
+  from ref 128386 z 2006 label "end_game" xyz 375 649 2006 to ref 131586
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 131842 transition_ref 387970 // <transition>
   
-  from ref 128386 z 2006 label "evitement" xyz 429 541 3000 to ref 128514
+  from ref 128386 z 2006 label "evitement" xyz 459 552 2006 to ref 128514
   write_horizontally default show_definition default drawing_language default
 end
 end

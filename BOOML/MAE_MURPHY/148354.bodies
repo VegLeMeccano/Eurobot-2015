@@ -13,6 +13,7 @@ class re_ouverture_pince_State
 #ifdef VERBOSE_STATE_MACHINE
 	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission rush zone centrale.re ouverture pince");
 #endif
+cout<<"stand estrade : ouverture de pince"<<endl;
 if(master->is_Jaune()){
 serialPrintf(master->getPortSerie(),"G0 \n");
 }

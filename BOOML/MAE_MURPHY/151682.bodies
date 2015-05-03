@@ -13,6 +13,7 @@ class BF_droite_State
 #ifdef VERBOSE_STATE_MACHINE
 	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission zone ennemie.claps central.BF droite");
 #endif
+cout<<"claps central : BF droite dessus"<<endl;
 if(master->is_Jaune()){
 // BF droite sur le claps
 serialPrintf(master->getPortSerie(),"S5 977 235 -90 \n");

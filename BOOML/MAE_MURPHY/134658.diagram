@@ -26,11 +26,11 @@ statecanvas 129026 state_ref 143490 // mission depot de tour zone depart
 end
 statecanvas 129794 state_ref 157442 // sortie de zone de depart
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 350.726 89.3907 2005 379 103
+  xyzwh 350.726 89.3907 2005 379 117
 end
 statecanvas 130178 state_ref 158722 // mission zone ennemie
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 1542.01 405.393 2005 256 89
+  xyzwh 1542.01 404.393 2005 256 89
 end
 pseudostatecanvas 130562 pseudostate_ref 161410 // exit_point
    xyz 1211.14 834.203 3005 label_xy 1201 854
@@ -65,11 +65,11 @@ pseudostatecanvas 135426 pseudostate_ref 182530 // exit_point
    xyz 1430.6 562.934 3016 label_xy 1426 583
 end
 pseudostatecanvas 135682 pseudostate_ref 257282 // exit_point
-   xyz 1534 459 3005 label_xy 1530 478
+   xyz 1534 458 3005 label_xy 1530 477
 end
 transitioncanvas 131714 transition_ref 199426 // <transition>
   
-  from ref 131586 z 2006 label "[master->get_gestionnaire_mission()->commencement() == true]" xyz 724 118 2006 to ref 129794
+  from ref 131586 z 2006 label "[master->get_gestionnaire_mission()->commencement() == true]" xyz 724 119 2006 to ref 129794
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 131842 transition_ref 199554 // <transition>
@@ -84,7 +84,7 @@ transitioncanvas 131970 transition_ref 199682 // <transition>
 end
 transitioncanvas 132098 transition_ref 199810 // <transition>
   
-  from ref 129794 z 2006 label "assFini" xyz 757 233 2006 to ref 130946
+  from ref 129794 z 2006 label "assFini" xyz 764 240 2006 to ref 130946
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 132866 transition_ref 200450 // <transition>

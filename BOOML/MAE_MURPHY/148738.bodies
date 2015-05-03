@@ -13,6 +13,7 @@ class BF_cap_sur_stand_3_State
 #ifdef VERBOSE_STATE_MACHINE
 	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission rush zone centrale.BF cap sur stand 3");
 #endif
+cout<<"stand depart : orientation sur cible"<<endl;
 if(master->is_Jaune()){
 serialPrintf(master->getPortSerie(),"S3 110 \n");
 }

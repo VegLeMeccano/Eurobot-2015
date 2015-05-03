@@ -13,6 +13,7 @@ class orientation_avant_reculage_State
 #ifdef VERBOSE_STATE_MACHINE
 	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission attrap balle et chiage.orientation avant reculage");
 #endif
+cout<<"chiage : orientation sur zone de depart"<<endl;
 if(master->is_Jaune()){
 // vers le centre de la table
 serialPrintf(master->getPortSerie(),"S3 0 \n");

@@ -1,6 +1,6 @@
 format 76
 "MAE_MURPHY"
-  revision 67
+  revision 72
   modified_by 2 "Link"
   cpp_root_dir "D:/Club Robotique IRON MENAD 2/Eurobot 2015 Iron Menad/Eurobot-2015/MURPHY__MASTER_PI/"
 
@@ -181,7 +181,8 @@ cout<<\"ORIENTATION VERS MISSION : \"<<ordre<<endl;"
 	  end
 
 	  state 181122 "depot"
-	      cpp_on_entry "// preparation des piles a poser
+	      cpp_on_entry "cout<<\"depot estrade : pose de pile\"<<endl;
+// preparation des piles a poser
 if(master->is_Jaune()){
 	serialPrintf(master->getPortSerie(),\"G5 \\n\"); // lache
 	if(master->get_gestionnaire_mission()->get_mission_depot_tour_estrade()->is_depot_double())
@@ -211,7 +212,8 @@ if(master->is_Vert()){
 	  end
 
 	  state 181378 "recule doucement"
-	      cpp_on_entry "serialPrintf(master->getPortSerie(),\"S4 -250 \\n\");
+	      cpp_on_entry "cout<<\"depot estrade : recule doucement\"<<endl;
+serialPrintf(master->getPortSerie(),\"S4 -250 \\n\");
 
 "
 	    transition 322562 "<transition>"
@@ -222,7 +224,8 @@ if(master->is_Vert()){
 	  end
 
 	  state 181506 "preparation"
-	      cpp_on_entry "// preparation des piles a poser
+	      cpp_on_entry "cout<<\"depot estrade : prepare la pile\"<<endl;
+// preparation des piles a poser
 if(master->is_Jaune()){
 	serialPrintf(master->getPortSerie(),\"G8 \\n\"); // objectif de pose sur estrade
 	serialPrintf(master->getPortSerie(),\"G4 \\n\"); // preparation de la pose
@@ -249,7 +252,8 @@ if(master->is_Vert()){
 	  end
 
 	  state 254594 "avance"
-	      cpp_on_entry "// jusqu'au blocage
+	      cpp_on_entry "cout<<\"depot estrade : avance jusq'au blocage\"<<endl;
+// jusqu'au blocage
 serialPrintf(master->getPortSerie(),\"S4 350 \\n\");"
 	      cpp_on_exit "serialPrintf(master->getPortSerie(),\"S1 \\n\");"
 	    transition 322306 "<transition>"
@@ -260,7 +264,8 @@ serialPrintf(master->getPortSerie(),\"S4 350 \\n\");"
 	  end
 
 	  state 254722 "set Y CAP"
-	      cpp_on_entry "// recup les coords du master avec le S1 (pour le x)
+	      cpp_on_entry "cout<<\"depot estrade : set Y CAP\"<<endl;
+// recup les coords du master avec le S1 (pour le x)
 serialPrintf(master->getPortSerie(),\"S0 ?? ?? -90 \\n\");"
 	    transition 322434 "<transition>"
 	      on state_ref 181122 // depot
@@ -269,7 +274,8 @@ serialPrintf(master->getPortSerie(),\"S0 ?? ?? -90 \\n\");"
 	  end
 
 	  state 254850 "replis des pinces"
-	      cpp_on_entry "// replis des pinces
+	      cpp_on_entry "cout<<\"depot estrade : replis des pinces\"<<endl;
+// replis des pinces
 serialPrintf(master->getPortSerie(),\"G6 \\n\");
 serialPrintf(master->getPortSerie(),\"D6 \\n\");
 master->get_gestionnaire_mission()->get_mission_depot_tour_estrade()->mission_remplie();"
@@ -281,7 +287,8 @@ master->get_gestionnaire_mission()->get_mission_depot_tour_estrade()->mission_re
 	  end
 
 	  state 254978 "BF Cap"
-	      cpp_on_entry "serialPrintf(master->getPortSerie(),\"S3 90 \\n\");"
+	      cpp_on_entry "cout<<\"depot estrade : demi tour\"<<endl;
+serialPrintf(master->getPortSerie(),\"S3 90 \\n\");"
 	    transition 322818 "<transition>"
 	      on pseudostate_ref 182530 // exit_point
 		cpp_trigger "assFini"
@@ -343,7 +350,8 @@ cout<<\"capture de gobelet\"<<endl;"
 	    end
 
 	    state 150274 "deplacement cible"
-		cpp_on_entry "if(master->is_Jaune()){
+		cpp_on_entry "cout<<\"gobelet : deplacement sur cible\"<<endl;
+if(master->is_Jaune()){
 // BF droite sur le gobelet 
 serialPrintf(master->getPortSerie(),\"S5 -590 1198 145 \\n\");
 }
@@ -359,7 +367,8 @@ serialPrintf(master->getPortSerie(),\"S5 590 1198 35 \\n\");
 	    end
 
 	    state 150402 "capture"
-		cpp_on_entry "// ferme le pince interne souleve
+		cpp_on_entry "cout<<\"gobelet : capture\"<<endl;
+// ferme le pince interne souleve
 serialPrintf(master->getPortSerie(),\"P5 \\n\");
 master->set_time_out(300);
 
@@ -381,7 +390,8 @@ cout<<\"gobelet attrape!\"<<endl;"
 	    end
 
 	    state 150530 "BF cap vers la zone de distrib"
-		cpp_on_entry "if(master->is_Jaune()){
+		cpp_on_entry "cout<<\"gobelet : cap sur zone suivante\"<<endl;
+if(master->is_Jaune()){
 // BF cap
 serialPrintf(master->getPortSerie(),\"S3 132 \\n\");
 }
@@ -396,7 +406,8 @@ serialPrintf(master->getPortSerie(),\"S3 48 \\n\");
 	    end
 
 	    state 217218 "recule"
-		cpp_on_entry "serialPrintf(master->getPortSerie(),\"S4 -120 \\n\");"
+		cpp_on_entry "cout<<\"gobelet : recule\"<<endl;
+serialPrintf(master->getPortSerie(),\"S4 -120 \\n\");"
 	      transition 258946 "<transition>"
 		on state_ref 150530 // BF cap vers la zone de distrib
 		  cpp_trigger "assFini"
@@ -429,7 +440,8 @@ cout<<\"capture de stand escalier\"<<endl;"
 	    end
 
 	    state 214530 "BF cap initial 35deg"
-		cpp_on_entry "if(master->is_Jaune()){
+		cpp_on_entry "cout<<\"stands escalier : orientation sur cible\"<<endl;
+if(master->is_Jaune()){
 serialPrintf(master->getPortSerie(),\"S3 132 \\n\");
 }
 if(master->is_Vert()){
@@ -443,7 +455,8 @@ serialPrintf(master->getPortSerie(),\"S3 48 \\n\");
 	    end
 
 	    state 214658 "BF droite vers gobelet"
-		cpp_on_entry "if(master->is_Jaune()){
+		cpp_on_entry "cout<<\"stands escalier : BF droite sur cible\"<<endl;
+if(master->is_Jaune()){
 // BF droite sur le gobelet 
 // y = 1664 -120
 serialPrintf(master->getPortSerie(),\"S5 -848 1544 90 \\n\");
@@ -460,7 +473,8 @@ serialPrintf(master->getPortSerie(),\"S5 848 1544 90 \\n\");
 	    end
 
 	    state 214786 "ouverture pince cote escalier"
-		cpp_on_entry "if(master->is_Jaune()){
+		cpp_on_entry "cout<<\"stands escalier : ouverture de pince\"<<endl;
+if(master->is_Jaune()){
 serialPrintf(master->getPortSerie(),\"D0 \\n\");
 }
 if(master->is_Vert()){
@@ -474,7 +488,8 @@ serialPrintf(master->getPortSerie(),\"G0 \\n\");
 	    end
 
 	    state 214914 "BF avance"
-		cpp_on_entry "serialPrintf(master->getPortSerie(),\"S4 120 \\n\");"
+		cpp_on_entry "cout<<\"stands escalier : avance sur 1er stand\"<<endl;
+serialPrintf(master->getPortSerie(),\"S4 120 \\n\");"
 	      transition 256642 "<transition>"
 		on state_ref 215042 // chope 1
 		  cpp_trigger "assFini"
@@ -483,7 +498,8 @@ serialPrintf(master->getPortSerie(),\"G0 \\n\");
 	    end
 
 	    state 215042 "chope 1"
-		cpp_on_entry "if(master->is_Jaune()){
+		cpp_on_entry "cout<<\"stands escalier : chope stand 1\"<<endl;
+if(master->is_Jaune()){
 serialPrintf(master->getPortSerie(),\"D1 \\n\");
 }
 if(master->is_Vert()){
@@ -497,7 +513,8 @@ serialPrintf(master->getPortSerie(),\"G1 \\n\");
 	    end
 
 	    state 215170 "ouverture pince cote escalier seconde"
-		cpp_on_entry "if(master->is_Jaune()){
+		cpp_on_entry "cout<<\"stands escalier : re-ouverture de pince\"<<endl;
+if(master->is_Jaune()){
 serialPrintf(master->getPortSerie(),\"D0 \\n\");
 }
 if(master->is_Vert()){
@@ -511,7 +528,8 @@ serialPrintf(master->getPortSerie(),\"G0 \\n\");
 	    end
 
 	    state 215298 "BF avance seconde"
-		cpp_on_entry "serialPrintf(master->getPortSerie(),\"S4 120 \\n\");"
+		cpp_on_entry "cout<<\"stands escalier : BF avance sur 2nd stand\"<<endl;
+serialPrintf(master->getPortSerie(),\"S4 120 \\n\");"
 	      transition 257026 "<transition>"
 		on state_ref 215426 // chope 2
 		  cpp_trigger "assFini"
@@ -520,7 +538,8 @@ serialPrintf(master->getPortSerie(),\"G0 \\n\");
 	    end
 
 	    state 215426 "chope 2"
-		cpp_on_entry "if(master->is_Jaune()){
+		cpp_on_entry "cout<<\"stands escalier : chope second stand\"<<endl;
+if(master->is_Jaune()){
 serialPrintf(master->getPortSerie(),\"D1 \\n\");
 }
 if(master->is_Vert()){
@@ -534,7 +553,8 @@ serialPrintf(master->getPortSerie(),\"G1 \\n\");
 	    end
 
 	    state 215554 "recule"
-		cpp_on_entry "serialPrintf(master->getPortSerie(),\"S4 -400 \\n\");"
+		cpp_on_entry "cout<<\"stands escalier : recule/degage de la zone\"<<endl;
+serialPrintf(master->getPortSerie(),\"S4 -400 \\n\");"
 	      transition 257282 "<transition>"
 		on pseudostate_ref 209282 // exit_point
 		  cpp_trigger "assFini"
@@ -580,7 +600,8 @@ cout<<\"capture de stand bordure\"<<endl;"
 	    end
 
 	    state 215682 "BF cap vers objectif"
-		cpp_on_entry "if(master->is_Jaune()){
+		cpp_on_entry "cout<<\"stands bodure : orientation sur cible\"<<endl;
+if(master->is_Jaune()){
 serialPrintf(master->getPortSerie(),\"S3 132 \\n\");
 }
 if(master->is_Vert()){
@@ -594,7 +615,8 @@ serialPrintf(master->getPortSerie(),\"S3 48 \\n\");
 	    end
 
 	    state 215810 "BF droite vers objectif"
-		cpp_on_entry "if(master->is_Jaune()){
+		cpp_on_entry "cout<<\"stands bordure : BF droite sur cible\"<<endl;
+if(master->is_Jaune()){
 // BF droite sur le gobelet 
 serialPrintf(master->getPortSerie(),\"S5 -1174 1544 90 \\n\");
 }
@@ -610,7 +632,8 @@ serialPrintf(master->getPortSerie(),\"S5 1174 1544 90 \\n\");
 	    end
 
 	    state 215938 "ouverture pince cote bordure"
-		cpp_on_entry "if(master->is_Jaune()){
+		cpp_on_entry "cout<<\"stands bordure : ouverture de pince\"<<endl;
+if(master->is_Jaune()){
 serialPrintf(master->getPortSerie(),\"G0 \\n\");
 }
 if(master->is_Vert()){
@@ -624,7 +647,8 @@ serialPrintf(master->getPortSerie(),\"D0 \\n\");
 	    end
 
 	    state 216066 "BF avance"
-		cpp_on_entry "serialPrintf(master->getPortSerie(),\"S4 120 \\n\");"
+		cpp_on_entry "cout<<\"stands bordure : avance pour capture\"<<endl;
+serialPrintf(master->getPortSerie(),\"S4 120 \\n\");"
 	      transition 258050 "<transition>"
 		on state_ref 216194 // chope
 		  cpp_trigger "assFini"
@@ -633,7 +657,8 @@ serialPrintf(master->getPortSerie(),\"D0 \\n\");
 	    end
 
 	    state 216194 "chope"
-		cpp_on_entry "if(master->is_Jaune()){
+		cpp_on_entry "cout<<\"stands bordure : chope de stand\"<<endl;
+if(master->is_Jaune()){
 serialPrintf(master->getPortSerie(),\"G1 \\n\");
 }
 if(master->is_Vert()){
@@ -647,7 +672,8 @@ serialPrintf(master->getPortSerie(),\"D1 \\n\");
 	    end
 
 	    state 216322 "recule"
-		cpp_on_entry "serialPrintf(master->getPortSerie(),\"S4 -300 \\n\");"
+		cpp_on_entry "cout<<\"stands bordure : recule/degage de la zone\"<<endl;
+serialPrintf(master->getPortSerie(),\"S4 -300 \\n\");"
 	      transition 258306 "<transition>"
 		on pseudostate_ref 209538 // exit_point
 		  cpp_trigger "assFini"
@@ -675,7 +701,8 @@ cout<<\"vidage distributeur\"<<endl;"
 	    end
 
 	    state 216450 "BF Cap objectif"
-		cpp_on_entry "if(master->is_Jaune()){
+		cpp_on_entry "cout<<\"distrib : cap sur cible\"<<endl;
+if(master->is_Jaune()){
 serialPrintf(master->getPortSerie(),\"S3 80 \\n\");
 }
 if(master->is_Vert()){
@@ -689,7 +716,8 @@ serialPrintf(master->getPortSerie(),\"S3 100 \\n\");
 	    end
 
 	    state 216578 "BF droite sur distrib"
-		cpp_on_entry "if(master->is_Jaune()){
+		cpp_on_entry "cout<<\"distrib : BF droite sur cible\"<<endl;
+if(master->is_Jaune()){
 // BF droite sur le gobelet 
 serialPrintf(master->getPortSerie(),\"S5 -1700 1050 90 \\n\");
 }
@@ -705,7 +733,8 @@ serialPrintf(master->getPortSerie(),\"S5 1700 1050 90 \\n\");
 	    end
 
 	    state 216706 "BF avance jusquau blocage"
-		cpp_on_entry "serialPrintf(master->getPortSerie(),\"S4 200 \\n\");
+		cpp_on_entry "cout<<\"distrib : avance jusqu'au blocage\"<<endl;
+serialPrintf(master->getPortSerie(),\"S4 200 \\n\");
 "
 		cpp_do_activity "serialPrintf(master->getPortSerie(),\"S1 \\n\");
 "
@@ -717,7 +746,8 @@ serialPrintf(master->getPortSerie(),\"S5 1700 1050 90 \\n\");
 	    end
 
 	    state 216834 "SET Y CAP"
-		cpp_on_entry "if(master->is_Jaune()){
+		cpp_on_entry "cout<<\"distrib : set Y CAP\"<<endl;
+if(master->is_Jaune()){
 // BF droite sur le gobelet 
 serialPrintf(master->getPortSerie(),\"S0 -1789 1050 90 \\n\");
 }
@@ -732,7 +762,8 @@ serialPrintf(master->getPortSerie(),\"S0 1789 1050 90 \\n\");
 	    end
 
 	    state 216962 "pompage"
-		cpp_on_entry "serialPrintf(master->getPortSerie(),\"P0 \\n\");"
+		cpp_on_entry "cout<<\"distrib : pompage pilote\"<<endl;
+serialPrintf(master->getPortSerie(),\"P0 \\n\");"
 		cpp_on_exit "master->get_gestionnaire_mission()->get_mission_distrib()->netoyage_zone_done();"
 	      transition 259458 "<transition>"
 		on state_ref 217090 // recule
@@ -742,7 +773,8 @@ serialPrintf(master->getPortSerie(),\"S0 1789 1050 90 \\n\");
 	    end
 
 	    state 217090 "recule"
-		cpp_on_entry "serialPrintf(master->getPortSerie(),\"S4 -300 \\n\");"
+		cpp_on_entry "cout<<\"distrib : recule/degage/decrochage\"<<endl;
+serialPrintf(master->getPortSerie(),\"S4 -300 \\n\");"
 	      transition 259714 "<transition>"
 		on state_ref 217346 // orientation vers sortie de zone
 		  cpp_trigger "assFini"
@@ -758,7 +790,8 @@ serialPrintf(master->getPortSerie(),\"S0 1789 1050 90 \\n\");
 	    end
 
 	    state 217346 "orientation vers sortie de zone"
-		cpp_on_entry "if(master->is_Jaune()){
+		cpp_on_entry "cout<<\"distrib : orientation vers sortie\"<<endl;
+if(master->is_Jaune()){
 serialPrintf(master->getPortSerie(),\"S3 -45 \\n\");
 }
 if(master->is_Vert()){
@@ -772,7 +805,8 @@ serialPrintf(master->getPortSerie(),\"S3 360 225 \\n\");
 	    end
 
 	    state 217474 "avance"
-		cpp_on_entry "if(master->is_Jaune()){
+		cpp_on_entry "cout<<\"distrib : BF avance sortie\"<<endl;
+if(master->is_Jaune()){
 // BF droite sur le gobelet 
 serialPrintf(master->getPortSerie(),\"S4 300 \\n\");
 }
@@ -1023,7 +1057,8 @@ cout<<\"ORIENTATION VERS MISSION : \"<<ordre<<endl;"
 	  end
 
 	  state 179330 "orientation avant reculage"
-	      cpp_on_entry "if(master->is_Jaune()){
+	      cpp_on_entry "cout<<\"chiage : orientation sur zone de depart\"<<endl;
+if(master->is_Jaune()){
 // vers le centre de la table
 serialPrintf(master->getPortSerie(),\"S3 0 \\n\");
 }
@@ -1038,7 +1073,8 @@ serialPrintf(master->getPortSerie(),\"S3 180 \\n\");
 	  end
 
 	  state 179458 "Recalage"
-	      cpp_on_entry "// vers le centre de la table
+	      cpp_on_entry "cout<<\"chiage : recalage\"<<endl;
+// vers le centre de la table
 serialPrintf(master->getPortSerie(),\"S2 \\n\");
 
 // set X, Y CAP??"
@@ -1060,7 +1096,8 @@ if(master->is_Vert()){
 	  end
 
 	  state 179586 "capture de balle"
-	      cpp_on_entry "if(!master->get_gestionnaire_mission()->get_mission_chiage_balle()->is_catch_ball())
+	      cpp_on_entry "cout<<\"chiage : capture de balle\"<<endl;
+if(!master->get_gestionnaire_mission()->get_mission_chiage_balle()->is_catch_ball())
 {
 	serialPrintf(master->getPortSerie(),\"B2 \\n\");
 	master->get_gestionnaire_mission()->get_mission_chiage_balle()->catch_ball_done();
@@ -1086,7 +1123,8 @@ else
 	  end
 
 	  state 179714 "drop pop corn"
-	      cpp_on_entry "// drop si present
+	      cpp_on_entry "cout<<\"chiage : drop pop-corn\"<<endl;
+// drop si present
 if(master->get_gestionnaire_mission()->get_element_robot()->pop_corn_present())
 {
 	master->get_gestionnaire_mission()->get_element_robot()->pop_corn_decharge();
@@ -1109,7 +1147,8 @@ serialPrintf(master->getPortSerie(),\"P3 \\n\");"
 	  end
 
 	  state 179842 "drop gobelet"
-	      cpp_on_entry "// drop si present
+	      cpp_on_entry "cout<<\"chiage : drop gobelet\"<<endl;
+// drop si present
 master->set_time_out(200);
 if(master->get_gestionnaire_mission()->get_element_robot()->gobelet_present())
 {
@@ -1133,7 +1172,8 @@ if(master->get_gestionnaire_mission()->get_element_robot()->gobelet_present())
 	  end
 
 	  state 179970 "avance"
-	      cpp_on_entry "// aller devant la zone de depart
+	      cpp_on_entry "cout<<\"chiage : avance/degagement\"<<endl;
+// aller devant la zone de depart
 //BF avance de 400mm
 serialPrintf(master->getPortSerie(),\"S4 400 \\n\");
 //master->get_gestionnaire_mission()->get_mission_chiage_balle()->mission_remplie();"
@@ -1145,7 +1185,8 @@ serialPrintf(master->getPortSerie(),\"S4 400 \\n\");
 	  end
 
 	  state 233474 "sortie"
-	      cpp_on_entry "// fermeture capot arriere
+	      cpp_on_entry "cout<<\"chiage : sortie de zone\"<<endl;
+// fermeture capot arriere
 serialPrintf(master->getPortSerie(),\"P3 \\n\");
 master->get_gestionnaire_mission()->get_mission_chiage_balle()->mission_remplie();"
 	    transition 288002 "<transition>"
@@ -1182,7 +1223,8 @@ cout<<\"MISSION CLAPS\"<<endl;"
 	    end
 
 	    state 224258 "BF droite"
-		cpp_on_entry "if(master->is_Jaune()){
+		cpp_on_entry "cout<<\"stand depart : BF droite sur cible\"<<endl;
+if(master->is_Jaune()){
 // BF droite sur le gobelet 
 serialPrintf(master->getPortSerie(),\"S5 -835 744 -90 \\n\");
 }
@@ -1198,7 +1240,8 @@ serialPrintf(master->getPortSerie(),\"S5 835 744 -90 \\n\");
 	    end
 
 	    state 224386 "ouverture de pince"
-		cpp_on_entry "if(master->is_Jaune()){
+		cpp_on_entry "cout<<\"stand depart : ouverture pince\"<<endl;
+if(master->is_Jaune()){
 // ouvre pince gauche
 serialPrintf(master->getPortSerie(),\"G0 \\n\");
 }
@@ -1213,7 +1256,8 @@ serialPrintf(master->getPortSerie(),\"D0 \\n\");
 	    end
 
 	    state 224514 "chope"
-		cpp_on_entry "if(master->is_Jaune()){
+		cpp_on_entry "cout<<\"stand depart : chope stand\"<<endl;
+if(master->is_Jaune()){
 // ouvre pince gauche
 serialPrintf(master->getPortSerie(),\"G1 \\n\");
 }
@@ -1264,7 +1308,8 @@ master->get_gestionnaire_mission()->get_mission_claps()->stand_depart_done();"
 	    end
 
 	    state 225282 "BF droite sur le verre"
-		cpp_on_entry "if(master->is_Jaune()){
+		cpp_on_entry "cout<<\"coin : BF droite sur verre\"<<endl;
+if(master->is_Jaune()){
 // BF droite sur le gobelet 
 serialPrintf(master->getPortSerie(),\"S5 -1224 247 180 \\n\");
 }
@@ -1280,7 +1325,8 @@ serialPrintf(master->getPortSerie(),\"S5 1224 247 0 \\n\");
 	    end
 
 	    state 225410 "chope gobelet"
-		cpp_on_entry "serialPrintf(master->getPortSerie(),\"P5 \\n\");
+		cpp_on_entry "cout<<\"coin : chope gobelet\"<<endl;
+serialPrintf(master->getPortSerie(),\"P5 \\n\");
 master->set_time_out(200);
 master->get_gestionnaire_mission()->get_element_robot()->gobelet_saisie();"
 	      transition 296322 "<transition>"
@@ -1291,7 +1337,8 @@ master->get_gestionnaire_mission()->get_element_robot()->gobelet_saisie();"
 	    end
 
 	    state 225538 "recule des stands"
-		cpp_on_entry "serialPrintf(master->getPortSerie(),\"S4 -200 \\n\");"
+		cpp_on_entry "cout<<\"coin : recule pour degagement\"<<endl;
+serialPrintf(master->getPortSerie(),\"S4 -200 \\n\");"
 	      transition 296450 "<transition>"
 		on state_ref 225666 // BF CAP
 		  cpp_trigger "assFini"
@@ -1300,7 +1347,8 @@ master->get_gestionnaire_mission()->get_element_robot()->gobelet_saisie();"
 	    end
 
 	    state 225666 "BF CAP"
-		cpp_on_entry "serialPrintf(master->getPortSerie(),\"S3 -90 \\n\");"
+		cpp_on_entry "cout<<\"coin : BF cap pour degagement\"<<endl;
+serialPrintf(master->getPortSerie(),\"S3 -90 \\n\");"
 	      transition 296578 "<transition>"
 		on state_ref 225794 // recule vers la zone de depart
 		  cpp_trigger "assFini"
@@ -1309,7 +1357,8 @@ master->get_gestionnaire_mission()->get_element_robot()->gobelet_saisie();"
 	    end
 
 	    state 225794 "recule vers la zone de depart"
-		cpp_on_entry "serialPrintf(master->getPortSerie(),\"S4 -350 \\n\");"
+		cpp_on_entry "cout<<\"coin : recule vers la zone de depart\"<<endl;
+serialPrintf(master->getPortSerie(),\"S4 -350 \\n\");"
 	      transition 296706 "<transition>"
 		on state_ref 225922 // BF droite vers les stands
 		  cpp_trigger "assFini"
@@ -1318,7 +1367,8 @@ master->get_gestionnaire_mission()->get_element_robot()->gobelet_saisie();"
 	    end
 
 	    state 225922 "BF droite vers les stands"
-		cpp_on_entry "if(master->is_Jaune()){
+		cpp_on_entry "cout<<\"coin : BF droite sur stands\"<<endl;
+if(master->is_Jaune()){
 // BF droite sur le gobelet 
 serialPrintf(master->getPortSerie(),\"S5 -1180 474 -90 \\n\");
 }
@@ -1334,7 +1384,8 @@ serialPrintf(master->getPortSerie(),\"S5 1180 474 -90 \\n\");
 	    end
 
 	    state 226050 "ouvre pince"
-		cpp_on_entry "if(master->is_Jaune()){
+		cpp_on_entry "cout<<\"coin : ouverture pince 1er stand\"<<endl;
+if(master->is_Jaune()){
 // ouverture de pince
 serialPrintf(master->getPortSerie(),\"D0 \\n\");
 }
@@ -1356,7 +1407,8 @@ serialPrintf(master->getPortSerie(),\"G0 \\n\");
 	    end
 
 	    state 279426 "avance"
-		cpp_on_entry "serialPrintf(master->getPortSerie(),\"S4 100 \\n\");"
+		cpp_on_entry "cout<<\"coin : avance sur 1er stand\"<<endl;
+serialPrintf(master->getPortSerie(),\"S4 100 \\n\");"
 	      transition 352258 "<transition>"
 		on state_ref 279554 // chope stand 1
 		  cpp_trigger "assFini"
@@ -1365,7 +1417,8 @@ serialPrintf(master->getPortSerie(),\"G0 \\n\");
 	    end
 
 	    state 279554 "chope stand 1"
-		cpp_on_entry "if(master->is_Jaune()){
+		cpp_on_entry "cout<<\"coin : chope 1er stand\"<<endl;
+if(master->is_Jaune()){
 // ouverture de pince
 serialPrintf(master->getPortSerie(),\"D1 \\n\");
 }
@@ -1380,7 +1433,8 @@ serialPrintf(master->getPortSerie(),\"G1 \\n\");
 	    end
 
 	    state 279682 "re ouvre pince"
-		cpp_on_entry "if(master->is_Jaune()){
+		cpp_on_entry "cout<<\"coin : ouverture pince 2nd stand\"<<endl;
+if(master->is_Jaune()){
 // ouverture de pince
 serialPrintf(master->getPortSerie(),\"D0 \\n\");
 }
@@ -1395,7 +1449,8 @@ serialPrintf(master->getPortSerie(),\"G0 \\n\");
 	    end
 
 	    state 279810 "re avance"
-		cpp_on_entry "serialPrintf(master->getPortSerie(),\"S4 125 \\n\");
+		cpp_on_entry "cout<<\"coin : avance sur 2nd stand\"<<endl;
+serialPrintf(master->getPortSerie(),\"S4 125 \\n\");
 "
 	      transition 352770 "<transition>"
 		on state_ref 279938 // chope stand 2
@@ -1405,7 +1460,8 @@ serialPrintf(master->getPortSerie(),\"G0 \\n\");
 	    end
 
 	    state 279938 "chope stand 2"
-		cpp_on_entry "if(master->is_Jaune()){
+		cpp_on_entry "cout<<\"coin : chope 2nd stand\"<<endl;
+if(master->is_Jaune()){
 // ouverture de pince
 serialPrintf(master->getPortSerie(),\"D1 \\n\");
 }
@@ -1420,7 +1476,8 @@ serialPrintf(master->getPortSerie(),\"G1 \\n\");
 	    end
 
 	    state 280066 "recalage"
-		cpp_on_entry "serialPrintf(master->getPortSerie(),\"S2 \\n\");
+		cpp_on_entry "cout<<\"coin : recalage coin\"<<endl;
+serialPrintf(master->getPortSerie(),\"S2 \\n\");
 "
 		cpp_on_exit "serialPrintf(master->getPortSerie(),\"S1 \\n\");
 "
@@ -1432,7 +1489,8 @@ serialPrintf(master->getPortSerie(),\"G1 \\n\");
 	    end
 
 	    state 280194 "BF CAP pour claps"
-		cpp_on_entry "if(master->is_Jaune()){
+		cpp_on_entry "cout<<\"coin : BF Cap pour claps\"<<endl;
+if(master->is_Jaune()){
 // BF droite sur le gobelet 
 serialPrintf(master->getPortSerie(),\"S3 0 \\n\");
 }
@@ -1448,7 +1506,8 @@ serialPrintf(master->getPortSerie(),\"S3 180 \\n\");
 	    end
 
 	    state 280322 "deboit claps coin"
-		cpp_on_entry "if(master->is_Jaune()){
+		cpp_on_entry "cout<<\"coin : deboit le claps du coin\"<<endl;
+if(master->is_Jaune()){
 // BF droite sur le gobelet 
 serialPrintf(master->getPortSerie(),\"C0 \\n\");
 }
@@ -1465,7 +1524,8 @@ serialPrintf(master->getPortSerie(),\"C2 \\n\");
 	    end
 
 	    state 280450 "set X CAP"
-		cpp_on_entry "if(master->is_Jaune()){
+		cpp_on_entry "cout<<\"coin : set X CAP\"<<endl;
+if(master->is_Jaune()){
 // BF droite sur le gobelet 
 serialPrintf(master->getPortSerie(),\"S0 -1404 247 0\\n\"); // mettre le Y du S
 }
@@ -1482,7 +1542,8 @@ master->set_time_out(50);"
 	    end
 
 	    state 280578 "avance claps"
-		cpp_on_entry "// de 100mm
+		cpp_on_entry "cout<<\"coin : avance claps coin\"<<endl;
+// de 100mm
 serialPrintf(master->getPortSerie(),\"S4 100 \\n\");
 "
 	      transition 353922 "<transition>"
@@ -1510,7 +1571,8 @@ serialPrintf(master->getPortSerie(),\"S4 100 \\n\");
 	    end
 
 	    state 226178 "BF droite sur claps estrade"
-		cpp_on_entry "if(master->is_Jaune()){
+		cpp_on_entry "cout<<\"claps estrade : BF droite sur cible\"<<endl;
+if(master->is_Jaune()){
 // BF droite sur le gobelet 
 serialPrintf(master->getPortSerie(),\"S5 -715 219 0 \\n\");
 }
@@ -1526,7 +1588,8 @@ serialPrintf(master->getPortSerie(),\"S5 715 219 180 \\n\");
 	    end
 
 	    state 226434 "Claps 3"
-		cpp_on_entry "// claps cote droit pour jaune
+		cpp_on_entry "cout<<\"claps estrade : deboit le claps\"<<endl;
+// claps cote droit pour jaune
 if(master->is_Jaune()){
 // ouverture du claps
 serialPrintf(master->getPortSerie(),\"C0 \\n\");
@@ -1641,7 +1704,8 @@ cout<<\"ORIENTATION VERS MISSION : \"<<ordre<<endl;"
 	    end
 
 	    state 240514 "BF cap"
-		cpp_on_entry "if(	master->get_gestionnaire_mission()->get_mission_claps()->is_stand_depart_done()
+		cpp_on_entry "cout<<\"sortie de zone\"<<endl;
+if(	master->get_gestionnaire_mission()->get_mission_claps()->is_stand_depart_done()
 	&& master->get_gestionnaire_mission()->get_mission_claps()->is_zone_coin_done()
 	&& master->get_gestionnaire_mission()->get_mission_claps()->is_clap_estrade_done())
 {
@@ -1816,7 +1880,8 @@ cout<<\"ORIENTATION VERS MISSION : \"<<ordre<<endl;"
 	  end
 
 	  state 270850 "ouverture pince"
-	      cpp_on_entry "// pince cote escalier
+	      cpp_on_entry "cout<<\"stand central : ouverture de pince\"<<endl;
+// pince cote escalier
 if(master->is_Jaune()){
 serialPrintf(master->getPortSerie(),\"G0 \\n\");
 }
@@ -1831,7 +1896,8 @@ serialPrintf(master->getPortSerie(),\"D0 \\n\");
 	  end
 
 	  state 270978 "BF droite stand 1"
-	      cpp_on_entry "if(master->is_Jaune()){
+	      cpp_on_entry "cout<<\"stand central : BF droite sur cible\"<<endl;
+if(master->is_Jaune()){
 serialPrintf(master->getPortSerie(),\"S5 -263 703 -100 \\n\");
 }
 if(master->is_Vert()){
@@ -1845,7 +1911,8 @@ serialPrintf(master->getPortSerie(),\"S5 263 703 280 \\n\");
 	  end
 
 	  state 271106 "chope stand 1"
-	      cpp_on_entry "if(master->is_Jaune()){
+	      cpp_on_entry "cout<<\"stand central : chope de stand\"<<endl;
+if(master->is_Jaune()){
 serialPrintf(master->getPortSerie(),\"G1 \\n\");
 }
 if(master->is_Vert()){
@@ -1860,7 +1927,8 @@ serialPrintf(master->getPortSerie(),\"D1 \\n\");
 	  end
 
 	  state 271234 "re ouverture pince"
-	      cpp_on_entry "if(master->is_Jaune()){
+	      cpp_on_entry "cout<<\"stand estrade : ouverture de pince\"<<endl;
+if(master->is_Jaune()){
 serialPrintf(master->getPortSerie(),\"G0 \\n\");
 }
 if(master->is_Vert()){
@@ -1874,7 +1942,8 @@ serialPrintf(master->getPortSerie(),\"D0 \\n\");
 	  end
 
 	  state 271362 "BF droite stand 2"
-	      cpp_on_entry "if(master->is_Jaune()){
+	      cpp_on_entry "cout<<\"stand estrade : BF droite sur cible\"<<endl;
+if(master->is_Jaune()){
 serialPrintf(master->getPortSerie(),\"S5 -423 357 -122 \\n\");
 }
 if(master->is_Vert()){
@@ -1888,7 +1957,8 @@ serialPrintf(master->getPortSerie(),\"S5 423 357 302 \\n\");
 	  end
 
 	  state 271490 "chope stand 2"
-	      cpp_on_entry "if(master->is_Jaune()){
+	      cpp_on_entry "cout<<\"stand estrade : chope stand\"<<endl;
+if(master->is_Jaune()){
 serialPrintf(master->getPortSerie(),\"G1 \\n\");
 }
 if(master->is_Vert()){
@@ -1903,7 +1973,8 @@ serialPrintf(master->getPortSerie(),\"D1 \\n\");
 	  end
 
 	  state 271618 "BF cap sur stand 3"
-	      cpp_on_entry "if(master->is_Jaune()){
+	      cpp_on_entry "cout<<\"stand depart : orientation sur cible\"<<endl;
+if(master->is_Jaune()){
 serialPrintf(master->getPortSerie(),\"S3 110 \\n\");
 }
 if(master->is_Vert()){
@@ -1917,7 +1988,8 @@ serialPrintf(master->getPortSerie(),\"S3 70 \\n\");
 	  end
 
 	  state 271746 "re re ouverture pince"
-	      cpp_on_entry "if(master->is_Jaune()){
+	      cpp_on_entry "cout<<\"stand depart : ouverture de pince\"<<endl;
+if(master->is_Jaune()){
 serialPrintf(master->getPortSerie(),\"G0 \\n\");
 }
 if(master->is_Vert()){
@@ -1931,7 +2003,8 @@ serialPrintf(master->getPortSerie(),\"D0 \\n\");
 	  end
 
 	  state 271874 "BF droite stand 3"
-	      cpp_on_entry "if(master->is_Jaune()){
+	      cpp_on_entry "cout<<\"stand depart : BF droite sur cible\"<<endl;
+if(master->is_Jaune()){
 serialPrintf(master->getPortSerie(),\"S5 -509 587 110 \\n\");
 }
 if(master->is_Vert()){
@@ -1945,7 +2018,8 @@ serialPrintf(master->getPortSerie(),\"S5 509 587 70 \\n\");
 	  end
 
 	  state 272002 "chope stand 3"
-	      cpp_on_entry "if(master->is_Jaune()){
+	      cpp_on_entry "cout<<\"stand depart : chope stand\"<<endl;
+if(master->is_Jaune()){
 serialPrintf(master->getPortSerie(),\"G1 \\n\");
 }
 if(master->is_Vert()){
@@ -1961,7 +2035,8 @@ master->get_gestionnaire_mission()->get_mission_claps()->stand_depart_done();"
 	  end
 
 	  state 272130 "tempo pour coop'r?"
-	      cpp_on_entry "master->set_time_out(300);"
+	      cpp_on_entry "cout<<\"sortie de zone\"<<endl;
+master->set_time_out(300);"
 	      cpp_on_exit "if(	master->get_gestionnaire_mission()->get_mission_zone_centrale()->is_stand_central_catched()
 	&& master->get_gestionnaire_mission()->get_mission_zone_centrale()->is_stand_estrade_catched()
 	&& master->get_gestionnaire_mission()->get_mission_zone_centrale()->is_stand_depart_catched() )
@@ -2118,7 +2193,8 @@ cout<<\"ORIENTATION VERS MISSION : \"<<ordre<<endl;"
 	  end
 
 	  state 180482 "depot une tour"
-	      cpp_on_entry "// preparation des piles a poser
+	      cpp_on_entry "cout<<\"depot depart : depose la pile\"<<endl;
+// preparation des piles a poser
 if(master->is_Jaune()){
 	serialPrintf(master->getPortSerie(),\"D5 \\n\"); // lache
 	if(master->get_gestionnaire_mission()->get_mission_depot_tour_depart()->is_depot_double())
@@ -2143,7 +2219,8 @@ if(master->is_Vert()){
 	  end
 
 	  state 180610 "avance"
-	      cpp_on_entry "serialPrintf(master->getPortSerie(),\"S4 120 \\n\"); 
+	      cpp_on_entry "cout<<\"depot depart : avance pour depot\"<<endl;
+serialPrintf(master->getPortSerie(),\"S4 120 \\n\"); 
 	"
 	    transition 267522 "<transition>"
 	      on state_ref 180482 // depot une tour
@@ -2153,7 +2230,8 @@ if(master->is_Vert()){
 	  end
 
 	  state 180738 "recule"
-	      cpp_on_entry "serialPrintf(master->getPortSerie(),\"S4 -250 \\n\"); 
+	      cpp_on_entry "cout<<\"depot depart : recule avant replie\"<<endl;
+serialPrintf(master->getPortSerie(),\"S4 -250 \\n\"); 
 	"
 	    transition 323842 "<transition>"
 	      on state_ref 255618 // rembale les pinces
@@ -2163,7 +2241,8 @@ if(master->is_Vert()){
 	  end
 
 	  state 255490 "prepare la pose"
-	      cpp_on_entry "// preparation des piles a poser
+	      cpp_on_entry "cout<<\"depot depart : prepare la pile\"<<endl;
+// preparation des piles a poser
 if(master->is_Jaune()){
 	serialPrintf(master->getPortSerie(),\"D9 \\n\"); // objectif de pose sur estrade
 	serialPrintf(master->getPortSerie(),\"D4 \\n\"); // preparation de la pose
@@ -2190,7 +2269,8 @@ if(master->is_Vert()){
 	  end
 
 	  state 255618 "rembale les pinces"
-	      cpp_on_entry "serialPrintf(master->getPortSerie(),\"G6 \\n\");
+	      cpp_on_entry "cout<<\"depot depart : replis des pinces\"<<endl;
+serialPrintf(master->getPortSerie(),\"G6 \\n\");
 serialPrintf(master->getPortSerie(),\"D6 \\n\");"
 	      cpp_on_exit "master->get_gestionnaire_mission()->get_mission_depot_tour_depart()->mission_remplie();"
 	    transition 323970 "<transition>"
@@ -2201,7 +2281,8 @@ serialPrintf(master->getPortSerie(),\"D6 \\n\");"
 	  end
 
 	  state 255746 "BF cap vers la zone adverse"
-	      cpp_on_entry "// demi-tour
+	      cpp_on_entry "cout<<\"depot depart : demi-tour\"<<endl;
+// demi-tour
 if(master->is_Jaune()){
 	serialPrintf(master->getPortSerie(),\"S3 0 \\n\"); 
 }
@@ -2217,7 +2298,8 @@ if(master->is_Vert()){
 	end
 
 	state 157442 "sortie de zone de depart"
-	    cpp_on_entry "// avance de 200mm (400mm avec le recalage)
+	    cpp_on_entry "cout<<\"sortie de la zone de depart\"<<endl;
+// avance de 200mm (400mm avec le recalage)
 // attention si on laisse coop'r derrière ou devant
 serialPrintf(master->getPortSerie(),\"S4 200 \\n\");
 master->get_gestionnaire_mission()->commencement_end();"
@@ -2337,7 +2419,8 @@ cout<<\"ORIENTATION VERS MISSION : \"<<ordre<<endl;"
 	    end
 
 	    state 247170 "BF droite"
-		cpp_on_entry "if(master->is_Jaune()){
+		cpp_on_entry "cout<<\"claps central : BF droite dessus\"<<endl;
+if(master->is_Jaune()){
 // BF droite sur le claps
 serialPrintf(master->getPortSerie(),\"S5 977 235 -90 \\n\");
 }
@@ -2352,7 +2435,8 @@ serialPrintf(master->getPortSerie(),\"S5 -977 235 -90 \\n\");
 	    end
 
 	    state 247298 "ouverture claps"
-		cpp_on_entry "if(master->is_Jaune()){
+		cpp_on_entry "cout<<\"claps central : deboit le claps\"<<endl;
+if(master->is_Jaune()){
 // ouverture claps cote bordure (jaune gauche)
 serialPrintf(master->getPortSerie(),\"C2 \\n\");
 }
@@ -2368,7 +2452,8 @@ master->get_gestionnaire()->get_mission_zone_ennemie()->claps_done();"
 	    end
 
 	    state 247426 "BF cap to cine"
-		cpp_on_entry "if(master->is_Jaune()){
+		cpp_on_entry "cout<<\"claps central : BF cap pour avoir le claps au dos\"<<endl;
+if(master->is_Jaune()){
 // BF cap sur le cine adverse
 serialPrintf(master->getPortSerie(),\"S3 80 \\n\");
 }
@@ -2390,7 +2475,8 @@ serialPrintf(master->getPortSerie(),\"S3 110 \\n\");
 	    end
 
 	    state 262786 "BF cap vers estrade"
-		cpp_on_entry "if(master->is_Jaune()){
+		cpp_on_entry "cout<<\"claps central : BF cap/rotation sur claps\"<<endl;
+if(master->is_Jaune()){
 // BF droite sur le claps
 serialPrintf(master->getPortSerie(),\"S3 180 \\n\");
 }
@@ -2429,7 +2515,8 @@ serialPrintf(master->getPortSerie(),\"S3 0 \\n\");
 	    end
 
 	    state 262914 "BF droite sur le cine"
-		cpp_on_entry "if(master->is_Jaune()){
+		cpp_on_entry "cout<<\"gobelet : BF droite sur le cine\"<<endl;
+if(master->is_Jaune()){
 // BF droite sur le cine
 serialPrintf(master->getPortSerie(),\"S5 1255 531 0 \\n\");
 }
@@ -2444,7 +2531,8 @@ serialPrintf(master->getPortSerie(),\"S5 -1255 531 180 \\n\");
 	    end
 
 	    state 263042 "BF CAP vers centre de la table"
-		cpp_on_entry "if(master->is_Jaune()){
+		cpp_on_entry "cout<<\"claps central : demi tour pour sortie\"<<endl;
+if(master->is_Jaune()){
 // BF cap centre
 serialPrintf(master->getPortSerie(),\"S3 180 \\n\");
 }
@@ -2459,7 +2547,8 @@ serialPrintf(master->getPortSerie(),\"S3 0 \\n\");
 	    end
 
 	    state 263170 "ouverture capot"
-		cpp_on_entry "serialPrintf(master->getPortSerie(),\"P6 \\n\");
+		cpp_on_entry "cout<<\"claps central : drop du gobelet\"<<endl;
+serialPrintf(master->getPortSerie(),\"P6 \\n\");
 master->set_time_out(300);
 master->get_gestionnaire()->get_mission_zone_ennemie()->depot_gobelet_done();
 master->get_gestionnaire()->get_element_robot()->gobelet_relache();"
@@ -2471,7 +2560,8 @@ master->get_gestionnaire()->get_element_robot()->gobelet_relache();"
 	    end
 
 	    state 263298 "avance"
-		cpp_on_entry "serialPrintf(master->getPortSerie(),\"S4 250 \\n\");
+		cpp_on_entry "cout<<\"claps central : degagement\"<<endl;
+serialPrintf(master->getPortSerie(),\"S4 250 \\n\");
 "
 	      transition 332162 "<transition>"
 		on state_ref 263426 // fermeture capot
@@ -2481,7 +2571,8 @@ master->get_gestionnaire()->get_element_robot()->gobelet_relache();"
 	    end
 
 	    state 263426 "fermeture capot"
-		cpp_on_entry "serialPrintf(master->getPortSerie(),\"P3 \\n\");"
+		cpp_on_entry "cout<<\"claps central : fermeture du capot\"<<endl;
+serialPrintf(master->getPortSerie(),\"P3 \\n\");"
 	      transition 332290 "<transition>"
 		on pseudostate_ref 223746 // exit_point
 		external 
@@ -2517,7 +2608,8 @@ master->get_gestionnaire()->get_mission_zone_ennemie()->mission_remplie();"
 	    end
 
 	    state 263554 "to escalier"
-		cpp_on_entry "if(master->is_Jaune()){
+		cpp_on_entry "cout<<\"chieur : to escalier\"<<endl;
+if(master->is_Jaune()){
 // BF droite sur le cine
 serialPrintf(master->getPortSerie(),\"S5 170 919 180 \\n\");
 }
@@ -2566,6 +2658,7 @@ serialPrintf(master->getPortSerie(),\"S5 -170 919 0 \\n\");
 	    end
 
 	    state 263938 "chieur stop"
+		cpp_on_entry "cout<<\"mode chieur : stop\"<<endl;"
 	      transition 333826 "<transition>"
 		on state_ref 263554 // to escalier
 		external 
@@ -2573,6 +2666,7 @@ serialPrintf(master->getPortSerie(),\"S5 -170 919 0 \\n\");
 	    end
 
 	    state 264066 "chieur faible"
+		cpp_on_entry "cout<<\"mode chieur : faible\"<<endl;"
 	      transition 333954 "<transition>"
 		on state_ref 263554 // to escalier
 		external 
@@ -2580,6 +2674,7 @@ serialPrintf(master->getPortSerie(),\"S5 -170 919 0 \\n\");
 	    end
 
 	    state 264194 "chieur plus"
+		cpp_on_entry "cout<<\"mode chieur : normal :)\"<<endl;"
 	      transition 334082 "<transition>"
 		on state_ref 263554 // to escalier
 		external 
@@ -2733,13 +2828,6 @@ master->get_gestionnaire_mission()->decision_mission();
 	  size A0
 	end
 
-	pseudostate 189186 junction 
-	  transition 220546 "<transition>"
-	    on state_ref 188034 // faire des maneuvre
-	    external 
-	  end
-	end
-
 	pseudostate 189314 exit_point "sortie evitement"
 	  transition 220802 "<transition>"
 	    on state_ref 128386 // Jeu
@@ -2761,6 +2849,13 @@ cout<<\"on evite\"<<endl;"
 	  transition 220674 "<transition>"
 	    on pseudostate_ref 189314 // exit_point
 	      cpp_trigger "time_out"
+	    external 
+	  end
+	end
+
+	pseudostate 298754 initial 
+	  transition 394498 "<transition>"
+	    on state_ref 188034 // faire des maneuvre
 	    external 
 	  end
 	end
@@ -4354,23 +4449,6 @@ ${inlines}
 		b parent class_ref 134658 // AnyState
 	    end
 
-	    operation 240258 "_completion"
-	      force_body_gen cpp_virtual public explicit_return_type "bool"
-	      nparams 1
-	        param inout name "stm" type class_ref 134530 // MAE_MURPHY
-	      cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
-"
-	      cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
-  ${body}}
-"
-	      
-	      
-	      
-	      
-	      ncouples 1
-	      key "STM generated" value ""
-	    end
-
 	    operation 240386 "create"
 	      force_body_gen cpp_virtual public explicit_return_type "void"
 	      nparams 1
@@ -4424,6 +4502,24 @@ ${inlines}
 	      key "STM generated" value ""
 	      comment " returns the state containing the current"
 	    end
+
+	    operation 251778 "time_out"
+	      force_body_gen cpp_virtual public explicit_return_type "void"
+	      nparams 1
+	        param inout name "stm" type class_ref 134530 // MAE_MURPHY
+	      cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+	      cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+	      
+	      
+	      
+	      
+	      ncouples 1
+	      key "STM generated" value ""
+	      comment " to manage the event time_out"
+	    end
 	  end
 
 	  operation 154114 "~Evitement_State"
@@ -4461,24 +4557,6 @@ ${inlines}
 		cpp default "${type}"
 		classrelation_ref 172802 // <generalisation>
 	      b parent class_ref 134658 // AnyState
-	  end
-
-	  operation 240002 "_junction1"
-	    force_body_gen public explicit_return_type "void"
-	    nparams 1
-	      param inout name "stm" type class_ref 134530 // MAE_MURPHY
-	    cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
-"
-	    cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
-  ${body}}
-"
-	    
-	    
-	    
-	    
-	    ncouples 1
-	    key "STM generated" value ""
-	    comment " implement a junction, through an operation because shared, internal"
 	  end
 
 	  operation 240130 "_exit26"
@@ -4533,6 +4611,24 @@ ${inlines}
 	    ncouples 1
 	    key "STM generated" value ""
 	    comment " returns the state containing the current"
+	  end
+
+	  operation 258690 "create"
+	    force_body_gen cpp_virtual public explicit_return_type "void"
+	    nparams 1
+	      param inout name "stm" type class_ref 134530 // MAE_MURPHY
+	    cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+	    cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+	    
+	    
+	    
+	    
+	    ncouples 1
+	    key "STM generated" value ""
+	    comment " to manage the event create"
 	  end
 	end
 
@@ -6995,6 +7091,24 @@ ${inlines}
 		  key "STM generated" value ""
 		  comment " returns the state containing the current"
 		end
+
+		operation 258562 "_doentry"
+		  force_body_gen public explicit_return_type "void"
+		  nparams 1
+		    param inout name "stm" type class_ref 134530 // MAE_MURPHY
+		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+		  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+		  
+		  
+		  
+		  
+		  ncouples 1
+		  key "STM generated" value ""
+		  comment " perform the 'entry behavior'"
+		end
 	      end
 
 	      class 153602 "chieur_faible_State"
@@ -7088,6 +7202,24 @@ ${inlines}
 		  key "STM generated" value ""
 		  comment " returns the state containing the current"
 		end
+
+		operation 258434 "_doentry"
+		  force_body_gen public explicit_return_type "void"
+		  nparams 1
+		    param inout name "stm" type class_ref 134530 // MAE_MURPHY
+		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+		  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+		  
+		  
+		  
+		  
+		  ncouples 1
+		  key "STM generated" value ""
+		  comment " perform the 'entry behavior'"
+		end
 	      end
 
 	      class 153474 "chieur_stop_State"
@@ -7180,6 +7312,24 @@ ${inlines}
 		  ncouples 1
 		  key "STM generated" value ""
 		  comment " returns the state containing the current"
+		end
+
+		operation 258306 "_doentry"
+		  force_body_gen public explicit_return_type "void"
+		  nparams 1
+		    param inout name "stm" type class_ref 134530 // MAE_MURPHY
+		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+		  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+		  
+		  
+		  
+		  
+		  ncouples 1
+		  key "STM generated" value ""
+		  comment " perform the 'entry behavior'"
 		end
 	      end
 

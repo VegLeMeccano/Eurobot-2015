@@ -13,6 +13,7 @@ class prepare_la_pose_State
 #ifdef VERBOSE_STATE_MACHINE
 	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission depot de tour zone depart.prepare la pose");
 #endif
+cout<<"depot depart : prepare la pile"<<endl;
 // preparation des piles a poser
 if(master->is_Jaune()){
 	serialPrintf(master->getPortSerie(),"D9 \n"); // objectif de pose sur estrade

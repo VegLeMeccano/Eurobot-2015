@@ -13,6 +13,7 @@ class depot_une_tour_State
 #ifdef VERBOSE_STATE_MACHINE
 	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission depot de tour zone depart.depot une tour");
 #endif
+cout<<"depot depart : depose la pile"<<endl;
 // preparation des piles a poser
 if(master->is_Jaune()){
 	serialPrintf(master->getPortSerie(),"D5 \n"); // lache

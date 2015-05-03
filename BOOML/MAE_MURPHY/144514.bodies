@@ -13,6 +13,7 @@ class BF_droite_vers_les_stands_State
 #ifdef VERBOSE_STATE_MACHINE
 	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission claps.chope du coin.BF droite vers les stands");
 #endif
+cout<<"coin : BF droite sur stands"<<endl;
 if(master->is_Jaune()){
 // BF droite sur le gobelet 
 serialPrintf(master->getPortSerie(),"S5 -1180 474 -90 \n");

@@ -13,6 +13,7 @@ class ouverture_pince_cote_bordure_State
 #ifdef VERBOSE_STATE_MACHINE
 	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission pillage distrib.capture stand bordure.ouverture pince cote bordure");
 #endif
+cout<<"stands bordure : ouverture de pince"<<endl;
 if(master->is_Jaune()){
 serialPrintf(master->getPortSerie(),"G0 \n");
 }

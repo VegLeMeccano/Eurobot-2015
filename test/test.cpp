@@ -89,7 +89,7 @@ bool test::test_State::Evitement_State::evite_State::_completion(test & stm) {
 #ifdef VERBOSE_STATE_MACHINE
       puts("DEBUG : current state is now .test.Evitement");
 #endif
-      stm._test_state._evitement_state._exit1(stm);
+      stm._test_state._evitement_state._exit2(stm);
       return (bool) 1;
     }
 }
@@ -128,17 +128,6 @@ void test::test_State::Evitement_State::create(test & stm) {
     }
 }
 
-// to manage the exit point 'sortie evit', defined because probably shared
-void test::test_State::Evitement_State::_exit1(test & stm) {
-    {
-      stm._set_currentState(stm._test_state._jeu_state);
-#ifdef VERBOSE_STATE_MACHINE
-      puts("DEBUG : current state is now .test.Jeu");
-#endif
-      stm._test_state._jeu_state.create(stm);
-    }
-}
-
 // perform the 'entry behavior'
 void test::test_State::Evitement_State::_doentry(test & stm) {
 #ifdef VERBOSE_STATE_MACHINE
@@ -152,23 +141,86 @@ test::AnyState * test::test_State::Evitement_State::_upper(test & stm) {
     return &stm._test_state;
 }
 
-test::test_State::Jeu_State::etat_1_State::~etat_1_State() {
+// to manage the exit point 'sortie evit', defined because probably shared
+void test::test_State::Evitement_State::_exit2(test & stm) {
+    {
+      stm._set_currentState(stm._test_state._jeu_state);
+#ifdef VERBOSE_STATE_MACHINE
+      puts("DEBUG : current state is now .test.Jeu");
+#endif
+      stm._test_state._jeu_state.create(stm);
+    }
+}
+
+test::test_State::Jeu_State::etat_1_State::bitt_State::~bitt_State() {
 }
 
 // to manage the event trans_etat
-void test::test_State::Jeu_State::etat_1_State::trans_etat(test & stm) {
+void test::test_State::Jeu_State::etat_1_State::bitt_State::trans_etat(test & stm) {
     {
-      stm._set_currentState(stm._test_state._jeu_state._etat_2_state);
+      stm._set_currentState(stm._test_state._jeu_state._etat_1_state._yop_state);
 #ifdef VERBOSE_STATE_MACHINE
-      puts("DEBUG : current state is now .test.Jeu.etat 2");
+      puts("DEBUG : current state is now .test.Jeu.etat 1.yop");
 #endif
-      stm._test_state._jeu_state._etat_2_state.create(stm);
+      stm._test_state._jeu_state._etat_1_state._yop_state.create(stm);
     }
 }
 
 // to manage the event create
-void test::test_State::Jeu_State::etat_1_State::create(test & stm) {
+void test::test_State::Jeu_State::etat_1_State::bitt_State::create(test & stm) {
   	_doentry(stm);
+}
+
+// perform the 'entry behavior'
+void test::test_State::Jeu_State::etat_1_State::bitt_State::_doentry(test & stm) {
+#ifdef VERBOSE_STATE_MACHINE
+  	puts("DEBUG : execute entry behavior of .test.Jeu.etat 1.bitt");
+#endif
+  cout<<"bitz"<<endl;
+}
+
+// returns the state containing the current
+test::AnyState * test::test_State::Jeu_State::etat_1_State::bitt_State::_upper(test & stm) {
+    return &stm._test_state._jeu_state._etat_1_state;
+}
+
+test::test_State::Jeu_State::etat_1_State::yop_State::~yop_State() {
+}
+
+bool test::test_State::Jeu_State::etat_1_State::yop_State::_completion(test & stm) {
+    {
+      stm._set_currentState(stm._test_state._jeu_state._etat_1_state);
+#ifdef VERBOSE_STATE_MACHINE
+      puts("DEBUG : current state is now .test.Jeu.etat 1");
+#endif
+      stm._test_state._jeu_state._etat_1_state._exit1(stm);
+      return (bool) 1;
+    }
+}
+
+// to manage the event create
+void test::test_State::Jeu_State::etat_1_State::yop_State::create(test & stm) {
+  	_completion(stm);
+}
+
+// returns the state containing the current
+test::AnyState * test::test_State::Jeu_State::etat_1_State::yop_State::_upper(test & stm) {
+    return &stm._test_state._jeu_state._etat_1_state;
+}
+
+test::test_State::Jeu_State::etat_1_State::~etat_1_State() {
+}
+
+// to manage the event create
+void test::test_State::Jeu_State::etat_1_State::create(test & stm) {
+    _doentry(stm);
+    {
+      stm._set_currentState(stm._test_state._jeu_state._etat_1_state._bitt_state);
+#ifdef VERBOSE_STATE_MACHINE
+      puts("DEBUG : current state is now .test.Jeu.etat 1.bitt");
+#endif
+      stm._test_state._jeu_state._etat_1_state._bitt_state.create(stm);
+    }
 }
 
 // perform the 'entry behavior'
@@ -182,6 +234,17 @@ void test::test_State::Jeu_State::etat_1_State::_doentry(test & stm) {
 // returns the state containing the current
 test::AnyState * test::test_State::Jeu_State::etat_1_State::_upper(test & stm) {
     return &stm._test_state._jeu_state;
+}
+
+// to manage the exit point 'sortie', defined because probably shared
+void test::test_State::Jeu_State::etat_1_State::_exit1(test & stm) {
+    {
+      stm._set_currentState(stm._test_state._jeu_state._etat_2_state);
+#ifdef VERBOSE_STATE_MACHINE
+      puts("DEBUG : current state is now .test.Jeu.etat 2");
+#endif
+      stm._test_state._jeu_state._etat_2_state.create(stm);
+    }
 }
 
 test::test_State::Jeu_State::etat_2_State::~etat_2_State() {

@@ -13,6 +13,7 @@ class BF_droite_stand_1_State
 #ifdef VERBOSE_STATE_MACHINE
 	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission rush zone centrale.BF droite stand 1");
 #endif
+cout<<"stand central : BF droite sur cible"<<endl;
 if(master->is_Jaune()){
 serialPrintf(master->getPortSerie(),"S5 -263 703 -100 \n");
 }

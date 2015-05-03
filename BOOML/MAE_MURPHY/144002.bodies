@@ -13,6 +13,7 @@ class chope_gobelet_State
 #ifdef VERBOSE_STATE_MACHINE
 	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission claps.chope du coin.chope gobelet");
 #endif
+cout<<"coin : chope gobelet"<<endl;
 serialPrintf(master->getPortSerie(),"P5 \n");
 master->set_time_out(200);
 master->get_gestionnaire_mission()->get_element_robot()->gobelet_saisie();
