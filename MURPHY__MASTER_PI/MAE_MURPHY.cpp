@@ -362,6 +362,7 @@ void MAE_MURPHY::MAE_MURPHY_State::startin_block_State::_doentry(MAE_MURPHY & st
   	puts("DEBUG : execute entry behavior of .MAE_MURPHY.startin' block");
 #endif
   cout<<"MURPHY IS READY, PULL THE TRIGGER !"<<endl;
+  serialPrintf(master->getPortSerie(),"E1 \n"); // activation de l'evitement
 }
 
 // returns the state containing the current
@@ -395,6 +396,7 @@ void MAE_MURPHY::MAE_MURPHY_State::Recalage_Initial_State::Recule_State::_doentr
 #endif
   cout<<"RECULE"<<endl;
   // recule (recalage au cul)
+  serialPrintf(master->getPortSerie(),"E0 \n"); // desactivation de l'evitement
   serialPrintf(master->getPortSerie(),"S0 0 0 0 \n");
   serialPrintf(master->getPortSerie(),"S2 \n");
 }
@@ -5508,6 +5510,7 @@ void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::vid
   	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission pillage distrib.vidage distributeur.avance");
 #endif
   cout<<"distrib : BF avance sortie"<<endl;
+  serialPrintf(master->getPortSerie(),"E1 \n"); // activation de l'evitement
   if(master->is_Jaune()){
   // BF droite sur le gobelet 
   serialPrintf(master->getPortSerie(),"S4 300 \n");
@@ -6090,6 +6093,7 @@ void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::cap
   	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission pillage distrib.capture stands cote escalier.BF cap initial 35deg");
 #endif
   cout<<"stands escalier : orientation sur cible"<<endl;
+  serialPrintf(master->getPortSerie(),"E0 \n"); // desactivation de l'evitement
   if(master->is_Jaune()){
   serialPrintf(master->getPortSerie(),"S3 132 \n");
   }

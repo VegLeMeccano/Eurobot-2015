@@ -14,5 +14,6 @@ class startin_block_State
 	puts("DEBUG : execute entry behavior of .MAE_MURPHY.startin' block");
 #endif
 cout<<"MURPHY IS READY, PULL THE TRIGGER !"<<endl;
+serialPrintf(master->getPortSerie(),"E1 \n"); // activation de l'evitement
 !!!244226.cpp!!!	_upper(inout stm : MAE_MURPHY) : MAE_MURPHY::AnyState
   return &stm._mae_murphy_state;

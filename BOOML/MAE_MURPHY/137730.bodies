@@ -14,6 +14,7 @@ class BF_cap_initial_35deg_State
 	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission pillage distrib.capture stands cote escalier.BF cap initial 35deg");
 #endif
 cout<<"stands escalier : orientation sur cible"<<endl;
+serialPrintf(master->getPortSerie(),"E0 \n"); // desactivation de l'evitement
 if(master->is_Jaune()){
 serialPrintf(master->getPortSerie(),"S3 132 \n");
 }

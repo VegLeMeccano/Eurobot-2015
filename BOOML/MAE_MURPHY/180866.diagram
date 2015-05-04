@@ -9,7 +9,7 @@ pseudostatecanvas 128130 pseudostate_ref 209154 // initial
 end
 statecanvas 128258 state_ref 214530 // BF cap initial 35deg
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 128 264 2005 365 151
+  xyzwh 128 264 2005 441 159
 end
 statecanvas 128386 state_ref 214658 // BF droite vers gobelet
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
@@ -53,7 +53,7 @@ transitioncanvas 129282 transition_ref 256002 // <transition>
 end
 transitioncanvas 129410 transition_ref 256130 // <transition>
   
-  from ref 128258 z 2006 label "assFini" xyz 282.5 425 2006 to ref 128386
+  from ref 128258 z 2006 label "assFini" xyz 301.5 429 2006 to ref 128386
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 129666 transition_ref 256386 // <transition>
@@ -63,7 +63,7 @@ transitioncanvas 129666 transition_ref 256386 // <transition>
 end
 transitioncanvas 129794 transition_ref 256514 // <transition>
   
-  from ref 128514 z 2006 label "pince_ouverte" xyz 275.5 811 2006 to ref 128642
+  from ref 128514 z 2006 label "pince_ouverte" xyz 275 811 2006 to ref 128642
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 129922 transition_ref 256642 // <transition>
@@ -73,7 +73,7 @@ transitioncanvas 129922 transition_ref 256642 // <transition>
 end
 transitioncanvas 130050 transition_ref 256770 // <transition>
   
-  from ref 128770 z 2006 label "pince_stand_by" xyz 507.5 885 2006 to ref 128898
+  from ref 128770 z 2006 label "pince_stand_by" xyz 507 885 2006 to ref 128898
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 130178 transition_ref 256898 // <transition>
@@ -83,7 +83,7 @@ transitioncanvas 130178 transition_ref 256898 // <transition>
 end
 transitioncanvas 130306 transition_ref 257026 // <transition>
   
-  from ref 129026 z 2006 label "assFini" xyz 794.5 932 2006 to ref 129154
+  from ref 129026 z 2006 label "assFini" xyz 794 932 2006 to ref 129154
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 130562 transition_ref 257154 // <transition>
@@ -93,7 +93,7 @@ transitioncanvas 130562 transition_ref 257154 // <transition>
 end
 transitioncanvas 130818 transition_ref 257282 // <transition>
   
-  from ref 130434 z 3006 label "assFini" xyz 947 1225.5 3006 to ref 130690
+  from ref 130434 z 3006 label "assFini" xyz 947 1225 3006 to ref 130690
   write_horizontally default show_definition default drawing_language default
 end
 end

@@ -1,6 +1,6 @@
 format 76
 "MAE_MURPHY"
-  revision 72
+  revision 74
   modified_by 2 "Link"
   cpp_root_dir "D:/Club Robotique IRON MENAD 2/Eurobot 2015 Iron Menad/Eurobot-2015/MURPHY__MASTER_PI/"
 
@@ -441,6 +441,7 @@ cout<<\"capture de stand escalier\"<<endl;"
 
 	    state 214530 "BF cap initial 35deg"
 		cpp_on_entry "cout<<\"stands escalier : orientation sur cible\"<<endl;
+serialPrintf(master->getPortSerie(),\"E0 \\n\"); // desactivation de l'evitement
 if(master->is_Jaune()){
 serialPrintf(master->getPortSerie(),\"S3 132 \\n\");
 }
@@ -806,6 +807,7 @@ serialPrintf(master->getPortSerie(),\"S3 360 225 \\n\");
 
 	    state 217474 "avance"
 		cpp_on_entry "cout<<\"distrib : BF avance sortie\"<<endl;
+serialPrintf(master->getPortSerie(),\"E1 \\n\"); // activation de l'evitement
 if(master->is_Jaune()){
 // BF droite sur le gobelet 
 serialPrintf(master->getPortSerie(),\"S4 300 \\n\");
@@ -2880,6 +2882,7 @@ cout<<\"on evite\"<<endl;"
 	state 141570 "Recule"
 	    cpp_on_entry "cout<<\"RECULE\"<<endl;
 // recule (recalage au cul)
+serialPrintf(master->getPortSerie(),\"E0 \\n\"); // desactivation de l'evitement
 serialPrintf(master->getPortSerie(),\"S0 0 0 0 \\n\");
 serialPrintf(master->getPortSerie(),\"S2 \\n\");"
 	  transition 148994 "<transition>"
@@ -2944,7 +2947,8 @@ serialPrintf(master->getPortSerie(),\"S4 200 \\n\");"
       end
 
       state 165762 "startin' block"
-	  cpp_on_entry "cout<<\"MURPHY IS READY, PULL THE TRIGGER !\"<<endl;"
+	  cpp_on_entry "cout<<\"MURPHY IS READY, PULL THE TRIGGER !\"<<endl;
+serialPrintf(master->getPortSerie(),\"E1 \\n\"); // activation de l'evitement"
 	transition 192514 "<transition>"
 	  on state_ref 128386 // Jeu
 	    cpp_trigger "start_enleve"
