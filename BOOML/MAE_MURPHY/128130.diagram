@@ -28,7 +28,7 @@ pseudostatecanvas 130434 pseudostate_ref 141314 // exit_point
 end
 statecanvas 130946 state_ref 165762 // startin' block
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 139.121 387.362 2005 367 61
+  xyzwh 139.121 387.362 2005 421 75
 end
 pseudostatecanvas 131330 pseudostate_ref 189314 // exit_point
    xyz 526.011 517.249 3005 label_xy 461 506
@@ -54,7 +54,7 @@ transitioncanvas 131074 transition_ref 192386 // <transition>
 end
 transitioncanvas 131202 transition_ref 192514 // <transition>
   
-  from ref 130946 z 2006 label "start_enleve" xyz 242 449 2006 to ref 128386
+  from ref 130946 z 2006 label "start_enleve" xyz 257 456 2006 to ref 128386
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 131458 transition_ref 220802 // <transition>

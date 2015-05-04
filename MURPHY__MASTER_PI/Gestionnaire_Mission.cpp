@@ -346,6 +346,7 @@ void Gestionnaire_Mission::actualisation_Priorite()
 
     if(sortie_evitement == true)
     {
+        // peut etre mettre juste un malus
         switch(mission_sortie_evitement)
         {
             case MISSION_CLAPS:
@@ -384,15 +385,23 @@ void Gestionnaire_Mission::actualisation_Priorite()
         /***********************************************************************************************************
                     DISTRIB
         ***********************************************************************************************************/
+        // si on a rien fait
         if(!mission_distrib.is_netoyage_zone_done() && !element_robot.pop_corn_present())
         {
             if(!mission_distrib.is_capture_gobelet_done())
             {
-                mission_distrib.set_priorite(PRIORITE_MISSION_FIRST);
+                if(strategie_1==0)
+                {
+                    mission_distrib.set_priorite(PRIORITE_MISSION_FIRST);
+                }
+                else
+                {
+                    mission_distrib.set_priorite(PRIORITE_MISSION_HAUTE);
+                }
             }
             else
             {
-                mission_distrib.set_priorite(PRIORITE_MISSION_FIRST);
+                mission_distrib.set_priorite(PRIORITE_MISSION_HAUTE);
             }
         }
         else
@@ -432,7 +441,15 @@ void Gestionnaire_Mission::actualisation_Priorite()
         /***********************************************************************************************************
                     ZONE CENTRALE
         ***********************************************************************************************************/
-        mission_zone_centrale.set_priorite(PRIORITE_MISSION_MOYENNE);
+        if(strategie_1==1)
+        {
+            mission_zone_centrale.set_priorite(PRIORITE_MISSION_FIRST);
+        }
+        else
+        {
+            mission_zone_centrale.set_priorite(PRIORITE_MISSION_MOYENNE);
+        }
+
 
         /***********************************************************************************************************
                     ZONE ENNEMIE
