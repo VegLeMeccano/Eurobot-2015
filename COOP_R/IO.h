@@ -174,9 +174,9 @@ class ChenilleSecondaire
    CHENILLE PRINCIPALE
 *****************************************************/
 // base roulante, slave bis
-#define LONGI_GAUCHE_STOP 1500
-#define LONGI_GAUCHE_AVANCE 1700
-#define LONGI_GAUCHE_RECULE 1300
+#define LONGI_GAUCHE_STOP 1485
+#define LONGI_GAUCHE_AVANCE 1250
+#define LONGI_GAUCHE_RECULE 1700
 #define LONGI_DROITE_STOP 1500
 #define LONGI_DROITE_AVANCE 1700
 #define LONGI_DROITE_RECULE 1300

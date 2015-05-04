@@ -7,7 +7,7 @@ int couleur;
 *****************************************************/
 
 IR_compteur::IR_compteur():
-    period_run(50),
+    period_run(20),
     IR(PIN_IR_BAS,SEUIL_IR_ALIGNEMENT),
     alignement(false),
     vu(false),
@@ -376,7 +376,7 @@ ChenillePrincipale::ChenillePrincipale():
     bumper_d_av(PIN_BUMPER_RECALAGE_D_AV,SEUIL_BUMPER),
     bumper_d_ar(PIN_BUMPER_RECALAGE_D_AR,SEUIL_BUMPER),
     ir_compteur_lat(),
-    period_run(50),
+    period_run(20),
     sonar(),
     state(SLAVE_STATE_REPOS),
     time_asserv_started(0),
