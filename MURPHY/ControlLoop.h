@@ -26,10 +26,10 @@
 #define GAIN_KD_DEP 0.00
 
 // gain PID deplacement en fast
-#define GAIN_KP_DEP_FAST 0.5
+#define GAIN_KP_DEP_FAST 1
 #define GAIN_KI_DEP_FAST 0.00
 #define GAIN_KD_DEP_FAST 0.00
-#define GAIN_KP_CAP_FAST 100  //Ku = 260
+#define GAIN_KP_CAP_FAST 150  //Ku = 260
 #define GAIN_KI_CAP_FAST 0 //52.0 //70.0
 #define GAIN_KD_CAP_FAST 0 //18.0 //40.0
 
@@ -42,7 +42,7 @@
 #define GAIN_KD_CAP_MEDIUM 0 //18.0 //40.0
 
 // gain PID deplacement en slow
-#define GAIN_KP_DEP_SLOW 1.5
+#define GAIN_KP_DEP_SLOW 2
 #define GAIN_KI_DEP_SLOW 0.00
 #define GAIN_KD_DEP_SLOW 0.00
 #define GAIN_KP_CAP_SLOW 200  //Ku = 260

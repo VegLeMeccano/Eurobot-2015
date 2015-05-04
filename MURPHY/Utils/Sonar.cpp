@@ -19,14 +19,14 @@ float Sonar::get_dist(){
     return 90.442 + (float)sensorValue /1.0 *0.82383 ; //divide by max sensor value, multiply by 900 mm
 }
 
-
+#define DISTANCE_DETECTION 300
 bool Sonar::adv_detected(Coord pos_robot){
     if (!on)
     {
         return false;
     }
     float d = get_dist();
-    if (d > 10.0 && d < 450.0)
+    if (d > 10.0 && d < DISTANCE_DETECTION)
     {
         /*
         adv = Coord(dir);

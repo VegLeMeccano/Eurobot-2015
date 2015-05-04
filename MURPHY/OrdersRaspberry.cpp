@@ -617,6 +617,34 @@ void OrdersRaspberry::executeinstr()
             break;
         }
     break;
+
+     /*****************************************************
+        reglage offset moteur
+    ******************************************************/
+    case 'H' :
+
+        switch (ind)
+        {
+
+        /** desactivation evitement
+        **/
+        case 0:
+            Serial.println("reglage offset propu : Gauche");
+            //slave->turn_off_evit();
+            break;
+
+
+        /** activation evitement
+        **/
+        case 1:
+            Serial.println("reglage offset propu : Droite");
+            //slave->turn_on_evit();
+            break;
+
+        }
+    break;
+
+
     }
 
 
