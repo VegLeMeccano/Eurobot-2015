@@ -70,3 +70,12 @@ void Mission_Depot_Tour_Estrade::depot_done()
 {
     pile_depot = true;
 }
+
+void Mission_Depot_Tour_Estrade::activation_depot_double()
+{
+    depot_double = true;
+    nbr_pile = 2;
+    set_couleur(couleur);
+
+
+}

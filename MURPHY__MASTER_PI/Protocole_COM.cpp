@@ -385,6 +385,7 @@ void Protocole_COM::executeinstr()
         {
             cout<<"[Master] strategie 1 : 1 "<<endl;
             master->get_gestionnaire_mission()->set_strategie_2(1);
+            master->get_gestionnaire_mission()->get_mission_depot_tour_estrade()->activation_depot_double();
         }
 
          //si reception de coordonnées

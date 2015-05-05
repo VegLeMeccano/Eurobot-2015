@@ -14,6 +14,8 @@ class Mission_Depot_Tour_Estrade : public Mission
         bool is_pile_depose();
         void depot_done();
 
+        void activation_depot_double();
+
     private:
         int couleur;
         int nbr_pile;   // entre 1 et 2 pour savoir si on fait un depot double ou simple
