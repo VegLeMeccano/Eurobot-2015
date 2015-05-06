@@ -7,7 +7,7 @@ int couleur;
 *****************************************************/
 
 IR_compteur::IR_compteur():
-    period_run(20),
+    period_run(10),
     IR(PIN_IR_BAS,SEUIL_IR_ALIGNEMENT),
     alignement(false),
     vu(false),
@@ -698,9 +698,9 @@ void ChenillePrincipale::alignementLaterale()
         {
             lateral_gauche();
         }
-        delay(100);
+        delay(5);
 
-        if(cpt>20)
+        if(cpt>500)
         {
             Serial.println("\n[ALIGNEMENT] ECHEC");
             lateral_stop();
@@ -1216,26 +1216,32 @@ Pince::Pince(bool cote_droit_v)
 void Pince::haut(){
     if(cote_droit){
         bras.writeMicroseconds(BRAS_DROITE_RANGE);
+        val_initiale = BRAS_DROITE_RANGE;
     }
     else{
         bras.writeMicroseconds(BRAS_GAUCHE_RANGE);
+        val_initiale = BRAS_GAUCHE_RANGE;
     }
 }
 void Pince::middle(){
     if(cote_droit){
         bras.writeMicroseconds(BRAS_DROITE_MIDDLE);
+        val_initiale = BRAS_DROITE_MIDDLE;
     }
     else{
         bras.writeMicroseconds(BRAS_DROITE_MIDDLE);
+        val_initiale = BRAS_GAUCHE_MIDDLE;
     }
 }
 
 void Pince::bas(){
     if(cote_droit){
         bras.writeMicroseconds(BRAS_DROITE_BAS);
+        val_initiale = BRAS_DROITE_BAS;
     }
     else{
         bras.writeMicroseconds(BRAS_GAUCHE_BAS);
+        val_initiale = BRAS_GAUCHE_BAS;
     }
 }
 
@@ -1247,6 +1253,45 @@ void Pince::pince_ON(){
         garde.writeMicroseconds(GARDE_GAUCHE_ON);
     }
 }
+
+void Pince::set_target(int objectif)    // haut, milieu, bas
+{
+    if(cote_droit)
+    {
+        if(objectif == HAUT){   val_target = BRAS_DROITE_RANGE;}
+        if(objectif == MILIEU){ val_target = BRAS_DROITE_MIDDLE;}
+        if(objectif == BAS){    val_target = BRAS_DROITE_BAS;}
+    }
+    else
+    {
+        if(objectif == HAUT){   val_target = BRAS_GAUCHE_RANGE;}
+        if(objectif == MILIEU){ val_target = BRAS_GAUCHE_MIDDLE;}
+        if(objectif == BAS){    val_target = BRAS_GAUCHE_BAS;}
+    }
+    val_temporaire = val_initiale;
+}
+
+void Pince::incrementation()
+{
+    val_temporaire += (val_target-val_initiale)/abs(val_target-val_initiale)*PAS_INCREMENTATION;
+    if(abs(val_temporaire-val_target)<2*PAS_INCREMENTATION)
+    {
+        val_temporaire = val_target;
+    }
+}
+
+bool Pince::is_cmd_finie()
+{
+    return (val_temporaire == val_target);
+}
+
+void Pince::send_command()
+{
+    bras.writeMicroseconds(val_temporaire);
+
+}
+
+
 
 void Pince::pince_OFF(){
     if(cote_droit){
@@ -1518,6 +1563,9 @@ void DeposeurTapis::in_state_func()
             break;
 
         case ETAT_TAPIS_DF_1  :
+            // descente du bras au milieu
+            // mettre une transition et faire un truc dans le run
+            pince_gauche.set_target(MILIEU);
             set_time_out(1000);
             pince_gauche.middle();
             //nozzle.haut();
@@ -1534,6 +1582,7 @@ void DeposeurTapis::in_state_func()
             break;
 
          case ETAT_TAPIS_DF_3 :
+             // idem ici
             set_time_out(1000);
             pince_gauche.bas();
             nozzle.bas();

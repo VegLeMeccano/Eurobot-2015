@@ -22,6 +22,10 @@ COOPR
 #define SEUIL_IR_BAS 600
 
 
+#define PAS_INCREMENTATION 5
+#define HAUT 0
+#define MILIEU 1
+#define BAS 2
 
 //turbine
 #define TURBINE_OFF 1000
