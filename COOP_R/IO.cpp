@@ -1204,13 +1204,20 @@ Pince::Pince(bool cote_droit_v)
     if(cote_droit){
         garde.attach(PIN_PWM_SERVO_GARDE_D);
         bras.attach(PIN_PWM_SERVO_BRAS_D);
+        val_initiale = BRAS_DROITE_RANGE;
+        val_temporaire = val_initiale;
+        val_target = val_initiale;
     }
     else{
         garde.attach(PIN_PWM_SERVO_GARDE_G);
         bras.attach(PIN_PWM_SERVO_BRAS_G);
+        val_initiale = BRAS_GAUCHE_RANGE;
+        val_temporaire = val_initiale;
+        val_target = val_initiale;
     }
     haut();
     pince_ON();
+
 }
 
 void Pince::haut(){
@@ -1273,10 +1280,17 @@ void Pince::set_target(int objectif)    // haut, milieu, bas
 
 void Pince::incrementation()
 {
+    Serial.print("target : ");
+    Serial.print(val_target);
+    Serial.print("\t actual : ");
+    Serial.println(val_temporaire);
+
+
     val_temporaire += (val_target-val_initiale)/abs(val_target-val_initiale)*PAS_INCREMENTATION;
     if(abs(val_temporaire-val_target)<2*PAS_INCREMENTATION)
     {
         val_temporaire = val_target;
+        val_initiale = val_target;
     }
 }
 
@@ -1313,7 +1327,7 @@ DeposeurTapis::DeposeurTapis():
     pince_gauche(false),
     time_out_on(false),
     state(0),
-    period_run(50)
+    period_run(30)
     {
 
     }
@@ -1386,7 +1400,8 @@ void DeposeurTapis::trigger(int transition)
            break;
 
         case ETAT_TAPIS_DF_1  :
-           if (transition == TRANS_TAPIS_TIME_OUT  )
+           //if (transition == TRANS_TAPIS_TIME_OUT  )
+           if (transition == TRANS_TAPIS_FIN_ASSERV  )
            {
                 state = ETAT_TAPIS_DF_2   ;
            }
@@ -1400,7 +1415,7 @@ void DeposeurTapis::trigger(int transition)
            break;
 
         case ETAT_TAPIS_DF_3   :
-           if (transition == TRANS_TAPIS_TIME_OUT )
+           if (transition == TRANS_TAPIS_FIN_ASSERV )
            {
                 state = ETAT_TAPIS_DFP_1  ;
            }
@@ -1421,7 +1436,7 @@ void DeposeurTapis::trigger(int transition)
            break;
 
         case ETAT_TAPIS_RF_1   :
-           if (transition == TRANS_TAPIS_TIME_OUT )
+           if (transition == TRANS_TAPIS_FIN_ASSERV )
            {
                 state = ETAT_TAPIS_RF_2  ;
            }
@@ -1435,21 +1450,21 @@ void DeposeurTapis::trigger(int transition)
            break;
 
         case ETAT_TAPIS_DS_1    :
-           if (transition == TRANS_TAPIS_TIME_OUT )
+           if (transition == TRANS_TAPIS_FIN_ASSERV )
            {
                 state = ETAT_TAPIS_DS_2   ;
            }
            break;
 
           case ETAT_TAPIS_DS_2     :
-           if (transition == TRANS_TAPIS_TIME_OUT )
+           if (transition == TRANS_TAPIS_FIN_ASSERV )
            {
                 state = ETAT_TAPIS_DS_3    ;
            }
            break;
 
         case ETAT_TAPIS_DS_3     :
-           if (transition == TRANS_TAPIS_TIME_OUT )
+           if (transition == TRANS_TAPIS_FIN_ASSERV )
            {
                 state = ETAT_TAPIS_DSP_1    ;
            }
@@ -1470,21 +1485,21 @@ void DeposeurTapis::trigger(int transition)
            break;
 
           case ETAT_TAPIS_RS_1       :
-           if (transition == TRANS_TAPIS_TIME_OUT )
+           if (transition == TRANS_TAPIS_FIN_ASSERV )
            {
                 state = ETAT_TAPIS_RS_2      ;
            }
            break;
 
           case ETAT_TAPIS_RS_2        :
-           if (transition == TRANS_TAPIS_TIME_OUT )
+           if (transition == TRANS_TAPIS_FIN_ASSERV )
            {
                 state = ETAT_TAPIS_RS_3       ;
            }
            break;
 
            case ETAT_TAPIS_RS_3        :
-           if (transition == TRANS_TAPIS_TIME_OUT )
+           if (transition == TRANS_TAPIS_FIN_ASSERV )
            {
                 state = ETAT_TAPIS_INIT        ;
            }
@@ -1509,8 +1524,25 @@ void DeposeurTapis::run(){
         {
             trigger(TRANS_TAPIS_TIME_OUT);
         }
-    }
 
+        if(!pince_droite.is_cmd_finie() || !pince_gauche.is_cmd_finie())
+        {
+            if(!pince_droite.is_cmd_finie())
+            {
+                pince_droite.incrementation();
+                pince_droite.send_command();
+            }
+            if(!pince_gauche.is_cmd_finie())
+            {
+                pince_gauche.incrementation();
+                pince_gauche.send_command();
+            }
+            if(pince_droite.is_cmd_finie() && pince_gauche.is_cmd_finie())
+            {
+                trigger(TRANS_TAPIS_FIN_ASSERV);
+            }
+        }
+    }
 }
 
 // tempo
@@ -1552,121 +1584,129 @@ void DeposeurTapis::in_state_func()
             pince_gauche.pince_ON();
             turbine.OFF();
             nozzle.middle();
-            Serial.println("ETAT_TAPIS_INIT");
+            Serial.println("ETAT_TAPIS_INIT: repos/rangee");
             break;
 
         case ETAT_TAPIS_AT :
-            set_time_out(500);
+            set_time_out(200);
             turbine.ON();
             nozzle.haut();
-            Serial.println("ETAT_TAPIS_AT");
+            Serial.println("ETAT_TAPIS_AT: allumage turbine");
             break;
 
         case ETAT_TAPIS_DF_1  :
             // descente du bras au milieu
             // mettre une transition et faire un truc dans le run
             pince_gauche.set_target(MILIEU);
-            set_time_out(1000);
-            pince_gauche.middle();
+            //set_time_out(1000);
+            //pince_gauche.middle();
             //nozzle.haut();
             nozzle.middle();
-            Serial.println("ETAT_TAPIS_DF_1 ");
+            Serial.println("ETAT_TAPIS_DF_1: descente nozzle/descente bras gauche milieu ");
             break;
 
         case ETAT_TAPIS_DF_2  :
             set_time_out(2000);
-            pince_gauche.middle();
+            //pince_gauche.middle();
             //nozzle.middle();
             nozzle.bas();
-            Serial.println("ETAT_TAPIS_DF_2 ");
+            Serial.println("ETAT_TAPIS_DF_2: descente nozzle ");
             break;
 
          case ETAT_TAPIS_DF_3 :
              // idem ici
-            set_time_out(1000);
-            pince_gauche.bas();
+            //set_time_out(1000);
+            pince_gauche.set_target(BAS);
+            //pince_gauche.bas();
             nozzle.bas();
-            Serial.println("ETAT_TAPIS_DF_3");
+            Serial.println("ETAT_TAPIS_DF_3: descente bras gauche");
             break;
 
         case ETAT_TAPIS_DFP_1  :
             set_time_out(100);
             turbine.OFF();
-            Serial.println("ETAT_TAPIS_DFP_1 ");
+            Serial.println("ETAT_TAPIS_DFP_1: arret turbine ");
             break;
 
          case ETAT_TAPIS_DFP_2  :
             pince_gauche.pince_OFF();
-            Serial.println("ETAT_TAPIS_DFP_2 ");
+            Serial.println("ETAT_TAPIS_DFP_2: relache tapis gauche");
             Serial.println("# POSE TAPIS 1 POSEE");
             break;
 
         case ETAT_TAPIS_RF_1  :
-            set_time_out(1000);
-            pince_gauche.middle();
-            Serial.println("ETAT_TAPIS_RF_1 ");
+            //set_time_out(1000);
+            pince_gauche.set_target(MILIEU);
+            //pince_gauche.middle();
+            Serial.println("ETAT_TAPIS_RF_1: remonte bras gauche au milieu");
             break;
 
          case ETAT_TAPIS_RF_2  :
-            //set_time_out(500);
             pince_gauche.pince_ON();
-            Serial.println("ETAT_TAPIS_RF_2 ");
+            Serial.println("ETAT_TAPIS_RF_2: fermeture pince gauche");
             Serial.println("# POSE TAPIS 1 REMONTEE");
             break;
 
         case ETAT_TAPIS_DS_1  :
-            set_time_out(1000);
-            pince_gauche.bas();
+            //set_time_out(1000);
+            //pince_gauche.bas();
+            pince_gauche.set_target(BAS);
             turbine.ON();
             nozzle.haut();
-            Serial.println("ETAT_TAPIS_DS_1 ");
+            Serial.println("ETAT_TAPIS_DS_1: re-descente bras gauche/ nozzle haut/ turbine on");
             break;
 
          case ETAT_TAPIS_DS_2  :
-            set_time_out(1000);
-            pince_droite.middle();
+            //set_time_out(1000);
+            //pince_droite.middle();
+            pince_droite.set_target(MILIEU);
             nozzle.middle();
-            Serial.println("ETAT_TAPIS_DS_2 ");
+            Serial.println("ETAT_TAPIS_DS_2: descente bras droite milieu/nozzle centre");
             break;
 
         case ETAT_TAPIS_DS_3  :
-            set_time_out(1000);
-            pince_droite.bas();
+            //set_time_out(1000);
+            //pince_droite.bas();
+            pince_droite.set_target(BAS);
             nozzle.bas();
-            Serial.println("ETAT_TAPIS_DS_3 ");
+            Serial.println("ETAT_TAPIS_DS_3: nozzle bas / bras bas");
             break;
 
         case ETAT_TAPIS_DSP_1   :
             set_time_out(1000);
             turbine.OFF();
-            Serial.println("ETAT_TAPIS_DSP_1  ");
+            Serial.println("ETAT_TAPIS_DSP_1: coupure turbine");
             break;
 
         case ETAT_TAPIS_DSP_2   :
             pince_droite.pince_OFF();
-            Serial.println("ETAT_TAPIS_DSP_2  ");
+            Serial.println("ETAT_TAPIS_DSP_2 : relache tapis droite");
             Serial.println("# POSE TAPIS 2 POSEE");
             break;
 
         case ETAT_TAPIS_RS_1   :
-            set_time_out(1000);
-            pince_droite.middle();
-            Serial.println("ETAT_TAPIS_RS_1  ");
+            //set_time_out(1000);
+            //pince_droite.middle();
+            pince_droite.set_target(MILIEU);
+            Serial.println("ETAT_TAPIS_RS_1 : remonte pince droite");
             break;
 
         case ETAT_TAPIS_RS_2   :
-            set_time_out(1000);
+            //set_time_out(1000);
             pince_droite.pince_ON();
-            pince_droite.haut();
-            pince_gauche.middle();
-            Serial.println("ETAT_TAPIS_RS_2  ");
+            //pince_droite.haut();
+            //pince_gauche.middle();
+            pince_droite.set_target(HAUT);
+            pince_gauche.set_target(MILIEU);
+            Serial.println("ETAT_TAPIS_RS_2 : ferme pince droite et remonte pince gauche");
             break;
 
         case ETAT_TAPIS_RS_3   :
-            set_time_out(1000);
-            pince_gauche.haut();
+            //set_time_out(1000);
+            pince_gauche.set_target(HAUT);
+            //pince_gauche.haut();
             nozzle.middle();
-            Serial.println("ETAT_TAPIS_RS_3  ");
+            Serial.println("ETAT_TAPIS_RS_3 : remonte pince gauche");
             Serial.println("# POSE TAPIS 2 REMONTEE");
             break;
     }

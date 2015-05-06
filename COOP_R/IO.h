@@ -413,6 +413,7 @@ class Pince
 #define TRANS_TAPIS_REPLI_FIRST 2
 #define TRANS_TAPIS_POSE_SECOND 3
 #define TRANS_TAPIS_REPLI_SECOND 4
+#define TRANS_TAPIS_FIN_ASSERV 5
 
 class DeposeurTapis
 {
