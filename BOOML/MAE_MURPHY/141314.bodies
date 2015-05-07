@@ -28,4 +28,4 @@ cout<<"ORIENTATION VERS MISSION : "<<ordre<<endl;
 #ifdef VERBOSE_STATE_MACHINE
 	puts("DEBUG : execute exit behavior of .MAE_MURPHY.Jeu.mission pillage distrib.rejoindre le point de depart mission.orientation cap mission");
 #endif
-serialPrintf(master->getPortSerie(),"S7 0"); 	// vitesse moyenne
+serialPrintf(master->getPortSerie(),"S7 0 \n"); 	// vitesse moyenne

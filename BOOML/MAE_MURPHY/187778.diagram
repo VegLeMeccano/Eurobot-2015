@@ -47,7 +47,7 @@ transitioncanvas 129410 transition_ref 403458 // <transition>
 end
 transitioncanvas 129538 transition_ref 403586 // <transition>
   
-  from ref 129282 z 2011 label "[master->get_gestionnaire_mission()->is_mission_far()]" xyz 188.5 175.5 2011 to ref 128386
+  from ref 129282 z 2011 label "[master->get_gestionnaire_mission()->is_mission_far()]" xyz 188 175 2011 to ref 128386
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 129666 transition_ref 403714 // <transition>
