@@ -256,7 +256,7 @@ void ControlLoop::compute_pids(){
                 pidcap.setTarget(target_position.get_cap());
                 // il faut faire une modif ici, les gains sont trop fort une fois arrive en NEAR
                 // commande de PID sur la rotation
-                float factor_NEAR(1);
+                float factor_NEAR(0.8);
                 cmd_cap = factor_NEAR*pidcap.compute(real_coord.get_cap());
 
             }
@@ -319,8 +319,8 @@ void ControlLoop::compute_pids(){
                 //Serial.print("BF DROITE NEAR: ");
 
 
-                A = 1.0;
-                B = 2.0;
+                A = 0.6;
+                B = 1.5;
                 alpha = -diff_cap( target_position.get_cap() ,  real_coord.get_cap() );
                 beta =  0;//-diff_cap( to_target.get_angle()     ,  target_position.get_cap() );
                 erreur_cap = diff_cap(A*alpha + B*beta,0);//(A+B);
@@ -333,8 +333,8 @@ void ControlLoop::compute_pids(){
             }
             else
             {
-                A = 1.0;
-                B = 2.0;
+                A = 0.5;
+                B = 0.5;
                 alpha = -diff_cap( target_position.get_cap() ,  real_coord.get_cap() );
                 beta =  -diff_cap( to_target.get_angle()     ,  target_position.get_cap() );
                 erreur_cap = diff_cap(A*alpha + B*beta,0);//(A+B);
