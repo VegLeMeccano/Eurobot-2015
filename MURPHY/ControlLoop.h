@@ -51,8 +51,8 @@
 
 
 // norme sur les etats de transistion proche  et fini
-#define NEAR_ERROR_DEP 100.0
-#define DONE_ERROR_DEP  40.0
+#define NEAR_ERROR_DEP 120.0
+#define DONE_ERROR_DEP  80.0
 
 // gain PID cap (rotation)
 #define GAIN_KP_CAP 200  //Ku = 260
@@ -60,7 +60,7 @@
 #define GAIN_KD_CAP 0 //18.0 //40.0
 
 #define NEAR_ERROR_CAP 8.0 * 3.14 / 180.0
-#define DONE_ERROR_CAP  3.0 * 3.14 / 180.0
+#define DONE_ERROR_CAP  4.0 * 3.14 / 180.0
 
 // compteur blocage
 #define BLOCAGE_MAX 20
