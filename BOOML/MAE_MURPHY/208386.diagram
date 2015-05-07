@@ -9,7 +9,7 @@ statecanvas 128130 state_ref 255106 // cap to mission
   xyzwh 189 179 2005 459 131
 end
 pseudostatecanvas 128258 pseudostate_ref 264450 // initial
-   xyz 309 123 2005
+   xyz 835 154 2005
 end
 pseudostatecanvas 128514 pseudostate_ref 264578 // exit_point
    xyz 653 578 3005 label_xy 649 597
@@ -22,14 +22,12 @@ statecanvas 128770 state_ref 255362 // cap mission
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
   xyzwh 659 354 2005 339 159
 end
-transitioncanvas 128386 transition_ref 322946 // <transition>
-  
-  from ref 128258 z 2006 to ref 128130
-  write_horizontally default show_definition default drawing_language default
+pseudostatecanvas 129282 pseudostate_ref 305794 // choice
+   xyz 855 198 2005
 end
 transitioncanvas 128898 transition_ref 323074 // <transition>
   
-  from ref 128130 z 2006 label "assFini" xyz 384.5 317 2006 to ref 128642
+  from ref 128130 z 2006 label "assFini" xyz 384 317 2006 to ref 128642
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 129026 transition_ref 323202 // <transition>
@@ -39,7 +37,22 @@ transitioncanvas 129026 transition_ref 323202 // <transition>
 end
 transitioncanvas 129154 transition_ref 323330 // <transition>
   
-  from ref 128770 z 3006 label "assFini" xyz 680.5 509.5 3006 to ref 128514
+  from ref 128770 z 3006 label "assFini" xyz 680 509 3006 to ref 128514
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 129410 transition_ref 402690 // <transition>
+  
+  from ref 128258 z 2006 to ref 129282
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 129538 transition_ref 402818 // <transition>
+  
+  from ref 129282 z 2006 label "[master->get_gestionnaire_mission()->is_mission_far()]" xyz 584 228 3000 to ref 128130
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 129666 transition_ref 402946 // <transition>
+  
+  from ref 129282 z 2006 label "[!master->get_gestionnaire_mission()->is_mission_far()]" xyz 717 286 3000 to ref 128770
   write_horizontally default show_definition default drawing_language default
 end
 end

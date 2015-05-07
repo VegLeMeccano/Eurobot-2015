@@ -33,7 +33,7 @@ transitioncanvas 129154 transition_ref 148226 // <transition>
 end
 transitioncanvas 130050 transition_ref 148994 // <transition>
   
-  from ref 128258 z 2006 label "blocage" xyz 306.5 238 2006 to ref 128386
+  from ref 128258 z 2006 label "blocage" xyz 306 238 2006 to ref 128386
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 132098 transition_ref 234882 // <transition>
