@@ -688,8 +688,8 @@ void ChenillePrincipale::alignementLaterale()
     while(!ir_compteur_lat.est_aligne())
     {
         cpt++;
-        Serial.print(cpt);
-        Serial.print(" ");
+        //Serial.print(cpt);
+        //Serial.print(" ");
         if(couleur == COULEUR_JAUNE)
         {
             lateral_droite();
@@ -1673,7 +1673,7 @@ void DeposeurTapis::in_state_func()
             break;
 
         case ETAT_TAPIS_DSP_1   :
-            set_time_out(1000);
+            set_time_out(100);
             turbine.OFF();
             Serial.println("ETAT_TAPIS_DSP_1: coupure turbine");
             break;
