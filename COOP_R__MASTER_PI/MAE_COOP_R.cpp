@@ -76,6 +76,18 @@ void MAE_COOP_R::AnyState::ioFini(MAE_COOP_R & stm) {
 #endif
 }
 
+// the current state doesn't manage the event game_over, give it to the upper state
+void MAE_COOP_R::AnyState::game_over(MAE_COOP_R & stm) {
+    AnyState * st = _upper(stm);
+  
+    if (st != 0)
+      st->game_over(stm);
+#ifdef VERBOSE_STATE_MACHINE
+    else
+      puts("DEBUG : transition game_over not expected");
+#endif
+}
+
 MAE_COOP_R::MAE_COOP_R_State::Attente_State::~Attente_State() {
 }
 
@@ -109,17 +121,52 @@ MAE_COOP_R::AnyState * MAE_COOP_R::MAE_COOP_R_State::Attente_State::_upper(MAE_C
     return &stm._mae_coop_r_state;
 }
 
+MAE_COOP_R::MAE_COOP_R_State::Fin_de_Jeu_State::~Fin_de_Jeu_State() {
+}
+
+// to manage the event create
+void MAE_COOP_R::MAE_COOP_R_State::Fin_de_Jeu_State::create(MAE_COOP_R & stm) {
+  	_doentry(stm);
+}
+
+// perform the 'entry behavior'
+void MAE_COOP_R::MAE_COOP_R_State::Fin_de_Jeu_State::_doentry(MAE_COOP_R & stm) {
+#ifdef VERBOSE_STATE_MACHINE
+  	puts("DEBUG : execute entry behavior of .MAE_COOP_R.Fin de Jeu");
+#endif
+  cout<<"[BOUML] etat fin de Jeu"<<endl;
+  cout<<"##### END OF GAME ####"<<endl;
+}
+
+// returns the state containing the current
+MAE_COOP_R::AnyState * MAE_COOP_R::MAE_COOP_R_State::Fin_de_Jeu_State::_upper(MAE_COOP_R & stm) {
+    return &stm._mae_coop_r_state;
+}
+
 MAE_COOP_R::MAE_COOP_R_State::Jeu_State::attente_State::~attente_State() {
 }
 
 // to manage the event time_out
 void MAE_COOP_R::MAE_COOP_R_State::Jeu_State::attente_State::time_out(MAE_COOP_R & stm) {
     {
-      stm._set_currentState(stm._mae_coop_r_state._jeu_state._deplacement_lateral_state);
+      stm._set_currentState(stm._mae_coop_r_state._jeu_state);
 #ifdef VERBOSE_STATE_MACHINE
-      puts("DEBUG : current state is now .MAE_COOP_R.Jeu.deplacement lateral");
+      puts("DEBUG : current state is now .MAE_COOP_R.Jeu");
 #endif
-      stm._mae_coop_r_state._jeu_state._deplacement_lateral_state.create(stm);
+      if (master->is_rush()) {
+        stm._set_currentState(stm._mae_coop_r_state._jeu_state._deplacement_lateral_state);
+#ifdef VERBOSE_STATE_MACHINE
+        puts("DEBUG : current state is now .MAE_COOP_R.Jeu.deplacement lateral");
+#endif
+        stm._mae_coop_r_state._jeu_state._deplacement_lateral_state.create(stm);
+      }
+      else if (!master->is_rush()) {
+        stm._set_currentState(stm._mae_coop_r_state._jeu_state._attente_tempo_state);
+#ifdef VERBOSE_STATE_MACHINE
+        puts("DEBUG : current state is now .MAE_COOP_R.Jeu.attente tempo");
+#endif
+        stm._mae_coop_r_state._jeu_state._attente_tempo_state.create(stm);
+      }
     }
 }
 
@@ -134,13 +181,46 @@ void MAE_COOP_R::MAE_COOP_R_State::Jeu_State::attente_State::_doentry(MAE_COOP_R
   	puts("DEBUG : execute entry behavior of .MAE_COOP_R.Jeu.attente");
 #endif
   cout<<"[BOUML] etat attente initial"<<endl;
-  master->set_time_out(3000);
+  master->set_time_out(100);
   // activation de l'evitement
   serialPrintf (master->getPortSerie(), "E1 \n") ;
 }
 
 // returns the state containing the current
 MAE_COOP_R::AnyState * MAE_COOP_R::MAE_COOP_R_State::Jeu_State::attente_State::_upper(MAE_COOP_R & stm) {
+    return &stm._mae_coop_r_state._jeu_state;
+}
+
+MAE_COOP_R::MAE_COOP_R_State::Jeu_State::attente_tempo_State::~attente_tempo_State() {
+}
+
+// to manage the event time_out
+void MAE_COOP_R::MAE_COOP_R_State::Jeu_State::attente_tempo_State::time_out(MAE_COOP_R & stm) {
+    {
+      stm._set_currentState(stm._mae_coop_r_state._jeu_state._deplacement_lateral_state);
+#ifdef VERBOSE_STATE_MACHINE
+      puts("DEBUG : current state is now .MAE_COOP_R.Jeu.deplacement lateral");
+#endif
+      stm._mae_coop_r_state._jeu_state._deplacement_lateral_state.create(stm);
+    }
+}
+
+// to manage the event create
+void MAE_COOP_R::MAE_COOP_R_State::Jeu_State::attente_tempo_State::create(MAE_COOP_R & stm) {
+  	_doentry(stm);
+}
+
+// perform the 'entry behavior'
+void MAE_COOP_R::MAE_COOP_R_State::Jeu_State::attente_tempo_State::_doentry(MAE_COOP_R & stm) {
+#ifdef VERBOSE_STATE_MACHINE
+  	puts("DEBUG : execute entry behavior of .MAE_COOP_R.Jeu.attente tempo");
+#endif
+  cout<<"[BOUML] on attend que murph passe"<<endl;
+  master->set_time_out(6000);
+}
+
+// returns the state containing the current
+MAE_COOP_R::AnyState * MAE_COOP_R::MAE_COOP_R_State::Jeu_State::attente_tempo_State::_upper(MAE_COOP_R & stm) {
     return &stm._mae_coop_r_state._jeu_state;
 }
 
@@ -339,39 +419,17 @@ MAE_COOP_R::AnyState * MAE_COOP_R::MAE_COOP_R_State::Jeu_State::Evitement_State:
     return &stm._mae_coop_r_state._jeu_state;
 }
 
-MAE_COOP_R::MAE_COOP_R_State::Jeu_State::fin_de_jeu_State::~fin_de_jeu_State() {
-}
-
-// to manage the event create
-void MAE_COOP_R::MAE_COOP_R_State::Jeu_State::fin_de_jeu_State::create(MAE_COOP_R & stm) {
-  	_doentry(stm);
-}
-
-// perform the 'entry behavior'
-void MAE_COOP_R::MAE_COOP_R_State::Jeu_State::fin_de_jeu_State::_doentry(MAE_COOP_R & stm) {
-#ifdef VERBOSE_STATE_MACHINE
-  	puts("DEBUG : execute entry behavior of .MAE_COOP_R.Jeu.fin de jeu");
-#endif
-  // fin de mission
-  cout<<"########  FIN DE JEU  ###########"<<endl;
-}
-
-// returns the state containing the current
-MAE_COOP_R::AnyState * MAE_COOP_R::MAE_COOP_R_State::Jeu_State::fin_de_jeu_State::_upper(MAE_COOP_R & stm) {
-    return &stm._mae_coop_r_state._jeu_state;
-}
-
 MAE_COOP_R::MAE_COOP_R_State::Jeu_State::remonte_2_State::~remonte_2_State() {
 }
 
 // to manage the event ioFini
 void MAE_COOP_R::MAE_COOP_R_State::Jeu_State::remonte_2_State::ioFini(MAE_COOP_R & stm) {
     {
-      stm._set_currentState(stm._mae_coop_r_state._jeu_state._fin_de_jeu_state);
+      stm._set_currentState(stm._mae_coop_r_state._jeu_state);
 #ifdef VERBOSE_STATE_MACHINE
-      puts("DEBUG : current state is now .MAE_COOP_R.Jeu.fin de jeu");
+      puts("DEBUG : current state is now .MAE_COOP_R.Jeu");
 #endif
-      stm._mae_coop_r_state._jeu_state._fin_de_jeu_state.create(stm);
+      stm._mae_coop_r_state._jeu_state._exit1(stm);
     }
 }
 
@@ -742,6 +800,28 @@ MAE_COOP_R::AnyState * MAE_COOP_R::MAE_COOP_R_State::Jeu_State::_upper(MAE_COOP_
     return &stm._mae_coop_r_state;
 }
 
+// to manage the event game_over
+void MAE_COOP_R::MAE_COOP_R_State::Jeu_State::game_over(MAE_COOP_R & stm) {
+    {
+      stm._set_currentState(stm._mae_coop_r_state._fin_de_jeu_state);
+#ifdef VERBOSE_STATE_MACHINE
+      puts("DEBUG : current state is now .MAE_COOP_R.Fin de Jeu");
+#endif
+      stm._mae_coop_r_state._fin_de_jeu_state.create(stm);
+    }
+}
+
+// to manage the exit point 'fin', defined because probably shared
+void MAE_COOP_R::MAE_COOP_R_State::Jeu_State::_exit1(MAE_COOP_R & stm) {
+    {
+      stm._set_currentState(stm._mae_coop_r_state._fin_de_jeu_state);
+#ifdef VERBOSE_STATE_MACHINE
+      puts("DEBUG : current state is now .MAE_COOP_R.Fin de Jeu");
+#endif
+      stm._mae_coop_r_state._fin_de_jeu_state.create(stm);
+    }
+}
+
 MAE_COOP_R::MAE_COOP_R_State::~MAE_COOP_R_State() {
 }
 
@@ -841,5 +921,16 @@ void MAE_COOP_R::_final() {
 #ifdef VERBOSE_STATE_MACHINE
     puts("DEBUG : final state reached");
 #endif
+}
+
+// the operation you call to signal the event game_over
+bool MAE_COOP_R::game_over() {
+    if (_current_state != 0) {
+#ifdef VERBOSE_STATE_MACHINE
+      puts("DEBUG : fire trigger game_over");
+#endif
+      _current_state->game_over(*this);
+    }
+    return (_current_state != 0);
 }
 

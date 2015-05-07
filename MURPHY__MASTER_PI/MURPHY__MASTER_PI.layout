@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Debug" />
-	<File name="Coord.cpp" open="1" top="0" tabpos="1">
+	<File name="Coord.cpp" open="1" top="0" tabpos="9">
 		<Cursor position="0" topLine="0" />
 	</File>
-	<File name="Gestionnaire_Mission.cpp" open="1" top="1" tabpos="2">
+	<File name="Gestionnaire_Mission.cpp" open="1" top="0" tabpos="10">
 		<Cursor position="6322" topLine="491" />
 	</File>
-	<File name="Gestionnaire_Mission.h" open="1" top="0" tabpos="4">
+	<File name="Gestionnaire_Mission.h" open="1" top="0" tabpos="12">
 		<Cursor position="3337" topLine="94" />
 	</File>
-	<File name="MAE_MURPHY.cpp" open="1" top="0" tabpos="9">
+	<File name="MAE_MURPHY.cpp" open="1" top="0" tabpos="17">
 		<Cursor position="303598" topLine="6455" />
 	</File>
 	<File name="MAE_MURPHY.h" open="0" top="0" tabpos="0">
 		<Cursor position="3267" topLine="48" />
 	</File>
-	<File name="Master.cpp" open="1" top="0" tabpos="5">
+	<File name="Master.cpp" open="1" top="0" tabpos="13">
 		<Cursor position="2314" topLine="100" />
 	</File>
-	<File name="Master.h" open="1" top="0" tabpos="8">
+	<File name="Master.h" open="1" top="0" tabpos="16">
 		<Cursor position="532" topLine="21" />
 	</File>
 	<File name="Mission.cpp" open="0" top="0" tabpos="0">
@@ -31,13 +31,13 @@
 	<File name="Mission_Depot_Tour_Estrade.cpp" open="0" top="0" tabpos="8">
 		<Cursor position="1048" topLine="0" />
 	</File>
-	<File name="Protocole_COM.cpp" open="1" top="0" tabpos="3">
-		<Cursor position="12802" topLine="381" />
+	<File name="Protocole_COM.cpp" open="1" top="1" tabpos="11">
+		<Cursor position="12802" topLine="357" />
 	</File>
-	<File name="Protocole_COM.h" open="1" top="0" tabpos="7">
+	<File name="Protocole_COM.h" open="1" top="0" tabpos="15">
 		<Cursor position="433" topLine="0" />
 	</File>
-	<File name="main.cpp" open="1" top="0" tabpos="6">
+	<File name="main.cpp" open="1" top="0" tabpos="14">
 		<Cursor position="996" topLine="37" />
 	</File>
 </CodeBlocks_layout_file>

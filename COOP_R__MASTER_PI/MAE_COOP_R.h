@@ -36,6 +36,9 @@ class MAE_COOP_R {
         // the current state doesn't manage the event ioFini, give it to the upper state
         virtual void ioFini(MAE_COOP_R & stm);
 
+        // the current state doesn't manage the event game_over, give it to the upper state
+        virtual void game_over(MAE_COOP_R & stm);
+
     };
     
     // implement the state MAE_COOP_R
@@ -60,6 +63,22 @@ class MAE_COOP_R {
 
         };
         
+        // implement the state Fin de Jeu
+        class Fin_de_Jeu_State : public AnyState {
+          public:
+            virtual ~Fin_de_Jeu_State();
+
+            // to manage the event create
+            virtual void create(MAE_COOP_R & stm);
+
+            // perform the 'entry behavior'
+            void _doentry(MAE_COOP_R & stm);
+
+            // returns the state containing the current
+            virtual AnyState * _upper(MAE_COOP_R & stm);
+
+        };
+        
         // implement the state Jeu
         class Jeu_State : public AnyState {
           public:
@@ -67,6 +86,25 @@ class MAE_COOP_R {
             class attente_State : public AnyState {
               public:
                 virtual ~attente_State();
+
+                // to manage the event time_out
+                virtual void time_out(MAE_COOP_R & stm);
+
+                // to manage the event create
+                virtual void create(MAE_COOP_R & stm);
+
+                // perform the 'entry behavior'
+                void _doentry(MAE_COOP_R & stm);
+
+                // returns the state containing the current
+                virtual AnyState * _upper(MAE_COOP_R & stm);
+
+            };
+            
+            // implement the state attente tempo
+            class attente_tempo_State : public AnyState {
+              public:
+                virtual ~attente_tempo_State();
 
                 // to manage the event time_out
                 virtual void time_out(MAE_COOP_R & stm);
@@ -168,22 +206,6 @@ class MAE_COOP_R {
 
                 // to manage the event time_out
                 virtual void time_out(MAE_COOP_R & stm);
-
-                // to manage the event create
-                virtual void create(MAE_COOP_R & stm);
-
-                // perform the 'entry behavior'
-                void _doentry(MAE_COOP_R & stm);
-
-                // returns the state containing the current
-                virtual AnyState * _upper(MAE_COOP_R & stm);
-
-            };
-            
-            // implement the state fin de jeu
-            class fin_de_jeu_State : public AnyState {
-              public:
-                virtual ~fin_de_jeu_State();
 
                 // to manage the event create
                 virtual void create(MAE_COOP_R & stm);
@@ -405,9 +427,6 @@ class MAE_COOP_R {
             // memorize the instance of the state remonte 2, internal
             remonte_2_State _remonte_2_state;
 
-            // memorize the instance of the state fin de jeu, internal
-            fin_de_jeu_State _fin_de_jeu_state;
-
             // memorize the instance of the state Evitement, internal
             Evitement_State _evitement_state;
 
@@ -434,6 +453,15 @@ class MAE_COOP_R {
             // returns the state containing the current
             virtual AnyState * _upper(MAE_COOP_R & stm);
 
+            // memorize the instance of the state attente tempo, internal
+            attente_tempo_State _attente_tempo_state;
+
+            // to manage the event game_over
+            virtual void game_over(MAE_COOP_R & stm);
+
+            // to manage the exit point 'fin', defined because probably shared
+            void _exit1(MAE_COOP_R & stm);
+
         };
         
         virtual ~MAE_COOP_R_State();
@@ -449,6 +477,9 @@ class MAE_COOP_R {
 
         // returns the state containing the current
         virtual AnyState * _upper(MAE_COOP_R &);
+
+        // memorize the instance of the state Fin de Jeu, internal
+        Fin_de_Jeu_State _fin_de_jeu_state;
 
     };
     
@@ -490,7 +521,6 @@ class MAE_COOP_R {
   friend class MAE_COOP_R_State::Jeu_State::decalage_droite_State;
   friend class MAE_COOP_R_State::Jeu_State::preparation_pose_second_tapis_State;
   friend class MAE_COOP_R_State::Jeu_State::remonte_2_State;
-  friend class MAE_COOP_R_State::Jeu_State::fin_de_jeu_State;
   friend class MAE_COOP_R_State::Jeu_State::Evitement_State;
   friend class MAE_COOP_R_State::Jeu_State::bumper_en_bas_des_marches_State;
   friend class MAE_COOP_R_State::Jeu_State::fin_deplacement_lateral_State;
@@ -512,6 +542,13 @@ class MAE_COOP_R {
     // contains the current state, internal
     AnyState * _current_state;
 
+
+  public:
+    // the operation you call to signal the event game_over
+    bool game_over();
+
+  friend class MAE_COOP_R_State::Jeu_State::attente_tempo_State;
+  friend class MAE_COOP_R_State::Fin_de_Jeu_State;
 };
 // change the current state, internal
 inline void MAE_COOP_R::_set_currentState(MAE_COOP_R::AnyState & st) {

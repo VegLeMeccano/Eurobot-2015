@@ -44,3 +44,12 @@ class AnyState
   else
     puts("DEBUG : transition ioFini not expected");
 #endif
+!!!156034.cpp!!!	game_over(inout stm : MAE_COOP_R) : void
+  AnyState * st = _upper(stm);
+
+  if (st != 0)
+    st->game_over(stm);
+#ifdef VERBOSE_STATE_MACHINE
+  else
+    puts("DEBUG : transition game_over not expected");
+#endif

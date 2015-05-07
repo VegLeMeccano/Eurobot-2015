@@ -6195,7 +6195,7 @@ void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::cap
   	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission pillage distrib.capture stands cote escalier.recule");
 #endif
   cout<<"stands escalier : recule/degage de la zone"<<endl;
-  serialPrintf(master->getPortSerie(),"S4 -400 \n");
+  serialPrintf(master->getPortSerie(),"S4 -300 \n");
 }
 
 // returns the state containing the current

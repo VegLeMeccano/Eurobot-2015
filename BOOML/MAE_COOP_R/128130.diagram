@@ -2,18 +2,25 @@ format 76
 
 statecanvas 128002 state_ref 128130 // MAE_COOP_R
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 97 68 2000 705 437
+  xyzwh 302 60 2000 461 573
 end
 pseudostatecanvas 128130 pseudostate_ref 128130 // initial
-   xyz 456 175 2005
+   xyz 517 117 2005
 end
 statecanvas 128258 state_ref 128258 // Attente
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 362 214 2005 329 75
+  xyzwh 361 178 2005 329 75
 end
 statecanvas 128386 state_ref 128386 // Jeu
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 371 343 2005 323 75
+  xyzwh 365 309 2005 323 75
+end
+statecanvas 130050 state_ref 150018 // Fin de Jeu
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  xyzwh 379 461 2005 295 97
+end
+pseudostatecanvas 130306 pseudostate_ref 147714 // exit_point
+   xyz 652 370 3005 label_xy 655 389
 end
 transitioncanvas 128642 transition_ref 128130 // <transition>
   
@@ -22,9 +29,17 @@ transitioncanvas 128642 transition_ref 128130 // <transition>
 end
 transitioncanvas 128770 transition_ref 128258 // <transition>
   
-  from ref 128258 z 2006 label "stratEnleve" xyz 494 313 2006 to point 473 305
-  line 129922 z 2006 to point 473 316
-  line 129794 z 2006 to ref 128386
+  from ref 128258 z 2006 label "stratEnleve" xyz 536.5 295.5 2006 to ref 128386
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 130178 transition_ref 190082 // <transition>
+  
+  from ref 128386 z 2006 label "game_over" xyz 468 410 3000 to ref 130050
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 130434 transition_ref 190338 // <transition>
+  
+  from ref 130306 z 3006 to ref 130050
   write_horizontally default show_definition default drawing_language default
 end
 end
