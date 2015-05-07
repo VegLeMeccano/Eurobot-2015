@@ -365,6 +365,10 @@ class Pince
         Servo garde;
 		Servo bras;
 
+        int val_target;
+        int val_temporaire;
+		int val_initiale;
+
     public:
         Pince(bool cote_droit);
         void haut();
@@ -372,6 +376,11 @@ class Pince
         void bas();
         void pince_ON();
         void pince_OFF();
+
+        void set_target(int target);    // haut, milieu, bas
+        void incrementation();
+        bool is_cmd_finie();
+        void send_command();
 
 };
 
@@ -404,6 +413,7 @@ class Pince
 #define TRANS_TAPIS_REPLI_FIRST 2
 #define TRANS_TAPIS_POSE_SECOND 3
 #define TRANS_TAPIS_REPLI_SECOND 4
+#define TRANS_TAPIS_FIN_ASSERV 5
 
 class DeposeurTapis
 {

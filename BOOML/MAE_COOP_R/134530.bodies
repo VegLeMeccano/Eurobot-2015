@@ -54,3 +54,11 @@ return (_current_state != 0);
 #ifdef VERBOSE_STATE_MACHINE
   puts("DEBUG : final state reached");
 #endif
+!!!155906.cpp!!!	game_over() : bool
+  if (_current_state != 0) {
+#ifdef VERBOSE_STATE_MACHINE
+    puts("DEBUG : fire trigger game_over");
+#endif
+    _current_state->game_over(*this);
+  }
+  return (_current_state != 0);

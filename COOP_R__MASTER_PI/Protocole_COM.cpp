@@ -215,6 +215,20 @@ void Protocole_COM::executeinstr()
             master->set_couleur(COULEUR_VERT);
         }
 
+        // si attente
+        if(s.find("STRAT 1 : 0") != string::npos)
+        {
+            cout<<"[Master] attente"<<endl;
+            master->desactivation_rush();
+        }
+
+        //si vert
+        if(s.find("STRAT 1 : 1") != string::npos)
+        {
+            cout<<"[Master] rush"<<endl;
+            master->activation_rush();
+        }
+
         break;
 
 

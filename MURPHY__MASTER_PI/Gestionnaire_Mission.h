@@ -35,6 +35,8 @@
 #define MISSION_TOUR_DEPART 5
 #define MISSION_TOUR_ESTRADE 6
 #define MISSION_ZONE_ENNEMIE 7
+
+#define DISTANCE_MINI_TO_MISSION 150
 using namespace std;
 
 class Gestionnaire_Mission
@@ -63,6 +65,7 @@ class Gestionnaire_Mission
         float x_mission;
         float y_mission;
         float cap_mission;
+        int distance_mission;
         bool alignement_to_mission;
 
         MAE_MURPHY mae_murphy;
@@ -106,10 +109,12 @@ class Gestionnaire_Mission
 
         Element_Robot* get_element_robot();
 
+        int get_distance_to_mission();
         float get_cap_to_mission();
         float get_x_mission();
         float get_y_mission();
         float get_cap_mission();
+        bool is_mission_far();
 
         string get_cap_to_mission_str();
         string get_x_mission_str();

@@ -397,7 +397,7 @@ void ControlLoop::run(Coord real_coord_){
     compute_cmds();                         // calcul les commandes
 
     // mettre aussi la BF droite si elle fonctionne
-    if (bf_type == BFFW && detect_on)
+    if ((bf_type == BFFW || bf_type == BFXYCAP)&& detect_on)
     {
         check_adversary();
     }
@@ -484,7 +484,7 @@ void ControlLoop::check_adversary()
 
     if (to_target.scalar(Vector(real_coord)) <0.)
     {
-        Serial.println("going backward...");
+        // Serial.println("going backward...");
         return;
     }
 

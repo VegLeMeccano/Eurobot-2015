@@ -4,7 +4,7 @@ selected
   package_ref 129 // MAE_MURPHY
 open
   state_ref 128258 // Initialisation
-  state_ref 128386 // Jeu
+  state_ref 142850 // mission pillage distrib
   deploymentview_ref 128130 // MAE_MURPHY
 end
 end

@@ -1,6 +1,6 @@
 format 76
 "MAE_MURPHY"
-  revision 74
+  revision 77
   modified_by 2 "Link"
   cpp_root_dir "D:/Club Robotique IRON MENAD 2/Eurobot 2015 Iron Menad/Eurobot-2015/MURPHY__MASTER_PI/"
 
@@ -109,8 +109,8 @@ cout<<\"MISSION DEPOT TOUR ESTRADE\"<<endl;"
 	    end
 
 	    pseudostate 264194 initial 
-	      transition 321538 "<transition>"
-		on state_ref 254210 // BF cap to mission
+	      transition 403074 "<transition>"
+		on pseudostate_ref 305922 // choice
 		external 
 	      end
 	    end
@@ -168,6 +168,20 @@ cout<<\"ORIENTATION VERS MISSION : \"<<ordre<<endl;"
 	      transition 321922 "<transition>"
 		on pseudostate_ref 264322 // exit_point
 		  cpp_trigger "assFini"
+		external 
+	      end
+	    end
+
+	    pseudostate 305922 choice 
+	      transition 403202 "<transition>"
+		on state_ref 254210 // BF cap to mission
+		  cpp_guard "master->get_gestionnaire_mission()->is_mission_far()"
+		external 
+	      end
+
+	      transition 403330 "<transition>"
+		on state_ref 254466 // BF cap mission
+		  cpp_guard "!master->get_gestionnaire_mission()->is_mission_far()"
 		external 
 	      end
 	    end
@@ -555,7 +569,7 @@ serialPrintf(master->getPortSerie(),\"G1 \\n\");
 
 	    state 215554 "recule"
 		cpp_on_entry "cout<<\"stands escalier : recule/degage de la zone\"<<endl;
-serialPrintf(master->getPortSerie(),\"S4 -400 \\n\");"
+serialPrintf(master->getPortSerie(),\"S4 -300 \\n\");"
 	      transition 257282 "<transition>"
 		on pseudostate_ref 209282 // exit_point
 		  cpp_trigger "assFini"
@@ -835,8 +849,8 @@ serialPrintf(master->getPortSerie(),\"S4 300 \\n\");
 	    end
 
 	    pseudostate 202370 initial 
-	      transition 255746 "<transition>"
-		on state_ref 201218 // orientation vers objectif
+	      transition 401410 "<transition>"
+		on pseudostate_ref 305410 // choice
 		external 
 	      end
 	    end
@@ -894,6 +908,20 @@ cout<<\"ORIENTATION VERS MISSION : \"<<ordre<<endl;"
 	      transition 242306 "<transition>"
 		on pseudostate_ref 202498 // exit_point
 		  cpp_trigger "assFini"
+		external 
+	      end
+	    end
+
+	    pseudostate 305410 choice 
+	      transition 401666 "<transition>"
+		on state_ref 201218 // orientation vers objectif
+		  cpp_guard "master->get_gestionnaire_mission()->is_mission_far()"
+		external 
+	      end
+
+	      transition 401794 "<transition>"
+		on state_ref 201474 // orientation cap mission
+		  cpp_guard "!master->get_gestionnaire_mission()->is_mission_far()"
 		external 
 	      end
 	    end
@@ -994,8 +1022,8 @@ cout<<\"MISSION CHIAGE & BALL\"<<endl;
 	    end
 
 	    pseudostate 236930 initial 
-	      transition 287362 "<transition>"
-		on state_ref 233090 // orientation vers objectif
+	      transition 401922 "<transition>"
+		on pseudostate_ref 305538 // choice
 		external 
 	      end
 	    end
@@ -1053,6 +1081,20 @@ cout<<\"ORIENTATION VERS MISSION : \"<<ordre<<endl;"
 	      transition 287746 "<transition>"
 		on pseudostate_ref 237058 // exit_point
 		  cpp_trigger "assFini"
+		external 
+	      end
+	    end
+
+	    pseudostate 305538 choice 
+	      transition 402050 "<transition>"
+		on state_ref 233090 // orientation vers objectif
+		  cpp_guard "master->get_gestionnaire_mission()->is_mission_far()"
+		external 
+	      end
+
+	      transition 402178 "<transition>"
+		on state_ref 233346 // BF cap mission
+		  cpp_guard "!master->get_gestionnaire_mission()->is_mission_far()"
 		external 
 	      end
 	    end
@@ -1626,8 +1668,8 @@ serialPrintf(master->getPortSerie(),\"C2 \\n\");
 	    end
 
 	    pseudostate 284802 initial 
-	      transition 349570 "<transition>"
-		on state_ref 279042 // cap to mission
+	      transition 402306 "<transition>"
+		on pseudostate_ref 305666 // choice
 		external 
 	      end
 	    end
@@ -1685,6 +1727,20 @@ cout<<\"ORIENTATION VERS MISSION : \"<<ordre<<endl;"
 	      transition 349954 "<transition>"
 		on pseudostate_ref 284930 // exit_point
 		  cpp_trigger "assFini"
+		external 
+	      end
+	    end
+
+	    pseudostate 305666 choice 
+	      transition 402434 "<transition>"
+		on state_ref 279042 // cap to mission
+		  cpp_guard "master->get_gestionnaire_mission()->is_mission_far()"
+		external 
+	      end
+
+	      transition 402562 "<transition>"
+		on state_ref 279298 // cap mission
+		  cpp_guard "!master->get_gestionnaire_mission()->is_mission_far()"
 		external 
 	      end
 	    end
@@ -1817,8 +1873,8 @@ cout<<\"MISSION RUSH ZONE CENTRALE\"<<endl;"
 	    end
 
 	    pseudostate 278146 initial 
-	      transition 342530 "<transition>"
-		on state_ref 272258 // cap to mission
+	      transition 401026 "<transition>"
+		on pseudostate_ref 305282 // choice
 		external 
 	      end
 	    end
@@ -1876,6 +1932,20 @@ cout<<\"ORIENTATION VERS MISSION : \"<<ordre<<endl;"
 	      transition 342914 "<transition>"
 		on pseudostate_ref 278274 // exit_point
 		  cpp_trigger "assFini"
+		external 
+	      end
+	    end
+
+	    pseudostate 305282 choice 
+	      transition 401154 "<transition>"
+		on state_ref 272258 // cap to mission
+		  cpp_guard "master->get_gestionnaire_mission()->is_mission_far()"
+		external 
+	      end
+
+	      transition 401282 "<transition>"
+		on state_ref 272514 // cap mission
+		  cpp_guard "!master->get_gestionnaire_mission()->is_mission_far()"
 		external 
 	      end
 	    end
@@ -2137,8 +2207,8 @@ cout<<\"ORIENTATION VERS MISSION : \"<<ordre<<endl;"
 	    end
 
 	    pseudostate 264450 initial 
-	      transition 322946 "<transition>"
-		on state_ref 255106 // cap to mission
+	      transition 402690 "<transition>"
+		on pseudostate_ref 305794 // choice
 		external 
 	      end
 	    end
@@ -2182,6 +2252,20 @@ cout<<\"ORIENTATION VERS MISSION : \"<<ordre<<endl;"
 	      transition 323330 "<transition>"
 		on pseudostate_ref 264578 // exit_point
 		  cpp_trigger "assFini"
+		external 
+	      end
+	    end
+
+	    pseudostate 305794 choice 
+	      transition 402818 "<transition>"
+		on state_ref 255106 // cap to mission
+		  cpp_guard "master->get_gestionnaire_mission()->is_mission_far()"
+		external 
+	      end
+
+	      transition 402946 "<transition>"
+		on state_ref 255362 // cap mission
+		  cpp_guard "!master->get_gestionnaire_mission()->is_mission_far()"
 		external 
 	      end
 	    end
@@ -2340,8 +2424,8 @@ cout<<\"MISSION ZONE ENNEMIE\"<<endl;"
 	    end
 
 	    pseudostate 271106 initial 
-	      transition 330754 "<transition>"
-		on state_ref 262402 // cap to mission
+	      transition 403458 "<transition>"
+		on pseudostate_ref 306050 // choice
 		external 
 	      end
 	    end
@@ -2399,6 +2483,20 @@ cout<<\"ORIENTATION VERS MISSION : \"<<ordre<<endl;"
 	      transition 331138 "<transition>"
 		on pseudostate_ref 271234 // exit_point
 		  cpp_trigger "assFini"
+		external 
+	      end
+	    end
+
+	    pseudostate 306050 choice 
+	      transition 403586 "<transition>"
+		on state_ref 262402 // cap to mission
+		  cpp_guard "master->get_gestionnaire_mission()->is_mission_far()"
+		external 
+	      end
+
+	      transition 403714 "<transition>"
+		on state_ref 262658 // cap mission
+		  cpp_guard "!master->get_gestionnaire_mission()->is_mission_far()"
 		external 
 	      end
 	    end
@@ -2937,7 +3035,7 @@ serialPrintf(master->getPortSerie(),\"C0 \\n\");
 	state 208002 "avance"
 	    cpp_on_entry "// pour laisser de la place à coop'r
 cout<<\"avance de 200 mm \"<<endl;
-serialPrintf(master->getPortSerie(),\"S4 200 \\n\");"
+serialPrintf(master->getPortSerie(),\"S4 250 \\n\");"
 	  transition 249218 "<transition>"
 	    on pseudostate_ref 141314 // exit_point
 	      cpp_trigger "assFini"

@@ -26,6 +26,7 @@ class Master
         int cycle_attente;
         int portSerie;
 
+        bool rush;
 
     public:
 
@@ -55,6 +56,10 @@ class Master
         int get_cycle_attente();
         void cycle_attente_incremente();
         void cycle_attente_reset();
+
+        void activation_rush();
+        void desactivation_rush();
+        bool is_rush();
 
 
 

@@ -64,7 +64,7 @@ end
 transitioncanvas 131202 transition_ref 323714 // <transition>
   decenter_end 407
   
-  from ref 130946 z 2006 label "pince_ready_to_drop" xyz 970.5 447.5 2006 to ref 128898
+  from ref 130946 z 2006 label "pince_ready_to_drop" xyz 970 447 2006 to ref 128898
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 131458 transition_ref 323842 // <transition>
@@ -74,7 +74,7 @@ transitioncanvas 131458 transition_ref 323842 // <transition>
 end
 transitioncanvas 131714 transition_ref 323970 // <transition>
   
-  from ref 131330 z 2006 label "pince_range" xyz 1205.5 722.5 2006 to ref 131586
+  from ref 131330 z 2006 label "pince_range" xyz 1205 722 2006 to ref 131586
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 131842 transition_ref 324098 // <transition>

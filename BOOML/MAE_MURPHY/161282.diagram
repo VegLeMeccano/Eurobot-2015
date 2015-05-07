@@ -67,7 +67,7 @@ transitioncanvas 131074 transition_ref 322178 // <transition>
 end
 transitioncanvas 131330 transition_ref 322306 // <transition>
   
-  from ref 130946 z 2006 label "blocage" xyz 460.5 769 2006 to ref 131202
+  from ref 130946 z 2006 label "blocage" xyz 460 769 2006 to ref 131202
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 131458 transition_ref 322434 // <transition>
@@ -77,18 +77,18 @@ transitioncanvas 131458 transition_ref 322434 // <transition>
 end
 transitioncanvas 131842 transition_ref 322562 // <transition>
   
-  from ref 128898 z 2006 label "assFini" xyz 1060.5 590 2006 to ref 131586
+  from ref 128898 z 2006 label "assFini" xyz 1060 590 2006 to ref 131586
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 131970 transition_ref 322690 // <transition>
   
-  from ref 131586 z 2006 label "pince_range" xyz 1051.5 735 2006 to ref 131714
+  from ref 131586 z 2006 label "pince_range" xyz 1051 735 2006 to ref 131714
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 132098 transition_ref 322818 // <transition>
   decenter_end 472
   
-  from ref 131714 z 3006 label "assFini" xyz 959.5 858 3006 to ref 128770
+  from ref 131714 z 3006 label "assFini" xyz 959 858 3006 to ref 128770
   write_horizontally default show_definition default drawing_language default
 end
 end

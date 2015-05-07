@@ -7,7 +7,8 @@ Master::Master(int portSerie_):
     couleur(0),
     tour_de_roue(0),
     cycle_attente(0),
-    portSerie(portSerie_)
+    portSerie(portSerie_),
+    rush(false)
 {
     mae_coop_r.create();
     cout << "[MASTER_COOP'R] initialisation" << endl;
@@ -148,4 +149,21 @@ void Master::tour_roue_reset()
 void Master::tour_roue_set(int tour)
 {
     tour_de_roue = tour;
+}
+
+
+void Master::activation_rush()
+{
+    rush = true;
+}
+
+void Master::desactivation_rush()
+{
+    rush = false;
+}
+
+
+bool Master::is_rush()
+{
+    return rush;
 }

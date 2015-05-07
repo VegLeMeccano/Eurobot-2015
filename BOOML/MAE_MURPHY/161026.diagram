@@ -52,7 +52,7 @@ transitioncanvas 128514 transition_ref 209922 // <transition>
 end
 transitioncanvas 129922 transition_ref 210434 // <transition>
   
-  from ref 128642 z 2006 label "assFini" xyz 253.5 474 2006 to ref 128770
+  from ref 128642 z 2006 label "assFini" xyz 253 474 2006 to ref 128770
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 130050 transition_ref 210562 // <transition>
@@ -63,12 +63,12 @@ end
 transitioncanvas 130178 transition_ref 210690 // <transition>
   decenter_begin 449
   
-  from ref 128898 z 2006 label "fin_montee_bras" xyz 638.5 378 2006 to ref 129026
+  from ref 128898 z 2006 label "fin_montee_bras" xyz 638 378 2006 to ref 129026
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 130306 transition_ref 210818 // <transition>
   
-  from ref 129026 z 2006 label "time_out" xyz 848.5 672 2006 to ref 129154
+  from ref 129026 z 2006 label "time_out" xyz 848 672 2006 to ref 129154
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 130434 transition_ref 210946 // <transition>
@@ -78,7 +78,7 @@ transitioncanvas 130434 transition_ref 210946 // <transition>
 end
 transitioncanvas 130690 transition_ref 287874 // <transition>
   
-  from ref 129410 z 2006 label "assFini" xyz 728.5 1040 2006 to ref 130562
+  from ref 129410 z 2006 label "assFini" xyz 728 1040 2006 to ref 130562
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 130818 transition_ref 288002 // <transition>

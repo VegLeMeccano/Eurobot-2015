@@ -1,11 +1,11 @@
 class remonte_2_State
 !!!144898.cpp!!!	ioFini(inout stm : MAE_COOP_R) : void
   {
-    stm._set_currentState(stm._mae_coop_r_state._jeu_state._fin_de_jeu_state);
+    stm._set_currentState(stm._mae_coop_r_state._jeu_state);
 #ifdef VERBOSE_STATE_MACHINE
-    puts("DEBUG : current state is now .MAE_COOP_R.Jeu.fin de jeu");
+    puts("DEBUG : current state is now .MAE_COOP_R.Jeu");
 #endif
-    stm._mae_coop_r_state._jeu_state._fin_de_jeu_state.create(stm);
+    stm._mae_coop_r_state._jeu_state._exit1(stm);
   }
 !!!145026.cpp!!!	create(inout stm : MAE_COOP_R) : void
 	_doentry(stm);

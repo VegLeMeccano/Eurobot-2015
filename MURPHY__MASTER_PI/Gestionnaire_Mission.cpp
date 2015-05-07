@@ -20,7 +20,8 @@ Gestionnaire_Mission::Gestionnaire_Mission():
         alignement_to_mission(false),
         premiere_entree_decision(true),
         strategie_1(0),
-        strategie_2(0)
+        strategie_2(0),
+        distance_mission(0)
 {
     mae_murphy.create();
 
@@ -120,7 +121,7 @@ void Gestionnaire_Mission::decision_mission()
     cout<<"mission dispo : "<<vectorDistance.size()<<endl;
     for (int index=0; index<(int)vectorDistance.size(); index++) {
         /** OPERATION POUR DECISION DE MISSION ICI : priorite - distance/1000*/
-        vectorDecision.push_back((float)vectorPriorite[index] - vectorDistance[index]/500.0);
+        vectorDecision.push_back((float)vectorPriorite[index] - vectorDistance[index]/900.0);
         cout.precision(2);
         cout<<"["<<vectorMission[index]<<"] Prio : ["<< vectorPriorite[index]<<"] DIS : "<<(int)vectorDistance[index]<<"\t Poids :"<<vectorDecision[index]<<"  \t"<<vectorName[index]<<endl;
     }
@@ -141,6 +142,7 @@ void Gestionnaire_Mission::decision_mission()
 
             /// appel de trigger()
             appel_trigger(mission_to_do);
+            distance_mission = vectorDistance[0];
         }
         else
         {
@@ -152,7 +154,7 @@ void Gestionnaire_Mission::decision_mission()
             //cout << "The largest element is "  << biggest << endl;
             //cout << "The element is : "  << index_max << endl;
             cout << "The mission to do : ["  << mission_to_do << "] " << vectorName[index_max]<< endl;
-
+            distance_mission = vectorDistance[index_max];
             /// appel de trigger()
             appel_trigger(mission_to_do);
         }
@@ -165,6 +167,16 @@ void Gestionnaire_Mission::evitement_mission()
 {
     sortie_evitement = true;
     cout<<"Evitement provoque sur mission ["<<mission_sortie_evitement<<"]"<<endl;
+}
+
+int Gestionnaire_Mission::get_distance_to_mission()
+{
+    return distance_mission;
+}
+
+bool Gestionnaire_Mission::is_mission_far()
+{
+    return (distance_mission > DISTANCE_MINI_TO_MISSION);
 }
 
 float Gestionnaire_Mission::get_cap_to_mission()

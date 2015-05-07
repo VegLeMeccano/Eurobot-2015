@@ -22,6 +22,9 @@ statecanvas 128642 state_ref 201474 // orientation cap mission
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
   xyzwh 714 677 2005 339 159
 end
+pseudostatecanvas 130562 pseudostate_ref 305410 // choice
+   xyz 487 446 2005
+end
 transitioncanvas 129666 transition_ref 241922 // <transition>
   
   from ref 128386 z 2006 label "assFini" xyz 771 358 2006 to ref 128514
@@ -37,9 +40,19 @@ transitioncanvas 130306 transition_ref 242306 // <transition>
   from ref 128642 z 3006 label "assFini" xyz 857 870 3006 to ref 128258
   write_horizontally default show_definition default drawing_language default
 end
-transitioncanvas 130434 transition_ref 255746 // <transition>
+transitioncanvas 130690 transition_ref 401410 // <transition>
   
-  from ref 128130 z 2006 to ref 128386
+  from ref 128130 z 2006 to ref 130562
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 130946 transition_ref 401666 // <transition>
+  
+  from ref 130562 z 2006 label "[master->get_gestionnaire_mission()->is_mission_far()]" xyz 369 372 3000 to ref 128386
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 131074 transition_ref 401794 // <transition>
+  
+  from ref 130562 z 2006 label "[!master->get_gestionnaire_mission()->is_mission_far()]" xyz 377 587 3000 to ref 128642
   write_horizontally default show_definition default drawing_language default
 end
 end
