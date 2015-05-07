@@ -20,24 +20,24 @@ statecanvas 128514 state_ref 254338 // BF droite to mission
 end
 statecanvas 128642 state_ref 254466 // BF cap mission
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 511 642 2005 391 173
+  xyzwh 511 642 2005 425 173
 end
 pseudostatecanvas 129282 pseudostate_ref 305922 // choice
    xyz 901 272 2005
 end
 transitioncanvas 128898 transition_ref 321666 // <transition>
   
-  from ref 128386 z 2006 label "assFini" xyz 458.5 347 2006 to ref 128514
+  from ref 128386 z 2006 label "assFini" xyz 458 347 2006 to ref 128514
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 129026 transition_ref 321794 // <transition>
   
-  from ref 128514 z 2006 label "assFini" xyz 561 610 2006 to ref 128642
+  from ref 128514 z 2006 label "assFini" xyz 571 610 2006 to ref 128642
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 129154 transition_ref 321922 // <transition>
   
-  from ref 128642 z 3006 label "assFini" xyz 790.5 576 3006 to ref 128258
+  from ref 128642 z 3006 label "assFini" xyz 795 576 3006 to ref 128258
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 129410 transition_ref 403074 // <transition>
@@ -47,12 +47,12 @@ transitioncanvas 129410 transition_ref 403074 // <transition>
 end
 transitioncanvas 129538 transition_ref 403202 // <transition>
   
-  from ref 129282 z 2006 label "[master->get_gestionnaire_mission()->is_mission_far()]" xyz 660 271.5 2006 to ref 128386
+  from ref 129282 z 2006 label "[master->get_gestionnaire_mission()->is_mission_far()]" xyz 660 271 2006 to ref 128386
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 129666 transition_ref 403330 // <transition>
   
-  from ref 129282 z 2006 label "[!master->get_gestionnaire_mission()->is_mission_far()]" xyz 689.5 467 2006 to ref 128642
+  from ref 129282 z 2006 label "[!master->get_gestionnaire_mission()->is_mission_far()]" xyz 696 467 2006 to ref 128642
   write_horizontally default show_definition default drawing_language default
 end
 end

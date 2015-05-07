@@ -14,7 +14,7 @@ class sortie_de_zone_de_depart_State
 #ifdef VERBOSE_STATE_MACHINE
 	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.sortie de zone de depart");
 #endif
-serialPrintf(master->getPortSerie(),"S7 1"); 	// vitesse moyenne
+serialPrintf(master->getPortSerie(),"S7 1 \n"); 	// vitesse moyenne
 cout<<"sortie de la zone de depart"<<endl;
 // avance de 200mm (400mm avec le recalage)
 // attention si on laisse coop'r derrière ou devant
@@ -26,4 +26,4 @@ master->get_gestionnaire_mission()->commencement_end();
 #ifdef VERBOSE_STATE_MACHINE
 	puts("DEBUG : execute exit behavior of .MAE_MURPHY.Jeu.sortie de zone de depart");
 #endif
-serialPrintf(master->getPortSerie(),"S7 0"); 	// vitesse moyenne
+serialPrintf(master->getPortSerie(),"S7 0 \n"); 	// vitesse moyenne

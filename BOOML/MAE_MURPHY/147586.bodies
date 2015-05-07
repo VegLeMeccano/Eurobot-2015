@@ -17,7 +17,7 @@ class cap_to_mission_State
 string ordre;
 ordre = "S3 " + master->get_gestionnaire()->get_cap_to_mission_str() + " \n";
 const char* ordre_c = ordre.c_str();
-serialPrintf(master->getPortSerie(),"S7 1"); 	// vitesse moyenne
+serialPrintf(master->getPortSerie(),"S7 1 \n"); 	// vitesse moyenne
 serialPrintf(master->getPortSerie(),ordre_c);
 cout<<"ORIENTATION VERS MISSION : "<<ordre<<endl;
 !!!210946.cpp!!!	_upper(inout stm : MAE_MURPHY) : MAE_MURPHY::AnyState
