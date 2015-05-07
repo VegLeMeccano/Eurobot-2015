@@ -300,7 +300,7 @@ void Protocole_COM::executeinstr()
         }
 
           // check si la pile est prete a etre deposé
-        if(s.find("ASC_GAUCHE_PRET DEPOT") != string::npos)
+        if(s.find("ASC_GAUCHE_PRET_DEPOT") != string::npos)
         {
             cout<<"[Master] etat ascenseur gauche, pret à poser !"<<endl;
             master->get_gestionnaire_mission()->get_mae_murphy()->pince_ready_to_drop();

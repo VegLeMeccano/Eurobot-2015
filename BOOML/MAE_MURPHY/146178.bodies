@@ -13,6 +13,8 @@ class BF_droite_sur_claps_estrade_State
 #ifdef VERBOSE_STATE_MACHINE
 	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission claps.claps estrade.BF droite sur claps estrade");
 #endif
+serialPrintf(master->getPortSerie(),"S7 1"); 	// vitesse moyenne
+
 cout<<"claps estrade : BF droite sur cible"<<endl;
 if(master->is_Jaune()){
 // BF droite sur le gobelet 

@@ -80,7 +80,7 @@ statecanvas 134146 state_ref 280578 // avance claps
 end
 transitioncanvas 129538 transition_ref 296194 // <transition>
   
-  from ref 128386 z 2006 label "assFini" xyz 281.5 218 2006 to ref 128514
+  from ref 128386 z 2006 label "assFini" xyz 281 218 2006 to ref 128514
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 129666 transition_ref 296322 // <transition>
@@ -90,17 +90,17 @@ transitioncanvas 129666 transition_ref 296322 // <transition>
 end
 transitioncanvas 129794 transition_ref 296450 // <transition>
   
-  from ref 128642 z 2006 label "assFini" xyz 333.5 515 2006 to ref 128770
+  from ref 128642 z 2006 label "assFini" xyz 333 515 2006 to ref 128770
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 129922 transition_ref 296578 // <transition>
   
-  from ref 128770 z 2006 label "assFini" xyz 518.5 328 2006 to ref 128898
+  from ref 128770 z 2006 label "assFini" xyz 518 328 2006 to ref 128898
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 130050 transition_ref 296706 // <transition>
   
-  from ref 128898 z 2006 label "assFini" xyz 732.5 124 2006 to ref 129026
+  from ref 128898 z 2006 label "assFini" xyz 732 124 2006 to ref 129026
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 130178 transition_ref 296834 // <transition>
@@ -115,7 +115,7 @@ transitioncanvas 131458 transition_ref 352130 // <transition>
 end
 transitioncanvas 131586 transition_ref 352258 // <transition>
   
-  from ref 130434 z 2006 label "assFini" xyz 848.5 618 2006 to ref 130562
+  from ref 130434 z 2006 label "assFini" xyz 848 618 2006 to ref 130562
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 131714 transition_ref 352386 // <transition>
@@ -125,12 +125,12 @@ transitioncanvas 131714 transition_ref 352386 // <transition>
 end
 transitioncanvas 131842 transition_ref 352514 // <transition>
   
-  from ref 130690 z 2006 label "pince_ouverte" xyz 1185.5 487 2006 to ref 130818
+  from ref 130690 z 2006 label "pince_ouverte" xyz 1185 487 2006 to ref 130818
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 132354 transition_ref 352770 // <transition>
   
-  from ref 130818 z 2006 label "assFini" xyz 1531.5 110 2006 to ref 130946
+  from ref 130818 z 2006 label "assFini" xyz 1531 110 2006 to ref 130946
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 132482 transition_ref 352898 // <transition>
@@ -146,17 +146,17 @@ transitioncanvas 132994 transition_ref 353154 // <transition>
 end
 transitioncanvas 133634 transition_ref 353282 // <transition>
   
-  from ref 130946 z 2006 label "pince_stand_by" xyz 1602.5 284 2006 to ref 131202
+  from ref 130946 z 2006 label "pince_stand_by" xyz 1602 284 2006 to ref 131202
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 133762 transition_ref 353410 // <transition>
   
-  from ref 131202 z 2006 label "assFini" xyz 1626.5 473 2006 to ref 131074
+  from ref 131202 z 2006 label "assFini" xyz 1626 473 2006 to ref 131074
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 133890 transition_ref 353538 // <transition>
   
-  from ref 131074 z 2006 label "blocage" xyz 1631.5 618 2006 to ref 133506
+  from ref 131074 z 2006 label "blocage" xyz 1631 618 2006 to ref 133506
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 134274 transition_ref 353794 // <transition>
@@ -166,7 +166,7 @@ transitioncanvas 134274 transition_ref 353794 // <transition>
 end
 transitioncanvas 134402 transition_ref 353922 // <transition>
   
-  from ref 134146 z 2006 label "assFini" xyz 1558.5 945.5 2006 to ref 131330
+  from ref 134146 z 2006 label "assFini" xyz 1558 945 2006 to ref 131330
   write_horizontally default show_definition default drawing_language default
 end
 end

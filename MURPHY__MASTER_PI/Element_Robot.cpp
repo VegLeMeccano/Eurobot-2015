@@ -8,6 +8,8 @@ Element_Robot::Element_Robot():
         balle(false)
 {
     //ctor
+    pile_gauche_reset();
+    pile_droite_reset();
 }
 
 

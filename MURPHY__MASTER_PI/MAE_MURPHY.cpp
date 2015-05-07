@@ -670,6 +670,7 @@ void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_tour_estrade_State::
   string ordre;
   ordre = "S3 " + master->get_gestionnaire()->get_cap_to_mission_str() + " \n";
   const char* ordre_c = ordre.c_str();
+  serialPrintf(master->getPortSerie(),"S7 1"); 	// vitesse moyenne
   serialPrintf(master->getPortSerie(),ordre_c);
   cout<<"ORIENTATION VERS MISSION : "<<ordre<<endl;
 }
@@ -685,6 +686,7 @@ MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_tour_estrade_State::waypo
 // to manage the event assFini
 void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_tour_estrade_State::waypoint_init_State::BF_cap_mission_State::assFini(MAE_MURPHY & stm) {
     {
+      stm._mae_murphy_state._jeu_state._mission_depot_tour_estrade_state._waypoint_init_state._bf_cap_mission_state._doexit(stm);
       stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_depot_tour_estrade_state._waypoint_init_state);
 #ifdef VERBOSE_STATE_MACHINE
       puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission depot tour estrade.waypoint init");
@@ -716,6 +718,14 @@ void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_tour_estrade_State::
 // returns the state containing the current
 MAE_MURPHY::AnyState * MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_tour_estrade_State::waypoint_init_State::BF_cap_mission_State::_upper(MAE_MURPHY & stm) {
     return &stm._mae_murphy_state._jeu_state._mission_depot_tour_estrade_state._waypoint_init_state;
+}
+
+// perform the 'exit behavior'
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_tour_estrade_State::waypoint_init_State::BF_cap_mission_State::_doexit(MAE_MURPHY & stm) {
+#ifdef VERBOSE_STATE_MACHINE
+  	puts("DEBUG : execute exit behavior of .MAE_MURPHY.Jeu.mission depot tour estrade.waypoint init.BF cap mission");
+#endif
+  serialPrintf(master->getPortSerie(),"S7 0"); 	// vitesse faible
 }
 
 MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_tour_estrade_State::waypoint_init_State::BF_droite_to_mission_State::~BF_droite_to_mission_State() {
@@ -1256,6 +1266,7 @@ void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::waypoi
 #ifdef VERBOSE_STATE_MACHINE
   	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission zone ennemie.waypoint initial.cap to mission");
 #endif
+  serialPrintf(master->getPortSerie(),"S7 1"); 	// vitesse moyenne
   // BCAP
   string ordre;
   ordre = "S3 " + master->get_gestionnaire()->get_cap_to_mission_str() + " \n";
@@ -2160,6 +2171,7 @@ MAE_MURPHY::MAE_MURPHY_State::Jeu_State::sortie_de_zone_de_depart_State::~sortie
 // to manage the event assFini
 void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::sortie_de_zone_de_depart_State::assFini(MAE_MURPHY & stm) {
     {
+      stm._mae_murphy_state._jeu_state._sortie_de_zone_de_depart_state._doexit(stm);
       stm._set_currentState(stm._mae_murphy_state._jeu_state._decision_state);
 #ifdef VERBOSE_STATE_MACHINE
       puts("DEBUG : current state is now .MAE_MURPHY.Jeu.decision");
@@ -2178,6 +2190,7 @@ void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::sortie_de_zone_de_depart_State::_d
 #ifdef VERBOSE_STATE_MACHINE
   	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.sortie de zone de depart");
 #endif
+  serialPrintf(master->getPortSerie(),"S7 1"); 	// vitesse moyenne
   cout<<"sortie de la zone de depart"<<endl;
   // avance de 200mm (400mm avec le recalage)
   // attention si on laisse coop'r derrière ou devant
@@ -2188,6 +2201,14 @@ void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::sortie_de_zone_de_depart_State::_d
 // returns the state containing the current
 MAE_MURPHY::AnyState * MAE_MURPHY::MAE_MURPHY_State::Jeu_State::sortie_de_zone_de_depart_State::_upper(MAE_MURPHY & stm) {
     return &stm._mae_murphy_state._jeu_state;
+}
+
+// perform the 'exit behavior'
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::sortie_de_zone_de_depart_State::_doexit(MAE_MURPHY & stm) {
+#ifdef VERBOSE_STATE_MACHINE
+  	puts("DEBUG : execute exit behavior of .MAE_MURPHY.Jeu.sortie de zone de depart");
+#endif
+  serialPrintf(master->getPortSerie(),"S7 0"); 	// vitesse moyenne
 }
 
 MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_de_tour_zone_depart_State::way_point_initial_State::cap_to_mission_State::~cap_to_mission_State() {
@@ -2218,6 +2239,7 @@ void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_de_tour_zone_depart_
   string ordre;
   ordre = "S3 " + master->get_gestionnaire()->get_cap_to_mission_str() + " \n";
   const char* ordre_c = ordre.c_str();
+  serialPrintf(master->getPortSerie(),"S7 1"); 	// vitesse moyenne
   serialPrintf(master->getPortSerie(),ordre_c);
   cout<<"ORIENTATION VERS MISSION : "<<ordre<<endl;
 }
@@ -2233,6 +2255,7 @@ MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_de_tour_zone_depart_State
 // to manage the event assFini
 void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_de_tour_zone_depart_State::way_point_initial_State::cap_mission_State::assFini(MAE_MURPHY & stm) {
     {
+      stm._mae_murphy_state._jeu_state._mission_depot_de_tour_zone_depart_state._way_point_initial_state._cap_mission_state._doexit(stm);
       stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_depot_de_tour_zone_depart_state._way_point_initial_state._bf_droite_to_mission_state);
 #ifdef VERBOSE_STATE_MACHINE
       puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission depot de tour zone depart.way point initial.BF droite to mission");
@@ -2257,6 +2280,7 @@ void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_de_tour_zone_depart_
   	+ master->get_gestionnaire()->get_cap_mission_str() 
   	+ " \n";
   const char* ordre_c = ordre.c_str();
+  serialPrintf(master->getPortSerie(),"S7 1"); 	// vitesse moyenne
   serialPrintf(master->getPortSerie(),ordre_c); 
   cout<<"ORIENTATION VERS MISSION : "<<ordre<<endl;
 }
@@ -2264,6 +2288,14 @@ void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_de_tour_zone_depart_
 // returns the state containing the current
 MAE_MURPHY::AnyState * MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_de_tour_zone_depart_State::way_point_initial_State::cap_mission_State::_upper(MAE_MURPHY & stm) {
     return &stm._mae_murphy_state._jeu_state._mission_depot_de_tour_zone_depart_state._way_point_initial_state;
+}
+
+// perform the 'exit behavior'
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_de_tour_zone_depart_State::way_point_initial_State::cap_mission_State::_doexit(MAE_MURPHY & stm) {
+#ifdef VERBOSE_STATE_MACHINE
+  	puts("DEBUG : execute exit behavior of .MAE_MURPHY.Jeu.mission depot de tour zone depart.way point initial.cap mission");
+#endif
+  serialPrintf(master->getPortSerie(),"S7 0"); 	// vitesse moyenne
 }
 
 MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_de_tour_zone_depart_State::way_point_initial_State::BF_droite_to_mission_State::~BF_droite_to_mission_State() {
@@ -2675,6 +2707,7 @@ void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_rush_zone_centrale_State::
   string ordre;
   ordre = "S3 " + master->get_gestionnaire()->get_cap_to_mission_str() + " \n";
   const char* ordre_c = ordre.c_str();
+  serialPrintf(master->getPortSerie(),"S7 1"); 	// vitesse moyenne
   serialPrintf(master->getPortSerie(),ordre_c);
   cout<<"ORIENTATION VERS MISSION : "<<ordre<<endl;
 }
@@ -2690,6 +2723,7 @@ MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_rush_zone_centrale_State::waypo
 // to manage the event assFini
 void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_rush_zone_centrale_State::waypoint_init_State::cap_mission_State::assFini(MAE_MURPHY & stm) {
     {
+      stm._mae_murphy_state._jeu_state._mission_rush_zone_centrale_state._waypoint_init_state._cap_mission_state._doexit(stm);
       stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_rush_zone_centrale_state._waypoint_init_state);
 #ifdef VERBOSE_STATE_MACHINE
       puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission rush zone centrale.waypoint init");
@@ -2721,6 +2755,14 @@ void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_rush_zone_centrale_State::
 // returns the state containing the current
 MAE_MURPHY::AnyState * MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_rush_zone_centrale_State::waypoint_init_State::cap_mission_State::_upper(MAE_MURPHY & stm) {
     return &stm._mae_murphy_state._jeu_state._mission_rush_zone_centrale_state._waypoint_init_state;
+}
+
+// perform the 'exit behavior'
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_rush_zone_centrale_State::waypoint_init_State::cap_mission_State::_doexit(MAE_MURPHY & stm) {
+#ifdef VERBOSE_STATE_MACHINE
+  	puts("DEBUG : execute exit behavior of .MAE_MURPHY.Jeu.mission rush zone centrale.waypoint init.cap mission");
+#endif
+  serialPrintf(master->getPortSerie(),"S7 0"); 	// vitesse lente
 }
 
 MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_rush_zone_centrale_State::waypoint_init_State::BF_droite_to_mission_State::~BF_droite_to_mission_State() {
@@ -2839,21 +2881,10 @@ MAE_MURPHY::AnyState * MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_rush_zon
 MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_rush_zone_centrale_State::tempo_pour_coopr_State::~tempo_pour_coopr_State() {
 }
 
-// to manage the event time_out
-void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_rush_zone_centrale_State::tempo_pour_coopr_State::time_out(MAE_MURPHY & stm) {
-    {
-      stm._mae_murphy_state._jeu_state._mission_rush_zone_centrale_state._tempo_pour_coopr_state._doexit(stm);
-      stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_rush_zone_centrale_state);
-#ifdef VERBOSE_STATE_MACHINE
-      puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission rush zone centrale");
-#endif
-      stm._mae_murphy_state._jeu_state._mission_rush_zone_centrale_state._exit17(stm);
-    }
-}
-
 // to manage the event create
 void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_rush_zone_centrale_State::tempo_pour_coopr_State::create(MAE_MURPHY & stm) {
   	_doentry(stm);
+  	_completion(stm);
 }
 
 // perform the 'entry behavior'
@@ -2862,7 +2893,7 @@ void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_rush_zone_centrale_State::
   	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission rush zone centrale.tempo pour coop'r?");
 #endif
   cout<<"sortie de zone"<<endl;
-  master->set_time_out(300);
+  //master->set_time_out(300);
 }
 
 // perform the 'exit behavior'
@@ -2882,6 +2913,18 @@ void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_rush_zone_centrale_State::
 // returns the state containing the current
 MAE_MURPHY::AnyState * MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_rush_zone_centrale_State::tempo_pour_coopr_State::_upper(MAE_MURPHY & stm) {
     return &stm._mae_murphy_state._jeu_state._mission_rush_zone_centrale_state;
+}
+
+bool MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_rush_zone_centrale_State::tempo_pour_coopr_State::_completion(MAE_MURPHY & stm) {
+    {
+      stm._mae_murphy_state._jeu_state._mission_rush_zone_centrale_state._tempo_pour_coopr_state._doexit(stm);
+      stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_rush_zone_centrale_state);
+#ifdef VERBOSE_STATE_MACHINE
+      puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission rush zone centrale");
+#endif
+      stm._mae_murphy_state._jeu_state._mission_rush_zone_centrale_state._exit17(stm);
+      return (bool) 1;
+    }
 }
 
 MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_rush_zone_centrale_State::chope_stand_3_State::~chope_stand_3_State() {
@@ -3392,6 +3435,7 @@ void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_claps_State::chope_du_stan
 #ifdef VERBOSE_STATE_MACHINE
   	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission claps.chope du stand sur la route.BF droite");
 #endif
+  serialPrintf(master->getPortSerie(),"S7 1"); 	// vitesse moyenne
   cout<<"stand depart : BF droite sur cible"<<endl;
   if(master->is_Jaune()){
   // BF droite sur le gobelet 
@@ -3872,6 +3916,8 @@ void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_claps_State::claps_estrade
 #ifdef VERBOSE_STATE_MACHINE
   	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission claps.claps estrade.BF droite sur claps estrade");
 #endif
+  serialPrintf(master->getPortSerie(),"S7 1"); 	// vitesse moyenne
+  
   cout<<"claps estrade : BF droite sur cible"<<endl;
   if(master->is_Jaune()){
   // BF droite sur le gobelet 
@@ -4078,11 +4124,11 @@ void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_claps_State::chope_du_coin
   cout<<"coin : set X CAP"<<endl;
   if(master->is_Jaune()){
   // BF droite sur le gobelet 
-  serialPrintf(master->getPortSerie(),"S0 -1404 247 0\n"); // mettre le Y du S
+  serialPrintf(master->getPortSerie(),"S0 -1404 -1 0\n"); // mettre le Y du S
   }
   if(master->is_Vert()){
   // BF droite sur le gobelet 
-  serialPrintf(master->getPortSerie(),"S0 1404 247 180 \n");
+  serialPrintf(master->getPortSerie(),"S0 1404 -1 180 \n");
   }
   master->set_time_out(50);
 }
@@ -4743,6 +4789,7 @@ void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_attrap_balle_et_chiage_Sta
   ordre = "S3 " + master->get_gestionnaire()->get_cap_to_mission_str() + " \n";
   const char* ordre_c = ordre.c_str();
   serialPrintf(master->getPortSerie(),ordre_c);
+  serialPrintf(master->getPortSerie(),"S7 1"); 	// vitesse moyenne
   cout<<"ORIENTATION VERS MISSION : "<<ordre<<endl;
 }
 
@@ -4757,6 +4804,7 @@ MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_attrap_balle_et_chiage_State::p
 // to manage the event assFini
 void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_attrap_balle_et_chiage_State::point_de_depart_State::BF_cap_mission_State::assFini(MAE_MURPHY & stm) {
     {
+      stm._mae_murphy_state._jeu_state._mission_attrap_balle_et_chiage_state._point_de_depart_state._bf_cap_mission_state._doexit(stm);
       stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_attrap_balle_et_chiage_state._point_de_depart_state);
 #ifdef VERBOSE_STATE_MACHINE
       puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission attrap balle et chiage.point de depart");
@@ -4788,6 +4836,14 @@ void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_attrap_balle_et_chiage_Sta
 // returns the state containing the current
 MAE_MURPHY::AnyState * MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_attrap_balle_et_chiage_State::point_de_depart_State::BF_cap_mission_State::_upper(MAE_MURPHY & stm) {
     return &stm._mae_murphy_state._jeu_state._mission_attrap_balle_et_chiage_state._point_de_depart_state;
+}
+
+// perform the 'exit behavior'
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_attrap_balle_et_chiage_State::point_de_depart_State::BF_cap_mission_State::_doexit(MAE_MURPHY & stm) {
+#ifdef VERBOSE_STATE_MACHINE
+  	puts("DEBUG : execute exit behavior of .MAE_MURPHY.Jeu.mission attrap balle et chiage.point de depart.BF cap mission");
+#endif
+  serialPrintf(master->getPortSerie(),"S7 0"); 	// vitesse moyenne
 }
 
 MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_attrap_balle_et_chiage_State::point_de_depart_State::BF_droite_to_objectif_State::~BF_droite_to_objectif_State() {
@@ -4945,6 +5001,7 @@ void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_attrap_balle_et_chiage_Sta
   cout<<"chiage : avance/degagement"<<endl;
   // aller devant la zone de depart
   //BF avance de 400mm
+  serialPrintf(master->getPortSerie(),"S7 1"); 	// vitesse moyenne
   serialPrintf(master->getPortSerie(),"S4 400 \n");
   //master->get_gestionnaire_mission()->get_mission_chiage_balle()->mission_remplie();
 }
@@ -5339,6 +5396,7 @@ void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::rej
   string ordre;
   ordre = "S3 " + master->get_gestionnaire()->get_cap_to_mission_str() + " \n";
   const char* ordre_c = ordre.c_str();
+  serialPrintf(master->getPortSerie(),"S7 1"); 	// vitesse moyenne
   serialPrintf(master->getPortSerie(),ordre_c);
   cout<<"ORIENTATION VERS MISSION : "<<ordre<<endl;
 }
@@ -5354,6 +5412,7 @@ MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::rejoindr
 // to manage the event assFini
 void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::rejoindre_le_point_de_depart_mission_State::orientation_cap_mission_State::assFini(MAE_MURPHY & stm) {
     {
+      stm._mae_murphy_state._jeu_state._mission_pillage_distrib_state._rejoindre_le_point_de_depart_mission_state._orientation_cap_mission_state._doexit(stm);
       stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_pillage_distrib_state._rejoindre_le_point_de_depart_mission_state);
 #ifdef VERBOSE_STATE_MACHINE
       puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission pillage distrib.rejoindre le point de depart mission");
@@ -5385,6 +5444,14 @@ void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::rej
 // returns the state containing the current
 MAE_MURPHY::AnyState * MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::rejoindre_le_point_de_depart_mission_State::orientation_cap_mission_State::_upper(MAE_MURPHY & stm) {
     return &stm._mae_murphy_state._jeu_state._mission_pillage_distrib_state._rejoindre_le_point_de_depart_mission_state;
+}
+
+// perform the 'exit behavior'
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::rejoindre_le_point_de_depart_mission_State::orientation_cap_mission_State::_doexit(MAE_MURPHY & stm) {
+#ifdef VERBOSE_STATE_MACHINE
+  	puts("DEBUG : execute exit behavior of .MAE_MURPHY.Jeu.mission pillage distrib.rejoindre le point de depart mission.orientation cap mission");
+#endif
+  serialPrintf(master->getPortSerie(),"S7 0"); 	// vitesse moyenne
 }
 
 MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::rejoindre_le_point_de_depart_mission_State::BF_droite_vers_lobjectif_State::~BF_droite_vers_lobjectif_State() {
@@ -5730,11 +5797,11 @@ void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::vid
   cout<<"distrib : set Y CAP"<<endl;
   if(master->is_Jaune()){
   // BF droite sur le gobelet 
-  serialPrintf(master->getPortSerie(),"S0 -1789 1050 90 \n");
+  serialPrintf(master->getPortSerie(),"S0 -1 1050 90 \n");
   }
   if(master->is_Vert()){
   // BF droite sur le gobelet 
-  serialPrintf(master->getPortSerie(),"S0 1789 1050 90 \n");
+  serialPrintf(master->getPortSerie(),"S0 -1 1050 90 \n");
   }
 }
 
@@ -6155,6 +6222,7 @@ void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::cap
 #ifdef VERBOSE_STATE_MACHINE
   	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission pillage distrib.capture stands cote escalier.BF cap initial 35deg");
 #endif
+  serialPrintf(master->getPortSerie(),"S7 1"); 	// vitesse moyenne
   cout<<"stands escalier : orientation sur cible"<<endl;
   serialPrintf(master->getPortSerie(),"E0 \n"); // desactivation de l'evitement
   if(master->is_Jaune()){
@@ -6374,6 +6442,7 @@ void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::cap
 #ifdef VERBOSE_STATE_MACHINE
   	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission pillage distrib.capture stands cote escalier.BF avance");
 #endif
+  serialPrintf(master->getPortSerie(),"S7 0"); 	// vitesse lente
   cout<<"stands escalier : avance sur 1er stand"<<endl;
   serialPrintf(master->getPortSerie(),"S4 120 \n");
 }
@@ -6532,6 +6601,7 @@ void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::cap
 #ifdef VERBOSE_STATE_MACHINE
   	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission pillage distrib.capture de gobelet escalier.deplacement cible");
 #endif
+  serialPrintf(master->getPortSerie(),"S7 0"); 	// vitesse lente
   cout<<"gobelet : deplacement sur cible"<<endl;
   if(master->is_Jaune()){
   // BF droite sur le gobelet 
@@ -6572,6 +6642,7 @@ void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::cap
 #ifdef VERBOSE_STATE_MACHINE
   	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission pillage distrib.capture de gobelet escalier.recule");
 #endif
+  serialPrintf(master->getPortSerie(),"S7 1"); 	// vitesse moyenne
   cout<<"gobelet : recule"<<endl;
   serialPrintf(master->getPortSerie(),"S4 -120 \n");
 }

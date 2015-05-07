@@ -12,7 +12,7 @@ pseudostatecanvas 128258 pseudostate_ref 271234 // exit_point
 end
 statecanvas 128386 state_ref 262402 // cap to mission
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 120 215 2005 459 131
+  xyzwh 120 215 2005 459 145
 end
 statecanvas 128514 state_ref 262530 // BF droite to mission
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
@@ -27,7 +27,7 @@ pseudostatecanvas 129282 pseudostate_ref 306050 // choice
 end
 transitioncanvas 128898 transition_ref 330882 // <transition>
   
-  from ref 128386 z 2006 label "assFini" xyz 342 366 2006 to ref 128514
+  from ref 128386 z 2006 label "assFini" xyz 342 373 2006 to ref 128514
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 129026 transition_ref 331010 // <transition>
@@ -47,12 +47,12 @@ transitioncanvas 129410 transition_ref 403458 // <transition>
 end
 transitioncanvas 129538 transition_ref 403586 // <transition>
   
-  from ref 129282 z 2011 label "[master->get_gestionnaire_mission()->is_mission_far()]" xyz 187 175 3000 to ref 128386
+  from ref 129282 z 2011 label "[master->get_gestionnaire_mission()->is_mission_far()]" xyz 188.5 175.5 2011 to ref 128386
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 129666 transition_ref 403714 // <transition>
   
-  from ref 129282 z 2011 label "[!master->get_gestionnaire_mission()->is_mission_far()]" xyz 583 191 3000 to ref 128642
+  from ref 129282 z 2011 label "[!master->get_gestionnaire_mission()->is_mission_far()]" xyz 583 191 2011 to ref 128642
   write_horizontally default show_definition default drawing_language default
 end
 end

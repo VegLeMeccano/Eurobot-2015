@@ -1,6 +1,6 @@
 format 76
 "MAE_MURPHY"
-  revision 77
+  revision 78
   modified_by 2 "Link"
   cpp_root_dir "D:/Club Robotique IRON MENAD 2/Eurobot 2015 Iron Menad/Eurobot-2015/MURPHY__MASTER_PI/"
 
@@ -127,6 +127,7 @@ cout<<\"MISSION DEPOT TOUR ESTRADE\"<<endl;"
 string ordre;
 ordre = \"S3 \" + master->get_gestionnaire()->get_cap_to_mission_str() + \" \\n\";
 const char* ordre_c = ordre.c_str();
+serialPrintf(master->getPortSerie(),\"S7 1\"); 	// vitesse moyenne
 serialPrintf(master->getPortSerie(),ordre_c);
 cout<<\"ORIENTATION VERS MISSION : \"<<ordre<<endl;"
 	      transition 321666 "<transition>"
@@ -165,6 +166,7 @@ ordre = \"S3 \"
 const char* ordre_c = ordre.c_str();
 serialPrintf(master->getPortSerie(),ordre_c); 
 cout<<\"ORIENTATION VERS MISSION : \"<<ordre<<endl;"
+		cpp_on_exit "serialPrintf(master->getPortSerie(),\"S7 0\"); 	// vitesse faible"
 	      transition 321922 "<transition>"
 		on pseudostate_ref 264322 // exit_point
 		  cpp_trigger "assFini"
@@ -364,7 +366,8 @@ cout<<\"capture de gobelet\"<<endl;"
 	    end
 
 	    state 150274 "deplacement cible"
-		cpp_on_entry "cout<<\"gobelet : deplacement sur cible\"<<endl;
+		cpp_on_entry "serialPrintf(master->getPortSerie(),\"S7 0\"); 	// vitesse lente
+cout<<\"gobelet : deplacement sur cible\"<<endl;
 if(master->is_Jaune()){
 // BF droite sur le gobelet 
 serialPrintf(master->getPortSerie(),\"S5 -590 1198 145 \\n\");
@@ -420,7 +423,8 @@ serialPrintf(master->getPortSerie(),\"S3 48 \\n\");
 	    end
 
 	    state 217218 "recule"
-		cpp_on_entry "cout<<\"gobelet : recule\"<<endl;
+		cpp_on_entry "serialPrintf(master->getPortSerie(),\"S7 1\"); 	// vitesse moyenne
+cout<<\"gobelet : recule\"<<endl;
 serialPrintf(master->getPortSerie(),\"S4 -120 \\n\");"
 	      transition 258946 "<transition>"
 		on state_ref 150530 // BF cap vers la zone de distrib
@@ -454,7 +458,8 @@ cout<<\"capture de stand escalier\"<<endl;"
 	    end
 
 	    state 214530 "BF cap initial 35deg"
-		cpp_on_entry "cout<<\"stands escalier : orientation sur cible\"<<endl;
+		cpp_on_entry "serialPrintf(master->getPortSerie(),\"S7 1\"); 	// vitesse moyenne
+cout<<\"stands escalier : orientation sur cible\"<<endl;
 serialPrintf(master->getPortSerie(),\"E0 \\n\"); // desactivation de l'evitement
 if(master->is_Jaune()){
 serialPrintf(master->getPortSerie(),\"S3 132 \\n\");
@@ -503,7 +508,8 @@ serialPrintf(master->getPortSerie(),\"G0 \\n\");
 	    end
 
 	    state 214914 "BF avance"
-		cpp_on_entry "cout<<\"stands escalier : avance sur 1er stand\"<<endl;
+		cpp_on_entry "serialPrintf(master->getPortSerie(),\"S7 0\"); 	// vitesse lente
+cout<<\"stands escalier : avance sur 1er stand\"<<endl;
 serialPrintf(master->getPortSerie(),\"S4 120 \\n\");"
 	      transition 256642 "<transition>"
 		on state_ref 215042 // chope 1
@@ -764,11 +770,11 @@ serialPrintf(master->getPortSerie(),\"S4 200 \\n\");
 		cpp_on_entry "cout<<\"distrib : set Y CAP\"<<endl;
 if(master->is_Jaune()){
 // BF droite sur le gobelet 
-serialPrintf(master->getPortSerie(),\"S0 -1789 1050 90 \\n\");
+serialPrintf(master->getPortSerie(),\"S0 -1 1050 90 \\n\");
 }
 if(master->is_Vert()){
 // BF droite sur le gobelet 
-serialPrintf(master->getPortSerie(),\"S0 1789 1050 90 \\n\");
+serialPrintf(master->getPortSerie(),\"S0 -1 1050 90 \\n\");
 }"
 	      transition 259330 "<transition>"
 		on state_ref 216962 // pompage
@@ -867,6 +873,7 @@ serialPrintf(master->getPortSerie(),\"S4 300 \\n\");
 string ordre;
 ordre = \"S3 \" + master->get_gestionnaire()->get_cap_to_mission_str() + \" \\n\";
 const char* ordre_c = ordre.c_str();
+serialPrintf(master->getPortSerie(),\"S7 1\"); 	// vitesse moyenne
 serialPrintf(master->getPortSerie(),ordre_c);
 cout<<\"ORIENTATION VERS MISSION : \"<<ordre<<endl;"
 	      transition 241922 "<transition>"
@@ -905,6 +912,7 @@ ordre = \"S3 \"
 const char* ordre_c = ordre.c_str();
 serialPrintf(master->getPortSerie(),ordre_c); 
 cout<<\"ORIENTATION VERS MISSION : \"<<ordre<<endl;"
+		cpp_on_exit "serialPrintf(master->getPortSerie(),\"S7 0\"); 	// vitesse moyenne"
 	      transition 242306 "<transition>"
 		on pseudostate_ref 202498 // exit_point
 		  cpp_trigger "assFini"
@@ -1041,6 +1049,7 @@ string ordre;
 ordre = \"S3 \" + master->get_gestionnaire()->get_cap_to_mission_str() + \" \\n\";
 const char* ordre_c = ordre.c_str();
 serialPrintf(master->getPortSerie(),ordre_c);
+serialPrintf(master->getPortSerie(),\"S7 1\"); 	// vitesse moyenne
 cout<<\"ORIENTATION VERS MISSION : \"<<ordre<<endl;"
 	      transition 287490 "<transition>"
 		on state_ref 233218 // BF droite to objectif
@@ -1078,6 +1087,7 @@ ordre = \"S3 \"
 const char* ordre_c = ordre.c_str();
 serialPrintf(master->getPortSerie(),ordre_c); 
 cout<<\"ORIENTATION VERS MISSION : \"<<ordre<<endl;"
+		cpp_on_exit "serialPrintf(master->getPortSerie(),\"S7 0\"); 	// vitesse moyenne"
 	      transition 287746 "<transition>"
 		on pseudostate_ref 237058 // exit_point
 		  cpp_trigger "assFini"
@@ -1219,6 +1229,7 @@ if(master->get_gestionnaire_mission()->get_element_robot()->gobelet_present())
 	      cpp_on_entry "cout<<\"chiage : avance/degagement\"<<endl;
 // aller devant la zone de depart
 //BF avance de 400mm
+serialPrintf(master->getPortSerie(),\"S7 1\"); 	// vitesse moyenne
 serialPrintf(master->getPortSerie(),\"S4 400 \\n\");
 //master->get_gestionnaire_mission()->get_mission_chiage_balle()->mission_remplie();"
 	    transition 287874 "<transition>"
@@ -1267,7 +1278,8 @@ cout<<\"MISSION CLAPS\"<<endl;"
 	    end
 
 	    state 224258 "BF droite"
-		cpp_on_entry "cout<<\"stand depart : BF droite sur cible\"<<endl;
+		cpp_on_entry "serialPrintf(master->getPortSerie(),\"S7 1\"); 	// vitesse moyenne
+cout<<\"stand depart : BF droite sur cible\"<<endl;
 if(master->is_Jaune()){
 // BF droite sur le gobelet 
 serialPrintf(master->getPortSerie(),\"S5 -835 744 -90 \\n\");
@@ -1571,11 +1583,11 @@ serialPrintf(master->getPortSerie(),\"C2 \\n\");
 		cpp_on_entry "cout<<\"coin : set X CAP\"<<endl;
 if(master->is_Jaune()){
 // BF droite sur le gobelet 
-serialPrintf(master->getPortSerie(),\"S0 -1404 247 0\\n\"); // mettre le Y du S
+serialPrintf(master->getPortSerie(),\"S0 -1404 -1 0\\n\"); // mettre le Y du S
 }
 if(master->is_Vert()){
 // BF droite sur le gobelet 
-serialPrintf(master->getPortSerie(),\"S0 1404 247 180 \\n\");
+serialPrintf(master->getPortSerie(),\"S0 1404 -1 180 \\n\");
 }
 master->set_time_out(50);"
 	      transition 353794 "<transition>"
@@ -1615,7 +1627,9 @@ serialPrintf(master->getPortSerie(),\"S4 100 \\n\");
 	    end
 
 	    state 226178 "BF droite sur claps estrade"
-		cpp_on_entry "cout<<\"claps estrade : BF droite sur cible\"<<endl;
+		cpp_on_entry "serialPrintf(master->getPortSerie(),\"S7 1\"); 	// vitesse moyenne
+
+cout<<\"claps estrade : BF droite sur cible\"<<endl;
 if(master->is_Jaune()){
 // BF droite sur le gobelet 
 serialPrintf(master->getPortSerie(),\"S5 -715 219 0 \\n\");
@@ -1891,6 +1905,7 @@ cout<<\"MISSION RUSH ZONE CENTRALE\"<<endl;"
 string ordre;
 ordre = \"S3 \" + master->get_gestionnaire()->get_cap_to_mission_str() + \" \\n\";
 const char* ordre_c = ordre.c_str();
+serialPrintf(master->getPortSerie(),\"S7 1\"); 	// vitesse moyenne
 serialPrintf(master->getPortSerie(),ordre_c);
 cout<<\"ORIENTATION VERS MISSION : \"<<ordre<<endl;"
 	      transition 342658 "<transition>"
@@ -1929,6 +1944,7 @@ ordre = \"S3 \"
 const char* ordre_c = ordre.c_str();
 serialPrintf(master->getPortSerie(),ordre_c); 
 cout<<\"ORIENTATION VERS MISSION : \"<<ordre<<endl;"
+		cpp_on_exit "serialPrintf(master->getPortSerie(),\"S7 0\"); 	// vitesse lente"
 	      transition 342914 "<transition>"
 		on pseudostate_ref 278274 // exit_point
 		  cpp_trigger "assFini"
@@ -2108,7 +2124,7 @@ master->get_gestionnaire_mission()->get_mission_claps()->stand_depart_done();"
 
 	  state 272130 "tempo pour coop'r?"
 	      cpp_on_entry "cout<<\"sortie de zone\"<<endl;
-master->set_time_out(300);"
+//master->set_time_out(300);"
 	      cpp_on_exit "if(	master->get_gestionnaire_mission()->get_mission_zone_centrale()->is_stand_central_catched()
 	&& master->get_gestionnaire_mission()->get_mission_zone_centrale()->is_stand_estrade_catched()
 	&& master->get_gestionnaire_mission()->get_mission_zone_centrale()->is_stand_depart_catched() )
@@ -2118,7 +2134,6 @@ master->set_time_out(300);"
 }"
 	    transition 342402 "<transition>"
 	      on pseudostate_ref 230402 // exit_point
-		cpp_trigger "time_out"
 	      external 
 	    end
 	  end
@@ -2197,6 +2212,7 @@ cout<<\"MISSION DEPOT TOUR DEPART\"<<endl;"
 string ordre;
 ordre = \"S3 \" + master->get_gestionnaire()->get_cap_to_mission_str() + \" \\n\";
 const char* ordre_c = ordre.c_str();
+serialPrintf(master->getPortSerie(),\"S7 1\"); 	// vitesse moyenne
 serialPrintf(master->getPortSerie(),ordre_c);
 cout<<\"ORIENTATION VERS MISSION : \"<<ordre<<endl;"
 	      transition 323074 "<transition>"
@@ -2247,8 +2263,10 @@ ordre = \"S3 \"
 	+ master->get_gestionnaire()->get_cap_mission_str() 
 	+ \" \\n\";
 const char* ordre_c = ordre.c_str();
+serialPrintf(master->getPortSerie(),\"S7 1\"); 	// vitesse moyenne
 serialPrintf(master->getPortSerie(),ordre_c); 
 cout<<\"ORIENTATION VERS MISSION : \"<<ordre<<endl;"
+		cpp_on_exit "serialPrintf(master->getPortSerie(),\"S7 0\"); 	// vitesse moyenne"
 	      transition 323330 "<transition>"
 		on pseudostate_ref 264578 // exit_point
 		  cpp_trigger "assFini"
@@ -2384,11 +2402,13 @@ if(master->is_Vert()){
 	end
 
 	state 157442 "sortie de zone de depart"
-	    cpp_on_entry "cout<<\"sortie de la zone de depart\"<<endl;
+	    cpp_on_entry "serialPrintf(master->getPortSerie(),\"S7 1\"); 	// vitesse moyenne
+cout<<\"sortie de la zone de depart\"<<endl;
 // avance de 200mm (400mm avec le recalage)
 // attention si on laisse coop'r derrière ou devant
 serialPrintf(master->getPortSerie(),\"S4 200 \\n\");
 master->get_gestionnaire_mission()->commencement_end();"
+	    cpp_on_exit "serialPrintf(master->getPortSerie(),\"S7 0\"); 	// vitesse moyenne"
 	  transition 199810 "<transition>"
 	    on state_ref 172290 // decision
 	      cpp_trigger "assFini"
@@ -2438,7 +2458,8 @@ cout<<\"MISSION ZONE ENNEMIE\"<<endl;"
 	    end
 
 	    state 262402 "cap to mission"
-		cpp_on_entry "// BCAP
+		cpp_on_entry "serialPrintf(master->getPortSerie(),\"S7 1\"); 	// vitesse moyenne
+// BCAP
 string ordre;
 ordre = \"S3 \" + master->get_gestionnaire()->get_cap_to_mission_str() + \" \\n\";
 const char* ordre_c = ordre.c_str();
@@ -5000,6 +5021,24 @@ ${inlines}
 		  ncouples 1
 		  key "STM generated" value ""
 		  comment " returns the state containing the current"
+		end
+
+		operation 265218 "_doexit"
+		  force_body_gen public explicit_return_type "void"
+		  nparams 1
+		    param inout name "stm" type class_ref 134530 // MAE_MURPHY
+		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+		  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+		  
+		  
+		  
+		  
+		  ncouples 1
+		  key "STM generated" value ""
+		  comment " perform the 'exit behavior'"
 		end
 	      end
 
@@ -9403,6 +9442,24 @@ ${inlines}
 	      key "STM generated" value ""
 	      comment " returns the state containing the current"
 	    end
+
+	    operation 265986 "_doexit"
+	      force_body_gen public explicit_return_type "void"
+	      nparams 1
+	        param inout name "stm" type class_ref 134530 // MAE_MURPHY
+	      cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+	      cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+	      
+	      
+	      
+	      
+	      ncouples 1
+	      key "STM generated" value ""
+	      comment " perform the 'exit behavior'"
+	    end
 	  end
 
 	  class 149378 "mission_depot_de_tour_zone_depart_State"
@@ -9656,6 +9713,24 @@ ${inlines}
 		  ncouples 1
 		  key "STM generated" value ""
 		  comment " returns the state containing the current"
+		end
+
+		operation 265858 "_doexit"
+		  force_body_gen public explicit_return_type "void"
+		  nparams 1
+		    param inout name "stm" type class_ref 134530 // MAE_MURPHY
+		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+		  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+		  
+		  
+		  
+		  
+		  ncouples 1
+		  key "STM generated" value ""
+		  comment " perform the 'exit behavior'"
 		end
 	      end
 
@@ -11037,6 +11112,24 @@ ${inlines}
 		  key "STM generated" value ""
 		  comment " returns the state containing the current"
 		end
+
+		operation 265602 "_doexit"
+		  force_body_gen public explicit_return_type "void"
+		  nparams 1
+		    param inout name "stm" type class_ref 134530 // MAE_MURPHY
+		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+		  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+		  
+		  
+		  
+		  
+		  ncouples 1
+		  key "STM generated" value ""
+		  comment " perform the 'exit behavior'"
+		end
 	      end
 
 	      class 147714 "BF_droite_to_mission_State"
@@ -11308,24 +11401,6 @@ ${inlines}
 		  b parent class_ref 134658 // AnyState
 	      end
 
-	      operation 217730 "time_out"
-		force_body_gen cpp_virtual public explicit_return_type "void"
-		nparams 1
-		  param inout name "stm" type class_ref 134530 // MAE_MURPHY
-		cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
-"
-		cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
-  ${body}}
-"
-		
-		
-		
-		
-		ncouples 1
-		key "STM generated" value ""
-		comment " to manage the event time_out"
-	      end
-
 	      operation 217858 "create"
 		force_body_gen cpp_virtual public explicit_return_type "void"
 		nparams 1
@@ -11396,6 +11471,23 @@ ${inlines}
 		ncouples 1
 		key "STM generated" value ""
 		comment " returns the state containing the current"
+	      end
+
+	      operation 265730 "_completion"
+		force_body_gen cpp_virtual public explicit_return_type "bool"
+		nparams 1
+		  param inout name "stm" type class_ref 134530 // MAE_MURPHY
+		cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+		cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+		
+		
+		
+		
+		ncouples 1
+		key "STM generated" value ""
 	      end
 	    end
 
@@ -17224,6 +17316,24 @@ ${inlines}
 		  key "STM generated" value ""
 		  comment " returns the state containing the current"
 		end
+
+		operation 265474 "_doexit"
+		  force_body_gen public explicit_return_type "void"
+		  nparams 1
+		    param inout name "stm" type class_ref 134530 // MAE_MURPHY
+		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+		  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+		  
+		  
+		  
+		  
+		  ncouples 1
+		  key "STM generated" value ""
+		  comment " perform the 'exit behavior'"
+		end
 	      end
 
 	      class 141954 "BF_droite_to_objectif_State"
@@ -18986,6 +19096,24 @@ ${inlines}
 		  ncouples 1
 		  key "STM generated" value ""
 		  comment " returns the state containing the current"
+		end
+
+		operation 265346 "_doexit"
+		  force_body_gen public explicit_return_type "void"
+		  nparams 1
+		    param inout name "stm" type class_ref 134530 // MAE_MURPHY
+		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+		  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+		  
+		  
+		  
+		  
+		  ncouples 1
+		  key "STM generated" value ""
+		  comment " perform the 'exit behavior'"
 		end
 	      end
 

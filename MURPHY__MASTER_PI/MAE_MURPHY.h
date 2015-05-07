@@ -338,6 +338,9 @@ class MAE_MURPHY {
                         // returns the state containing the current
                         virtual AnyState * _upper(MAE_MURPHY & stm);
 
+                        // perform the 'exit behavior'
+                        void _doexit(MAE_MURPHY & stm);
+
                     };
                     
                     // implement the state BF droite to mission
@@ -1104,6 +1107,9 @@ class MAE_MURPHY {
                 // returns the state containing the current
                 virtual AnyState * _upper(MAE_MURPHY & stm);
 
+                // perform the 'exit behavior'
+                void _doexit(MAE_MURPHY & stm);
+
             };
             
             // implement the state mission depot de tour zone depart
@@ -1147,6 +1153,9 @@ class MAE_MURPHY {
 
                         // returns the state containing the current
                         virtual AnyState * _upper(MAE_MURPHY & stm);
+
+                        // perform the 'exit behavior'
+                        void _doexit(MAE_MURPHY & stm);
 
                     };
                     
@@ -1390,6 +1399,9 @@ class MAE_MURPHY {
                         // returns the state containing the current
                         virtual AnyState * _upper(MAE_MURPHY & stm);
 
+                        // perform the 'exit behavior'
+                        void _doexit(MAE_MURPHY & stm);
+
                     };
                     
                     // implement the state BF droite to mission
@@ -1438,9 +1450,6 @@ class MAE_MURPHY {
                   public:
                     virtual ~tempo_pour_coopr_State();
 
-                    // to manage the event time_out
-                    virtual void time_out(MAE_MURPHY & stm);
-
                     // to manage the event create
                     virtual void create(MAE_MURPHY & stm);
 
@@ -1452,6 +1461,8 @@ class MAE_MURPHY {
 
                     // returns the state containing the current
                     virtual AnyState * _upper(MAE_MURPHY & stm);
+
+                    virtual bool _completion(MAE_MURPHY & stm);
 
                 };
                 
@@ -2475,6 +2486,9 @@ class MAE_MURPHY {
                         // returns the state containing the current
                         virtual AnyState * _upper(MAE_MURPHY & stm);
 
+                        // perform the 'exit behavior'
+                        void _doexit(MAE_MURPHY & stm);
+
                     };
                     
                     // implement the state BF droite to objectif
@@ -2780,6 +2794,9 @@ class MAE_MURPHY {
 
                         // returns the state containing the current
                         virtual AnyState * _upper(MAE_MURPHY & stm);
+
+                        // perform the 'exit behavior'
+                        void _doexit(MAE_MURPHY & stm);
 
                     };
                     

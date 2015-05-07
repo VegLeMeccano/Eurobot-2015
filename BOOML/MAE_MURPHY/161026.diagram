@@ -36,7 +36,7 @@ pseudostatecanvas 129282 pseudostate_ref 181762 // exit_point
 end
 statecanvas 129410 state_ref 179970 // avance
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 596.1 912.3 2005 521 117
+  xyzwh 596.1 912.3 2005 521 131
 end
 statecanvas 130562 state_ref 233474 // sortie
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
@@ -73,12 +73,12 @@ transitioncanvas 130306 transition_ref 210818 // <transition>
 end
 transitioncanvas 130434 transition_ref 210946 // <transition>
   
-  from ref 129154 z 2006 label "time_out" xyz 864 883 2006 to ref 129410
+  from ref 129154 z 2006 label "time_out" xyz 863 883 2006 to ref 129410
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 130690 transition_ref 287874 // <transition>
   
-  from ref 129410 z 2006 label "assFini" xyz 728 1040 2006 to ref 130562
+  from ref 129410 z 2006 label "assFini" xyz 722 1047 2006 to ref 130562
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 130818 transition_ref 288002 // <transition>

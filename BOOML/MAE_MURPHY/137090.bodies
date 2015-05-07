@@ -13,6 +13,7 @@ class deplacement_cible_State
 #ifdef VERBOSE_STATE_MACHINE
 	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission pillage distrib.capture de gobelet escalier.deplacement cible");
 #endif
+serialPrintf(master->getPortSerie(),"S7 0"); 	// vitesse lente
 cout<<"gobelet : deplacement sur cible"<<endl;
 if(master->is_Jaune()){
 // BF droite sur le gobelet 

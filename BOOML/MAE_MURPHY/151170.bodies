@@ -13,6 +13,7 @@ class cap_to_mission_State
 #ifdef VERBOSE_STATE_MACHINE
 	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission zone ennemie.waypoint initial.cap to mission");
 #endif
+serialPrintf(master->getPortSerie(),"S7 1"); 	// vitesse moyenne
 // BCAP
 string ordre;
 ordre = "S3 " + master->get_gestionnaire()->get_cap_to_mission_str() + " \n";
