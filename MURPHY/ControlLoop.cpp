@@ -333,14 +333,31 @@ void ControlLoop::compute_pids(){
                 //cmd_cap = pidcap.compute(real_coord.get_cap());
 
             }
+
+            /// si on est loin
             else
             {
                 A = 1;
-                B = 1.6;
+                B = 2;
                 alpha = -diff_cap( target_position.get_cap() ,  real_coord.get_cap() );
                 beta =  -diff_cap( to_target.get_angle()     ,  target_position.get_cap() );
                 erreur_cap = diff_cap(A*alpha + B*beta,0);//(A+B);
                 cmd_cap = pidcap.compute(erreur_cap + pidcap.get_target());  // car la formule du pidcap : target - input
+
+
+
+
+                if (abs(diff_cap(to_target.get_angle(), target_position.get_cap())) > PI / 2)
+                {
+                    // le cap est celui vers la cible (en marche arriere), normal :)
+                    //pidcap.setTarget(to_target.get_angle() + PI);
+                    alpha = -diff_cap( target_position.get_cap() ,  real_coord.get_cap() );
+                    beta =  -diff_cap( to_target.get_angle() + PI    ,  target_position.get_cap() );
+                    erreur_cap = diff_cap(A*alpha + B*beta,0);//(A+B);
+                    cmd_cap = pidcap.compute(erreur_cap + pidcap.get_target());  // car la formule du pidcap : target - input
+
+                }
+
 
             }
 
