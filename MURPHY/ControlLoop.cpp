@@ -50,9 +50,9 @@ void ControlLoop::bf_avance(float d){
 /** definition des vitesses
 // a check sur PID
 **/
-#define MIN_MAX_SLOW 80
+#define MIN_MAX_SLOW 60
 #define MIN_MAX_MEDIUM 110
-#define MIN_MAX_FAST 160
+#define MIN_MAX_FAST 160  // don't use it too fast
 void ControlLoop::set_speed(int speed)
 {
     switch(speed){
@@ -338,7 +338,7 @@ void ControlLoop::compute_pids(){
             else
             {
                 A = 1;
-                B = 2;
+                B = 1.8;
                 alpha = -diff_cap( target_position.get_cap() ,  real_coord.get_cap() );
                 beta =  -diff_cap( to_target.get_angle()     ,  target_position.get_cap() );
                 erreur_cap = diff_cap(A*alpha + B*beta,0);//(A+B);

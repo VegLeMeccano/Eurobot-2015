@@ -12,8 +12,9 @@ void Coord::set_x(float x_){x = x_;}
 void Coord::set_y(float y_){y = y_;}
 
 void Coord::set_cap(float cap_){
-    cap = cap_;
-
+    // modulo 2*PI
+    cap = fmod(cap_,2*PI);
+/*
     // cap always within [0: 2* pi]
    if (cap > 2 * PI)
    {
@@ -23,6 +24,7 @@ void Coord::set_cap(float cap_){
    {
         cap = cap + 2 * PI;
    }
+   */
 }
 
 void Coord::set_x_y_cap(float x_, float y_, float cap_){

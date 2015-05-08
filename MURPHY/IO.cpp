@@ -1881,7 +1881,7 @@ void Constructeur_pile::in_state_func()
             break;
 
         case ETAT_PILE_DEPOT_FULL_H_PREP_3    :
-            set_time_out(TEMPO_TEST_PILE);
+            set_time_out(500);
             pinceur.saisie();
             Serial.println("ETAT_PILE_DEPOT_FULL_H_PREP_3   ");
             break;

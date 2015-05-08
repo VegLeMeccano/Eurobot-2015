@@ -32,7 +32,7 @@ Autom* slave;
 int state;
 int led_on;
 long timer;
-long TEMPS_PARTIE = 100000; //en ms mettre 90
+long TEMPS_PARTIE = 90000; //en ms mettre 90
 
 
 
@@ -163,7 +163,7 @@ void loop(){
         {
             state = GAME ;
             Serial.println("# START_OUT");
-            slave->turn_on_evit();
+            //slave->turn_on_evit();
             timer = millis();
             //Serial.println(timer);
 
