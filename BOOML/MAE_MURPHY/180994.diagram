@@ -41,17 +41,17 @@ transitioncanvas 129410 transition_ref 257794 // <transition>
 end
 transitioncanvas 129538 transition_ref 257922 // <transition>
   
-  from ref 128770 z 2006 label "pince_ouverte" xyz 602.5 606.5 2006 to ref 128898
+  from ref 128770 z 2006 label "pince_ouverte" xyz 602 606 2006 to ref 128898
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 129666 transition_ref 258050 // <transition>
   
-  from ref 128898 z 2006 label "assFini" xyz 980.5 410 2006 to ref 129026
+  from ref 128898 z 2006 label "assFini" xyz 980 410 2006 to ref 129026
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 129794 transition_ref 258178 // <transition>
   
-  from ref 129026 z 2006 label "pince_stand_by" xyz 1007.5 609 2006 to ref 129154
+  from ref 129026 z 2006 label "pince_stand_by" xyz 1007 609 2006 to ref 129154
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 129922 transition_ref 258306 // <transition>

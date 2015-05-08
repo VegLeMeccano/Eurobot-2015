@@ -13,7 +13,7 @@ class BF_cap_initial_35deg_State
 #ifdef VERBOSE_STATE_MACHINE
 	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission pillage distrib.capture stands cote escalier.BF cap initial 35deg");
 #endif
-serialPrintf(master->getPortSerie(),"S7 1 \n"); 	// vitesse moyenne
+serialPrintf(master->getPortSerie(),"S7 0 \n"); 	// vitesse moyenne
 cout<<"stands escalier : orientation sur cible"<<endl;
 serialPrintf(master->getPortSerie(),"E0 \n"); // desactivation de l'evitement
 if(master->is_Jaune()){

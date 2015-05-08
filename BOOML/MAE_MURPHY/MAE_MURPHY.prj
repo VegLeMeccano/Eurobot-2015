@@ -1,6 +1,6 @@
 format 76
 "MAE_MURPHY"
-  revision 85
+  revision 86
   modified_by 2 "Link"
   cpp_root_dir "D:/Club Robotique IRON MENAD 2/Eurobot 2015 Iron Menad/Eurobot-2015/MURPHY__MASTER_PI/"
 
@@ -458,7 +458,7 @@ cout<<\"capture de stand escalier\"<<endl;"
 	    end
 
 	    state 214530 "BF cap initial 35deg"
-		cpp_on_entry "serialPrintf(master->getPortSerie(),\"S7 1 \\n\"); 	// vitesse moyenne
+		cpp_on_entry "serialPrintf(master->getPortSerie(),\"S7 0 \\n\"); 	// vitesse moyenne
 cout<<\"stands escalier : orientation sur cible\"<<endl;
 serialPrintf(master->getPortSerie(),\"E0 \\n\"); // desactivation de l'evitement
 if(master->is_Jaune()){
@@ -479,11 +479,11 @@ serialPrintf(master->getPortSerie(),\"S3 48 \\n\");
 if(master->is_Jaune()){
 // BF droite sur le gobelet 
 // y = 1664 -120
-serialPrintf(master->getPortSerie(),\"S5 -848 1544 90 \\n\");
+serialPrintf(master->getPortSerie(),\"S5 -848 1436 90 \\n\");
 }
 if(master->is_Vert()){
 // BF droite sur le gobelet 
-serialPrintf(master->getPortSerie(),\"S5 848 1544 90 \\n\");
+serialPrintf(master->getPortSerie(),\"S5 848 1436 90 \\n\");
 }"
 	      transition 256386 "<transition>"
 		on state_ref 214786 // ouverture pince cote escalier
@@ -510,7 +510,8 @@ serialPrintf(master->getPortSerie(),\"G0 \\n\");
 	    state 214914 "BF avance"
 		cpp_on_entry "serialPrintf(master->getPortSerie(),\"S7 0 \\n\"); 	// vitesse lente
 cout<<\"stands escalier : avance sur 1er stand\"<<endl;
-//serialPrintf(master->getPortSerie(),\"S4 240 \\n\");
+serialPrintf(master->getPortSerie(),\"S4 240 \\n\");
+/*
 if(master->is_Jaune()){
 // BF droite sur le gobelet 
 // y = 1664 -120
@@ -519,7 +520,8 @@ serialPrintf(master->getPortSerie(),\"S5 -848 1686 90 \\n\");
 if(master->is_Vert()){
 // BF droite sur le gobelet 
 serialPrintf(master->getPortSerie(),\"S5 848 1686 90 \\n\");
-}"
+}
+*/"
 	      transition 256642 "<transition>"
 		on state_ref 215042 // chope 1
 		  cpp_trigger "assFini"
@@ -723,10 +725,10 @@ serialPrintf(master->getPortSerie(),\"D1 \\n\");
 		cpp_on_entry "cout<<\"stands bordure : recule/degage de la zone\"<<endl;
 //serialPrintf(master->getPortSerie(),\"S4 -300 \\n\");
 if(master->is_Jaune()){
-serialPrintf(master->getPortSerie(),\"S5 -1050 1436 90 \\n\");
+serialPrintf(master->getPortSerie(),\"S5 -1050 1536 90 \\n\");
 }
 if(master->is_Vert()){
-serialPrintf(master->getPortSerie(),\"S5 1050 1436 90 \\n\");
+serialPrintf(master->getPortSerie(),\"S5 1050 1536 90 \\n\");
 }"
 	      transition 258306 "<transition>"
 		on pseudostate_ref 209538 // exit_point
@@ -25757,7 +25759,7 @@ ${inlines}
 	relation 181890 -_->
 	  stereotype "friend"
 	  a default
-	    cpp default "#include in source"
+	    cpp default "${type}"
 	    classrelation_ref 181890 // <dependency>
 	  b parent class_ref 161538 // transition_avant_reculage_State
       end
