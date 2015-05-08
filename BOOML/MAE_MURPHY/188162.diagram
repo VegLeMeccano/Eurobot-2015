@@ -2,73 +2,73 @@ format 76
 
 statecanvas 128002 state_ref 143234 // mission rush zone centrale
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 129.5 119.5 2000 1810 1270
+  xyzwh 125.5 228.5 2000 1810 1270
 end
 pseudostatecanvas 128130 pseudostate_ref 230274 // initial
-   xyz 232.4 230.1 2005
+   xyz 228.4 339.1 2005
 end
 pseudostatecanvas 128258 pseudostate_ref 230402 // exit_point
-   xyz 730.9 1121.4 3005 label_xy 692 1140
+   xyz 726.9 1230.4 3005 label_xy 688 1249
 end
 statecanvas 128514 state_ref 270722 // waypoint init
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 349.3 223.2 2005 91 33
+  xyzwh 345.3 332.2 2005 91 33
 end
 statecanvas 129154 state_ref 270850 // ouverture pince
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 197.2 461.4 2005 347 159
+  xyzwh 193.2 570.4 2005 347 159
 end
 statecanvas 129410 state_ref 270978 // BF droite stand 1
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 159.4 669.3 2005 347 145
+  xyzwh 155.4 778.3 2005 347 145
 end
 statecanvas 129666 state_ref 271106 // chope stand 1
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 148 858.4 2005 571 159
+  xyzwh 144 967.4 2005 571 159
 end
 statecanvas 129794 state_ref 271234 // re ouverture pince
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 883.4 299.8 2005 351 145
+  xyzwh 879.4 408.8 2005 351 145
 end
 statecanvas 129922 state_ref 271362 // BF droite stand 2
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 840.8 471.7 2005 347 145
+  xyzwh 836.8 580.7 2005 347 145
 end
 statecanvas 130050 state_ref 271490 // chope stand 2
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 794.1 658.9 2005 575 159
+  xyzwh 790.1 767.9 2005 575 159
 end
 statecanvas 130178 state_ref 271618 // BF cap sur stand 3
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 1290.6 332.5 2005 349 145
+  xyzwh 1286.6 441.5 2005 349 145
 end
 statecanvas 130306 state_ref 271746 // re re ouverture pince
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 1470.6 495.8 2005 343 145
+  xyzwh 1466.6 604.8 2005 343 145
 end
 statecanvas 130434 state_ref 271874 // BF droite stand 3
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 1440.1 661.5 2005 343 145
+  xyzwh 1436.1 770.5 2005 343 145
 end
 statecanvas 130562 state_ref 272002 // chope stand 3
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 1336.6 830 2005 570 173
+  xyzwh 1332.6 939 2005 570 173
 end
 statecanvas 130690 state_ref 272130 // tempo pour coop'r?
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 892 1087 2005 611 173
+  xyzwh 888 1196 2005 611 173
 end
 pseudostatecanvas 133122 pseudostate_ref 278274 // exit_point
-   xyz 424 245.6 3005 label_xy 420 264
+   xyz 420 354.6 3005 label_xy 416 373
 end
 pseudostatecanvas 133378 pseudostate_ref 291970 // choice
-   xyz 1127.7 916.7 2005
+   xyz 1123.7 1025.7 2005
 end
 pseudostatecanvas 134018 pseudostate_ref 292098 // choice
-   xyz 532.8 271.2 2005
+   xyz 528.8 380.2 2005
 end
 pseudostatecanvas 134530 pseudostate_ref 292226 // choice
-   xyz 765.3 912.2 2005
+   xyz 761.3 1021.2 2005
 end
 transitioncanvas 129026 transition_ref 340610 // <transition>
   
@@ -77,42 +77,42 @@ transitioncanvas 129026 transition_ref 340610 // <transition>
 end
 transitioncanvas 129538 transition_ref 340866 // <transition>
   
-  from ref 129154 z 2006 label "pince_ouverte" xyz 315 637 2006 to ref 129410
+  from ref 129154 z 2006 label "pince_ouverte" xyz 311 746 2006 to ref 129410
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 130818 transition_ref 340994 // <transition>
   
-  from ref 129410 z 2006 label "assFini" xyz 361 832 2006 to ref 129666
+  from ref 129410 z 2006 label "assFini" xyz 357 941 2006 to ref 129666
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 131074 transition_ref 341250 // <transition>
   
-  from ref 129794 z 2006 label "pince_ouverte" xyz 1039 442 2006 to ref 129922
+  from ref 129794 z 2006 label "pince_ouverte" xyz 1035 551 2006 to ref 129922
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 131202 transition_ref 341378 // <transition>
   
-  from ref 129922 z 2006 label "assFini" xyz 1027 632 2006 to ref 130050
+  from ref 129922 z 2006 label "assFini" xyz 1023 741 2006 to ref 130050
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 131586 transition_ref 341762 // <transition>
   
-  from ref 130178 z 2006 label "assFini" xyz 1560 477 2006 to ref 130306
+  from ref 130178 z 2006 label "assFini" xyz 1556 586 2006 to ref 130306
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 132098 transition_ref 342018 // <transition>
   
-  from ref 130306 z 2006 label "pince_ouverte" xyz 1628 641 2006 to ref 130434
+  from ref 130306 z 2006 label "pince_ouverte" xyz 1624 750 2006 to ref 130434
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 132226 transition_ref 342146 // <transition>
   
-  from ref 130434 z 2006 label "assFini" xyz 1603 807 2006 to ref 130562
+  from ref 130434 z 2006 label "assFini" xyz 1599 916 2006 to ref 130562
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 132354 transition_ref 342274 // <transition>
   
-  from ref 130562 z 2006 label "pince_stand_by" xyz 1375 1028 2006 to ref 130690
+  from ref 130562 z 2006 label "pince_stand_by" xyz 1371 1137 2006 to ref 130690
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 132482 transition_ref 342402 // <transition>
@@ -122,18 +122,18 @@ transitioncanvas 132482 transition_ref 342402 // <transition>
 end
 transitioncanvas 133506 transition_ref 360450 // <transition>
   
-  from ref 133378 z 2006 label "[master->get_gestionnaire_mission()->get_mission_zone_centrale()->is_stand_depart_catched()]" xyz 923 1011 2006 to ref 130690
+  from ref 133378 z 2006 label "[master->get_gestionnaire_mission()->get_mission_zone_centrale()->is_stand_depart_catched()]" xyz 919 1120 2006 to ref 130690
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 133634 transition_ref 360578 // <transition>
   
-  from ref 133378 z 2006 label "[!master->get_gestionnaire_mission()->get_mission_zone_centrale()->is_stand_depart_catched()]" xyz 1085 642 2006 to ref 130178
+  from ref 133378 z 2006 label "[!master->get_gestionnaire_mission()->get_mission_zone_centrale()->is_stand_depart_catched()]" xyz 1081 751 2006 to ref 130178
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 133890 transition_ref 360834 // <transition>
   decenter_begin 432
   
-  from ref 130050 z 2006 label "pince_stand_by" xyz 1049 855 2006 to ref 133378
+  from ref 130050 z 2006 label "pince_stand_by" xyz 1045 964 2006 to ref 133378
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 134146 transition_ref 360962 // <transition>
@@ -143,28 +143,28 @@ transitioncanvas 134146 transition_ref 360962 // <transition>
 end
 transitioncanvas 134274 transition_ref 361090 // <transition>
   
-  from ref 134018 z 2006 label "[!master->get_gestionnaire_mission()->get_mission_zone_centrale()->is_stand_central_catched()]" xyz 238 375 2006 to ref 129154
+  from ref 134018 z 2006 label "[!master->get_gestionnaire_mission()->get_mission_zone_centrale()->is_stand_central_catched()]" xyz 234 484 2006 to ref 129154
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 134658 transition_ref 361346 // <transition>
   
-  from ref 129666 z 2006 label "pince_stand_by" xyz 682 914 2006 to ref 134530
+  from ref 129666 z 2006 label "pince_stand_by" xyz 678 1023 2006 to ref 134530
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 134786 transition_ref 361474 // <transition>
   
-  from ref 134530 z 2006 label "[!master->get_gestionnaire_mission()->get_mission_zone_centrale()->is_stand_estrade_catched()]" xyz 601 448 2006 to point 774 500
+  from ref 134530 z 2006 label "[!master->get_gestionnaire_mission()->get_mission_zone_centrale()->is_stand_estrade_catched()]" xyz 597 557 2006 to point 770 609
   line 135042 z 2006 to ref 129794
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 134914 transition_ref 361602 // <transition>
   
-  from ref 134530 z 2006 label "[master->get_gestionnaire_mission()->get_mission_zone_centrale()->is_stand_estrade_catched()]" xyz 720 950 2006 to ref 133378
+  from ref 134530 z 2006 label "[master->get_gestionnaire_mission()->get_mission_zone_centrale()->is_stand_estrade_catched()]" xyz 716 1059 2006 to ref 133378
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 135170 transition_ref 361730 // <transition>
   
-  from ref 134018 z 2006 label "[master->get_gestionnaire_mission()->get_mission_zone_centrale()->is_stand_central_catched()]" xyz 428 628 2006 to ref 134530
+  from ref 134018 z 2006 label "[master->get_gestionnaire_mission()->get_mission_zone_centrale()->is_stand_central_catched()]" xyz 424 737 2006 to ref 134530
   write_horizontally default show_definition default drawing_language default
 end
 end

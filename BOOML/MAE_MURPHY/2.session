@@ -1,8 +1,6 @@
-window_sizes 1600 848 184 1410 739 35
+window_sizes 1600 848 291 1303 739 35
 diagrams
-  active  statediagram_ref 134658 // Jeu
-    1079 591 100 0 313 257
-  statediagram_ref 128130 // Principal
+  active  statediagram_ref 128130 // Principal
     1406 739 100 0 0 0
 end
 show_stereotypes
@@ -10,7 +8,9 @@ selected
   package_ref 129 // MAE_MURPHY
 open
   state_ref 128258 // Initialisation
-  state_ref 142850 // mission pillage distrib
+  pseudostate_ref 209666 // initial
+  state_ref 216450 // BF Cap objectif
+  state_ref 142978 // mission attrap balle et chiage
   deploymentview_ref 128130 // MAE_MURPHY
 end
 end

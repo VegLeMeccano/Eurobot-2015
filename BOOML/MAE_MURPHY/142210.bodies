@@ -1,11 +1,11 @@
 class orientation_avant_reculage_State
 !!!187778.cpp!!!	assFini(inout stm : MAE_MURPHY) : void
   {
-    stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_attrap_balle_et_chiage_state._recalage_state);
+    stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_attrap_balle_et_chiage_state._transition_avant_reculage_state);
 #ifdef VERBOSE_STATE_MACHINE
-    puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission attrap balle et chiage.Recalage");
+    puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission attrap balle et chiage.transition avant reculage");
 #endif
-    stm._mae_murphy_state._jeu_state._mission_attrap_balle_et_chiage_state._recalage_state.create(stm);
+    stm._mae_murphy_state._jeu_state._mission_attrap_balle_et_chiage_state._transition_avant_reculage_state.create(stm);
   }
 !!!187906.cpp!!!	create(inout stm : MAE_MURPHY) : void
 	_doentry(stm);
