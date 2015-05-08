@@ -66,6 +66,6 @@ master->get_gestionnaire_mission()->decision_mission();
 
 // decision du gestionnaire de mission
 // consulte les mission restante à faire et dans quel ordre
-// etat de depart apres sortie d'evitement 
+// etat de depart apres sortie d'evitement ...
 !!!239234.cpp!!!	_upper(inout stm : MAE_MURPHY) : MAE_MURPHY::AnyState
   return &stm._mae_murphy_state._jeu_state;

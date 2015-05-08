@@ -1,9 +1,9 @@
-window_sizes 1600 878 240 1354 739 35
+window_sizes 1600 848 184 1410 739 35
 diagrams
-  statediagram_ref 128130 // Principal
-    1079 591 100 0 180 0
   active  statediagram_ref 134658 // Jeu
-    1354 769 100 0 108 286
+    1079 591 100 0 313 257
+  statediagram_ref 128130 // Principal
+    1406 739 100 0 0 0
 end
 show_stereotypes
 selected 
