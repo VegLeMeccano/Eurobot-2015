@@ -1,6 +1,6 @@
 format 76
 "MAE_MURPHY"
-  revision 80
+  revision 82
   modified_by 2 "Link"
   cpp_root_dir "D:/Club Robotique IRON MENAD 2/Eurobot 2015 Iron Menad/Eurobot-2015/MURPHY__MASTER_PI/"
 
@@ -370,11 +370,11 @@ cout<<\"capture de gobelet\"<<endl;"
 cout<<\"gobelet : deplacement sur cible\"<<endl;
 if(master->is_Jaune()){
 // BF droite sur le gobelet 
-serialPrintf(master->getPortSerie(),\"S5 -590 1198 145 \\n\");
+serialPrintf(master->getPortSerie(),\"S5 -590 1198 35 \\n\");
 }
 if(master->is_Vert()){
 // BF droite sur le gobelet 
-serialPrintf(master->getPortSerie(),\"S5 590 1198 35 \\n\");
+serialPrintf(master->getPortSerie(),\"S5 590 1198 145 \\n\");
 }"
 	      transition 157698 "<transition>"
 		on state_ref 150402 // capture
@@ -2870,7 +2870,7 @@ master->get_gestionnaire_mission()->decision_mission();
 
 // decision du gestionnaire de mission
 // consulte les mission restante à faire et dans quel ordre
-// etat de depart apres sortie d'evitement "
+// etat de depart apres sortie d'evitement ..."
 	  transition 202626 "<transition>"
 	    on state_ref 142850 // mission pillage distrib
 	      cpp_trigger "mission_distrib"
