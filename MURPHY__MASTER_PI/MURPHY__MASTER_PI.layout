@@ -1,16 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Debug" />
-<<<<<<< HEAD
-=======
-	<File name="Gestionnaire_Mission.cpp" open="1" top="1" tabpos="0">
-		<Cursor position="12645" topLine="311" />
+	<File name="Gestionnaire_Mission.cpp" open="1" top="1" tabpos="1">
+		<Cursor position="1007" topLine="0" />
 	</File>
-	<File name="Mission_Depot_Tour_Depart.cpp" open="0" top="0" tabpos="0">
-		<Cursor position="840" topLine="25" />
+	<File name="Mission.cpp" open="1" top="0" tabpos="2">
+		<Cursor position="664" topLine="6" />
 	</File>
-	<File name="Mission_Depot_Tour_Estrade.cpp" open="0" top="0" tabpos="0">
-		<Cursor position="1266" topLine="33" />
-	</File>
->>>>>>> 3960416f8fa2a57729da8f482f5f2d066287e4ae
 </CodeBlocks_layout_file>

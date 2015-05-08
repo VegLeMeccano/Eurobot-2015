@@ -24,6 +24,9 @@ Gestionnaire_Mission::Gestionnaire_Mission():
         distance_mission(0)
 {
     mae_murphy.create();
+    mission_zone_ennemie.mission_remplie();
+    mission_depot_tour_estrade.mission_remplie();
+    mission_depot_tour_depart.mission_remplie();
 
 }
 
