@@ -234,7 +234,7 @@ void Taclette_INT::position_prise_central()
    Taclette EXT
 *****************************************************/
 #define TACLETTE_EXT_FERMETURE_GAUCHE 1441
-#define TACLETTE_EXT_DEGAGEMENT_GAUCHE 1941
+#define TACLETTE_EXT_DEGAGEMENT_GAUCHE 2040//1941
 #define TACLETTE_EXT_MOISS_BAT_GAUCHE 2154
 
 #define TACLETTE_EXT_FERMETURE_DROITE 1896
@@ -705,7 +705,7 @@ void Balle_droite::in_state_func()
    Pince
 *****************************************************/
 #define PINCEUR_DEPLOYEMENT_TOTAL_GAUCHE 1180
-#define PINCEUR_RELACHEMENT_GAUCHE 1530
+#define PINCEUR_RELACHEMENT_GAUCHE 1460//1530
 #define PINCEUR_SAISIE_GAUCHE 1720
 
 #define PINCEUR_DEPLOYEMENT_TOTAL_DROITE 1600

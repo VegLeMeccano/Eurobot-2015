@@ -125,7 +125,9 @@ void ControlLoop::set_BF(int bf_type_, Coord target_position_){
             //d = dir.norm();
             dir.normalize();
             piddep.setTarget(0.0);  // pk???
-            pidcap.setTarget(target_position.get_cap());
+            //pidcap.setTarget(target_position.get_cap());
+            pidcap.setTarget(real_coord.get_cap());
+
             break;
 
         /** BF Cap (rotation angulaire) **/
@@ -334,7 +336,7 @@ void ControlLoop::compute_pids(){
             else
             {
                 A = 1;
-                B = 1.5;
+                B = 1.6;
                 alpha = -diff_cap( target_position.get_cap() ,  real_coord.get_cap() );
                 beta =  -diff_cap( to_target.get_angle()     ,  target_position.get_cap() );
                 erreur_cap = diff_cap(A*alpha + B*beta,0);//(A+B);
