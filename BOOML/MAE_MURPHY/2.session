@@ -1,13 +1,7 @@
 window_sizes 1600 848 291 1303 739 35
-diagrams
-  statediagram_ref 128130 // Principal
-    1406 739 100 0 0 0
-  active  statediagram_ref 134658 // Jeu
-    1303 739 100 0 285 230
-end
 show_stereotypes
 selected 
-package_ref 129 // MAE_MURPHY
+  package_ref 129 // MAE_MURPHY
 open
   state_ref 128258 // Initialisation
   pseudostate_ref 209666 // initial

@@ -79,11 +79,6 @@ transitioncanvas 129538 transition_ref 296194 // <transition>
   from ref 128386 z 2006 label "assFini" xyz 282 217 2006 to ref 128514
   write_horizontally default show_definition default drawing_language default
 end
-transitioncanvas 129666 transition_ref 296322 // <transition>
-  
-  from ref 128514 z 2006 label "time_out" xyz 333 379 2006 to ref 128642
-  write_horizontally default show_definition default drawing_language default
-end
 transitioncanvas 130050 transition_ref 296706 // <transition>
   
   from ref 128898 z 2006 label "assFini" xyz 672 339 2006 to ref 129026
@@ -111,12 +106,12 @@ transitioncanvas 131714 transition_ref 352386 // <transition>
 end
 transitioncanvas 131842 transition_ref 352514 // <transition>
   
-  from ref 130690 z 2006 label "pince_ouverte" xyz 1142.5 485.5 2006 to ref 130818
+  from ref 130690 z 2006 label "pince_ouverte" xyz 1142 485 2006 to ref 130818
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 132354 transition_ref 352770 // <transition>
   
-  from ref 130818 z 2006 label "assFini" xyz 1506.5 104 2006 to ref 130946
+  from ref 130818 z 2006 label "assFini" xyz 1506 104 2006 to ref 130946
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 132482 transition_ref 352898 // <transition>
@@ -155,9 +150,9 @@ transitioncanvas 134402 transition_ref 353922 // <transition>
   from ref 134146 z 2006 label "assFini" xyz 1559 944 2006 to ref 131330
   write_horizontally default show_definition default drawing_language default
 end
-transitioncanvas 134530 transition_ref 417154 // <transition>
+transitioncanvas 134658 transition_ref 423682 // <transition>
   
-  from ref 128642 z 2006 label "assFini" xyz 292 520 2006 to ref 128898
+  from ref 128514 z 2006 label "time_out" xyz 388 521 2006 to ref 128898
   write_horizontally default show_definition default drawing_language default
 end
 end

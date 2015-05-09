@@ -16,7 +16,7 @@ statecanvas 128386 state_ref 215682 // BF cap vers objectif
 end
 statecanvas 128642 state_ref 215810 // BF droite vers objectif
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 266 412 2005 355 173
+  xyzwh 232 443 2005 355 173
 end
 statecanvas 128770 state_ref 215938 // ouverture pince cote bordure
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
@@ -36,7 +36,7 @@ statecanvas 129154 state_ref 216322 // recule
 end
 transitioncanvas 129410 transition_ref 257794 // <transition>
   
-  from ref 128642 z 2006 label "assFini" xyz 405 618 2006 to ref 128770
+  from ref 128642 z 2006 label "assFini" xyz 388.5 633.5 2006 to ref 128770
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 129538 transition_ref 257922 // <transition>
@@ -59,9 +59,14 @@ transitioncanvas 129922 transition_ref 258306 // <transition>
   from ref 129154 z 3006 label "assFini" xyz 700 777 3006 to ref 128258
   write_horizontally default show_definition default drawing_language default
 end
-transitioncanvas 130050 transition_ref 410370 // <transition>
+transitioncanvas 130178 transition_ref 423810 // <transition>
   
-  from ref 128130 z 2006 to ref 128642
+  from ref 128130 z 2006 to ref 128386
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 130306 transition_ref 423938 // <transition>
+  
+  from ref 128386 z 2006 label "assFini" xyz 391.5 406 3000 to ref 128642
   write_horizontally default show_definition default drawing_language default
 end
 end
