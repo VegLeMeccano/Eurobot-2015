@@ -392,8 +392,8 @@ ChenillePrincipale::ChenillePrincipale():
     tour_effectuee(0)
 {
     chenille_laterale.attach(PIN_PWM_MOTEUR_CHENILLE_LATERALE);
-    chenille_gauche.attach(PIN_PWM_MOTEUR_CHENILLE_G);
-    chenille_droite.attach(PIN_PWM_MOTEUR_CHENILLE_D);
+    //chenille_gauche.attach(PIN_PWM_MOTEUR_CHENILLE_G);
+    //chenille_droite.attach(PIN_PWM_MOTEUR_CHENILLE_D);
 
     alignementLaterale();
 
@@ -429,21 +429,30 @@ void ChenillePrincipale::set_evitement_ON()
 */
 void ChenillePrincipale::longi_gauche_stop()
 {
-    chenille_gauche.writeMicroseconds(LONGI_GAUCHE_STOP);
+    //chenille_gauche.writeMicroseconds(LONGI_GAUCHE_STOP);
+    analogWrite(MOT_A_EN, 0);
+    digitalWrite(MOT_A_I1,LOW);
+    digitalWrite(MOT_A_I2,LOW);
 }
 
 /** deplacement longitudinale, chenille gauche avance
 */
 void ChenillePrincipale::longi_gauche_avance()
 {
-    chenille_gauche.writeMicroseconds(LONGI_GAUCHE_AVANCE);
+    //chenille_gauche.writeMicroseconds(LONGI_GAUCHE_AVANCE);
+    analogWrite(MOT_A_EN, 100);
+    digitalWrite(MOT_A_I1,LOW);
+    digitalWrite(MOT_A_I2,HIGH);
 }
 
 /** deplacement longitudinale, chenille gauche recule
 */
 void ChenillePrincipale::longi_gauche_recule()
 {
-    chenille_gauche.writeMicroseconds(LONGI_GAUCHE_RECULE);
+    //chenille_gauche.writeMicroseconds(LONGI_GAUCHE_RECULE);
+    analogWrite(MOT_A_EN, 100);
+    digitalWrite(MOT_A_I1,HIGH);
+    digitalWrite(MOT_A_I2,LOW);
 }
 
 
@@ -452,20 +461,29 @@ void ChenillePrincipale::longi_gauche_recule()
 void ChenillePrincipale::longi_droite_stop()
 {
     chenille_droite.writeMicroseconds(LONGI_DROITE_STOP);
+    analogWrite(MOT_B_EN, 0);
+    digitalWrite(MOT_B_I1,LOW);
+    digitalWrite(MOT_B_I2,LOW);
 }
 
 /** deplacement longitudinale, chenille droite avance
 */
 void ChenillePrincipale::longi_droite_avance()
 {
-    chenille_droite.writeMicroseconds(LONGI_DROITE_AVANCE);
+    //chenille_droite.writeMicroseconds(LONGI_DROITE_AVANCE);
+    analogWrite(MOT_B_EN, 100);
+    digitalWrite(MOT_B_I1,HIGH);
+    digitalWrite(MOT_B_I2,LOW);
 }
 
 /** deplacement longitudinale, chenille droite recule
 */
 void ChenillePrincipale::longi_droite_recule()
 {
-    chenille_droite.writeMicroseconds(LONGI_DROITE_RECULE);
+    //chenille_droite.writeMicroseconds(LONGI_DROITE_RECULE);
+    analogWrite(MOT_B_EN, 100);
+    digitalWrite(MOT_B_I1,LOW);
+    digitalWrite(MOT_B_I2,HIGH);
 }
 
 

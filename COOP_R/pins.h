@@ -44,6 +44,16 @@ COOP'R
 #define PIN_PWM_MOTEUR_CHENILLE_LATERALE 5
 #define PIN_PWM_MOTEUR_CHENILLE_SECONDAIRE 6
 
+
+#define MOT_B_EN 2
+#define MOT_A_EN 3
+#define MOT_B_I1 17
+#define MOT_B_I2 16
+#define MOT_A_I1 19
+#define MOT_A_I2 18
+
+
+
 // IMU
 // declaration a mettre
 

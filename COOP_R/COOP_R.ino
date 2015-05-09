@@ -64,6 +64,13 @@ long TEMPS_PARTIE = 90000; //en ms mettre 90
 /** INITIALISATION **/
 void setup()
 {
+    pinMode(MOT_A_EN,OUTPUT);
+    pinMode(MOT_B_EN,OUTPUT);
+    pinMode(MOT_A_I1,OUTPUT);
+    pinMode(MOT_A_I2,OUTPUT);
+    pinMode(MOT_B_I1,OUTPUT);
+    pinMode(MOT_B_I2,OUTPUT);
+
     bumper_couleur.reverse(); //bumper du haut
     bumper_strategie.reverse(); // bumper du bas
 
