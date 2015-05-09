@@ -14,7 +14,7 @@
 
 // IMU
 // http://www.seeedstudio.com/wiki/Xadow_-_IMU_6DOF
-#define SEUIL_IR_ALIGNEMENT 530 //au dessus c que c'est bon
+#define SEUIL_IR_ALIGNEMENT 490 //au dessus c que c'est bon
 /****************************************************
    IR compteur de roue
 *****************************************************/
