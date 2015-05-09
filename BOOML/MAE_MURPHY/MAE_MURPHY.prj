@@ -1,6 +1,6 @@
 format 76
 "MAE_MURPHY"
-  revision 88
+  revision 89
   modified_by 2 "Link"
   cpp_root_dir "D:/Club Robotique IRON MENAD 2/Eurobot 2015 Iron Menad/Eurobot-2015/MURPHY__MASTER_PI/"
 
@@ -3036,7 +3036,7 @@ master->get_gestionnaire_mission()->decision_mission();
 serialPrintf(master->getPortSerie(),\"P3 \\n\");
 serialPrintf(master->getPortSerie(),\"D2 \\n\");
 serialPrintf(master->getPortSerie(),\"G2 \\n\");
-master->set_time_out(500);
+master->set_time_out(50);
 cout<<\"on evite\"<<endl;"
 	  transition 220674 "<transition>"
 	    on pseudostate_ref 189314 // exit_point
