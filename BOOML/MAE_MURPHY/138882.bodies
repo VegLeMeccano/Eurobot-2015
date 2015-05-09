@@ -2,11 +2,11 @@ class capture_stand_bordure_State
 !!!173698.cpp!!!	create(inout stm : MAE_MURPHY) : void
   _doentry(stm);
   {
-    stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_pillage_distrib_state._capture_stand_bordure_state._bf_droite_vers_objectif_state);
+    stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_pillage_distrib_state._capture_stand_bordure_state._bf_cap_vers_objectif_state);
 #ifdef VERBOSE_STATE_MACHINE
-    puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission pillage distrib.capture stand bordure.BF droite vers objectif");
+    puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission pillage distrib.capture stand bordure.BF cap vers objectif");
 #endif
-    stm._mae_murphy_state._jeu_state._mission_pillage_distrib_state._capture_stand_bordure_state._bf_droite_vers_objectif_state.create(stm);
+    stm._mae_murphy_state._jeu_state._mission_pillage_distrib_state._capture_stand_bordure_state._bf_cap_vers_objectif_state.create(stm);
   }
 !!!173826.cpp!!!	_exit5(inout stm : MAE_MURPHY) : void
   {

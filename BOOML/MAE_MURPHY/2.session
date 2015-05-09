@@ -4,7 +4,8 @@ diagrams
     1038 591 100 0 264 0
 end
 show_stereotypes
-selected statediagram_ref 128130 // Principal
+selected 
+  package_ref 129 // MAE_MURPHY
 open
   state_ref 128258 // Initialisation
   pseudostate_ref 209666 // initial

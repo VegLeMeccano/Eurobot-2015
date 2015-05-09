@@ -1,6 +1,6 @@
 format 76
 "MAE_MURPHY"
-  revision 89
+  revision 90
   modified_by 2 "Link"
   cpp_root_dir "D:/Club Robotique IRON MENAD 2/Eurobot 2015 Iron Menad/Eurobot-2015/MURPHY__MASTER_PI/"
 
@@ -16376,24 +16376,6 @@ ${inlines}
 		    b parent class_ref 134658 // AnyState
 		end
 
-		operation 195842 "assFini"
-		  force_body_gen cpp_virtual public explicit_return_type "void"
-		  nparams 1
-		    param inout name "stm" type class_ref 134530 // MAE_MURPHY
-		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
-"
-		  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
-  ${body}}
-"
-		  
-		  
-		  
-		  
-		  ncouples 1
-		  key "STM generated" value ""
-		  comment " to manage the event assFini"
-		end
-
 		operation 195970 "create"
 		  force_body_gen cpp_virtual public explicit_return_type "void"
 		  nparams 1
@@ -20689,6 +20671,24 @@ ${inlines}
 		  ncouples 1
 		  key "STM generated" value ""
 		  comment " returns the state containing the current"
+		end
+
+		operation 286082 "assFini"
+		  force_body_gen cpp_virtual public explicit_return_type "void"
+		  nparams 1
+		    param inout name "stm" type class_ref 134530 // MAE_MURPHY
+		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+		  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+		  
+		  
+		  
+		  
+		  ncouples 1
+		  key "STM generated" value ""
+		  comment " to manage the event assFini"
 		end
 	      end
 

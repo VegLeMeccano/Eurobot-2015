@@ -15,6 +15,6 @@ class recule_State
 #endif
 serialPrintf(master->getPortSerie(),"S7 1 \n"); 	// vitesse moyenne
 cout<<"gobelet : recule"<<endl;
-serialPrintf(master->getPortSerie(),"S4 -120 \n");
+serialPrintf(master->getPortSerie(),"S4 -160 \n");
 !!!167682.cpp!!!	_upper(inout stm : MAE_MURPHY) : MAE_MURPHY::AnyState
   return &stm._mae_murphy_state._jeu_state._mission_pillage_distrib_state._capture_de_gobelet_escalier_state;

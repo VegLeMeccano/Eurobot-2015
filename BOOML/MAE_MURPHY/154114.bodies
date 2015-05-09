@@ -13,7 +13,7 @@ class faire_des_maneuvre_State
 serialPrintf(master->getPortSerie(),"P3 \n");
 serialPrintf(master->getPortSerie(),"D2 \n");
 serialPrintf(master->getPortSerie(),"G2 \n");
-master->set_time_out(500);
+master->set_time_out(50);
 cout<<"on evite"<<endl;
 !!!240642.cpp!!!	_upper(inout stm : MAE_MURPHY) : MAE_MURPHY::AnyState
   return &stm._mae_murphy_state._evitement_state;
