@@ -1,0 +1,67 @@
+format 76
+
+statecanvas 128002 state_ref 150786 // capture stand bordure
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  xyzwh 206 69 2000 1029 819
+end
+pseudostatecanvas 128130 pseudostate_ref 209410 // initial
+   xyz 662 254 2005
+end
+pseudostatecanvas 128258 pseudostate_ref 209538 // exit_point
+   xyz 681 803 3005 label_xy 642 822
+end
+statecanvas 128386 state_ref 215682 // BF cap vers objectif
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  xyzwh 230 235 2005 361 151
+end
+statecanvas 128642 state_ref 215810 // BF droite vers objectif
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  xyzwh 266 412 2005 355 173
+end
+statecanvas 128770 state_ref 215938 // ouverture pince cote bordure
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  xyzwh 283 674 2005 359 145
+end
+statecanvas 128898 state_ref 216066 // BF avance
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  xyzwh 739 209 2005 367 187
+end
+statecanvas 129026 state_ref 216194 // chope
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  xyzwh 841 447 2005 339 145
+end
+statecanvas 129154 state_ref 216322 // recule
+  show_activities default region_horizontally default drawing_language default show_stereotype_properties default
+  xyzwh 760 635 2005 393 159
+end
+transitioncanvas 129410 transition_ref 257794 // <transition>
+  
+  from ref 128642 z 2006 label "assFini" xyz 405 618 2006 to ref 128770
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 129538 transition_ref 257922 // <transition>
+  
+  from ref 128770 z 2006 label "pince_ouverte" xyz 602 606 2006 to ref 128898
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 129666 transition_ref 258050 // <transition>
+  
+  from ref 128898 z 2006 label "assFini" xyz 980 410 2006 to ref 129026
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 129794 transition_ref 258178 // <transition>
+  
+  from ref 129026 z 2006 label "pince_stand_by" xyz 1007 609 2006 to ref 129154
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 129922 transition_ref 258306 // <transition>
+  
+  from ref 129154 z 3006 label "assFini" xyz 700 777 3006 to ref 128258
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 130050 transition_ref 410370 // <transition>
+  
+  from ref 128130 z 2006 to ref 128642
+  write_horizontally default show_definition default drawing_language default
+end
+end
