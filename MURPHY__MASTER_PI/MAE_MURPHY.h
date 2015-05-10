@@ -501,6 +501,9 @@ class MAE_MURPHY {
                     // returns the state containing the current
                     virtual AnyState * _upper(MAE_MURPHY & stm);
 
+                    // to manage the event blocage
+                    virtual void blocage(MAE_MURPHY & stm);
+
                 };
                 
                 // implement the state depot
@@ -1298,6 +1301,9 @@ class MAE_MURPHY {
 
                     // returns the state containing the current
                     virtual AnyState * _upper(MAE_MURPHY & stm);
+
+                    // to manage the event blocage
+                    virtual void blocage(MAE_MURPHY & stm);
 
                 };
                 
@@ -2847,22 +2853,6 @@ class MAE_MURPHY {
                 // implement the state vidage distributeur
                 class vidage_distributeur_State : public AnyState {
                   public:
-                    // implement the state BF Cap objectif
-                    class BF_Cap_objectif_State : public AnyState {
-                      public:
-                        virtual ~BF_Cap_objectif_State();
-
-                        // to manage the event create
-                        virtual void create(MAE_MURPHY & stm);
-
-                        // perform the 'entry behavior'
-                        void _doentry(MAE_MURPHY & stm);
-
-                        // returns the state containing the current
-                        virtual AnyState * _upper(MAE_MURPHY & stm);
-
-                    };
-                    
                     // implement the state avance
                     class avance_State : public AnyState {
                       public:
@@ -2999,12 +2989,12 @@ class MAE_MURPHY {
                         // returns the state containing the current
                         virtual AnyState * _upper(MAE_MURPHY & stm);
 
+                        // to manage the event blocage
+                        virtual void blocage(MAE_MURPHY & stm);
+
                     };
                     
                     virtual ~vidage_distributeur_State();
-
-                    // memorize the instance of the state BF Cap objectif, internal
-                    BF_Cap_objectif_State _bf_cap_objectif_state;
 
                     // memorize the instance of the state BF droite sur distrib, internal
                     BF_droite_sur_distrib_State _bf_droite_sur_distrib_state;
@@ -3139,32 +3129,10 @@ class MAE_MURPHY {
 
                     };
                     
-                    // implement the state BF droite vers objectif
-                    class BF_droite_vers_objectif_State : public AnyState {
-                      public:
-                        virtual ~BF_droite_vers_objectif_State();
-
-                        // to manage the event assFini
-                        virtual void assFini(MAE_MURPHY & stm);
-
-                        // to manage the event create
-                        virtual void create(MAE_MURPHY & stm);
-
-                        // perform the 'entry behavior'
-                        void _doentry(MAE_MURPHY & stm);
-
-                        // returns the state containing the current
-                        virtual AnyState * _upper(MAE_MURPHY & stm);
-
-                    };
-                    
                     virtual ~capture_stand_bordure_State();
 
                     // memorize the instance of the state BF cap vers objectif, internal
                     BF_cap_vers_objectif_State _bf_cap_vers_objectif_state;
-
-                    // memorize the instance of the state BF droite vers objectif, internal
-                    BF_droite_vers_objectif_State _bf_droite_vers_objectif_state;
 
                     // memorize the instance of the state ouverture pince cote bordure, internal
                     ouverture_pince_cote_bordure_State _ouverture_pince_cote_bordure_state;
@@ -3269,6 +3237,9 @@ class MAE_MURPHY {
                         // returns the state containing the current
                         virtual AnyState * _upper(MAE_MURPHY & stm);
 
+                        // to manage the event blocage
+                        virtual void blocage(MAE_MURPHY & stm);
+
                     };
                     
                     // implement the state ouverture pince cote escalier seconde
@@ -3347,10 +3318,10 @@ class MAE_MURPHY {
 
                     };
                     
-                    // implement the state BF droite vers gobelet
-                    class BF_droite_vers_gobelet_State : public AnyState {
+                    // implement the state BF droite vers le stand
+                    class BF_droite_vers_le_stand_State : public AnyState {
                       public:
-                        virtual ~BF_droite_vers_gobelet_State();
+                        virtual ~BF_droite_vers_le_stand_State();
 
                         // to manage the event assFini
                         virtual void assFini(MAE_MURPHY & stm);
@@ -3370,9 +3341,6 @@ class MAE_MURPHY {
 
                     // memorize the instance of the state BF cap initial 35deg, internal
                     BF_cap_initial_35deg_State _bf_cap_initial_35deg_state;
-
-                    // memorize the instance of the state BF droite vers gobelet, internal
-                    BF_droite_vers_gobelet_State _bf_droite_vers_gobelet_state;
 
                     // memorize the instance of the state ouverture pince cote escalier, internal
                     ouverture_pince_cote_escalier_State _ouverture_pince_cote_escalier_state;
@@ -3406,6 +3374,9 @@ class MAE_MURPHY {
 
                     // returns the state containing the current
                     virtual AnyState * _upper(MAE_MURPHY & stm);
+
+                    // memorize the instance of the state BF droite vers le stand, internal
+                    BF_droite_vers_le_stand_State _bf_droite_vers_le_stand_state;
 
                 };
                 
@@ -3683,7 +3654,6 @@ class MAE_MURPHY {
   friend class MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::capture_de_gobelet_escalier_State::recule_State;
   friend class MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::capture_de_gobelet_escalier_State;
   friend class MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::capture_stands_cote_escalier_State::BF_cap_initial_35deg_State;
-  friend class MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::capture_stands_cote_escalier_State::BF_droite_vers_gobelet_State;
     // the operation you call to signal the event pince_ouverte
     bool pince_ouverte();
 
@@ -3699,13 +3669,11 @@ class MAE_MURPHY {
   friend class MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::capture_stands_cote_escalier_State::recule_State;
   friend class MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::capture_stands_cote_escalier_State;
   friend class MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::capture_stand_bordure_State::BF_cap_vers_objectif_State;
-  friend class MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::capture_stand_bordure_State::BF_droite_vers_objectif_State;
   friend class MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::capture_stand_bordure_State::ouverture_pince_cote_bordure_State;
   friend class MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::capture_stand_bordure_State::BF_avance_State;
   friend class MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::capture_stand_bordure_State::chope_State;
   friend class MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::capture_stand_bordure_State::recule_State;
   friend class MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::capture_stand_bordure_State;
-  friend class MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::vidage_distributeur_State::BF_Cap_objectif_State;
   friend class MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::vidage_distributeur_State::BF_droite_sur_distrib_State;
   friend class MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::vidage_distributeur_State::BF_avance_jusquau_blocage_State;
   friend class MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::vidage_distributeur_State::SET_Y_CAP_State;
@@ -3878,6 +3846,7 @@ class MAE_MURPHY {
     AnyState * _current_state;
 
   friend class MAE_MURPHY_State::Jeu_State::mission_attrap_balle_et_chiage_State::transition_avant_reculage_State;
+  friend class MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::capture_stands_cote_escalier_State::BF_droite_vers_le_stand_State;
 };
 // change the current state, internal
 inline void MAE_MURPHY::_set_currentState(MAE_MURPHY::AnyState & st) {

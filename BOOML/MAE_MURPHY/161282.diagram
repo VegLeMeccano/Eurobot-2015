@@ -43,7 +43,7 @@ statecanvas 131586 state_ref 254850 // replis des pinces
 end
 statecanvas 131714 state_ref 254978 // BF Cap
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 910.2 757.7 2005 329 75
+  xyzwh 913.2 781.7 2005 329 75
 end
 transitioncanvas 128386 transition_ref 213122 // <transition>
   
@@ -76,19 +76,25 @@ transitioncanvas 131458 transition_ref 322434 // <transition>
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 131842 transition_ref 322562 // <transition>
+  decenter_begin 818
   
-  from ref 128898 z 2006 label "assFini" xyz 1060 590 2006 to ref 131586
+  from ref 128898 z 2006 label "assFini" xyz 1148 590 2006 to ref 131586
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 131970 transition_ref 322690 // <transition>
   
-  from ref 131586 z 2006 label "pince_range" xyz 1051 735 2006 to ref 131714
+  from ref 131586 z 2006 label "pince_range" xyz 1052 747 2006 to ref 131714
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 132098 transition_ref 322818 // <transition>
   decenter_end 472
   
-  from ref 131714 z 3006 label "assFini" xyz 959 858 3006 to ref 128770
+  from ref 131714 z 3006 label "assFini" xyz 959.5 874.5 3006 to ref 128770
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 132354 transition_ref 431106 // <transition>
+  
+  from ref 128898 z 2006 label "blocage" xyz 1058 590 3000 to ref 131586
   write_horizontally default show_definition default drawing_language default
 end
 end

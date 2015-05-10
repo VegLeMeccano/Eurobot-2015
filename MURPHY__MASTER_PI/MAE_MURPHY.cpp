@@ -1051,6 +1051,17 @@ MAE_MURPHY::AnyState * MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_to
     return &stm._mae_murphy_state._jeu_state._mission_depot_tour_estrade_state;
 }
 
+// to manage the event blocage
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_tour_estrade_State::recule_doucement_State::blocage(MAE_MURPHY & stm) {
+    {
+      stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_depot_tour_estrade_state._replis_des_pinces_state);
+#ifdef VERBOSE_STATE_MACHINE
+      puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission depot tour estrade.replis des pinces");
+#endif
+      stm._mae_murphy_state._jeu_state._mission_depot_tour_estrade_state._replis_des_pinces_state.create(stm);
+    }
+}
+
 MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_tour_estrade_State::depot_State::~depot_State() {
 }
 
@@ -1933,10 +1944,10 @@ void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_zone_ennemie_State::claps_
   cout<<"claps central : BF droite dessus"<<endl;
   if(master->is_Jaune()){
   // BF droite sur le claps
-  serialPrintf(master->getPortSerie(),"S5 977 235 -90 \n");
+  serialPrintf(master->getPortSerie(),"S5 977 260 -60 \n");
   }
   if(master->is_Vert()){
-  serialPrintf(master->getPortSerie(),"S5 -977 235 -90 \n");
+  serialPrintf(master->getPortSerie(),"S5 -977 260 -120 \n");
   }
 }
 
@@ -2590,6 +2601,17 @@ MAE_MURPHY::AnyState * MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_de
     return &stm._mae_murphy_state._jeu_state._mission_depot_de_tour_zone_depart_state;
 }
 
+// to manage the event blocage
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_de_tour_zone_depart_State::avance_State::blocage(MAE_MURPHY & stm) {
+    {
+      stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_depot_de_tour_zone_depart_state._depot_une_tour_state);
+#ifdef VERBOSE_STATE_MACHINE
+      puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission depot de tour zone depart.depot une tour");
+#endif
+      stm._mae_murphy_state._jeu_state._mission_depot_de_tour_zone_depart_state._depot_une_tour_state.create(stm);
+    }
+}
+
 MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_depot_de_tour_zone_depart_State::depot_une_tour_State::~depot_une_tour_State() {
 }
 
@@ -3001,10 +3023,10 @@ void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_rush_zone_centrale_State::
 #endif
   cout<<"stand depart : BF droite sur cible"<<endl;
   if(master->is_Jaune()){
-  serialPrintf(master->getPortSerie(),"S5 -509 587 110 \n");
+  serialPrintf(master->getPortSerie(),"S5 -516 604 110 \n");
   }
   if(master->is_Vert()){
-  serialPrintf(master->getPortSerie(),"S5 509 587 70 \n");
+  serialPrintf(master->getPortSerie(),"S5 516 604 70 \n");
   }
 }
 
@@ -3175,10 +3197,10 @@ void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_rush_zone_centrale_State::
 #endif
   cout<<"stand estrade : BF droite sur cible"<<endl;
   if(master->is_Jaune()){
-  serialPrintf(master->getPortSerie(),"S5 -423 357 -122 \n");
+  serialPrintf(master->getPortSerie(),"S5 -434 347 -122 \n");
   }
   if(master->is_Vert()){
-  serialPrintf(master->getPortSerie(),"S5 423 357 302 \n");
+  serialPrintf(master->getPortSerie(),"S5 434 347 302 \n");
   }
 }
 
@@ -3320,10 +3342,10 @@ void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_rush_zone_centrale_State::
 #endif
   cout<<"stand central : BF droite sur cible"<<endl;
   if(master->is_Jaune()){
-  serialPrintf(master->getPortSerie(),"S5 -263 703 -100 \n");
+  serialPrintf(master->getPortSerie(),"S5 -270 687 -100 \n");
   }
   if(master->is_Vert()){
-  serialPrintf(master->getPortSerie(),"S5 263 703 280 \n");
+  serialPrintf(master->getPortSerie(),"S5 270 687 280 \n");
   }
 }
 
@@ -3930,11 +3952,11 @@ void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_claps_State::claps_estrade
   cout<<"claps estrade : BF droite sur cible"<<endl;
   if(master->is_Jaune()){
   // BF droite sur le gobelet 
-  serialPrintf(master->getPortSerie(),"S5 -715 219 0 \n");
+  serialPrintf(master->getPortSerie(),"S5 -730 270 0 \n");
   }
   if(master->is_Vert()){
   // BF droite sur le gobelet 
-  serialPrintf(master->getPortSerie(),"S5 715 219 180 \n");
+  serialPrintf(master->getPortSerie(),"S5 730 270 180 \n");
   }
 }
 
@@ -4059,11 +4081,11 @@ void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_claps_State::chope_du_coin
   cout<<"coin : BF droite sur verre"<<endl;
   if(master->is_Jaune()){
   // BF droite sur le gobelet 
-  serialPrintf(master->getPortSerie(),"S5 -1224 247 180 \n");
+  serialPrintf(master->getPortSerie(),"S5 -1250 247 180 \n");
   }
   if(master->is_Vert()){
   // BF droite sur le gobelet 
-  serialPrintf(master->getPortSerie(),"S5 1224 247 0 \n");
+  serialPrintf(master->getPortSerie(),"S5 1250 247 0 \n");
   }
 }
 
@@ -4342,7 +4364,7 @@ void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_claps_State::chope_du_coin
   	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission claps.chope du coin.re avance");
 #endif
   cout<<"coin : avance sur 2nd stand"<<endl;
-  serialPrintf(master->getPortSerie(),"S4 125 \n");
+  serialPrintf(master->getPortSerie(),"S4 110 \n");
 }
 
 // returns the state containing the current
@@ -4453,15 +4475,7 @@ void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_claps_State::chope_du_coin
   	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission claps.chope du coin.avance");
 #endif
   cout<<"coin : avance sur 1er stand"<<endl;
-  //serialPrintf(master->getPortSerie(),"S4 100 \n");
-  if(master->is_Jaune()){
-  // BF droite sur le gobelet 
-  serialPrintf(master->getPortSerie(),"S5 -1180 374 -90 \n");
-  }
-  if(master->is_Vert()){
-  // BF droite sur le gobelet 
-  serialPrintf(master->getPortSerie(),"S5 1180 374 -90 \n");
-  }
+  serialPrintf(master->getPortSerie(),"S4 140 \n");
 }
 
 // returns the state containing the current
@@ -4535,11 +4549,11 @@ void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_claps_State::chope_du_coin
   cout<<"coin : BF droite sur stands"<<endl;
   if(master->is_Jaune()){
   // BF droite sur le gobelet 
-  serialPrintf(master->getPortSerie(),"S5 -1180 474 -90 \n");
+  serialPrintf(master->getPortSerie(),"S5 -1180 468 -90 \n");
   }
   if(master->is_Vert()){
   // BF droite sur le gobelet 
-  serialPrintf(master->getPortSerie(),"S5 1180 474 -90 \n");
+  serialPrintf(master->getPortSerie(),"S5 1180 468 -90 \n");
   }
 }
 
@@ -4576,11 +4590,11 @@ void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_claps_State::chope_du_coin
   //serialPrintf(master->getPortSerie(),"S4 -350 \n");
   if(master->is_Jaune()){
   // BF droite sur le gobelet 
-  serialPrintf(master->getPortSerie(),"S5 -1013 600 -90 \n");
+  serialPrintf(master->getPortSerie(),"S5 -1013 610 -90 \n");
   }
   if(master->is_Vert()){
   // BF droite sur le gobelet 
-  serialPrintf(master->getPortSerie(),"S5 1013 600 -90 \n");
+  serialPrintf(master->getPortSerie(),"S5 1013 610 -90 \n");
   }
 }
 
@@ -5609,33 +5623,6 @@ MAE_MURPHY::AnyState * MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_pillage_
     return &stm._mae_murphy_state._jeu_state._mission_pillage_distrib_state;
 }
 
-MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::vidage_distributeur_State::BF_Cap_objectif_State::~BF_Cap_objectif_State() {
-}
-
-// to manage the event create
-void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::vidage_distributeur_State::BF_Cap_objectif_State::create(MAE_MURPHY & stm) {
-  	_doentry(stm);
-}
-
-// perform the 'entry behavior'
-void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::vidage_distributeur_State::BF_Cap_objectif_State::_doentry(MAE_MURPHY & stm) {
-#ifdef VERBOSE_STATE_MACHINE
-  	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission pillage distrib.vidage distributeur.BF Cap objectif");
-#endif
-  cout<<"distrib : cap sur cible"<<endl;
-  if(master->is_Jaune()){
-  serialPrintf(master->getPortSerie(),"S3 80 \n");
-  }
-  if(master->is_Vert()){
-  serialPrintf(master->getPortSerie(),"S3 100 \n");
-  }
-}
-
-// returns the state containing the current
-MAE_MURPHY::AnyState * MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::vidage_distributeur_State::BF_Cap_objectif_State::_upper(MAE_MURPHY & stm) {
-    return &stm._mae_murphy_state._jeu_state._mission_pillage_distrib_state._vidage_distributeur_state;
-}
-
 MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::vidage_distributeur_State::avance_State::~avance_State() {
 }
 
@@ -5742,10 +5729,10 @@ void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::vid
   cout<<"distrib : recule/degage/decrochage"<<endl;
   //serialPrintf(master->getPortSerie(),"S4 -300 \n");
   if(master->is_Jaune()){
-  serialPrintf(master->getPortSerie(),"S5 -848 1436 90 \n");
+  serialPrintf(master->getPortSerie(),"S5 -848 1436 135 \n");
   }
   if(master->is_Vert()){
-  serialPrintf(master->getPortSerie(),"S5 848 1436 90 \n");
+  serialPrintf(master->getPortSerie(),"S5 848 1436 45 \n");
   }
 }
 
@@ -5824,11 +5811,11 @@ void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::vid
   cout<<"distrib : set Y CAP"<<endl;
   if(master->is_Jaune()){
   // BF droite sur le gobelet 
-  serialPrintf(master->getPortSerie(),"S0 -1 1050 90 \n");
+  serialPrintf(master->getPortSerie(),"S0 -1 1794 90 \n");
   }
   if(master->is_Vert()){
   // BF droite sur le gobelet 
-  serialPrintf(master->getPortSerie(),"S0 -1 1050 90 \n");
+  serialPrintf(master->getPortSerie(),"S0 -1 1794 90 \n");
   }
 }
 
@@ -5906,17 +5893,28 @@ void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::vid
   cout<<"distrib : BF droite sur cible"<<endl;
   if(master->is_Jaune()){
   // BF droite sur le gobelet 
-  serialPrintf(master->getPortSerie(),"S5 -1050 1789 90 \n");
+  serialPrintf(master->getPortSerie(),"S5 -1050 1700 90 \n");
   }
   if(master->is_Vert()){
   // BF droite sur le gobelet 
-  serialPrintf(master->getPortSerie(),"S5 1050 1789 90 \n");
+  serialPrintf(master->getPortSerie(),"S5 1050 1700 90 \n");
   }
 }
 
 // returns the state containing the current
 MAE_MURPHY::AnyState * MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::vidage_distributeur_State::BF_droite_sur_distrib_State::_upper(MAE_MURPHY & stm) {
     return &stm._mae_murphy_state._jeu_state._mission_pillage_distrib_state._vidage_distributeur_state;
+}
+
+// to manage the event blocage
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::vidage_distributeur_State::BF_droite_sur_distrib_State::blocage(MAE_MURPHY & stm) {
+    {
+      stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_pillage_distrib_state._vidage_distributeur_state._bf_avance_jusquau_blocage_state);
+#ifdef VERBOSE_STATE_MACHINE
+      puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission pillage distrib.vidage distributeur.BF avance jusquau blocage");
+#endif
+      stm._mae_murphy_state._jeu_state._mission_pillage_distrib_state._vidage_distributeur_state._bf_avance_jusquau_blocage_state.create(stm);
+    }
 }
 
 MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::vidage_distributeur_State::~vidage_distributeur_State() {
@@ -5975,10 +5973,10 @@ void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::cap
 #endif
   cout<<"stands bodure : orientation sur cible"<<endl;
   if(master->is_Jaune()){
-  serialPrintf(master->getPortSerie(),"S3 132 \n");
+  serialPrintf(master->getPortSerie(),"S3 90 \n");
   }
   if(master->is_Vert()){
-  serialPrintf(master->getPortSerie(),"S3 48 \n");
+  serialPrintf(master->getPortSerie(),"S3 90 \n");
   }
 }
 
@@ -5990,11 +5988,11 @@ MAE_MURPHY::AnyState * MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_pillage_
 // to manage the event assFini
 void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::capture_stand_bordure_State::BF_cap_vers_objectif_State::assFini(MAE_MURPHY & stm) {
     {
-      stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_pillage_distrib_state._capture_stand_bordure_state._bf_droite_vers_objectif_state);
+      stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_pillage_distrib_state._capture_stand_bordure_state._ouverture_pince_cote_bordure_state);
 #ifdef VERBOSE_STATE_MACHINE
-      puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission pillage distrib.capture stand bordure.BF droite vers objectif");
+      puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission pillage distrib.capture stand bordure.ouverture pince cote bordure");
 #endif
-      stm._mae_murphy_state._jeu_state._mission_pillage_distrib_state._capture_stand_bordure_state._bf_droite_vers_objectif_state.create(stm);
+      stm._mae_murphy_state._jeu_state._mission_pillage_distrib_state._capture_stand_bordure_state._ouverture_pince_cote_bordure_state.create(stm);
     }
 }
 
@@ -6023,13 +6021,7 @@ void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::cap
   	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission pillage distrib.capture stand bordure.recule");
 #endif
   cout<<"stands bordure : recule/degage de la zone"<<endl;
-  //serialPrintf(master->getPortSerie(),"S4 -300 \n");
-  if(master->is_Jaune()){
-  serialPrintf(master->getPortSerie(),"S5 -1050 1536 90 \n");
-  }
-  if(master->is_Vert()){
-  serialPrintf(master->getPortSerie(),"S5 1050 1536 90 \n");
-  }
+  serialPrintf(master->getPortSerie(),"S4 -300 \n");
 }
 
 // returns the state containing the current
@@ -6100,15 +6092,7 @@ void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::cap
   	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission pillage distrib.capture stand bordure.BF avance");
 #endif
   cout<<"stands bordure : avance pour capture"<<endl;
-  //serialPrintf(master->getPortSerie(),"S4 120 \n");
-  if(master->is_Jaune()){
-  // BF droite sur le gobelet 
-  serialPrintf(master->getPortSerie(),"S5 -1174 1686 90 \n");
-  }
-  if(master->is_Vert()){
-  // BF droite sur le gobelet 
-  serialPrintf(master->getPortSerie(),"S5 1174 1686 90 \n");
-  }
+  serialPrintf(master->getPortSerie(),"S4 245 \n");
 }
 
 // returns the state containing the current
@@ -6151,46 +6135,6 @@ void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::cap
 
 // returns the state containing the current
 MAE_MURPHY::AnyState * MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::capture_stand_bordure_State::ouverture_pince_cote_bordure_State::_upper(MAE_MURPHY & stm) {
-    return &stm._mae_murphy_state._jeu_state._mission_pillage_distrib_state._capture_stand_bordure_state;
-}
-
-MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::capture_stand_bordure_State::BF_droite_vers_objectif_State::~BF_droite_vers_objectif_State() {
-}
-
-// to manage the event assFini
-void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::capture_stand_bordure_State::BF_droite_vers_objectif_State::assFini(MAE_MURPHY & stm) {
-    {
-      stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_pillage_distrib_state._capture_stand_bordure_state._ouverture_pince_cote_bordure_state);
-#ifdef VERBOSE_STATE_MACHINE
-      puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission pillage distrib.capture stand bordure.ouverture pince cote bordure");
-#endif
-      stm._mae_murphy_state._jeu_state._mission_pillage_distrib_state._capture_stand_bordure_state._ouverture_pince_cote_bordure_state.create(stm);
-    }
-}
-
-// to manage the event create
-void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::capture_stand_bordure_State::BF_droite_vers_objectif_State::create(MAE_MURPHY & stm) {
-  	_doentry(stm);
-}
-
-// perform the 'entry behavior'
-void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::capture_stand_bordure_State::BF_droite_vers_objectif_State::_doentry(MAE_MURPHY & stm) {
-#ifdef VERBOSE_STATE_MACHINE
-  	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission pillage distrib.capture stand bordure.BF droite vers objectif");
-#endif
-  cout<<"stands bordure : BF droite sur cible"<<endl;
-  if(master->is_Jaune()){
-  // BF droite sur le gobelet 
-  serialPrintf(master->getPortSerie(),"S5 -1174 1566 90 \n");
-  }
-  if(master->is_Vert()){
-  // BF droite sur le gobelet 
-  serialPrintf(master->getPortSerie(),"S5 1174 1566 90 \n");
-  }
-}
-
-// returns the state containing the current
-MAE_MURPHY::AnyState * MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::capture_stand_bordure_State::BF_droite_vers_objectif_State::_upper(MAE_MURPHY & stm) {
     return &stm._mae_murphy_state._jeu_state._mission_pillage_distrib_state._capture_stand_bordure_state;
 }
 
@@ -6245,11 +6189,11 @@ MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::capture_
 // to manage the event assFini
 void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::capture_stands_cote_escalier_State::BF_cap_initial_35deg_State::assFini(MAE_MURPHY & stm) {
     {
-      stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_pillage_distrib_state._capture_stands_cote_escalier_state._bf_droite_vers_gobelet_state);
+      stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_pillage_distrib_state._capture_stands_cote_escalier_state._bf_droite_vers_le_stand_state);
 #ifdef VERBOSE_STATE_MACHINE
-      puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission pillage distrib.capture stands cote escalier.BF droite vers gobelet");
+      puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission pillage distrib.capture stands cote escalier.BF droite vers le stand");
 #endif
-      stm._mae_murphy_state._jeu_state._mission_pillage_distrib_state._capture_stands_cote_escalier_state._bf_droite_vers_gobelet_state.create(stm);
+      stm._mae_murphy_state._jeu_state._mission_pillage_distrib_state._capture_stands_cote_escalier_state._bf_droite_vers_le_stand_state.create(stm);
     }
 }
 
@@ -6306,10 +6250,10 @@ void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::cap
   cout<<"stands escalier : recule/degage de la zone"<<endl;
   
   if(master->is_Jaune()){
-  serialPrintf(master->getPortSerie(),"S5 -1050 1436 90 \n");
+  serialPrintf(master->getPortSerie(),"S5 -1185 1470 0 \n");
   }
   if(master->is_Vert()){
-  serialPrintf(master->getPortSerie(),"S5 1050 1436 90 \n");
+  serialPrintf(master->getPortSerie(),"S5 1185 1470 180 \n");
   }
 }
 
@@ -6381,21 +6325,25 @@ void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::cap
   	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission pillage distrib.capture stands cote escalier.BF avance seconde");
 #endif
   cout<<"stands escalier : BF avance sur 2nd stand"<<endl;
-  //serialPrintf(master->getPortSerie(),"S4 120 \n");
-  if(master->is_Jaune()){
-  // BF droite sur le gobelet 
-  // y = 1664 -120
-  serialPrintf(master->getPortSerie(),"S5 -848 1789 90 \n");
-  }
-  if(master->is_Vert()){
-  // BF droite sur le gobelet 
-  serialPrintf(master->getPortSerie(),"S5 848 1789 90 \n");
-  }
+  serialPrintf(master->getPortSerie(),"S4 106 \n");
+  
+  // check si blocage, sortie
 }
 
 // returns the state containing the current
 MAE_MURPHY::AnyState * MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::capture_stands_cote_escalier_State::BF_avance_seconde_State::_upper(MAE_MURPHY & stm) {
     return &stm._mae_murphy_state._jeu_state._mission_pillage_distrib_state._capture_stands_cote_escalier_state;
+}
+
+// to manage the event blocage
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::capture_stands_cote_escalier_State::BF_avance_seconde_State::blocage(MAE_MURPHY & stm) {
+    {
+      stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_pillage_distrib_state._capture_stands_cote_escalier_state._chope_2_state);
+#ifdef VERBOSE_STATE_MACHINE
+      puts("DEBUG : current state is now .MAE_MURPHY.Jeu.mission pillage distrib.capture stands cote escalier.chope 2");
+#endif
+      stm._mae_murphy_state._jeu_state._mission_pillage_distrib_state._capture_stands_cote_escalier_state._chope_2_state.create(stm);
+    }
 }
 
 MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::capture_stands_cote_escalier_State::ouverture_pince_cote_escalier_seconde_State::~ouverture_pince_cote_escalier_seconde_State() {
@@ -6500,18 +6448,7 @@ void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::cap
 #endif
   serialPrintf(master->getPortSerie(),"S7 0 \n"); 	// vitesse lente
   cout<<"stands escalier : avance sur 1er stand"<<endl;
-  serialPrintf(master->getPortSerie(),"S4 240 \n");
-  /*
-  if(master->is_Jaune()){
-  // BF droite sur le gobelet 
-  // y = 1664 -120
-  serialPrintf(master->getPortSerie(),"S5 -848 1686 90 \n");
-  }
-  if(master->is_Vert()){
-  // BF droite sur le gobelet 
-  serialPrintf(master->getPortSerie(),"S5 848 1686 90 \n");
-  }
-  */
+  serialPrintf(master->getPortSerie(),"S4 250 \n");
 }
 
 // returns the state containing the current
@@ -6557,11 +6494,11 @@ MAE_MURPHY::AnyState * MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_pillage_
     return &stm._mae_murphy_state._jeu_state._mission_pillage_distrib_state._capture_stands_cote_escalier_state;
 }
 
-MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::capture_stands_cote_escalier_State::BF_droite_vers_gobelet_State::~BF_droite_vers_gobelet_State() {
+MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::capture_stands_cote_escalier_State::BF_droite_vers_le_stand_State::~BF_droite_vers_le_stand_State() {
 }
 
 // to manage the event assFini
-void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::capture_stands_cote_escalier_State::BF_droite_vers_gobelet_State::assFini(MAE_MURPHY & stm) {
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::capture_stands_cote_escalier_State::BF_droite_vers_le_stand_State::assFini(MAE_MURPHY & stm) {
     {
       stm._set_currentState(stm._mae_murphy_state._jeu_state._mission_pillage_distrib_state._capture_stands_cote_escalier_state._ouverture_pince_cote_escalier_state);
 #ifdef VERBOSE_STATE_MACHINE
@@ -6572,29 +6509,29 @@ void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::cap
 }
 
 // to manage the event create
-void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::capture_stands_cote_escalier_State::BF_droite_vers_gobelet_State::create(MAE_MURPHY & stm) {
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::capture_stands_cote_escalier_State::BF_droite_vers_le_stand_State::create(MAE_MURPHY & stm) {
   	_doentry(stm);
 }
 
 // perform the 'entry behavior'
-void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::capture_stands_cote_escalier_State::BF_droite_vers_gobelet_State::_doentry(MAE_MURPHY & stm) {
+void MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::capture_stands_cote_escalier_State::BF_droite_vers_le_stand_State::_doentry(MAE_MURPHY & stm) {
 #ifdef VERBOSE_STATE_MACHINE
-  	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission pillage distrib.capture stands cote escalier.BF droite vers gobelet");
+  	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission pillage distrib.capture stands cote escalier.BF droite vers le stand");
 #endif
   cout<<"stands escalier : BF droite sur cible"<<endl;
   if(master->is_Jaune()){
   // BF droite sur le gobelet 
   // y = 1664 -120
-  serialPrintf(master->getPortSerie(),"S5 -848 1436 90 \n");
+  serialPrintf(master->getPortSerie(),"S5 -886 1571 90 \n");
   }
   if(master->is_Vert()){
   // BF droite sur le gobelet 
-  serialPrintf(master->getPortSerie(),"S5 848 1436 90 \n");
+  serialPrintf(master->getPortSerie(),"S5 886 1571 90 \n");
   }
 }
 
 // returns the state containing the current
-MAE_MURPHY::AnyState * MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::capture_stands_cote_escalier_State::BF_droite_vers_gobelet_State::_upper(MAE_MURPHY & stm) {
+MAE_MURPHY::AnyState * MAE_MURPHY::MAE_MURPHY_State::Jeu_State::mission_pillage_distrib_State::capture_stands_cote_escalier_State::BF_droite_vers_le_stand_State::_upper(MAE_MURPHY & stm) {
     return &stm._mae_murphy_state._jeu_state._mission_pillage_distrib_state._capture_stands_cote_escalier_state;
 }
 

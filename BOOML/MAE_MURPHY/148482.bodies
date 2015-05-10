@@ -15,10 +15,10 @@ class BF_droite_stand_2_State
 #endif
 cout<<"stand estrade : BF droite sur cible"<<endl;
 if(master->is_Jaune()){
-serialPrintf(master->getPortSerie(),"S5 -423 357 -122 \n");
+serialPrintf(master->getPortSerie(),"S5 -434 347 -122 \n");
 }
 if(master->is_Vert()){
-serialPrintf(master->getPortSerie(),"S5 423 357 302 \n");
+serialPrintf(master->getPortSerie(),"S5 434 347 302 \n");
 }
 !!!214786.cpp!!!	_upper(inout stm : MAE_MURPHY) : MAE_MURPHY::AnyState
   return &stm._mae_murphy_state._jeu_state._mission_rush_zone_centrale_state;

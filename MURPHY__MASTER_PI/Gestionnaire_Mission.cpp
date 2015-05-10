@@ -358,7 +358,8 @@ void Gestionnaire_Mission::actualisation_Priorite()
 {
     // temps restant pour decision des truc important
     temps_restant = (period_jeu.time_elapsed()- PERIODE_JEU)/1000; // en s
-
+    cout<<"temps restant : "<<temps_restant<<" s"<<endl;
+    cout<<"actualisation des prioritées"<<endl;
     if(sortie_evitement == true)
     {
         // peut etre mettre juste un malus
@@ -513,16 +514,36 @@ void Gestionnaire_Mission::actualisation_Priorite()
         /// donc faut aller ider ça vite fait
         if(element_robot.pile_droite_nbr()==4 || element_robot.pile_gauche_nbr()==4)
         {
-            mission_depot_tour_depart.set_priorite(PRIORITE_MISSION_HAUTE);
-            mission_depot_tour_estrade.set_priorite(PRIORITE_MISSION_HAUTE);
+            if(couleur == COULEUR_JAUNE)
+            {
+                if(element_robot.pile_gauche_nbr()==4)
+                {
+                    mission_depot_tour_estrade.set_priorite(PRIORITE_MISSION_FIRST);
+                }
+                if(element_robot.pile_droite_nbr()==4)
+                {
+                    mission_depot_tour_depart.set_priorite(PRIORITE_MISSION_HAUTE);
+                }
+            }
+            if(couleur == COULEUR_VERT)
+            {
+                if(element_robot.pile_droite_nbr()==4)
+                {
+                    mission_depot_tour_estrade.set_priorite(PRIORITE_MISSION_FIRST);
+                }
+                if(element_robot.pile_gauche_nbr()==4)
+                {
+                    mission_depot_tour_depart.set_priorite(PRIORITE_MISSION_HAUTE);
+                }
+            }
         }
         else
         {
             /// si le temps presse on va vider quoi qu'il arrive
             if((temps_restant<20) && (element_robot.pile_droite_nbr()>=1 || element_robot.pile_gauche_nbr()>=1) )
             {
-                mission_depot_tour_depart.set_priorite(PRIORITE_MISSION_HAUTE);
-                mission_depot_tour_estrade.set_priorite(PRIORITE_MISSION_HAUTE);
+                mission_depot_tour_depart.set_priorite(PRIORITE_MISSION_FIRST);
+                mission_depot_tour_estrade.set_priorite(PRIORITE_MISSION_FIRST);
             }
             else
             {

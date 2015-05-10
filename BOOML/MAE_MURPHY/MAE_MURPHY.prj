@@ -1,6 +1,6 @@
 format 76
 "MAE_MURPHY"
-  revision 90
+  revision 92
   modified_by 2 "Link"
   cpp_root_dir "D:/Club Robotique IRON MENAD 2/Eurobot 2015 Iron Menad/Eurobot-2015/MURPHY__MASTER_PI/"
 
@@ -237,6 +237,12 @@ serialPrintf(master->getPortSerie(),\"S4 -250 \\n\");
 		cpp_trigger "assFini"
 	      external 
 	    end
+
+	    transition 431106 "<transition>"
+	      on state_ref 254850 // replis des pinces
+		cpp_trigger "blocage"
+	      external 
+	    end
 	  end
 
 	  state 181506 "preparation"
@@ -468,22 +474,22 @@ if(master->is_Vert()){
 serialPrintf(master->getPortSerie(),\"S3 48 \\n\");
 }"
 	      transition 256130 "<transition>"
-		on state_ref 214658 // BF droite vers gobelet
+		on state_ref 214658 // BF droite vers le stand
 		  cpp_trigger "assFini"
 		external 
 	      end
 	    end
 
-	    state 214658 "BF droite vers gobelet"
+	    state 214658 "BF droite vers le stand"
 		cpp_on_entry "cout<<\"stands escalier : BF droite sur cible\"<<endl;
 if(master->is_Jaune()){
 // BF droite sur le gobelet 
 // y = 1664 -120
-serialPrintf(master->getPortSerie(),\"S5 -848 1436 90 \\n\");
+serialPrintf(master->getPortSerie(),\"S5 -886 1571 90 \\n\");
 }
 if(master->is_Vert()){
 // BF droite sur le gobelet 
-serialPrintf(master->getPortSerie(),\"S5 848 1436 90 \\n\");
+serialPrintf(master->getPortSerie(),\"S5 886 1571 90 \\n\");
 }"
 	      transition 256386 "<transition>"
 		on state_ref 214786 // ouverture pince cote escalier
@@ -510,18 +516,8 @@ serialPrintf(master->getPortSerie(),\"G0 \\n\");
 	    state 214914 "BF avance"
 		cpp_on_entry "serialPrintf(master->getPortSerie(),\"S7 0 \\n\"); 	// vitesse lente
 cout<<\"stands escalier : avance sur 1er stand\"<<endl;
-serialPrintf(master->getPortSerie(),\"S4 240 \\n\");
-/*
-if(master->is_Jaune()){
-// BF droite sur le gobelet 
-// y = 1664 -120
-serialPrintf(master->getPortSerie(),\"S5 -848 1686 90 \\n\");
-}
-if(master->is_Vert()){
-// BF droite sur le gobelet 
-serialPrintf(master->getPortSerie(),\"S5 848 1686 90 \\n\");
-}
-*/"
+serialPrintf(master->getPortSerie(),\"S4 250 \\n\");
+"
 	      transition 256642 "<transition>"
 		on state_ref 215042 // chope 1
 		  cpp_trigger "assFini"
@@ -561,19 +557,18 @@ serialPrintf(master->getPortSerie(),\"G0 \\n\");
 
 	    state 215298 "BF avance seconde"
 		cpp_on_entry "cout<<\"stands escalier : BF avance sur 2nd stand\"<<endl;
-//serialPrintf(master->getPortSerie(),\"S4 120 \\n\");
-if(master->is_Jaune()){
-// BF droite sur le gobelet 
-// y = 1664 -120
-serialPrintf(master->getPortSerie(),\"S5 -848 1789 90 \\n\");
-}
-if(master->is_Vert()){
-// BF droite sur le gobelet 
-serialPrintf(master->getPortSerie(),\"S5 848 1789 90 \\n\");
-}"
+serialPrintf(master->getPortSerie(),\"S4 106 \\n\");
+
+// check si blocage, sortie"
 	      transition 257026 "<transition>"
 		on state_ref 215426 // chope 2
 		  cpp_trigger "assFini"
+		external 
+	      end
+
+	      transition 430466 "<transition>"
+		on state_ref 215426 // chope 2
+		  cpp_trigger "blocage"
 		external 
 	      end
 	    end
@@ -597,10 +592,10 @@ serialPrintf(master->getPortSerie(),\"G1 \\n\");
 		cpp_on_entry "cout<<\"stands escalier : recule/degage de la zone\"<<endl;
 
 if(master->is_Jaune()){
-serialPrintf(master->getPortSerie(),\"S5 -1050 1436 90 \\n\");
+serialPrintf(master->getPortSerie(),\"S5 -1185 1470 0 \\n\");
 }
 if(master->is_Vert()){
-serialPrintf(master->getPortSerie(),\"S5 1050 1436 90 \\n\");
+serialPrintf(master->getPortSerie(),\"S5 1185 1470 180 \\n\");
 }"
 	      transition 257282 "<transition>"
 		on pseudostate_ref 209282 // exit_point
@@ -649,29 +644,12 @@ cout<<\"capture de stand bordure\"<<endl;"
 	    state 215682 "BF cap vers objectif"
 		cpp_on_entry "cout<<\"stands bodure : orientation sur cible\"<<endl;
 if(master->is_Jaune()){
-serialPrintf(master->getPortSerie(),\"S3 132 \\n\");
+serialPrintf(master->getPortSerie(),\"S3 90 \\n\");
 }
 if(master->is_Vert()){
-serialPrintf(master->getPortSerie(),\"S3 48 \\n\");
+serialPrintf(master->getPortSerie(),\"S3 90 \\n\");
 }"
-	      transition 423938 "<transition>"
-		on state_ref 215810 // BF droite vers objectif
-		  cpp_trigger "assFini"
-		external 
-	      end
-	    end
-
-	    state 215810 "BF droite vers objectif"
-		cpp_on_entry "cout<<\"stands bordure : BF droite sur cible\"<<endl;
-if(master->is_Jaune()){
-// BF droite sur le gobelet 
-serialPrintf(master->getPortSerie(),\"S5 -1174 1566 90 \\n\");
-}
-if(master->is_Vert()){
-// BF droite sur le gobelet 
-serialPrintf(master->getPortSerie(),\"S5 1174 1566 90 \\n\");
-}"
-	      transition 257794 "<transition>"
+	      transition 430594 "<transition>"
 		on state_ref 215938 // ouverture pince cote bordure
 		  cpp_trigger "assFini"
 		external 
@@ -695,15 +673,8 @@ serialPrintf(master->getPortSerie(),\"D0 \\n\");
 
 	    state 216066 "BF avance"
 		cpp_on_entry "cout<<\"stands bordure : avance pour capture\"<<endl;
-//serialPrintf(master->getPortSerie(),\"S4 120 \\n\");
-if(master->is_Jaune()){
-// BF droite sur le gobelet 
-serialPrintf(master->getPortSerie(),\"S5 -1174 1686 90 \\n\");
-}
-if(master->is_Vert()){
-// BF droite sur le gobelet 
-serialPrintf(master->getPortSerie(),\"S5 1174 1686 90 \\n\");
-}"
+serialPrintf(master->getPortSerie(),\"S4 245 \\n\");
+"
 	      transition 258050 "<transition>"
 		on state_ref 216194 // chope
 		  cpp_trigger "assFini"
@@ -728,13 +699,8 @@ serialPrintf(master->getPortSerie(),\"D1 \\n\");
 
 	    state 216322 "recule"
 		cpp_on_entry "cout<<\"stands bordure : recule/degage de la zone\"<<endl;
-//serialPrintf(master->getPortSerie(),\"S4 -300 \\n\");
-if(master->is_Jaune()){
-serialPrintf(master->getPortSerie(),\"S5 -1050 1536 90 \\n\");
-}
-if(master->is_Vert()){
-serialPrintf(master->getPortSerie(),\"S5 1050 1536 90 \\n\");
-}"
+serialPrintf(master->getPortSerie(),\"S4 -300 \\n\");
+"
 	      transition 258306 "<transition>"
 		on pseudostate_ref 209538 // exit_point
 		  cpp_trigger "assFini"
@@ -761,29 +727,25 @@ cout<<\"vidage distributeur\"<<endl;"
 	      end
 	    end
 
-	    state 216450 "BF Cap objectif"
-		cpp_on_entry "cout<<\"distrib : cap sur cible\"<<endl;
-if(master->is_Jaune()){
-serialPrintf(master->getPortSerie(),\"S3 80 \\n\");
-}
-if(master->is_Vert()){
-serialPrintf(master->getPortSerie(),\"S3 100 \\n\");
-}"
-	    end
-
 	    state 216578 "BF droite sur distrib"
 		cpp_on_entry "cout<<\"distrib : BF droite sur cible\"<<endl;
 if(master->is_Jaune()){
 // BF droite sur le gobelet 
-serialPrintf(master->getPortSerie(),\"S5 -1050 1789 90 \\n\");
+serialPrintf(master->getPortSerie(),\"S5 -1050 1700 90 \\n\");
 }
 if(master->is_Vert()){
 // BF droite sur le gobelet 
-serialPrintf(master->getPortSerie(),\"S5 1050 1789 90 \\n\");
+serialPrintf(master->getPortSerie(),\"S5 1050 1700 90 \\n\");
 }"
 	      transition 259074 "<transition>"
 		on state_ref 216706 // BF avance jusquau blocage
 		  cpp_trigger "assFini"
+		external 
+	      end
+
+	      transition 430722 "<transition>"
+		on state_ref 216706 // BF avance jusquau blocage
+		  cpp_trigger "blocage"
 		external 
 	      end
 	    end
@@ -805,11 +767,11 @@ serialPrintf(master->getPortSerie(),\"S4 200 \\n\");
 		cpp_on_entry "cout<<\"distrib : set Y CAP\"<<endl;
 if(master->is_Jaune()){
 // BF droite sur le gobelet 
-serialPrintf(master->getPortSerie(),\"S0 -1 1050 90 \\n\");
+serialPrintf(master->getPortSerie(),\"S0 -1 1794 90 \\n\");
 }
 if(master->is_Vert()){
 // BF droite sur le gobelet 
-serialPrintf(master->getPortSerie(),\"S0 -1 1050 90 \\n\");
+serialPrintf(master->getPortSerie(),\"S0 -1 1794 90 \\n\");
 }"
 	      transition 259330 "<transition>"
 		on state_ref 216962 // pompage
@@ -832,10 +794,10 @@ serialPrintf(master->getPortSerie(),\"P0 \\n\");"
 		cpp_on_entry "cout<<\"distrib : recule/degage/decrochage\"<<endl;
 //serialPrintf(master->getPortSerie(),\"S4 -300 \\n\");
 if(master->is_Jaune()){
-serialPrintf(master->getPortSerie(),\"S5 -848 1436 90 \\n\");
+serialPrintf(master->getPortSerie(),\"S5 -848 1436 135 \\n\");
 }
 if(master->is_Vert()){
-serialPrintf(master->getPortSerie(),\"S5 848 1436 90 \\n\");
+serialPrintf(master->getPortSerie(),\"S5 848 1436 45 \\n\");
 }"
 	      transition 259714 "<transition>"
 		on state_ref 217346 // orientation vers sortie de zone
@@ -1436,11 +1398,11 @@ master->get_gestionnaire_mission()->get_mission_claps()->stand_depart_done();"
 		cpp_on_entry "cout<<\"coin : BF droite sur verre\"<<endl;
 if(master->is_Jaune()){
 // BF droite sur le gobelet 
-serialPrintf(master->getPortSerie(),\"S5 -1224 247 180 \\n\");
+serialPrintf(master->getPortSerie(),\"S5 -1250 247 180 \\n\");
 }
 if(master->is_Vert()){
 // BF droite sur le gobelet 
-serialPrintf(master->getPortSerie(),\"S5 1224 247 0 \\n\");
+serialPrintf(master->getPortSerie(),\"S5 1250 247 0 \\n\");
 }"
 	      transition 296194 "<transition>"
 		on state_ref 225410 // chope gobelet
@@ -1471,11 +1433,11 @@ serialPrintf(master->getPortSerie(),\"S4 -120 \\n\");"
 //serialPrintf(master->getPortSerie(),\"S4 -350 \\n\");
 if(master->is_Jaune()){
 // BF droite sur le gobelet 
-serialPrintf(master->getPortSerie(),\"S5 -1013 600 -90 \\n\");
+serialPrintf(master->getPortSerie(),\"S5 -1013 610 -90 \\n\");
 }
 if(master->is_Vert()){
 // BF droite sur le gobelet 
-serialPrintf(master->getPortSerie(),\"S5 1013 600 -90 \\n\");
+serialPrintf(master->getPortSerie(),\"S5 1013 610 -90 \\n\");
 }"
 	      transition 296706 "<transition>"
 		on state_ref 225922 // BF droite vers les stands
@@ -1488,11 +1450,11 @@ serialPrintf(master->getPortSerie(),\"S5 1013 600 -90 \\n\");
 		cpp_on_entry "cout<<\"coin : BF droite sur stands\"<<endl;
 if(master->is_Jaune()){
 // BF droite sur le gobelet 
-serialPrintf(master->getPortSerie(),\"S5 -1180 474 -90 \\n\");
+serialPrintf(master->getPortSerie(),\"S5 -1180 468 -90 \\n\");
 }
 if(master->is_Vert()){
 // BF droite sur le gobelet 
-serialPrintf(master->getPortSerie(),\"S5 1180 474 -90 \\n\");
+serialPrintf(master->getPortSerie(),\"S5 1180 468 -90 \\n\");
 }"
 	      transition 296834 "<transition>"
 		on state_ref 226050 // ouvre pince
@@ -1526,15 +1488,8 @@ serialPrintf(master->getPortSerie(),\"G0 \\n\");
 
 	    state 279426 "avance"
 		cpp_on_entry "cout<<\"coin : avance sur 1er stand\"<<endl;
-//serialPrintf(master->getPortSerie(),\"S4 100 \\n\");
-if(master->is_Jaune()){
-// BF droite sur le gobelet 
-serialPrintf(master->getPortSerie(),\"S5 -1180 374 -90 \\n\");
-}
-if(master->is_Vert()){
-// BF droite sur le gobelet 
-serialPrintf(master->getPortSerie(),\"S5 1180 374 -90 \\n\");
-}"
+serialPrintf(master->getPortSerie(),\"S4 140 \\n\");
+"
 	      transition 352258 "<transition>"
 		on state_ref 279554 // chope stand 1
 		  cpp_trigger "assFini"
@@ -1576,7 +1531,7 @@ serialPrintf(master->getPortSerie(),\"G0 \\n\");
 
 	    state 279810 "re avance"
 		cpp_on_entry "cout<<\"coin : avance sur 2nd stand\"<<endl;
-serialPrintf(master->getPortSerie(),\"S4 125 \\n\");
+serialPrintf(master->getPortSerie(),\"S4 110 \\n\");
 "
 	      transition 352770 "<transition>"
 		on state_ref 279938 // chope stand 2
@@ -1701,11 +1656,11 @@ serialPrintf(master->getPortSerie(),\"S4 100 \\n\");
 cout<<\"claps estrade : BF droite sur cible\"<<endl;
 if(master->is_Jaune()){
 // BF droite sur le gobelet 
-serialPrintf(master->getPortSerie(),\"S5 -715 219 0 \\n\");
+serialPrintf(master->getPortSerie(),\"S5 -730 270 0 \\n\");
 }
 if(master->is_Vert()){
 // BF droite sur le gobelet 
-serialPrintf(master->getPortSerie(),\"S5 715 219 180 \\n\");
+serialPrintf(master->getPortSerie(),\"S5 730 270 180 \\n\");
 }"
 	      transition 350338 "<transition>"
 		on state_ref 226434 // Claps 3
@@ -2057,10 +2012,10 @@ serialPrintf(master->getPortSerie(),\"D0 \\n\");
 	  state 270978 "BF droite stand 1"
 	      cpp_on_entry "cout<<\"stand central : BF droite sur cible\"<<endl;
 if(master->is_Jaune()){
-serialPrintf(master->getPortSerie(),\"S5 -263 703 -100 \\n\");
+serialPrintf(master->getPortSerie(),\"S5 -270 687 -100 \\n\");
 }
 if(master->is_Vert()){
-serialPrintf(master->getPortSerie(),\"S5 263 703 280 \\n\");
+serialPrintf(master->getPortSerie(),\"S5 270 687 280 \\n\");
 }"
 	    transition 340994 "<transition>"
 	      on state_ref 271106 // chope stand 1
@@ -2103,10 +2058,10 @@ serialPrintf(master->getPortSerie(),\"D0 \\n\");
 	  state 271362 "BF droite stand 2"
 	      cpp_on_entry "cout<<\"stand estrade : BF droite sur cible\"<<endl;
 if(master->is_Jaune()){
-serialPrintf(master->getPortSerie(),\"S5 -423 357 -122 \\n\");
+serialPrintf(master->getPortSerie(),\"S5 -434 347 -122 \\n\");
 }
 if(master->is_Vert()){
-serialPrintf(master->getPortSerie(),\"S5 423 357 302 \\n\");
+serialPrintf(master->getPortSerie(),\"S5 434 347 302 \\n\");
 }"
 	    transition 341378 "<transition>"
 	      on state_ref 271490 // chope stand 2
@@ -2164,10 +2119,10 @@ serialPrintf(master->getPortSerie(),\"D0 \\n\");
 	  state 271874 "BF droite stand 3"
 	      cpp_on_entry "cout<<\"stand depart : BF droite sur cible\"<<endl;
 if(master->is_Jaune()){
-serialPrintf(master->getPortSerie(),\"S5 -509 587 110 \\n\");
+serialPrintf(master->getPortSerie(),\"S5 -516 604 110 \\n\");
 }
 if(master->is_Vert()){
-serialPrintf(master->getPortSerie(),\"S5 509 587 70 \\n\");
+serialPrintf(master->getPortSerie(),\"S5 516 604 70 \\n\");
 }"
 	    transition 342146 "<transition>"
 	      on state_ref 272002 // chope stand 3
@@ -2402,6 +2357,12 @@ serialPrintf(master->getPortSerie(),\"S4 120 \\n\");
 		cpp_trigger "assFini"
 	      external 
 	    end
+
+	    transition 431234 "<transition>"
+	      on state_ref 180482 // depot une tour
+		cpp_trigger "blocage"
+	      external 
+	    end
 	  end
 
 	  state 180738 "recule"
@@ -2614,10 +2575,10 @@ cout<<\"ORIENTATION VERS MISSION : \"<<ordre<<endl;"
 		cpp_on_entry "cout<<\"claps central : BF droite dessus\"<<endl;
 if(master->is_Jaune()){
 // BF droite sur le claps
-serialPrintf(master->getPortSerie(),\"S5 977 235 -90 \\n\");
+serialPrintf(master->getPortSerie(),\"S5 977 260 -60 \\n\");
 }
 if(master->is_Vert()){
-serialPrintf(master->getPortSerie(),\"S5 -977 235 -90 \\n\");
+serialPrintf(master->getPortSerie(),\"S5 -977 260 -120 \\n\");
 }"
 	      transition 331266 "<transition>"
 		on state_ref 262786 // BF cap vers estrade
@@ -6047,6 +6008,24 @@ ${inlines}
 		ncouples 1
 		key "STM generated" value ""
 		comment " returns the state containing the current"
+	      end
+
+	      operation 292738 "blocage"
+		force_body_gen cpp_virtual public explicit_return_type "void"
+		nparams 1
+		  param inout name "stm" type class_ref 134530 // MAE_MURPHY
+		cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+		cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+		
+		
+		
+		
+		ncouples 1
+		key "STM generated" value ""
+		comment " to manage the event blocage"
 	      end
 	    end
 
@@ -10628,6 +10607,24 @@ ${inlines}
 		ncouples 1
 		key "STM generated" value ""
 		comment " returns the state containing the current"
+	      end
+
+	      operation 293634 "blocage"
+		force_body_gen cpp_virtual public explicit_return_type "void"
+		nparams 1
+		  param inout name "stm" type class_ref 134530 // MAE_MURPHY
+		cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+		cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+		
+		
+		
+		
+		ncouples 1
+		key "STM generated" value ""
+		comment " to manage the event blocage"
 	      end
 	    end
 
@@ -19451,100 +19448,6 @@ ${inlines}
 	      ncouples 1
 	      key "STM generated" value ""
 	      comment " implement the state vidage distributeur"
-	      class 139906 "BF_Cap_objectif_State"
-		visibility public 
-		cpp_decl "${comment}${template}class ${name}${inherit} {
-${members}};
-${inlines}
-"
-		java_decl ""
-		php_decl ""
-		python_2_2 python_decl ""
-		idl_decl ""
-		explicit_switch_type ""
-		
-		ncouples 1
-		key "STM generated" value ""
-		comment " implement the state BF Cap objectif"
-		operation 140034 "~BF_Cap_objectif_State"
-		  force_body_gen cpp_virtual public explicit_return_type ""
-		  nparams 0
-		  cpp_decl "    ${comment}${inline}${virtual}${name}${(}${)}${volatile}${throw};
-"
-		  cpp_def "${comment}${inline}${class}::${name}${(}${)}${volatile}${throw} {
-  ${body}}
-"
-		  
-		  
-		  
-		  
-		  ncouples 1
-		  key "STM generated" value ""
-		end
-
-		classrelation 144258 // <generalisation>
-		  relation 144258 ---|>
-		    a public
-		      cpp default "${type}"
-		      classrelation_ref 144258 // <generalisation>
-		    b parent class_ref 134658 // AnyState
-		end
-
-		operation 177666 "create"
-		  force_body_gen cpp_virtual public explicit_return_type "void"
-		  nparams 1
-		    param inout name "stm" type class_ref 134530 // MAE_MURPHY
-		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
-"
-		  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
-  ${body}}
-"
-		  
-		  
-		  
-		  
-		  ncouples 1
-		  key "STM generated" value ""
-		  comment " to manage the event create"
-		end
-
-		operation 177794 "_doentry"
-		  force_body_gen public explicit_return_type "void"
-		  nparams 1
-		    param inout name "stm" type class_ref 134530 // MAE_MURPHY
-		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
-"
-		  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
-  ${body}}
-"
-		  
-		  
-		  
-		  
-		  ncouples 1
-		  key "STM generated" value ""
-		  comment " perform the 'entry behavior'"
-		end
-
-		operation 177922 "_upper"
-		  force_body_gen cpp_virtual public return_type class_ref 134658 // AnyState
-		  nparams 1
-		    param inout name "stm" type class_ref 134530 // MAE_MURPHY
-		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} * ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
-"
-		  cpp_def "${comment}${inline}${type} * ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
-  ${body}}
-"
-		  
-		  
-		  
-		  
-		  ncouples 1
-		  key "STM generated" value ""
-		  comment " returns the state containing the current"
-		end
-	      end
-
 	      class 140802 "avance_State"
 		visibility public 
 		cpp_decl "${comment}${template}class ${name}${inherit} {
@@ -20362,6 +20265,24 @@ ${inlines}
 		  key "STM generated" value ""
 		  comment " returns the state containing the current"
 		end
+
+		operation 293506 "blocage"
+		  force_body_gen cpp_virtual public explicit_return_type "void"
+		  nparams 1
+		    param inout name "stm" type class_ref 134530 // MAE_MURPHY
+		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+		  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+		  
+		  
+		  
+		  
+		  ncouples 1
+		  key "STM generated" value ""
+		  comment " to manage the event blocage"
+		end
 	      end
 
 	      operation 139906 "~vidage_distributeur_State"
@@ -20378,19 +20299,6 @@ ${inlines}
 		
 		ncouples 1
 		key "STM generated" value ""
-	      end
-
-	      attribute 139650 "_bf_cap_objectif_state"
-		public type class_ref 139906 // BF_Cap_objectif_State
-		cpp_decl "    ${comment}${static}${mutable}${volatile}${const}${type} ${name}${value};
-"
-		java_decl ""
-		php_decl ""
-		python_decl ""
-		idl_decl ""
-		ncouples 1
-		key "STM generated" value ""
-		comment " memorize the instance of the state BF Cap objectif, internal"
 	      end
 
 	      attribute 139778 "_bf_droite_sur_distrib_state"
@@ -21140,118 +21048,6 @@ ${inlines}
 		end
 	      end
 
-	      class 139138 "BF_droite_vers_objectif_State"
-		visibility public 
-		cpp_decl "${comment}${template}class ${name}${inherit} {
-${members}};
-${inlines}
-"
-		java_decl ""
-		php_decl ""
-		python_2_2 python_decl ""
-		idl_decl ""
-		explicit_switch_type ""
-		
-		ncouples 1
-		key "STM generated" value ""
-		comment " implement the state BF droite vers objectif"
-		operation 139266 "~BF_droite_vers_objectif_State"
-		  force_body_gen cpp_virtual public explicit_return_type ""
-		  nparams 0
-		  cpp_decl "    ${comment}${inline}${virtual}${name}${(}${)}${volatile}${throw};
-"
-		  cpp_def "${comment}${inline}${class}::${name}${(}${)}${volatile}${throw} {
-  ${body}}
-"
-		  
-		  
-		  
-		  
-		  ncouples 1
-		  key "STM generated" value ""
-		end
-
-		classrelation 142722 // <generalisation>
-		  relation 142722 ---|>
-		    a public
-		      cpp default "${type}"
-		      classrelation_ref 142722 // <generalisation>
-		    b parent class_ref 134658 // AnyState
-		end
-
-		operation 174466 "assFini"
-		  force_body_gen cpp_virtual public explicit_return_type "void"
-		  nparams 1
-		    param inout name "stm" type class_ref 134530 // MAE_MURPHY
-		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
-"
-		  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
-  ${body}}
-"
-		  
-		  
-		  
-		  
-		  ncouples 1
-		  key "STM generated" value ""
-		  comment " to manage the event assFini"
-		end
-
-		operation 174594 "create"
-		  force_body_gen cpp_virtual public explicit_return_type "void"
-		  nparams 1
-		    param inout name "stm" type class_ref 134530 // MAE_MURPHY
-		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
-"
-		  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
-  ${body}}
-"
-		  
-		  
-		  
-		  
-		  ncouples 1
-		  key "STM generated" value ""
-		  comment " to manage the event create"
-		end
-
-		operation 174722 "_doentry"
-		  force_body_gen public explicit_return_type "void"
-		  nparams 1
-		    param inout name "stm" type class_ref 134530 // MAE_MURPHY
-		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
-"
-		  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
-  ${body}}
-"
-		  
-		  
-		  
-		  
-		  ncouples 1
-		  key "STM generated" value ""
-		  comment " perform the 'entry behavior'"
-		end
-
-		operation 174850 "_upper"
-		  force_body_gen cpp_virtual public return_type class_ref 134658 // AnyState
-		  nparams 1
-		    param inout name "stm" type class_ref 134530 // MAE_MURPHY
-		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} * ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
-"
-		  cpp_def "${comment}${inline}${type} * ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
-  ${body}}
-"
-		  
-		  
-		  
-		  
-		  ncouples 1
-		  key "STM generated" value ""
-		  comment " returns the state containing the current"
-		end
-	      end
-
 	      operation 139010 "~capture_stand_bordure_State"
 		force_body_gen cpp_virtual public explicit_return_type ""
 		nparams 0
@@ -21279,19 +21075,6 @@ ${inlines}
 		ncouples 1
 		key "STM generated" value ""
 		comment " memorize the instance of the state BF cap vers objectif, internal"
-	      end
-
-	      attribute 138882 "_bf_droite_vers_objectif_state"
-		public type class_ref 139138 // BF_droite_vers_objectif_State
-		cpp_decl "    ${comment}${static}${mutable}${volatile}${const}${type} ${name}${value};
-"
-		java_decl ""
-		php_decl ""
-		python_decl ""
-		idl_decl ""
-		ncouples 1
-		key "STM generated" value ""
-		comment " memorize the instance of the state BF droite vers objectif, internal"
 	      end
 
 	      attribute 139010 "_ouverture_pince_cote_bordure_state"
@@ -21888,6 +21671,24 @@ ${inlines}
 		  key "STM generated" value ""
 		  comment " returns the state containing the current"
 		end
+
+		operation 293378 "blocage"
+		  force_body_gen cpp_virtual public explicit_return_type "void"
+		  nparams 1
+		    param inout name "stm" type class_ref 134530 // MAE_MURPHY
+		  cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${type} ${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${abstract};
+"
+		  cpp_def "${comment}${inline}${type} ${class}::${name}${(}${t0} & ${p0}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+		  
+		  
+		  
+		  
+		  ncouples 1
+		  key "STM generated" value ""
+		  comment " to manage the event blocage"
+		end
 	      end
 
 	      class 138370 "ouverture_pince_cote_escalier_seconde_State"
@@ -22338,7 +22139,7 @@ ${inlines}
 		end
 	      end
 
-	      class 137858 "BF_droite_vers_gobelet_State"
+	      class 168066 "BF_droite_vers_le_stand_State"
 		visibility public 
 		cpp_decl "${comment}${template}class ${name}${inherit} {
 ${members}};
@@ -22352,8 +22153,8 @@ ${inlines}
 		
 		ncouples 1
 		key "STM generated" value ""
-		comment " implement the state BF droite vers gobelet"
-		operation 137986 "~BF_droite_vers_gobelet_State"
+		comment " implement the state BF droite vers le stand"
+		operation 292610 "~BF_droite_vers_le_stand_State"
 		  force_body_gen cpp_virtual public explicit_return_type ""
 		  nparams 0
 		  cpp_decl "    ${comment}${inline}${virtual}${name}${(}${)}${volatile}${throw};
@@ -22369,15 +22170,15 @@ ${inlines}
 		  key "STM generated" value ""
 		end
 
-		classrelation 140162 // <generalisation>
-		  relation 140162 ---|>
+		classrelation 188418 // <generalisation>
+		  relation 188418 ---|>
 		    a public
 		      cpp default "${type}"
-		      classrelation_ref 140162 // <generalisation>
+		      classrelation_ref 188418 // <generalisation>
 		    b parent class_ref 134658 // AnyState
 		end
 
-		operation 168706 "assFini"
+		operation 292866 "assFini"
 		  force_body_gen cpp_virtual public explicit_return_type "void"
 		  nparams 1
 		    param inout name "stm" type class_ref 134530 // MAE_MURPHY
@@ -22395,7 +22196,7 @@ ${inlines}
 		  comment " to manage the event assFini"
 		end
 
-		operation 168834 "create"
+		operation 292994 "create"
 		  force_body_gen cpp_virtual public explicit_return_type "void"
 		  nparams 1
 		    param inout name "stm" type class_ref 134530 // MAE_MURPHY
@@ -22413,7 +22214,7 @@ ${inlines}
 		  comment " to manage the event create"
 		end
 
-		operation 168962 "_doentry"
+		operation 293122 "_doentry"
 		  force_body_gen public explicit_return_type "void"
 		  nparams 1
 		    param inout name "stm" type class_ref 134530 // MAE_MURPHY
@@ -22431,7 +22232,7 @@ ${inlines}
 		  comment " perform the 'entry behavior'"
 		end
 
-		operation 169090 "_upper"
+		operation 293250 "_upper"
 		  force_body_gen cpp_virtual public return_type class_ref 134658 // AnyState
 		  nparams 1
 		    param inout name "stm" type class_ref 134530 // MAE_MURPHY
@@ -22477,19 +22278,6 @@ ${inlines}
 		ncouples 1
 		key "STM generated" value ""
 		comment " memorize the instance of the state BF cap initial 35deg, internal"
-	      end
-
-	      attribute 137602 "_bf_droite_vers_gobelet_state"
-		public type class_ref 137858 // BF_droite_vers_gobelet_State
-		cpp_decl "    ${comment}${static}${mutable}${volatile}${const}${type} ${name}${value};
-"
-		java_decl ""
-		php_decl ""
-		python_decl ""
-		idl_decl ""
-		ncouples 1
-		key "STM generated" value ""
-		comment " memorize the instance of the state BF droite vers gobelet, internal"
 	      end
 
 	      attribute 137730 "_ouverture_pince_cote_escalier_state"
@@ -22661,6 +22449,19 @@ ${inlines}
 		ncouples 1
 		key "STM generated" value ""
 		comment " returns the state containing the current"
+	      end
+
+	      attribute 167810 "_bf_droite_vers_le_stand_state"
+		public type class_ref 168066 // BF_droite_vers_le_stand_State
+		cpp_decl "    ${comment}${static}${mutable}${volatile}${const}${type} ${name}${value};
+"
+		java_decl ""
+		php_decl ""
+		python_decl ""
+		idl_decl ""
+		ncouples 1
+		key "STM generated" value ""
+		comment " memorize the instance of the state BF droite vers le stand, internal"
 	      end
 	    end
 
@@ -24213,15 +24014,6 @@ ${inlines}
 	  b parent class_ref 137730 // BF_cap_initial_35deg_State
       end
 
-      classrelation 140290 // <dependency>
-	relation 140290 -_->
-	  stereotype "friend"
-	  a default
-	    cpp default "${type}"
-	    classrelation_ref 140290 // <dependency>
-	  b parent class_ref 137858 // BF_droite_vers_gobelet_State
-      end
-
       operation 169218 "pince_ouverte"
 	force_body_gen public explicit_return_type "bool"
 	nparams 0
@@ -24337,15 +24129,6 @@ ${inlines}
 	  b parent class_ref 139010 // BF_cap_vers_objectif_State
       end
 
-      classrelation 142850 // <dependency>
-	relation 142850 -_->
-	  stereotype "friend"
-	  a default
-	    cpp default "${type}"
-	    classrelation_ref 142850 // <dependency>
-	  b parent class_ref 139138 // BF_droite_vers_objectif_State
-      end
-
       classrelation 143106 // <dependency>
 	relation 143106 -_->
 	  stereotype "friend"
@@ -24389,15 +24172,6 @@ ${inlines}
 	    cpp default "${type}"
 	    classrelation_ref 144002 // <dependency>
 	  b parent class_ref 138882 // capture_stand_bordure_State
-      end
-
-      classrelation 144386 // <dependency>
-	relation 144386 -_->
-	  stereotype "friend"
-	  a default
-	    cpp default "${type}"
-	    classrelation_ref 144386 // <dependency>
-	  b parent class_ref 139906 // BF_Cap_objectif_State
       end
 
       classrelation 144642 // <dependency>
@@ -25762,6 +25536,15 @@ ${inlines}
 	    cpp default "${type}"
 	    classrelation_ref 181890 // <dependency>
 	  b parent class_ref 161538 // transition_avant_reculage_State
+      end
+
+      classrelation 188546 // <dependency>
+	relation 188546 -_->
+	  stereotype "friend"
+	  a default
+	    cpp default "#include in source"
+	    classrelation_ref 188546 // <dependency>
+	  b parent class_ref 168066 // BF_droite_vers_le_stand_State
       end
     end
   end

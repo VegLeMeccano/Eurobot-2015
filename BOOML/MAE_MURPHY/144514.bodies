@@ -16,11 +16,11 @@ class BF_droite_vers_les_stands_State
 cout<<"coin : BF droite sur stands"<<endl;
 if(master->is_Jaune()){
 // BF droite sur le gobelet 
-serialPrintf(master->getPortSerie(),"S5 -1180 474 -90 \n");
+serialPrintf(master->getPortSerie(),"S5 -1180 468 -90 \n");
 }
 if(master->is_Vert()){
 // BF droite sur le gobelet 
-serialPrintf(master->getPortSerie(),"S5 1180 474 -90 \n");
+serialPrintf(master->getPortSerie(),"S5 1180 468 -90 \n");
 }
 !!!197762.cpp!!!	_upper(inout stm : MAE_MURPHY) : MAE_MURPHY::AnyState
   return &stm._mae_murphy_state._jeu_state._mission_claps_state._chope_du_coin_state;

@@ -31,7 +31,7 @@ pseudostatecanvas 130690 pseudostate_ref 264578 // exit_point
 end
 statecanvas 130946 state_ref 255490 // prepare la pose
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 793.868 86.917 2005 567 333
+  xyzwh 793.868 106.917 2005 567 333
 end
 statecanvas 131330 state_ref 255618 // rembale les pinces
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
@@ -52,8 +52,9 @@ transitioncanvas 130306 transition_ref 212354 // <transition>
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 130562 transition_ref 267522 // <transition>
+  decenter_end 836
   
-  from ref 128898 z 2006 label "assFini" xyz 786 526 2006 to ref 128770
+  from ref 128898 z 2006 label "assFini" xyz 786 579.5 2006 to ref 128770
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 131074 transition_ref 323586 // <transition>
@@ -64,7 +65,7 @@ end
 transitioncanvas 131202 transition_ref 323714 // <transition>
   decenter_end 407
   
-  from ref 130946 z 2006 label "pince_ready_to_drop" xyz 975.5 439.5 2006 to ref 128898
+  from ref 130946 z 2006 label "pince_ready_to_drop" xyz 974 449 2006 to ref 128898
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 131458 transition_ref 323842 // <transition>
@@ -80,6 +81,11 @@ end
 transitioncanvas 131842 transition_ref 324098 // <transition>
   
   from ref 131586 z 3006 label "assFini" xyz 1355 490 3006 to ref 128514
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 131970 transition_ref 431234 // <transition>
+  
+  from ref 128898 z 2006 label "blocage" xyz 778 525 3000 to ref 128770
   write_horizontally default show_definition default drawing_language default
 end
 end
