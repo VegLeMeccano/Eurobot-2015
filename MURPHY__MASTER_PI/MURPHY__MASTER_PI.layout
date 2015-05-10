@@ -2,7 +2,7 @@
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Debug" />
 	<File name="Gestionnaire_Mission.cpp" open="1" top="1" tabpos="1">
-		<Cursor position="20868" topLine="545" />
+		<Cursor position="19266" topLine="508" />
 	</File>
 	<File name="Master.cpp" open="1" top="0" tabpos="8">
 		<Cursor position="453" topLine="0" />
@@ -11,13 +11,13 @@
 		<Cursor position="664" topLine="6" />
 	</File>
 	<File name="Mission_Chiage_Balle.cpp" open="1" top="0" tabpos="3">
-		<Cursor position="843" topLine="35" />
+		<Cursor position="843" topLine="25" />
 	</File>
 	<File name="Mission_Claps.cpp" open="1" top="0" tabpos="4">
 		<Cursor position="577" topLine="15" />
 	</File>
 	<File name="Mission_Depot_Tour_Depart.cpp" open="1" top="0" tabpos="6">
-		<Cursor position="565" topLine="18" />
+		<Cursor position="565" topLine="15" />
 	</File>
 	<File name="Mission_Depot_Tour_Estrade.cpp" open="1" top="0" tabpos="7">
 		<Cursor position="0" topLine="0" />

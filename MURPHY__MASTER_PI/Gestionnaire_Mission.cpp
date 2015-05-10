@@ -514,7 +514,7 @@ void Gestionnaire_Mission::actualisation_Priorite()
         /// donc faut aller ider ça vite fait
         if(element_robot.pile_droite_nbr()==4 || element_robot.pile_gauche_nbr()==4)
         {
-            if(couleur == COULEUR_JAUNE)
+            if(couleur == 0)
             {
                 if(element_robot.pile_gauche_nbr()==4)
                 {
@@ -525,7 +525,7 @@ void Gestionnaire_Mission::actualisation_Priorite()
                     mission_depot_tour_depart.set_priorite(PRIORITE_MISSION_HAUTE);
                 }
             }
-            if(couleur == COULEUR_VERT)
+            if(couleur == 1)
             {
                 if(element_robot.pile_droite_nbr()==4)
                 {
