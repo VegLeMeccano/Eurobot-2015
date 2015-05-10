@@ -1,6 +1,6 @@
 format 76
 "MAE_MURPHY"
-  revision 93
+  revision 94
   modified_by 2 "Link"
   cpp_root_dir "D:/Club Robotique IRON MENAD 2/Eurobot 2015 Iron Menad/Eurobot-2015/MURPHY__MASTER_PI/"
 
@@ -431,7 +431,7 @@ serialPrintf(master->getPortSerie(),\"S3 48 \\n\");
 	    state 217218 "recule"
 		cpp_on_entry "serialPrintf(master->getPortSerie(),\"S7 1 \\n\"); 	// vitesse moyenne
 cout<<\"gobelet : recule\"<<endl;
-serialPrintf(master->getPortSerie(),\"S4 -160 \\n\");"
+serialPrintf(master->getPortSerie(),\"S4 -200 \\n\");"
 	      transition 258946 "<transition>"
 		on state_ref 150530 // BF cap vers la zone de distrib
 		  cpp_trigger "assFini"
@@ -468,10 +468,10 @@ cout<<\"capture de stand escalier\"<<endl;"
 cout<<\"stands escalier : orientation sur cible\"<<endl;
 serialPrintf(master->getPortSerie(),\"E0 \\n\"); // desactivation de l'evitement
 if(master->is_Jaune()){
-serialPrintf(master->getPortSerie(),\"S3 132 \\n\");
+serialPrintf(master->getPortSerie(),\"S3 90 \\n\");
 }
 if(master->is_Vert()){
-serialPrintf(master->getPortSerie(),\"S3 48 \\n\");
+serialPrintf(master->getPortSerie(),\"S3 90 \\n\");
 }"
 	      transition 256130 "<transition>"
 		on state_ref 214658 // BF droite vers le stand
@@ -485,11 +485,11 @@ serialPrintf(master->getPortSerie(),\"S3 48 \\n\");
 if(master->is_Jaune()){
 // BF droite sur le gobelet 
 // y = 1664 -120
-serialPrintf(master->getPortSerie(),\"S5 -886 1571 90 \\n\");
+serialPrintf(master->getPortSerie(),\"S5 -886 1436 90 \\n\");
 }
 if(master->is_Vert()){
 // BF droite sur le gobelet 
-serialPrintf(master->getPortSerie(),\"S5 886 1571 90 \\n\");
+serialPrintf(master->getPortSerie(),\"S5 886 1436 90 \\n\");
 }"
 	      transition 256386 "<transition>"
 		on state_ref 214786 // ouverture pince cote escalier
@@ -1309,7 +1309,7 @@ cout<<\"MISSION CLAPS\"<<endl;"
 	    end
 
 	    state 224258 "BF droite"
-		cpp_on_entry "serialPrintf(master->getPortSerie(),\"S7 1 \\n\"); 	// vitesse moyenne
+		cpp_on_entry "serialPrintf(master->getPortSerie(),\"S7 0 \\n\"); 	// vitesse moyenne
 cout<<\"stand depart : BF droite sur cible\"<<endl;
 if(master->is_Jaune()){
 // BF droite sur le gobelet 
@@ -1488,7 +1488,7 @@ serialPrintf(master->getPortSerie(),\"G0 \\n\");
 
 	    state 279426 "avance"
 		cpp_on_entry "cout<<\"coin : avance sur 1er stand\"<<endl;
-serialPrintf(master->getPortSerie(),\"S4 140 \\n\");
+serialPrintf(master->getPortSerie(),\"S4 120 \\n\");
 "
 	      transition 352258 "<transition>"
 		on state_ref 279554 // chope stand 1
@@ -2119,10 +2119,10 @@ serialPrintf(master->getPortSerie(),\"D0 \\n\");
 	  state 271874 "BF droite stand 3"
 	      cpp_on_entry "cout<<\"stand depart : BF droite sur cible\"<<endl;
 if(master->is_Jaune()){
-serialPrintf(master->getPortSerie(),\"S5 -516 604 110 \\n\");
+serialPrintf(master->getPortSerie(),\"S5 -528 623 110 \\n\");
 }
 if(master->is_Vert()){
-serialPrintf(master->getPortSerie(),\"S5 516 604 70 \\n\");
+serialPrintf(master->getPortSerie(),\"S5 528 623 70 \\n\");
 }"
 	    transition 342146 "<transition>"
 	      on state_ref 272002 // chope stand 3

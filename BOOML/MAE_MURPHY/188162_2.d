@@ -2,73 +2,73 @@ format 76
 
 statecanvas 128002 state_ref 143234 // mission rush zone centrale
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 74.2915 549.045 2000 1809 1270
+  xyzwh 74.1715 548.725 2000 1809 1270
 end
 pseudostatecanvas 128130 pseudostate_ref 230274 // initial
-   xyz 176.397 659.166 2005
+   xyz 176.997 659.446 2005
 end
 pseudostatecanvas 128258 pseudostate_ref 230402 // exit_point
-   xyz 674.534 1550.77 3005 label_xy 636 1569
+   xyz 674.214 1550.41 3005 label_xy 636 1569
 end
 statecanvas 128514 state_ref 270722 // waypoint init
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 293.884 652.266 2005 91 33
+  xyzwh 293.364 652.546 2005 91 33
 end
 statecanvas 129154 state_ref 270850 // ouverture pince
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 141.477 890.451 2005 347 159
+  xyzwh 141.917 890.691 2005 347 159
 end
 statecanvas 129410 state_ref 270978 // BF droite stand 1
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 103.439 1098.55 2005 347 145
+  xyzwh 103.399 1098.75 2005 347 145
 end
 statecanvas 129666 state_ref 271106 // chope stand 1
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 92.4595 1287.67 2005 571 159
+  xyzwh 92.3795 1287.03 2005 571 159
 end
 statecanvas 129794 state_ref 271234 // re ouverture pince
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 827.499 728.059 2005 351 145
+  xyzwh 827.419 728.059 2005 351 145
 end
 statecanvas 129922 state_ref 271362 // BF droite stand 2
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 784.197 900.665 2005 347 145
+  xyzwh 784.917 900.785 2005 347 145
 end
 statecanvas 130050 state_ref 271490 // chope stand 2
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 738.869 1087.6 2005 575 159
+  xyzwh 738.869 1087.96 2005 575 159
 end
 statecanvas 130178 state_ref 271618 // BF cap sur stand 3
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 1215.54 704.451 2005 349 145
+  xyzwh 1215.98 704.411 2005 349 145
 end
 statecanvas 130306 state_ref 271746 // re re ouverture pince
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 1414.55 924.072 2005 343 145
+  xyzwh 1414.15 924.232 2005 343 145
 end
 statecanvas 130434 state_ref 271874 // BF droite stand 3
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 1383.92 1089.65 2005 343 145
+  xyzwh 1383.76 1089.21 2005 343 145
 end
 statecanvas 130562 state_ref 272002 // chope stand 3
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 1280.79 1259.87 2005 570 173
+  xyzwh 1281.19 1259.07 2005 570 173
 end
 statecanvas 130690 state_ref 272130 // tempo pour coop'r?
   show_activities default region_horizontally default drawing_language default show_stereotype_properties default
-  xyzwh 836.757 1516.79 2005 611 173
+  xyzwh 836.117 1516.71 2005 611 173
 end
 pseudostatecanvas 133122 pseudostate_ref 278274 // exit_point
-   xyz 368.46 674.234 3005 label_xy 364 693
+   xyz 368.38 674.914 3005 label_xy 364 693
 end
 pseudostatecanvas 133378 pseudostate_ref 291970 // choice
-   xyz 1071.46 1345.05 2005
+   xyz 1071.14 1345.53 2005
 end
 pseudostatecanvas 134018 pseudostate_ref 292098 // choice
-   xyz 476.058 700.157 2005
+   xyz 476.538 700.437 2005
 end
 pseudostatecanvas 134530 pseudostate_ref 292226 // choice
-   xyz 709.171 1341 2005
+   xyz 709.331 1341.64 2005
 end
 transitioncanvas 129026 transition_ref 340610 // <transition>
   
@@ -153,7 +153,7 @@ transitioncanvas 134658 transition_ref 361346 // <transition>
 end
 transitioncanvas 134786 transition_ref 361474 // <transition>
   
-  from ref 134530 z 2006 label "[!master->get_gestionnaire_mission()->get_mission_zone_centrale()->is_stand_estrade_catched()]" xyz 545 877 2006 to point 718.233 929.814
+  from ref 134530 z 2006 label "[!master->get_gestionnaire_mission()->get_mission_zone_centrale()->is_stand_estrade_catched()]" xyz 545 877 2006 to point 718.433 929.574
   line 135042 z 2006 to ref 129794
   write_horizontally default show_definition default drawing_language default
 end
