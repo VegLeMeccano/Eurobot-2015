@@ -1,6 +1,6 @@
 format 76
 "MAE_MURPHY"
-  revision 92
+  revision 93
   modified_by 2 "Link"
   cpp_root_dir "D:/Club Robotique IRON MENAD 2/Eurobot 2015 Iron Menad/Eurobot-2015/MURPHY__MASTER_PI/"
 
@@ -25542,7 +25542,7 @@ ${inlines}
 	relation 188546 -_->
 	  stereotype "friend"
 	  a default
-	    cpp default "#include in source"
+	    cpp default "${type}"
 	    classrelation_ref 188546 // <dependency>
 	  b parent class_ref 168066 // BF_droite_vers_le_stand_State
       end
