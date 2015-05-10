@@ -528,7 +528,7 @@ void Balle_droite::trigger(int transition)
                 {
                     state = ETAT_BALLE_DROITE_RANGE_1;
                     Serial.println("# BRAS_DROIT_FIN__MONTEE");
-                    balle_charge = true;
+
                 }
             break;
 
@@ -546,6 +546,7 @@ void Balle_droite::trigger(int transition)
             if (transition == TRANSISTION_BALLE_DROITE_TIME_OUT)
             {
                 state = ETAT_BALLE_DROITE_RANGE_DEPART;
+                balle_charge = true;
             }
             break;
 
