@@ -221,10 +221,12 @@ class Balle_droite
         //int trigger_to_be;
         int state;
         Period period_run;
+        bool balle_charge;
 
     public:
         Balle_droite();
         void run();
+        bool est_chargee();
         void in_state_func();
         void trigger(int transition);
         void set_time_out(int dt_);

@@ -433,6 +433,9 @@ void Bras_vertical::send_commande()
 #define ETAT_BALLE_DROITE_EXPULSION 6 //horizontal
 #define ETAT_BALLE_DROITE_EXPULSION_RECHARGE 7 //horizontal
 #define ETAT_BALLE_DROITE_EXPULSION_SECONDE 8 //horizontal
+#define ETAT_BALLE_DROITE_EXPULSION_RE_RECHARGE_2 9 //horizontal
+#define ETAT_BALLE_DROITE_EXPULSION_TIERCE 10 //horizontal
+
 
 
 #define attente_balle_droite 800
@@ -443,7 +446,8 @@ Balle_droite::Balle_droite():
     ejecteur(),
     time_out_on(false),
     state(ETAT_BALLE_DROITE_RANGE_DEPART),
-    period_run(PERIODE_BALLE_DROITE)
+    period_run(PERIODE_BALLE_DROITE),
+    balle_charge(false)
 {
     Serial.println(" Balle droite init");
 }
@@ -455,6 +459,10 @@ void Balle_droite::debug()
     Serial.println(state);
 }
 
+bool Balle_droite::est_chargee()
+{
+    return balle_charge;
+}
 
 void Balle_droite::trigger(int transition)
 {
@@ -490,6 +498,11 @@ void Balle_droite::trigger(int transition)
                 state = ETAT_BALLE_DROITE_DEPLOYEMENT;
                 //Serial.println("modif etat depart");
            }
+           if (transition == TRANSISTION_BALLE_DROITE_EJECTION)
+           {
+               state = ETAT_BALLE_DROITE_EXPULSION;
+           }
+
            break;
 
         case ETAT_BALLE_DROITE_DEPLOYEMENT :
@@ -515,6 +528,7 @@ void Balle_droite::trigger(int transition)
                 {
                     state = ETAT_BALLE_DROITE_RANGE_1;
                     Serial.println("# BRAS_DROIT_FIN__MONTEE");
+                    balle_charge = true;
                 }
             break;
 
@@ -523,14 +537,15 @@ void Balle_droite::trigger(int transition)
             if (transition == TRANSISTION_BALLE_DROITE_TIME_OUT)
             {
                 state = ETAT_BALLE_DROITE_RANGE_2;
+                //state = ETAT_BALLE_DROITE_RANGE_DEPART;
             }
             break;
 
         case ETAT_BALLE_DROITE_RANGE_2 :
             //Serial.println("ETAT_BALLE_DROITE_RANGE_2");
-            if (transition == TRANSISTION_BALLE_DROITE_EJECTION)
+            if (transition == TRANSISTION_BALLE_DROITE_TIME_OUT)
             {
-                state = ETAT_BALLE_DROITE_EXPULSION;
+                state = ETAT_BALLE_DROITE_RANGE_DEPART;
             }
             break;
 
@@ -555,9 +570,30 @@ void Balle_droite::trigger(int transition)
             //Serial.println("ETAT_BALLE_DROITE_EXPULSION");
             if (transition == TRANSISTION_BALLE_DROITE_TIME_OUT)
             {
-                state = ETAT_BALLE_DROITE_RANGE_DEPART;
+                state = ETAT_BALLE_DROITE_EXPULSION_RE_RECHARGE_2;
             }
             break;
+
+
+        case ETAT_BALLE_DROITE_EXPULSION_RE_RECHARGE_2 :
+            //Serial.println("ETAT_BALLE_DROITE_EXPULSION");
+            if (transition == TRANSISTION_BALLE_DROITE_TIME_OUT)
+            {
+                state = ETAT_BALLE_DROITE_EXPULSION_TIERCE;
+            }
+            break;
+
+        case ETAT_BALLE_DROITE_EXPULSION_TIERCE :
+            //Serial.println("ETAT_BALLE_DROITE_EXPULSION");
+            if (transition == TRANSISTION_BALLE_DROITE_TIME_OUT)
+            {
+                state = ETAT_BALLE_DROITE_RANGE_DEPART;
+                balle_charge = false;
+            }
+            break;
+
+
+
 
     }
    if (old_state != state)
@@ -692,7 +728,22 @@ void Balle_droite::in_state_func()
             set_time_out(2000);
             ejecteur.position_haute();
             //bras_horizontal.ouverture();
-            Serial.println("ETAT_BALLE_DROITE_EXPULSION_RECHARGE");
+            Serial.println("ETAT_BALLE_DROITE_EXPULSION_SECONDE");
+            break;
+
+
+        case ETAT_BALLE_DROITE_EXPULSION_RE_RECHARGE_2 :
+            set_time_out(2000);
+            ejecteur.position_middle();
+            //bras_horizontal.ouverture();
+            Serial.println("ETAT_BALLE_DROITE_EXPULSION_RE_RECHARGE");
+            break;
+
+        case ETAT_BALLE_DROITE_EXPULSION_TIERCE :
+            set_time_out(2000);
+            ejecteur.position_haute();
+            //bras_horizontal.ouverture();
+            Serial.println("ETAT_BALLE_DROITE_EXPULSION_TIERCE");
             break;
 
 
@@ -1981,6 +2032,8 @@ void IO::run()
 
     // injection des balles automatique, sinon on gere ca au master lors du depot... mais demande de checker a la main
     // comme ca si c bon niveau meca ... ce sera judicieux
+    to_be_ejected_droite = balle_droite.est_chargee();
+
     if(constructeur_pile_droite.get_nombre_element()>=NOMBRE_MIN_STAND_AVANT_INJECTION && to_be_ejected_droite)
     {
         to_be_ejected_droite = false;

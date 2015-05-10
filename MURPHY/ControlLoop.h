@@ -60,10 +60,10 @@
 #define GAIN_KD_CAP 0 //18.0 //40.0
 
 #define NEAR_ERROR_CAP 8.0 * 3.14 / 180.0
-#define DONE_ERROR_CAP  4.0 * 3.14 / 180.0
+#define DONE_ERROR_CAP  5.0 * 3.14 / 180.0
 
 // compteur blocage
-#define BLOCAGE_MAX 15
+#define BLOCAGE_MAX 20
 
 
 class ControlLoop
