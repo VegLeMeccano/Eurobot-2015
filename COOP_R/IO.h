@@ -140,7 +140,7 @@ class ChenilleSecondaire
     private:
         Servo bascule;
         Servo chenille_secondaire;
-        Centrale_Inertielle centrale_Inertielle;   // a integrer proprement
+        //Centrale_Inertielle centrale_Inertielle;   // a integrer proprement
         Period period_run;
         int state;
         bool time_out_on;
@@ -160,7 +160,7 @@ class ChenilleSecondaire
         void position_rangee();
         void position_miHauteur(); // pour preparer le rangement
         void position_auSol();
-        Centrale_Inertielle* get_Centrale_Inertielle();
+        //Centrale_Inertielle* get_Centrale_Inertielle();
 
         // commande haut niveau MAE
         void deployement();

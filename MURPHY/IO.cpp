@@ -355,7 +355,7 @@ void Ejecteur::position_haute()
 /****************************************************
    bras horizontal
 *****************************************************/
-#define BRAS_HORIZONTAL_OUVERTURE 1600
+#define BRAS_HORIZONTAL_OUVERTURE 1640
 #define BRAS_HORIZONTAL_FERMETURE 1807
 
 Bras_horizontal::Bras_horizontal()
@@ -680,7 +680,7 @@ void Balle_droite::in_state_func()
             break;
 
         case ETAT_BALLE_DROITE_DEPLOYEMENT :
-            set_time_out(attente_balle_droite);
+            set_time_out(1300);
             bras_horizontal.ouverture();
             ejecteur.position_basse();
             Serial.println("ETAT_BALLE_DROITE_DEPLOYEMENT");

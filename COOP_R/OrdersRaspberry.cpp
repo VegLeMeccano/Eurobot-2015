@@ -251,11 +251,11 @@ void OrdersRaspberry::executeinstr()
         {
         case 0:
             Serial.print("Debug IMU, gyro on");
-            io->get_ChenilleSecondaire()->get_Centrale_Inertielle()->bavard_gyro();
+            //io->get_ChenilleSecondaire()->get_Centrale_Inertielle()->bavard_gyro();
             break;
         case 1:
             Serial.print("Debug IMU, gyro off");
-            io->get_ChenilleSecondaire()->get_Centrale_Inertielle()->muet_gyro();
+            //io->get_ChenilleSecondaire()->get_Centrale_Inertielle()->muet_gyro();
            break;
 
         case 2:
@@ -271,11 +271,11 @@ void OrdersRaspberry::executeinstr()
 
         case 4:
             Serial.print("Debug IMU, reset angle");
-            io->get_ChenilleSecondaire()->get_Centrale_Inertielle()->reset_angle();
+//            io->get_ChenilleSecondaire()->get_Centrale_Inertielle()->reset_angle();
             break;
         case 5:
             Serial.print("Debug IMU, reset calibration");
-            io->get_ChenilleSecondaire()->get_Centrale_Inertielle()->recalibrage();
+  //          io->get_ChenilleSecondaire()->get_Centrale_Inertielle()->recalibrage();
             break;
 
         case 6:

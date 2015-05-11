@@ -7,7 +7,7 @@ int couleur;
 *****************************************************/
 
 IR_compteur::IR_compteur():
-    period_run(10),
+    period_run(20),
     IR(PIN_IR_BAS,SEUIL_IR_ALIGNEMENT),
     alignement(false),
     vu(false),
@@ -100,8 +100,8 @@ ChenilleSecondaire::ChenilleSecondaire():
         state(STATE_CHENILLE_SECONDAIRE_RANGEE),
         time_out_on(false),
         t_over(0),
-        angle_tangage(0),
-        centrale_Inertielle()
+        angle_tangage(0)//,
+        //centrale_Inertielle()
 {
     chenille_secondaire.attach(PIN_PWM_MOTEUR_CHENILLE_SECONDAIRE);
     bascule.attach(PIN_PWM_SERVO_BASCULE);
@@ -170,11 +170,12 @@ bool ChenilleSecondaire::is_time_out()
    return false;
 }
 
-
+/*
 Centrale_Inertielle* ChenilleSecondaire::get_Centrale_Inertielle()
 {
     return &centrale_Inertielle;
 }
+*/
 
 
 /** boucle de control
@@ -183,8 +184,8 @@ Centrale_Inertielle* ChenilleSecondaire::get_Centrale_Inertielle()
 void ChenilleSecondaire::run(){
 
     // actualisation des donnees pour deplacement
-    centrale_Inertielle.run();
-    angle_tangage = centrale_Inertielle.angle_x_out();
+    //centrale_Inertielle.run();
+    //angle_tangage = centrale_Inertielle.angle_x_out();
 
     if (period_run.is_over())
     {
@@ -197,6 +198,7 @@ void ChenilleSecondaire::run(){
         }
 
         // si on est stabiliser en fin de montee, on remonte la chenille
+        /*
         if (state == STATE_CHENILLE_SECONDAIRE_GRIMPE_TEMPO)
         {
             Serial.print("angle_tangage : ");
@@ -207,6 +209,7 @@ void ChenilleSecondaire::run(){
             }
 
         }
+        */
     }
 }
 
@@ -325,7 +328,7 @@ void ChenilleSecondaire::in_state_func()
         case STATE_CHENILLE_SECONDAIRE_DEPLOYEMENT  :
            Serial.println("[SCIE][ETAT] DEPLOYEMENT");
            Serial.println("reset angle");
-           centrale_Inertielle.reset_angle();
+           //centrale_Inertielle.reset_angle();
            position_auSol();
            break;
 
@@ -376,7 +379,7 @@ ChenillePrincipale::ChenillePrincipale():
     bumper_d_av(PIN_BUMPER_RECALAGE_D_AV,SEUIL_BUMPER),
     bumper_d_ar(PIN_BUMPER_RECALAGE_D_AR,SEUIL_BUMPER),
     ir_compteur_lat(),
-    period_run(20),
+    period_run(10),
     sonar(),
     state(SLAVE_STATE_REPOS),
     time_asserv_started(0),
@@ -567,6 +570,8 @@ void ChenillePrincipale::run(){
         {
             trigger(SLAVE_TRIGGER_TIME_OUT);
         }
+    }
+
 
         /** DEPLACEMENT AVANT */
         if (state == SLAVE_STATE_DEPLACEMENT_AVANT_ACTION)
@@ -661,7 +666,7 @@ void ChenillePrincipale::run(){
             }
         }
 
-    }
+
 
 }
 
