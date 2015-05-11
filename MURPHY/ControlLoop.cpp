@@ -50,7 +50,7 @@ void ControlLoop::bf_avance(float d){
 /** definition des vitesses
 // a check sur PID
 **/
-#define MIN_MAX_SLOW 60
+#define MIN_MAX_SLOW 80
 #define MIN_MAX_MEDIUM 110
 #define MIN_MAX_FAST 160  // don't use it too fast
 void ControlLoop::set_speed(int speed)
@@ -391,8 +391,8 @@ void ControlLoop::compute_cmds(){
     Serial.println(cmd_cap);
     Serial.println(" ");
     */
-    cmd_g = (cmd_dep) + (cmd_cap);
-    cmd_d = (cmd_dep) - (cmd_cap);
+    cmd_g = 0.5 * ((cmd_dep) + (cmd_cap));
+    cmd_d = 0.5 * ((cmd_dep) - (cmd_cap));
 
     fw_g = cmd_g <= 0;
     fw_d = cmd_d <= 0;
@@ -400,12 +400,6 @@ void ControlLoop::compute_cmds(){
     if (cmd_g <0){ cmd_g = - cmd_g;}
     if (cmd_d <0){ cmd_d = - cmd_d;}
 
-
-    // bridage des commandes
-    if (cmd_g > MIN_MAX_FAST){cmd_g = MIN_MAX_FAST;}
-    if (cmd_d > MIN_MAX_FAST){cmd_d = MIN_MAX_FAST;}
-    if (cmd_g < -MIN_MAX_FAST){cmd_g = -MIN_MAX_FAST;}
-    if (cmd_d < -MIN_MAX_FAST){cmd_d = -MIN_MAX_FAST;}
 }
 
 

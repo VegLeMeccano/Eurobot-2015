@@ -109,7 +109,7 @@ float PID::compute(float input){
     //}
     float derror = error - last_error;  // derivee
     last_error = error;
-    float out = Kp * error + I_sum + Kd * derror / 0.03;  //0.04 = period du slave
+    float out = Kp * error + I_sum + Kd * derror / 0.02;  //0.04 = period du slave
 
     // check des bornes
     if (out > maxV)
