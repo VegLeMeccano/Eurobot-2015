@@ -1,9 +1,0 @@
-class deposeurTapis_State
-!!!146074.cpp!!!	create(inout stm : deposeurTapis) : void
-  {
-    stm._set_currentState(stm._deposeurtapis_state._etat_initial_state);
-#ifdef VERBOSE_STATE_MACHINE
-    puts("DEBUG : current state is now .deposeurTapis.Etat initial");
-#endif
-    stm._deposeurtapis_state._etat_initial_state.create(stm);
-  }
