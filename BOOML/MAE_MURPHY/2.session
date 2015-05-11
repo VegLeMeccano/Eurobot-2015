@@ -1,13 +1,14 @@
 window_sizes 1600 848 291 1303 739 35
 diagrams
-  statediagram_ref 128130 // Principal
-    1038 591 100 0 192 0
-  active  statediagram_ref 134658 // Jeu
-    1303 739 100 0 180 285
+  statediagram_ref 134658 // Jeu
+    1038 591 100 0 252 263
+  statediagram_ref 147714 // mission pillage
+    1038 591 100 0 648 542
+  active  statediagram_ref 180994 // capture stans bordure
+    1299 739 100 0 216 0
 end
 show_stereotypes
-selected 
-  package_ref 129 // MAE_MURPHY
+selected statediagram_ref 134658 // Jeu
 open
   state_ref 128258 // Initialisation
   pseudostate_ref 209666 // initial

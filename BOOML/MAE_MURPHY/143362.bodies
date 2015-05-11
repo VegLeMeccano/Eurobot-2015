@@ -13,7 +13,7 @@ class BF_droite_State
 #ifdef VERBOSE_STATE_MACHINE
 	puts("DEBUG : execute entry behavior of .MAE_MURPHY.Jeu.mission claps.chope du stand sur la route.BF droite");
 #endif
-serialPrintf(master->getPortSerie(),"S7 1 \n"); 	// vitesse moyenne
+serialPrintf(master->getPortSerie(),"S7 0 \n"); 	// vitesse moyenne
 cout<<"stand depart : BF droite sur cible"<<endl;
 if(master->is_Jaune()){
 // BF droite sur le gobelet 

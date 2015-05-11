@@ -416,10 +416,10 @@ cout<<\"gobelet attrape!\"<<endl;"
 		cpp_on_entry "cout<<\"gobelet : cap sur zone suivante\"<<endl;
 if(master->is_Jaune()){
 // BF cap
-serialPrintf(master->getPortSerie(),\"S3 132 \\n\");
+serialPrintf(master->getPortSerie(),\"S3 90 \\n\");
 }
 if(master->is_Vert()){
-serialPrintf(master->getPortSerie(),\"S3 48 \\n\");
+serialPrintf(master->getPortSerie(),\"S3 90 \\n\");
 }"
 	      transition 158082 "<transition>"
 		on pseudostate_ref 148226 // exit_point
@@ -754,7 +754,7 @@ serialPrintf(master->getPortSerie(),\"S5 1050 1700 90 \\n\");
 		cpp_on_entry "cout<<\"distrib : avance jusqu'au blocage\"<<endl;
 serialPrintf(master->getPortSerie(),\"S4 200 \\n\");
 "
-		cpp_do_activity "serialPrintf(master->getPortSerie(),\"S1 \\n\");
+		cpp_on_exit "serialPrintf(master->getPortSerie(),\"S1 \\n\");
 "
 	      transition 259202 "<transition>"
 		on state_ref 216834 // SET Y CAP
@@ -1450,11 +1450,11 @@ serialPrintf(master->getPortSerie(),\"S5 1013 610 -90 \\n\");
 		cpp_on_entry "cout<<\"coin : BF droite sur stands\"<<endl;
 if(master->is_Jaune()){
 // BF droite sur le gobelet 
-serialPrintf(master->getPortSerie(),\"S5 -1180 468 -90 \\n\");
+serialPrintf(master->getPortSerie(),\"S5 -1180 500 -90 \\n\");
 }
 if(master->is_Vert()){
 // BF droite sur le gobelet 
-serialPrintf(master->getPortSerie(),\"S5 1180 468 -90 \\n\");
+serialPrintf(master->getPortSerie(),\"S5 1180 500 -90 \\n\");
 }"
 	      transition 296834 "<transition>"
 		on state_ref 226050 // ouvre pince
