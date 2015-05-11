@@ -6,3 +6,13 @@
 *.hex
 *.a
 *log*
+*.depend
+*.layout
+coopr_arduino/build/*
+coopr_arduino/build/*
+murphy_arduino/obj/*
+murphy_arduino/obj/*
+murphy_pi/bin/*
+coopr_pi/bin/*
+
+
